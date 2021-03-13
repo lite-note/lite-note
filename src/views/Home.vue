@@ -1,18 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="@/assets/logo.png" />
-    <HelloWorld msg="Welcome to OVA Template!" />
+    <p class="note" v-html="readme"></p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { defineComponent, watch, onUnmounted, nextTick } from 'vue'
+import { useRepo } from '@/hooks/useRepo.hook'
+import { useLinks } from '@/hooks/useLinks.hook'
 
 export default defineComponent({
   name: 'Home',
-  components: {
-    HelloWorld
+  setup() {
+    const { readme } = useRepo('jcalixte', 'notes')
+    const { listenToClick, removeListeners } = useLinks('note')
+
+    watch(readme, () => {
+      if (readme.value) {
+        nextTick(() => {
+          listenToClick()
+        })
+      }
+    })
+
+    onUnmounted(() => {
+      removeListeners()
+    })
+
+    return {
+      readme
+    }
   }
 })
 </script>
