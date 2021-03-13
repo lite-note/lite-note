@@ -1,6 +1,5 @@
 import MarkdownIt from 'markdown-it'
 import markdownItClass from '@toycode/markdown-it-class'
-// import sanitizeHtml from 'sanitize-html'
 
 const md = new MarkdownIt().use(markdownItClass, {
   h1: ['title', 'is-1'],

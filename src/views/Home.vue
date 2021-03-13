@@ -1,31 +1,80 @@
 <template>
-  <div class="home">
-    <p class="note" v-html="readme"></p>
+  <div v-if="!user || !repo">
+    Bonjour
+
+    <form @submit.prevent>
+      <div class="columns is-centered is-vcentered">
+        <div class="column">
+          <div class="field">
+            <label class="label">user</label>
+            <div class="control">
+              <input class="input" type="text" v-model="userInput" />
+            </div>
+          </div>
+        </div>
+        <div class="column">/</div>
+        <div class="column">
+          <div class="field">
+            <label class="label">repo</label>
+            <div class="control">
+              <input class="input" type="text" v-model="repoInput" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="button is-primary" @click="submit">
+        y aller
+      </button>
+    </form>
+  </div>
+  <div class="home content" v-else>
+    <hr v-if="notFound" />
+    <div v-if="notFound" class="columns is-centered">
+      <div class="column is-one-third notification is-warning" v-if="notFound">
+        Not found.
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <h1 class="title is-1">
+          <router-link :to="{ name: 'Home' }">
+            {{ repo }}
+          </router-link>
+        </h1>
+        <h2 class="subtitle is-2">{{ user }}</h2>
+        <p class="note-display" v-html="readme"></p>
+      </div>
+      <div
+        class="column"
+        v-for="stackedNote in stackedNotes"
+        :key="stackedNote"
+      >
+        <stacked-note :user="user" :repo="repo" :sha="stackedNote" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, nextTick } from 'vue'
-import { useRepo } from '@/hooks/useRepo.hook'
-import { useLinks } from '@/hooks/useLinks.hook'
+import { defineComponent, defineAsyncComponent } from 'vue'
+import { useNote } from '@/hooks/useNote.hook'
+import { useForm } from '@/hooks/useForm.hook'
+
+const StackedNote = defineAsyncComponent(() =>
+  import('@/components/StackedNote.vue')
+)
 
 export default defineComponent({
   name: 'Home',
-  setup() {
-    const { readme } = useRepo('jcalixte', 'notes')
-    const { listenToClick } = useLinks('note')
-
-    watch(readme, () => {
-      if (readme.value) {
-        nextTick(() => {
-          listenToClick()
-        })
-      }
-    })
-
-    return {
-      readme
-    }
+  components: {
+    StackedNote
+  },
+  props: {
+    user: { type: String, required: false },
+    repo: { type: String, required: false }
+  },
+  setup(props) {
+    return { ...useNote(props.user, props.repo), ...useForm() }
   }
 })
 </script>

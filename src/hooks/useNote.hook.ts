@@ -13,12 +13,9 @@ const sanitizePath = (path: string) => {
   return decodeURIComponent(path)
 }
 
-export const useNote = (user: string, repo: string) => {
+export const useNote = (user?: string, repo?: string) => {
   const { push } = useRouter()
-  const { readme, notFound, tree } = useRepo(user, repo)
-  const { listenToClick } = useLinks('note-display')
   const { query } = useRoute()
-
   const stackedNotes = ref(
     query.stackedNotes
       ? Array.isArray(query.stackedNotes)
@@ -26,6 +23,17 @@ export const useNote = (user: string, repo: string) => {
         : [query.stackedNotes]
       : []
   )
+
+  if (!user || !repo) {
+    return {
+      readme: ref(null),
+      notFound: ref(true),
+      stackedNotes
+    }
+  }
+
+  const { readme, notFound, tree } = useRepo(user, repo)
+  const { listenToClick } = useLinks('note-display')
 
   const unsubscribe = noteEventBus.addEventBusListener(
     ({ path, currentNoteSHA }) => {
@@ -68,7 +76,11 @@ export const useNote = (user: string, repo: string) => {
       const newStackedNotes = getStackedNotes()
 
       push({
-        name: 'Note',
+        name: 'Home',
+        params: {
+          user,
+          repo
+        },
         query: {
           stackedNotes: newStackedNotes
         }

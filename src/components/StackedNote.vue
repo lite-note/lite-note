@@ -35,6 +35,6 @@ export default defineComponent({
 .stacked-note {
   text-align: left;
   border-left: 1px solid rgba(18, 19, 58, 0.2);
-  padding-left: 1rem;
+  padding: 0 1rem;
 }
 </style>
