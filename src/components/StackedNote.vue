@@ -34,7 +34,14 @@ export default defineComponent({
 <style lang="scss" scoped>
 .stacked-note {
   text-align: left;
-  border-left: 1px solid rgba(18, 19, 58, 0.2);
+  border-top: 1px solid rgba(18, 19, 58, 0.2);
   padding: 0 1rem;
+}
+
+@media screen and (min-width: 769px) {
+  .stacked-note {
+    border-top: 0;
+    border-left: 1px solid rgba(18, 19, 58, 0.2);
+  }
 }
 </style>
