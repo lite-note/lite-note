@@ -4,3 +4,4 @@ declare module '*.vue' {
   export default component
 }
 declare module 'pouchdb-adapter-indexeddb'
+declare module '@toycode/markdown-it-class'
