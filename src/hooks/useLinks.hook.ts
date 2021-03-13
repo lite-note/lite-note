@@ -1,7 +1,27 @@
-export const useLinks = (className: string) => {
-  const linkNote: EventListenerOrEventListenerObject = (e) => {
-    e.preventDefault()
-    console.log('use links')
+import { noteEventBus } from '@/bus/noteBusEvent'
+import { onUnmounted } from '@vue/runtime-core'
+
+const LINKS = ['http://', 'https://']
+
+export const useLinks = (className: string, sha?: string) => {
+  const linkNote: EventListener = (event) => {
+    event.preventDefault()
+    const target = event.target as HTMLElement
+    const href = target.getAttribute('href')
+
+    if (!href) {
+      return
+    }
+
+    if (LINKS.some((link) => href.startsWith(link))) {
+      window.open(href, '_blank')
+      return
+    }
+
+    noteEventBus.emit({
+      path: href,
+      currentNoteSHA: sha
+    })
   }
 
   const selector = `.${className} a`
@@ -21,8 +41,11 @@ export const useLinks = (className: string) => {
     })
   }
 
+  onUnmounted(() => {
+    removeListeners()
+  })
+
   return {
-    listenToClick,
-    removeListeners
+    listenToClick
   }
 }

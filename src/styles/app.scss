@@ -1,24 +1,12 @@
 @charset "utf-8";
 @import '~bulma/bulma.sass';
 
+html {
+  overflow-y: auto;
+}
+
 html,
 body {
   text-align: center;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3rem;
-}
-
-h2 {
-  font-size: 2.5rem;
-}
-
-h3 {
-  font-size: 2rem;
-}
-
-h4 {
-  font-size: 1.5rem;
 }

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, onUnmounted, nextTick } from 'vue'
+import { defineComponent, watch, nextTick } from 'vue'
 import { useRepo } from '@/hooks/useRepo.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 
@@ -13,7 +13,7 @@ export default defineComponent({
   name: 'Home',
   setup() {
     const { readme } = useRepo('jcalixte', 'notes')
-    const { listenToClick, removeListeners } = useLinks('note')
+    const { listenToClick } = useLinks('note')
 
     watch(readme, () => {
       if (readme.value) {
@@ -21,10 +21,6 @@ export default defineComponent({
           listenToClick()
         })
       }
-    })
-
-    onUnmounted(() => {
-      removeListeners()
     })
 
     return {
