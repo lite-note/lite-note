@@ -1,8 +1,8 @@
+import { Ref, ref } from '@vue/reactivity'
 import { nextTick, onUnmounted, watch } from '@vue/runtime-core'
 import { useRoute, useRouter } from 'vue-router'
 
 import { noteEventBus } from '@/bus/noteBusEvent'
-import { ref } from '@vue/reactivity'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useRepo } from '@/hooks/useRepo.hook'
 
@@ -13,7 +13,7 @@ const sanitizePath = (path: string) => {
   return decodeURIComponent(path)
 }
 
-export const useNote = (user?: string, repo?: string) => {
+export const useNote = (user: Ref<string>, repo: Ref<string>) => {
   const { push } = useRouter()
   const { query } = useRoute()
   const stackedNotes = ref(
@@ -23,14 +23,6 @@ export const useNote = (user?: string, repo?: string) => {
         : [query.stackedNotes]
       : []
   )
-
-  if (!user || !repo) {
-    return {
-      readme: ref(null),
-      notFound: ref(true),
-      stackedNotes
-    }
-  }
 
   const { readme, notFound, tree } = useRepo(user, repo)
   const { listenToClick } = useLinks('note-display')
@@ -78,8 +70,8 @@ export const useNote = (user?: string, repo?: string) => {
       push({
         name: 'Home',
         params: {
-          user,
-          repo
+          user: user.value,
+          repo: repo.value
         },
         query: {
           stackedNotes: newStackedNotes
@@ -90,12 +82,10 @@ export const useNote = (user?: string, repo?: string) => {
     }
   )
 
-  watch(readme, () => {
-    if (readme.value) {
-      nextTick(() => {
-        listenToClick()
-      })
-    }
+  watch([readme, user, repo], () => {
+    nextTick(() => {
+      listenToClick()
+    })
   })
 
   onUnmounted(() => {

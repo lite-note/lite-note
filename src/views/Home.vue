@@ -1,9 +1,9 @@
 <template>
-  <div v-if="!user || !repo">
+  <div v-if="!user || !repo" :key="routeKey">
     Bonjour
 
     <form @submit.prevent>
-      <div class="columns is-centered is-vcentered">
+      <div class="columns is-mobile is-centered is-vcentered">
         <div class="column">
           <div class="field">
             <label class="label">user</label>
@@ -37,7 +37,10 @@
     <div class="columns">
       <div class="column">
         <h1 class="title is-1">
-          <router-link :to="{ name: 'Home' }">
+          <router-link
+            :to="{ name: 'Home', params: { user, repo } }"
+            :key="routeKey"
+          >
             {{ repo }}
           </router-link>
         </h1>
@@ -56,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent } from 'vue'
+import { defineComponent, defineAsyncComponent, computed, toRefs } from 'vue'
 import { useNote } from '@/hooks/useNote.hook'
 import { useForm } from '@/hooks/useForm.hook'
 
@@ -70,11 +73,16 @@ export default defineComponent({
     StackedNote
   },
   props: {
-    user: { type: String, required: false },
-    repo: { type: String, required: false }
+    user: { type: String, required: false, default: '' },
+    repo: { type: String, required: false, default: '' }
   },
   setup(props) {
-    return { ...useNote(props.user, props.repo), ...useForm() }
+    const refProps = toRefs(props)
+    return {
+      ...useNote(refProps.user, refProps.repo),
+      ...useForm(),
+      routeKey: computed(() => `${props.user}-${props.repo}`)
+    }
   }
 })
 </script>

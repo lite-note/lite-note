@@ -1,4 +1,4 @@
-import { onMounted, ref } from '@vue/runtime-core'
+import { Ref, onMounted, ref, watch } from '@vue/runtime-core'
 
 import { request } from '@octokit/request'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
@@ -12,17 +12,21 @@ interface Tree {
   url?: string
 }
 
-export const useRepo = (owner: string, repo: string) => {
+export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
   const { render } = useMarkdown()
   const readme = ref<string | null>(null)
   const notFound = ref(false)
   const tree = ref<Tree[]>([])
 
-  onMounted(async () => {
+  const retrieveRepo = async () => {
+    if (!owner.value || !repo.value) {
+      return
+    }
+
     try {
       const README = await request('GET /repos/{owner}/{repo}/readme', {
-        repo,
-        owner
+        repo: repo.value,
+        owner: owner.value
       })
 
       if (README) {
@@ -30,8 +34,8 @@ export const useRepo = (owner: string, repo: string) => {
       }
 
       const commits = await request('GET /repos/{owner}/{repo}/commits', {
-        owner,
-        repo
+        repo: repo.value,
+        owner: owner.value
       })
 
       const lastCommit = commits.data.shift()
@@ -43,8 +47,8 @@ export const useRepo = (owner: string, repo: string) => {
       const treeResponse = await request(
         'GET /repos/{owner}/{repo}/git/trees/{tree_sha}',
         {
-          owner,
-          repo,
+          repo: repo.value,
+          owner: owner.value,
           tree_sha: lastCommit.commit.tree.sha,
           recursive: 'true'
         }
@@ -57,7 +61,11 @@ export const useRepo = (owner: string, repo: string) => {
     } catch (error) {
       notFound.value = true
     }
-  })
+  }
+
+  onMounted(() => retrieveRepo())
+
+  watch([owner, repo], () => retrieveRepo())
 
   return {
     readme,
