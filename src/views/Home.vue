@@ -13,14 +13,16 @@
   <div class="home content note-container" v-else>
     <div class="readme note">
       <h1 class="title is-1">
-        <router-link
+        [<router-link
           :to="{ name: 'Home', params: { user, repo } }"
           :key="routeKey"
         >
-          {{ repo }}
-        </router-link>
+          {{ repo }} </router-link
+        >]
       </h1>
-      <h2 class="subtitle is-2">{{ user }}</h2>
+      <h2 class="subtitle is-2">
+        <em>{{ user }}</em>
+      </h2>
       <p class="note-display" v-html="readme"></p>
     </div>
     <stacked-note
@@ -31,7 +33,7 @@
       :user="user"
       :repo="repo"
       :sha="stackedNote"
-      :title="titles[stackedNote]"
+      :title="titles[stackedNote ?? '']"
     />
   </div>
 </template>
@@ -62,7 +64,7 @@ export default defineComponent({
     const refProps = toRefs(props)
 
     return {
-      ...useNote(refProps.user, refProps.repo),
+      ...useNote('note-container', refProps.user, refProps.repo),
       routeKey: computed(() => `${props.user}-${props.repo}`)
     }
   }
