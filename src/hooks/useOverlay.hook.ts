@@ -1,15 +1,14 @@
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 import { useEventListener } from '@vueuse/core'
 
-export const useOverlay = () => {
+export const useOverlay = (listen = true) => {
   const x = ref(0)
+  const body = document.querySelector('body')
 
-  onMounted(() => {
-    const element = document.querySelector('body')
-
+  if (listen) {
     useEventListener(
-      element,
+      body,
       'scroll',
       (e) => {
         const target = e.target as HTMLElement
@@ -20,8 +19,16 @@ export const useOverlay = () => {
         capture: false
       }
     )
-  })
+  }
+
+  const scrollTo = (to: number) => {
+    body?.scroll({
+      left: to
+    })
+  }
+
   return {
-    x
+    x,
+    scrollTo
   }
 }
