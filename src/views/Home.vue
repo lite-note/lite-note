@@ -34,8 +34,8 @@
         Not found.
       </div>
     </div>
-    <div class="columns">
-      <div class="column">
+    <div class="note-container">
+      <div class="readme">
         <h1 class="title is-1">
           <router-link
             :to="{ name: 'Home', params: { user, repo } }"
@@ -47,13 +47,14 @@
         <h2 class="subtitle is-2">{{ user }}</h2>
         <p class="note-display" v-html="readme"></p>
       </div>
-      <div
-        class="column"
+      <stacked-note
+        class="note"
         v-for="stackedNote in stackedNotes"
         :key="stackedNote"
-      >
-        <stacked-note :user="user" :repo="repo" :sha="stackedNote" />
-      </div>
+        :user="user"
+        :repo="repo"
+        :sha="stackedNote"
+      />
     </div>
   </div>
 </template>
@@ -86,3 +87,24 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: 769px) {
+    .readme,
+    .note {
+      min-width: 620px;
+      max-width: 720px;
+    }
+  }
+
+  .note-container {
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+  }
+}
+</style>

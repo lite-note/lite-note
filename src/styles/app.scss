@@ -1,12 +1,35 @@
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Brygada+1918&display=swap');
 @import '~bulma/bulma.sass';
 
 html {
   overflow-y: auto;
 }
 
-html,
 body {
   text-align: center;
-  min-height: 100vh;
+  font-family: 'Brygada 1918', serif;
+  height: 100vh;
+}
+
+@media screen and (min-width: 769px) {
+  html,
+  body {
+    overflow-y: hidden;
+  }
+}
+
+.columns {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+#app {
+  height: 100vh;
+  display: flex;
 }

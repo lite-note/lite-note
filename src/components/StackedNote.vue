@@ -36,6 +36,8 @@ export default defineComponent({
   text-align: left;
   border-top: 1px solid rgba(18, 19, 58, 0.2);
   padding: 0 1rem;
+  overflow-y: auto;
+  height: 100vh;
 }
 
 @media screen and (min-width: 769px) {
