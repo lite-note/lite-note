@@ -1,31 +1,6 @@
 <template>
-  <div v-if="!user || !repo" :key="routeKey">
-    Bonjour
-
-    <form @submit.prevent>
-      <div class="columns is-mobile is-centered is-vcentered">
-        <div class="column">
-          <div class="field">
-            <label class="label">user</label>
-            <div class="control">
-              <input class="input" type="text" v-model="userInput" />
-            </div>
-          </div>
-        </div>
-        <div class="column">/</div>
-        <div class="column">
-          <div class="field">
-            <label class="label">repo</label>
-            <div class="control">
-              <input class="input" type="text" v-model="repoInput" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="button is-primary" @click="submit">
-        y aller
-      </button>
-    </form>
+  <div class="home content" v-if="!user || !repo">
+    <welcome-world />
   </div>
   <div v-else-if="notFound">
     <hr />
@@ -64,16 +39,20 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent, computed, toRefs } from 'vue'
 import { useNote } from '@/hooks/useNote.hook'
-import { useForm } from '@/hooks/useForm.hook'
 
 const StackedNote = defineAsyncComponent(() =>
   import('@/components/StackedNote.vue')
 )
 
+const WelcomeWorld = defineAsyncComponent(() =>
+  import('@/components/WelcomeWorld.vue')
+)
+
 export default defineComponent({
   name: 'Home',
   components: {
-    StackedNote
+    StackedNote,
+    WelcomeWorld
   },
   props: {
     user: { type: String, required: false, default: '' },
@@ -84,7 +63,6 @@ export default defineComponent({
 
     return {
       ...useNote(refProps.user, refProps.repo),
-      ...useForm(),
       routeKey: computed(() => `${props.user}-${props.repo}`)
     }
   }
