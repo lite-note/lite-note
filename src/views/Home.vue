@@ -27,35 +27,37 @@
       </button>
     </form>
   </div>
-  <div class="home content" v-else>
-    <hr v-if="notFound" />
-    <div v-if="notFound" class="columns is-centered">
+  <div v-else-if="notFound">
+    <hr />
+    <div class="columns is-centered">
       <div class="column is-one-third notification is-warning" v-if="notFound">
         Not found.
       </div>
     </div>
-    <div class="note-container">
-      <div class="readme">
-        <h1 class="title is-1">
-          <router-link
-            :to="{ name: 'Home', params: { user, repo } }"
-            :key="routeKey"
-          >
-            {{ repo }}
-          </router-link>
-        </h1>
-        <h2 class="subtitle is-2">{{ user }}</h2>
-        <p class="note-display" v-html="readme"></p>
-      </div>
-      <stacked-note
-        class="note"
-        v-for="stackedNote in stackedNotes"
-        :key="stackedNote"
-        :user="user"
-        :repo="repo"
-        :sha="stackedNote"
-      />
+  </div>
+  <div class="home content note-container" v-else>
+    <div class="readme note">
+      <h1 class="title is-1">
+        <router-link
+          :to="{ name: 'Home', params: { user, repo } }"
+          :key="routeKey"
+        >
+          {{ repo }}
+        </router-link>
+      </h1>
+      <h2 class="subtitle is-2">{{ user }}</h2>
+      <p class="note-display" v-html="readme"></p>
     </div>
+    <stacked-note
+      class="note"
+      v-for="(stackedNote, index) in stackedNotes"
+      :key="stackedNote"
+      :index="index"
+      :user="user"
+      :repo="repo"
+      :sha="stackedNote"
+      :title="titles[stackedNote]"
+    />
   </div>
 </template>
 
@@ -79,6 +81,7 @@ export default defineComponent({
   },
   setup(props) {
     const refProps = toRefs(props)
+
     return {
       ...useNote(refProps.user, refProps.repo),
       ...useForm(),
@@ -91,20 +94,43 @@ export default defineComponent({
 <style lang="scss" scoped>
 .home {
   display: flex;
-  flex-direction: column;
+  width: 100%;
 
-  @media screen and (min-width: 769px) {
-    .readme,
-    .note {
-      min-width: 620px;
-      max-width: 720px;
+  .readme {
+    position: sticky;
+    left: 0;
+    padding: 0 2rem 1rem;
+  }
+
+  .note {
+    text-align: left;
+    overflow-y: auto;
+    height: 100vh;
+    position: sticky;
+    background-color: #fff;
+
+    &:not(:first-child) {
+      border-top: 1px solid rgba(18, 19, 58, 0.2);
     }
   }
 
-  .note-container {
-    flex: 1;
-    display: flex;
-    overflow-x: auto;
+  @media screen and (min-width: 769px) {
+    .note {
+      min-width: 620px;
+      max-width: 620px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    flex-wrap: wrap;
+
+    .note {
+      position: initial;
+      width: 100vw;
+      height: auto;
+    }
   }
 }
 </style>

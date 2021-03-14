@@ -4,12 +4,13 @@
 
 html {
   overflow-y: auto;
+  overflow-x: auto;
 }
 
 body {
   font-family: 'Courier Prime', monospace;
-  text-align: center;
   height: 100vh;
+  // width: 5000px;
 }
 
 @media screen and (min-width: 769px) {

@@ -1,5 +1,5 @@
 import { Ref, ref } from '@vue/reactivity'
-import { nextTick, onUnmounted, watch } from '@vue/runtime-core'
+import { computed, nextTick, onUnmounted, watch } from '@vue/runtime-core'
 import { useRoute, useRouter } from 'vue-router'
 
 import { noteEventBus } from '@/bus/noteBusEvent'
@@ -26,6 +26,19 @@ export const useNote = (user: Ref<string>, repo: Ref<string>) => {
 
   const { readme, notFound, tree } = useRepo(user, repo)
   const { listenToClick } = useLinks('note-display')
+  const titles = computed(() => {
+    return stackedNotes.value.reduce((obj: Record<string, string>, note) => {
+      if (!note) {
+        return obj
+      }
+      const filePath = tree.value.find((file) => file.sha === note)?.path ?? ''
+      const fileNames = filePath.split('.')
+      fileNames.pop()
+      obj[note] = fileNames.join('.')
+
+      return obj
+    }, {})
+  })
 
   const unsubscribe = noteEventBus.addEventBusListener(
     ({ path, currentNoteSHA }) => {
@@ -93,6 +106,7 @@ export const useNote = (user: Ref<string>, repo: Ref<string>) => {
   })
 
   return {
+    titles,
     readme,
     notFound,
     stackedNotes
