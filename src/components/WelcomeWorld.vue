@@ -24,37 +24,41 @@
     </ol>
 
     <form @submit.prevent>
-      <div class="columns is-mobile is-centered is-vcentered">
-        https://github.com/
+      <div class="columns is-centered is-vcentered to-user-repo">
         <div class="column">
-          <div class="field">
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                v-model="userInput"
-                placeholder="user"
-              />
+          https://github.com/
+        </div>
+        <div class="columns column is-mobile is-centered is-vcentered">
+          <div class="column">
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  v-model="userInput"
+                  placeholder="user"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        /
-        <div class="column">
-          <div class="field">
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                v-model="repoInput"
-                placeholder="repo"
-              />
+          /
+          <div class="column">
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  v-model="repoInput"
+                  placeholder="repo"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div class="column">
-          <button type="submit" class="button is-primary" @click="submit">
-            go
-          </button>
+          <div class="column is-2">
+            <button type="submit" class="button is-primary" @click="submit">
+              go
+            </button>
+          </div>
         </div>
       </div>
     </form>
@@ -67,11 +71,11 @@
           target="_blank"
           rel="noopener noreferrer"
           >Andy Matuschak's website</a
-        >. May this app be useful to everyone.
+        >. May "Lite note" be useful to everyone.
       </p>
 
       <p>
-        Made with love by
+        Made with <img src="@/assets/icons/love.svg" alt="love" /> by
         <a
           href="http://github.com/jcalixte"
           target="_blank"
@@ -100,5 +104,21 @@ export default defineComponent({
   margin: auto;
   display: flex;
   flex-direction: column;
+}
+
+footer {
+  img {
+    vertical-align: middle;
+  }
+}
+
+.to-user-repo {
+  text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+  .to-user-repo {
+    text-align: center;
+  }
 }
 </style>
