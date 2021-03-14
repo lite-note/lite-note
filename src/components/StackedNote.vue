@@ -60,25 +60,28 @@ export default defineComponent({
 $border-color: rgba(18, 19, 58, 0.2);
 
 .stacked-note {
-  padding: 1rem 3rem;
+  padding: 1rem 1.5rem;
 
   transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
 
   &.overlay {
     box-shadow: -3px 0 0.4em $border-color;
   }
+
+  section {
+    padding: 0 1rem;
+  }
 }
 
 .title-stacked-note {
-  position: absolute;
+  position: sticky;
   transform-origin: 0 0;
   transform: rotate(90deg);
-  top: 1rem;
-  left: 1.5rem;
-  direction: rtl;
+  top: 0;
 
   a {
     color: #363636;
+    display: block;
   }
 }
 

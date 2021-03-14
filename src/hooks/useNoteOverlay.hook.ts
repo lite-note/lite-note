@@ -3,7 +3,7 @@ import { computed, onMounted } from '@vue/runtime-core'
 import { useOverlay } from '@/hooks/useOverlay.hook'
 import { NOTE_WIDTH } from '@/constants/note-width'
 
-const BOOKMARK_WIDTH = 2
+const BOOKMARK_WIDTH = 1.5
 
 export const useNoteOverlay = (className: string, index: number) => {
   const { x } = useOverlay()

@@ -79,7 +79,7 @@ export default defineComponent({
   .readme {
     position: sticky;
     left: 0;
-    padding: 0 2rem 1rem;
+    padding: 0 1.5rem 1rem;
   }
 
   .note {
