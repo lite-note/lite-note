@@ -12,7 +12,7 @@ import { noteEventBus } from '@/bus/noteBusEvent'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useRepo } from '@/hooks/useRepo.hook'
 import { NOTE_WIDTH } from '@/constants/note-width'
-import { useOverlay } from '@/hooks/useOverlay.hook'
+import { useFocus } from '@/hooks/useFocus.hook'
 
 const sanitizePath = (path: string) => {
   if (path.startsWith('./')) {
@@ -28,7 +28,7 @@ export const useNote = (
 ) => {
   const { push } = useRouter()
   const { query } = useRoute()
-  const { scrollTo } = useOverlay(false)
+  const { scrollToFocusedNote } = useFocus()
 
   const stackedNotes = ref(
     query.stackedNotes
@@ -61,18 +61,6 @@ export const useNote = (
     }, {})
   )
 
-  const scrollToFocusedNote = (sha?: string) => {
-    if (!sha) {
-      return
-    }
-    nextTick(() => {
-      const index = stackedNotes.value.findIndex((noteSHA) => noteSHA === sha)
-      const left = index * NOTE_WIDTH
-
-      scrollTo(left)
-    })
-  }
-
   const unsubscribe = noteEventBus.addEventBusListener(
     ({ path, currentNoteSHA }) => {
       const currentFile = tree.value.find((file) => file.sha === currentNoteSHA)
@@ -88,7 +76,7 @@ export const useNote = (
       const file = tree.value.find((file) => file.path === finalPath)
 
       if (!file?.sha || stackedNotes.value.includes(file.sha)) {
-        scrollToFocusedNote(file?.sha)
+        scrollToFocusedNote(stackedNotes.value, file?.sha)
         return
       }
 
@@ -127,7 +115,7 @@ export const useNote = (
 
       stackedNotes.value = newStackedNotes
 
-      scrollToFocusedNote(file.sha)
+      scrollToFocusedNote(stackedNotes.value, file.sha)
     }
   )
 

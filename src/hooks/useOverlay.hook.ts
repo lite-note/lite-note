@@ -21,7 +21,7 @@ export const useOverlay = (listen = true) => {
     )
   }
 
-  const scrollTo = (to: number) => {
+  const scrollToNote = (to: number) => {
     body?.scroll({
       left: to
     })
@@ -29,6 +29,6 @@ export const useOverlay = (listen = true) => {
 
   return {
     x,
-    scrollTo
+    scrollToNote
   }
 }
