@@ -3,7 +3,11 @@
     class="stacked-note"
     :class="{ [className]: true, overlay: displayNoteOverlay }"
   >
-    <div class="title-stacked-note" :class="titleClassName">{{ title }}</div>
+    <div class="title-stacked-note" :class="titleClassName">
+      <a @click.prevent="focus">
+        {{ title }}
+      </a>
+    </div>
     <section v-html="content"></section>
   </div>
 </template>
@@ -13,6 +17,7 @@ import { computed, defineComponent, nextTick, watch } from 'vue'
 import { useFile } from '@/hooks/useFile.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
+import { useFocus } from '@/hooks/useFocus.hook'
 
 export default defineComponent({
   name: 'StackedNote',
@@ -26,6 +31,7 @@ export default defineComponent({
   setup(props) {
     const { content } = useFile(props.user, props.repo, props.sha)
     const { listenToClick } = useLinks('stacked-note', props.sha)
+    const { scrollToFocusedNote } = useFocus()
     const className = computed(() => `stacked-note-${props.index}`)
     const titleClassName = computed(() => `title-${className.value}`)
 
@@ -39,7 +45,13 @@ export default defineComponent({
       }
     })
 
-    return { content, titleClassName, className, displayNoteOverlay }
+    return {
+      content,
+      titleClassName,
+      className,
+      displayNoteOverlay,
+      focus: () => scrollToFocusedNote(props.sha)
+    }
   }
 })
 </script>
@@ -64,6 +76,10 @@ $border-color: rgba(18, 19, 58, 0.2);
   top: 1rem;
   left: 1.5rem;
   direction: rtl;
+
+  a {
+    color: #363636;
+  }
 }
 
 @media screen and (max-width: 768px) {

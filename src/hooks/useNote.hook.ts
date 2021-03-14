@@ -61,7 +61,7 @@ export const useNote = (
     }, {})
   )
 
-  const unsubscribe = noteEventBus.addEventBusListener(
+  const unsubscribeLink = noteEventBus.addEventBusListener(
     ({ path, currentNoteSHA }) => {
       const currentFile = tree.value.find((file) => file.sha === currentNoteSHA)
 
@@ -76,7 +76,7 @@ export const useNote = (
       const file = tree.value.find((file) => file.path === finalPath)
 
       if (!file?.sha || stackedNotes.value.includes(file.sha)) {
-        scrollToFocusedNote(stackedNotes.value, file?.sha)
+        scrollToFocusedNote(file?.sha, stackedNotes.value)
         return
       }
 
@@ -115,7 +115,7 @@ export const useNote = (
 
       stackedNotes.value = newStackedNotes
 
-      scrollToFocusedNote(stackedNotes.value, file.sha)
+      scrollToFocusedNote(file.sha, stackedNotes.value)
     }
   )
 
@@ -140,7 +140,7 @@ export const useNote = (
   })
 
   onUnmounted(() => {
-    unsubscribe()
+    unsubscribeLink()
   })
 
   watch(stackedNotes, resizeContainer, {

@@ -1,14 +1,23 @@
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
-import { nextTick } from 'vue'
-import { LocationQueryValue } from 'vue-router'
+import { computed, nextTick } from 'vue'
+import { LocationQueryValue, useRoute } from 'vue-router'
 
 export const useFocus = () => {
   const { scrollToNote } = useOverlay(false)
+  const { query } = useRoute()
+
+  const initialStackedNotes = computed(() =>
+    query.stackedNotes
+      ? Array.isArray(query.stackedNotes)
+        ? query.stackedNotes
+        : [query.stackedNotes]
+      : []
+  )
 
   const scrollToFocusedNote = (
-    stackedNotes: LocationQueryValue[],
-    sha?: string
+    sha?: string,
+    stackedNotes: LocationQueryValue[] = initialStackedNotes.value
   ) => {
     if (!sha) {
       return
