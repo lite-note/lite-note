@@ -31,7 +31,7 @@ export const useFocus = () => {
         scrollToNote(top)
       } else {
         const left = index * NOTE_WIDTH
-        // scrollToNote(left)
+        scrollToNote(left)
       }
     })
   }

@@ -17,8 +17,7 @@
           [<router-link
             :to="{ name: 'Home', params: { user, repo } }"
             :key="routeKey"
-          >
-            {{ repo }} </router-link
+            >{{ repo }}</router-link
           >]
         </h1>
         <h4 class="subtitle is-4">
