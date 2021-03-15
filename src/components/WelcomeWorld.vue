@@ -4,13 +4,8 @@
 
     <ol>
       <li>
-        Take notes on VS code (<a
-          href="https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one#review-details"
-          target="_blank"
-          rel="noopener noreferrer"
-          >this extension</a
-        >
-        may be necessary)
+        Take notes your favorite
+        <router-link :to="{ name: 'TextEditor' }">text editor</router-link>
       </li>
       <li>
         Push to GitHub

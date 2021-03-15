@@ -75,6 +75,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .home {
   display: flex;
+  flex: 1;
 
   .readme {
     position: sticky;
