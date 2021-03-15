@@ -1,12 +1,14 @@
+import { computed, ref } from 'vue'
+import { useEventListener, useWindowSize } from '@vueuse/core'
+
 import { MOBILE_BREAKPOINT } from '@/constants/mobile'
-import { ref } from 'vue'
-import { useEventListener } from '@vueuse/core'
 
 export const useOverlay = (listen = true) => {
+  const body = document.querySelector('body') as HTMLBodyElement
   const x = ref(0)
   const y = ref(0)
-  const body = document.querySelector('body') as HTMLBodyElement
-  const isMobile = ref((body?.clientWidth ?? 0) <= MOBILE_BREAKPOINT)
+  const { width } = useWindowSize()
+  const isMobile = computed(() => width.value <= MOBILE_BREAKPOINT)
 
   if (listen) {
     useEventListener(
@@ -25,8 +27,6 @@ export const useOverlay = (listen = true) => {
   }
 
   const scrollToNote = (to: number) => {
-    console.log('scroll to note', to)
-
     if (isMobile.value) {
       body.scroll({
         top: to
