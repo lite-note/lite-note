@@ -14,7 +14,8 @@ html {
 body {
   font-family: 'Courier Prime', monospace;
   height: 100vh;
-  scroll-behavior: smooth
+  scroll-behavior: smooth;
+  overflow-y: auto;
 }
 
 @media screen and (min-width: 769px) {

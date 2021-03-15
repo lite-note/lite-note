@@ -71,7 +71,7 @@
           target="_blank"
           rel="noopener noreferrer"
           >Andy Matuschak's website</a
-        >. May "Lite note" be useful to everyone.
+        >.
       </p>
 
       <p>
@@ -101,6 +101,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .welcome-world {
+  padding: 1rem;
   margin: auto;
   display: flex;
   flex-direction: column;

@@ -8,11 +8,12 @@ import {
 } from '@vue/runtime-core'
 import { useRoute, useRouter } from 'vue-router'
 
-import { noteEventBus } from '@/bus/noteBusEvent'
-import { useLinks } from '@/hooks/useLinks.hook'
-import { useRepo } from '@/hooks/useRepo.hook'
 import { NOTE_WIDTH } from '@/constants/note-width'
+import { noteEventBus } from '@/bus/noteBusEvent'
 import { useFocus } from '@/hooks/useFocus.hook'
+import { useLinks } from '@/hooks/useLinks.hook'
+import { useOverlay } from '@/hooks/useOverlay.hook'
+import { useRepo } from '@/hooks/useRepo.hook'
 
 const sanitizePath = (path: string) => {
   if (path.startsWith('./')) {
@@ -28,6 +29,7 @@ export const useNote = (
 ) => {
   const { push } = useRouter()
   const { query } = useRoute()
+  const { isMobile } = useOverlay(false)
   const { scrollToFocusedNote } = useFocus()
 
   const stackedNotes = ref(
@@ -132,7 +134,11 @@ export const useNote = (
     if (!element) {
       return
     }
-    element.style.width = `${NOTE_WIDTH * (stackedNotes.value.length + 1)}px`
+    if (isMobile.value) {
+      element.style.height = `${(stackedNotes.value.length + 1) * 100}vh`
+    } else {
+      element.style.width = `${NOTE_WIDTH * (stackedNotes.value.length + 1)}px`
+    }
   }
 
   onMounted(() => {

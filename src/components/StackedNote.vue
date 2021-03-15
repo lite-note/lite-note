@@ -1,7 +1,11 @@
 <template>
   <div
     class="stacked-note"
-    :class="{ [className]: true, overlay: displayNoteOverlay }"
+    :class="{
+      [className]: true,
+      overlay: displayNoteOverlay,
+      [`note-${sha}`]: true
+    }"
   >
     <div class="title-stacked-note" :class="titleClassName">
       <a @click.prevent="focus">
@@ -75,8 +79,6 @@ $border-color: rgba(18, 19, 58, 0.2);
 
 .title-stacked-note {
   position: sticky;
-  transform-origin: 0 0;
-  transform: rotate(90deg);
   top: 0;
 
   a {
@@ -86,8 +88,17 @@ $border-color: rgba(18, 19, 58, 0.2);
 }
 
 @media screen and (max-width: 768px) {
-  .title-stacked-note {
-    display: none;
+  .stacked-note {
+    padding: 0 1.5rem;
+
+    .title-stacked-note {
+      padding: 1rem 0 0;
+      background-color: white;
+    }
+
+    section {
+      padding: 1rem 0;
+    }
   }
 }
 
@@ -95,6 +106,12 @@ $border-color: rgba(18, 19, 58, 0.2);
   .stacked-note {
     border-top: 0;
     border-left: 1px solid $border-color;
+  }
+
+  .title-stacked-note {
+    padding: 0 1rem;
+    transform-origin: 0 0;
+    transform: rotate(90deg);
   }
 }
 </style>

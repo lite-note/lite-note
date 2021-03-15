@@ -12,17 +12,19 @@
   </div>
   <div class="home content note-container" v-else>
     <div class="readme note">
-      <h1 class="title is-1">
-        [<router-link
-          :to="{ name: 'Home', params: { user, repo } }"
-          :key="routeKey"
-        >
-          {{ repo }} </router-link
-        >]
-      </h1>
-      <h2 class="subtitle is-2">
-        <em>{{ user }}</em>
-      </h2>
+      <div class="repo-title">
+        <h1 class="title is-1">
+          [<router-link
+            :to="{ name: 'Home', params: { user, repo } }"
+            :key="routeKey"
+          >
+            {{ repo }} </router-link
+          >]
+        </h1>
+        <h4 class="subtitle is-4">
+          <em>{{ user }}</em>
+        </h4>
+      </div>
       <p class="note-display" v-html="readme"></p>
     </div>
     <stacked-note
@@ -74,12 +76,16 @@ export default defineComponent({
 <style lang="scss" scoped>
 .home {
   display: flex;
-  width: 100%;
 
   .readme {
     position: sticky;
     left: 0;
-    padding: 0 1.5rem 1rem;
+    top: 0;
+    padding: 2.5rem 2rem 1rem;
+
+    .repo-title {
+      text-align: center;
+    }
   }
 
   .note {
@@ -107,9 +113,7 @@ export default defineComponent({
     flex-wrap: wrap;
 
     .note {
-      position: initial;
       width: 100vw;
-      height: auto;
     }
   }
 }

@@ -1,18 +1,21 @@
+import { MOBILE_BREAKPOINT } from '@/constants/mobile'
 import { ref } from 'vue'
-
 import { useEventListener } from '@vueuse/core'
 
 export const useOverlay = (listen = true) => {
   const x = ref(0)
-  const body = document.querySelector('body')
+  const y = ref(0)
+  const body = document.querySelector('body') as HTMLBodyElement
+  const isMobile = ref((body?.clientWidth ?? 0) <= MOBILE_BREAKPOINT)
 
   if (listen) {
     useEventListener(
       body,
       'scroll',
-      (e) => {
-        const target = e.target as HTMLElement
+      (event) => {
+        const target = event.target as HTMLElement
         x.value = target.scrollLeft
+        y.value = target.scrollTop
       },
       {
         passive: true,
@@ -22,13 +25,23 @@ export const useOverlay = (listen = true) => {
   }
 
   const scrollToNote = (to: number) => {
-    body?.scroll({
-      left: to
-    })
+    console.log('scroll to note', to)
+
+    if (isMobile.value) {
+      body.scroll({
+        top: to
+      })
+    } else {
+      body.scroll({
+        left: to
+      })
+    }
   }
 
   return {
     x,
+    y,
+    isMobile,
     scrollToNote
   }
 }
