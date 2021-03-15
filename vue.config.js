@@ -1,4 +1,4 @@
-const mainColor = '#3f4fa6'
+const mainColor = '#2C3A47'
 
 module.exports = {
   pwa: {
@@ -8,7 +8,7 @@ module.exports = {
       skipWaiting: true,
       clientsClaim: true
     },
-    name: '',
+    name: 'Lite Note',
     manifestOptions: {
       background_color: mainColor,
       theme_color: mainColor,
