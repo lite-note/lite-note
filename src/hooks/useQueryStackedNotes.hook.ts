@@ -10,15 +10,13 @@ export const useQueryStackedNotes = () => {
   const { query } = useRoute()
   if (initial) {
     initial = false
-    stackedNotes.value = query.stackedNotes
-      ? Array.isArray(query.stackedNotes)
-        ? (query.stackedNotes
-            .map((n) => n?.toString())
-            .filter((n) => !!n) as string[])
-        : ([query.stackedNotes]
-            .map((n) => n?.toString())
-            .filter((n) => !!n) as string[])
-      : ([] as string[])
+    stackedNotes.value = Array.isArray(query.stackedNotes)
+      ? (query.stackedNotes
+          .map((n) => n?.toString())
+          .filter((n) => !!n) as string[])
+      : ([query.stackedNotes]
+          .map((n) => n?.toString())
+          .filter((n) => !!n) as string[])
   }
 
   return {
