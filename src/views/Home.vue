@@ -43,6 +43,7 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent, computed, toRefs } from 'vue'
 import { useNote } from '@/hooks/useNote.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 
 const StackedNote = defineAsyncComponent(() =>
   import('@/components/StackedNote.vue')
@@ -67,6 +68,7 @@ export default defineComponent({
 
     return {
       ...useNote('note-container', refProps.user, refProps.repo),
+      ...useQueryStackedNotes(),
       routeKey: computed(() => `${props.user}-${props.repo}`)
     }
   }

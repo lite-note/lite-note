@@ -1,4 +1,3 @@
-import { Ref, ref } from '@vue/reactivity'
 import {
   computed,
   nextTick,
@@ -6,14 +5,16 @@ import {
   onUnmounted,
   watch
 } from '@vue/runtime-core'
-import { useRoute, useRouter } from 'vue-router'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
+import { Ref } from '@vue/reactivity'
 import { noteEventBus } from '@/bus/noteBusEvent'
 import { useFocus } from '@/hooks/useFocus.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useOverlay } from '@/hooks/useOverlay.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { useRepo } from '@/hooks/useRepo.hook'
+import { useRouter } from 'vue-router'
 
 const sanitizePath = (path: string) => {
   if (path.startsWith('./')) {
@@ -28,23 +29,15 @@ export const useNote = (
   repo: Ref<string>
 ) => {
   const { push } = useRouter()
-  const { query } = useRoute()
   const { isMobile } = useOverlay(false)
   const { scrollToFocusedNote } = useFocus()
-
-  const stackedNotes = ref(
-    query.stackedNotes
-      ? Array.isArray(query.stackedNotes)
-        ? query.stackedNotes
-        : [query.stackedNotes]
-      : []
-  )
+  const { stackedNotes, updateQueryStackedNotes } = useQueryStackedNotes()
 
   const { readme, notFound, tree } = useRepo(user, repo)
   const { listenToClick } = useLinks('note-display')
 
   const titles = computed(() =>
-    stackedNotes.value.reduce((obj: Record<string, string>, note) => {
+    stackedNotes.value?.reduce((obj: Record<string, string>, note) => {
       if (!note) {
         return obj
       }
@@ -82,7 +75,7 @@ export const useNote = (
       )
 
       if (!file?.sha || stackedNotes.value.includes(file.sha)) {
-        scrollToFocusedNote(file?.sha, stackedNotes.value)
+        scrollToFocusedNote(file?.sha)
         return
       }
 
@@ -119,9 +112,8 @@ export const useNote = (
         }
       })
 
-      stackedNotes.value = newStackedNotes
-
-      scrollToFocusedNote(file.sha, stackedNotes.value)
+      updateQueryStackedNotes(newStackedNotes)
+      scrollToFocusedNote(file.sha)
     }
   )
 
@@ -145,10 +137,6 @@ export const useNote = (
     }
   }
 
-  const resetStackedNotes = () => {
-    stackedNotes.value = []
-  }
-
   onMounted(() => {
     resizeContainer()
   })
@@ -164,8 +152,6 @@ export const useNote = (
   return {
     titles,
     readme,
-    notFound,
-    stackedNotes,
-    resetStackedNotes
+    notFound
   }
 }
