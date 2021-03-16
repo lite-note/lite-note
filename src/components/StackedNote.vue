@@ -84,6 +84,7 @@ $border-color: rgba(18, 19, 58, 0.2);
   a {
     color: #363636;
     display: block;
+    white-space: nowrap;
   }
 }
 
