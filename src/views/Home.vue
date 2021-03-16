@@ -17,6 +17,7 @@
           [<router-link
             :to="{ name: 'Home', params: { user, repo } }"
             :key="routeKey"
+            @click="resetStackedNotes"
             >{{ repo }}</router-link
           >]
         </h1>

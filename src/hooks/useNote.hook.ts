@@ -145,6 +145,10 @@ export const useNote = (
     }
   }
 
+  const resetStackedNotes = () => {
+    stackedNotes.value = []
+  }
+
   onMounted(() => {
     resizeContainer()
   })
@@ -161,6 +165,7 @@ export const useNote = (
     titles,
     readme,
     notFound,
-    stackedNotes
+    stackedNotes,
+    resetStackedNotes
   }
 }
