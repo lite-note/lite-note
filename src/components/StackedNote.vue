@@ -92,7 +92,7 @@ $border-color: rgba(18, 19, 58, 0.2);
     padding: 0 1.5rem;
 
     .title-stacked-note {
-      padding: 1rem 0 0;
+      padding: 0.5rem 0 0;
       background-color: white;
     }
 
