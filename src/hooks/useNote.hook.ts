@@ -75,7 +75,11 @@ export const useNote = (
         ? `${sanitizePath(absolutePath)}/${sanitizePath(path)}`
         : sanitizePath(path)
 
-      const file = tree.value.find((file) => file.path === finalPath)
+      const relativePath = sanitizePath(path)
+
+      const file = tree.value.find(
+        (file) => file.path === finalPath || file.path === relativePath
+      )
 
       if (!file?.sha || stackedNotes.value.includes(file.sha)) {
         scrollToFocusedNote(file?.sha, stackedNotes.value)
