@@ -10,6 +10,17 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "text-editor" */ '@/views/TextEditor.vue')
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue')
+  },
+  {
+    path: '/repo-list',
+    name: 'RepoList',
+    component: () =>
+      import(/* webpackChunkName: "repo-list" */ '@/views/RepoList.vue')
+  },
+  {
     path: '/:user?/:repo?',
     name: 'Home',
     props: true,

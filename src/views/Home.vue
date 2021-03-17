@@ -3,11 +3,8 @@
     <welcome-world />
   </div>
   <div v-else-if="notFound">
-    <hr />
-    <div class="columns is-centered">
-      <div class="column is-one-third notification is-warning" v-if="notFound">
-        Not found.
-      </div>
+    <div class="notification is-warning">
+      Not found.
     </div>
   </div>
   <div class="home content note-container" v-else>

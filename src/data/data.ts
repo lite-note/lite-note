@@ -1,7 +1,8 @@
-import PouchDb from 'pouchdb-browser'
-import { Model } from './models/Model'
-import indexedDb from 'pouchdb-adapter-indexeddb'
 import { DataType } from './DataType.enum'
+import { Model } from './models/Model'
+import PouchDb from 'pouchdb-browser'
+import indexedDb from 'pouchdb-adapter-indexeddb'
+import { nanoid } from 'nanoid'
 
 PouchDb.plugin(indexedDb)
 
@@ -20,7 +21,9 @@ class Data {
     try {
       const result = await this.locale.put(model)
       return result.ok
-    } catch {
+    } catch (error) {
+      console.warn(error)
+
       return false
     }
   }
@@ -64,6 +67,10 @@ class Data {
     })
 
     return response.rows.map((row) => row.doc) as T[]
+  }
+
+  public generateId(type: DataType, id?: string) {
+    return `${type}-${id || nanoid()}`
   }
 }
 

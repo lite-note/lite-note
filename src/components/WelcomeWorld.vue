@@ -18,6 +18,10 @@
       </li>
     </ol>
 
+    <router-link :to="{ name: 'RepoList' }" v-if="isLogged"
+      >go to repos</router-link
+    >
+
     <form @submit.prevent>
       <div class="columns is-centered is-vcentered to-user-repo">
         <div class="column">
@@ -85,11 +89,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useForm } from '@/hooks/useForm.hook'
+import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 
 export default defineComponent({
   name: 'WelcomeWord',
   setup() {
-    return { ...useForm() }
+    const { isLogged } = useGitHubLogin()
+
+    return { ...useForm(), isLogged }
   }
 })
 </script>

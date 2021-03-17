@@ -1,6 +1,7 @@
 import { Ref, onMounted, ref, watch } from '@vue/runtime-core'
 
-import { request } from '@octokit/request'
+import { Octokit } from '@octokit/rest'
+import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 
 interface Tree {
@@ -13,6 +14,12 @@ interface Tree {
 }
 
 export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
+  const { accessToken } = useGitHubLogin()
+
+  const octokit = new Octokit({
+    auth: accessToken.value
+  })
+
   const { render } = useMarkdown()
   const readme = ref<string | null>(null)
   const notFound = ref(false)
@@ -24,19 +31,22 @@ export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
     }
 
     try {
-      const README = await request('GET /repos/{owner}/{repo}/readme', {
-        repo: repo.value,
-        owner: owner.value
+      const README = await octokit.repos.getReadme({
+        owner: owner.value,
+        repo: repo.value
       })
 
       if (README) {
         readme.value = render(README.data.content)
       }
 
-      const commits = await request('GET /repos/{owner}/{repo}/commits', {
-        repo: repo.value,
-        owner: owner.value
-      })
+      const commits = await octokit.request(
+        'GET /repos/{owner}/{repo}/commits',
+        {
+          repo: repo.value,
+          owner: owner.value
+        }
+      )
 
       const lastCommit = commits.data.shift()
 
@@ -44,7 +54,7 @@ export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
         return
       }
 
-      const treeResponse = await request(
+      const treeResponse = await octokit.request(
         'GET /repos/{owner}/{repo}/git/trees/{tree_sha}',
         {
           repo: repo.value,
