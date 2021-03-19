@@ -19,11 +19,13 @@ export const useRepos = () => {
       per_page: 100
     })
 
-    return repoList.data.items.map((item) => ({
-      id: `${item.id}`,
-      name: item.name,
-      isPrivate: item.private
-    }))
+    return repoList.data.items
+      .map((item) => ({
+        id: `${item.id}`,
+        name: item.name,
+        isPrivate: item.private
+      }))
+      .sort((a, b) => (a.name < b.name ? -1 : 1))
   }, [])
 
   return {
