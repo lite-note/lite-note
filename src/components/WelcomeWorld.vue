@@ -98,7 +98,7 @@
 
     <footer>
       <p>
-        This web app is clearly inspired by
+        This web app was inspired by
         <a
           href="https://notes.andymatuschak.org/About_these_notes"
           target="_blank"
@@ -115,6 +115,8 @@
           rel="noopener noreferrer"
           >Julien</a
         >
+        |
+        <router-link :to="{ name: 'About' }">about</router-link>
       </p>
     </footer>
   </div>
