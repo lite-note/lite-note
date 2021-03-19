@@ -1,26 +1,56 @@
 <template>
   <div class="welcome-world">
-    <h1 class="title is-1">About "Lite notes"</h1>
-
-    <ol>
-      <li>
-        Take notes your favorite
-        <router-link :to="{ name: 'TextEditor' }">text editor</router-link>
-      </li>
-      <li>
-        Push to GitHub
-      </li>
-      <li>
-        Read it here
-      </li>
-      <li>
-        Share it with an URL
-      </li>
-    </ol>
-
-    <router-link :to="{ name: 'RepoList' }" v-if="isLogged"
-      >go to repos</router-link
-    >
+    <div class="columns">
+      <div class="column">
+        <h3 class="title is-3">Lite Note</h3>
+        <h4 class="subtitle is-4">Get started</h4>
+        <ol>
+          <li>
+            Take notes your favorite
+            <router-link :to="{ name: 'TextEditor' }">text editor</router-link>
+          </li>
+          <li>
+            Push to GitHub
+          </li>
+          <li>
+            Read it here
+          </li>
+          <li>
+            Share it with an URL
+          </li>
+        </ol>
+      </div>
+      <div class="column">
+        <p>
+          <router-link :to="{ name: 'RepoList' }" v-if="isLogged"
+            >Manage your repos</router-link
+          >
+        </p>
+        <section v-if="savedFavoriteRepos.length">
+          <h4 class="subtitle is-4">
+            ⭐
+          </h4>
+          <ul>
+            <li
+              v-for="favoriteRepo in savedFavoriteRepos"
+              :key="favoriteRepo.id"
+            >
+              <router-link
+                :to="{
+                  name: 'Home',
+                  params: {
+                    user: username,
+                    repo: favoriteRepo.name
+                  }
+                }"
+              >
+                {{ favoriteRepo.name }}
+              </router-link>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
 
     <form @submit.prevent>
       <div class="columns is-centered is-vcentered to-user-repo">
@@ -90,13 +120,15 @@
 import { defineComponent } from 'vue'
 import { useForm } from '@/hooks/useForm.hook'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
+import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
 
 export default defineComponent({
   name: 'WelcomeWord',
   setup() {
-    const { isLogged } = useGitHubLogin()
+    const { isLogged, username } = useGitHubLogin()
+    const { savedFavoriteRepos } = useFavoriteRepos()
 
-    return { ...useForm(), isLogged }
+    return { ...useForm(), isLogged, username, savedFavoriteRepos }
   }
 })
 </script>
@@ -107,6 +139,11 @@ export default defineComponent({
   margin: auto;
   display: flex;
   flex-direction: column;
+
+  h3,
+  h4 {
+    text-align: center;
+  }
 }
 
 footer {

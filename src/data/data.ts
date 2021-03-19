@@ -10,15 +10,34 @@ interface GetAllParams {
   prefix?: string
   includeDocs?: boolean
   includeAttachments?: boolean
+  keys?: string[]
 }
 
 class Data {
-  private locale = new PouchDb('local-db', {
+  private locale = new PouchDb('lite-note', {
     adapter: 'indexeddb'
   })
 
   public async add<DT extends DataType>(model: Model<DT>): Promise<boolean> {
     try {
+      const result = await this.locale.put(model)
+      return result.ok
+    } catch (error) {
+      console.warn(error)
+
+      return false
+    }
+  }
+
+  public async update<DT extends DataType>(model: Model<DT>): Promise<boolean> {
+    try {
+      if (model._id) {
+        const oldModel = await this.get(model._id)
+        if (oldModel) {
+          const result = await this.locale.put({ ...oldModel, ...model })
+          return result.ok
+        }
+      }
       const result = await this.locale.put(model)
       return result.ok
     } catch (error) {
@@ -57,8 +76,19 @@ class Data {
   public async getAll<DT extends DataType, T extends Model<DT>>({
     prefix,
     includeDocs = true,
-    includeAttachments = false
+    includeAttachments = false,
+    keys = []
   }: GetAllParams): Promise<T[]> {
+    if (keys.length) {
+      const response = await this.locale.allDocs({
+        include_docs: includeDocs,
+        attachments: includeAttachments,
+        keys: keys.map((key) => this.generateId(prefix, key))
+      })
+
+      return response.rows.map((row) => row.doc).filter((doc) => !!doc) as T[]
+    }
+
     const response = await this.locale.allDocs({
       include_docs: includeDocs,
       attachments: includeAttachments,
@@ -69,7 +99,11 @@ class Data {
     return response.rows.map((row) => row.doc) as T[]
   }
 
-  public generateId(type: DataType, id?: string) {
+  public generateId(type?: DataType | string, id?: string) {
+    if (!type) {
+      return id || nanoid()
+    }
+
     return `${type}-${id || nanoid()}`
   }
 }

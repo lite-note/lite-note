@@ -1,10 +1,11 @@
 import { Octokit } from '@octokit/rest'
+import { RepoBase } from '@/modules/interfaces/RepoBase'
 import { useAsyncState } from '@vueuse/core'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 
 export const useRepos = () => {
   const { username, accessToken } = useGitHubLogin()
-  const repos = useAsyncState(async () => {
+  const repos = useAsyncState<RepoBase[]>(async () => {
     if (!accessToken.value || !username.value) {
       return []
     }
@@ -18,7 +19,11 @@ export const useRepos = () => {
       per_page: 100
     })
 
-    return repoList.data.items.map((item) => item.name)
+    return repoList.data.items.map((item) => ({
+      id: `${item.id}`,
+      name: item.name,
+      isPrivate: item.private
+    }))
   }, [])
 
   return {
