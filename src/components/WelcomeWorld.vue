@@ -18,6 +18,10 @@
           <li>
             Share it with an URL
           </li>
+          <li>
+            Or do it
+            <router-link :to="{ name: 'Login' }">privately</router-link>
+          </li>
         </ol>
       </div>
       <div class="column">
