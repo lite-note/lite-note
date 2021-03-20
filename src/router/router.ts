@@ -27,6 +27,15 @@ const routes: Array<RouteRecordRaw> = [
     component: Home
   },
   {
+    path: '/:user/:repo/fleeting-notes',
+    name: 'FleetingNotes',
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "fleeting-notes" */ '@/views/FleetingNotes.vue'
+      )
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')

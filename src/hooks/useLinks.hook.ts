@@ -28,6 +28,7 @@ export const useLinks = (className: string, sha?: string) => {
 
   const removeListeners = () => {
     const elements = document.querySelectorAll(selector)
+
     elements.forEach((element) => {
       element.removeEventListener('click', linkNote)
     })
@@ -36,6 +37,7 @@ export const useLinks = (className: string, sha?: string) => {
   const listenToClick = () => {
     removeListeners()
     const elements = document.querySelectorAll(selector)
+
     elements.forEach((element) => {
       element.addEventListener('click', linkNote)
     })

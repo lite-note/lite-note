@@ -8,14 +8,19 @@ let initial = true
 
 export const useQueryStackedNotes = () => {
   const { query } = useRoute()
-  if (initial) {
-    initial = false
+
+  const setStackedNotes = () => {
     stackedNotes.value = (Array.isArray(query.stackedNotes)
       ? query.stackedNotes
       : [query.stackedNotes]
     )
       .map((n) => n?.toString())
       .filter((n) => !!n) as string[]
+  }
+
+  if (initial) {
+    initial = false
+    setStackedNotes()
   }
 
   return {

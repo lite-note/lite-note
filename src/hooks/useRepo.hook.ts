@@ -14,7 +14,11 @@ interface Tree {
   url?: string
 }
 
-export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
+export const useRepo = (
+  owner: Ref<string>,
+  repo: Ref<string>,
+  fetchRepo = true
+) => {
   const { getCachedNote, saveCacheNote } = useNoteCache('README')
   const { accessToken } = useGitHubLogin()
 
@@ -83,7 +87,11 @@ export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
     }
   }
 
-  onMounted(() => retrieveRepo())
+  onMounted(() => {
+    if (fetchRepo) {
+      retrieveRepo()
+    }
+  })
 
   watch([owner, repo], () => retrieveRepo())
 

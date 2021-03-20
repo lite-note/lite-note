@@ -2,51 +2,20 @@
   <div class="home content" v-if="!user || !repo">
     <welcome-world />
   </div>
-  <div v-else-if="notFound">
-    <div class="notification is-warning">
-      Not found.
-    </div>
-  </div>
-  <div class="home content note-container" v-else>
-    <div class="note readme">
-      <header-note class="header" />
-      <div class="repo-title">
-        <h1 class="title is-1">
-          [<router-link
-            :to="{ name: 'Home', params: { user, repo } }"
-            :key="routeKey"
-            @click="resetStackedNotes"
-            >{{ repo }}</router-link
-          >]
-        </h1>
-        <h4 class="subtitle is-4">
-          <em>{{ user }}</em>
-        </h4>
-      </div>
-      <p class="note-display" v-html="readme"></p>
-    </div>
-    <stacked-note
-      class="note"
-      v-for="(stackedNote, index) in stackedNotes"
-      :key="stackedNote"
-      :index="index"
-      :user="user"
-      :repo="repo"
-      :sha="stackedNote"
-      :title="titles[stackedNote ?? '']"
-    />
-  </div>
+  <flux-note class="home" :user="user" :repo="repo" :key="routeKey" v-else />
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent, computed, toRefs } from 'vue'
-import { useNote } from '@/hooks/useNote.hook'
+import {
+  defineComponent,
+  defineAsyncComponent,
+  computed,
+  toRefs,
+  watch
+} from 'vue'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import HeaderNote from '@/components/HeaderNote.vue'
 
-const StackedNote = defineAsyncComponent(() =>
-  import('@/components/StackedNote.vue')
-)
+const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
 const WelcomeWorld = defineAsyncComponent(() =>
   import('@/components/WelcomeWorld.vue')
@@ -55,9 +24,8 @@ const WelcomeWorld = defineAsyncComponent(() =>
 export default defineComponent({
   name: 'Home',
   components: {
-    StackedNote,
     WelcomeWorld,
-    HeaderNote
+    FluxNote
   },
   props: {
     user: { type: String, required: false, default: '' },
@@ -65,10 +33,14 @@ export default defineComponent({
   },
   setup(props) {
     const refProps = toRefs(props)
+    const { resetStackedNotes } = useQueryStackedNotes()
+
+    watch([refProps.user, refProps.repo], () => {
+      resetStackedNotes()
+    })
 
     return {
-      ...useNote('note-container', refProps.user, refProps.repo),
-      ...useQueryStackedNotes(),
+      resetStackedNotes,
       routeKey: computed(() => `${props.user}-${props.repo}`)
     }
   }
@@ -76,55 +48,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$header-height: 40px;
-
 .home {
   display: flex;
   flex: 1;
-
-  .header {
-    height: $header-height;
-  }
-
-  .readme {
-    position: sticky;
-    left: 0;
-    top: 0;
-    padding: 0 2rem 1rem;
-
-    .repo-title {
-      margin-top: 1rem;
-      text-align: center;
-    }
-  }
-
-  .note {
-    text-align: left;
-    overflow-y: auto;
-    height: 100vh;
-    position: sticky;
-    background-color: #fff;
-
-    &:not(:first-child) {
-      border-top: 1px solid rgba(18, 19, 58, 0.2);
-    }
-  }
-
-  @media screen and (min-width: 769px) {
-    .note {
-      min-width: 620px;
-      max-width: 620px;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .home {
-    flex-wrap: wrap;
-
-    .note {
-      width: 100%;
-    }
-  }
 }
 </style>
