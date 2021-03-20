@@ -81,7 +81,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
-import { useRepoList } from '@/modules/repo/hooks/userRepoList.hook'
+import { useRepoList } from '@/modules/repo/hooks/useRepoList.hook'
 import { useRepos } from '@/hooks/useRepos.hook'
 import GoBack from '@/components/GoBack.vue'
 

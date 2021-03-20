@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest'
-import { RepoBase } from '@/modules/interfaces/RepoBase'
+import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 import { useAsyncState } from '@vueuse/core'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 

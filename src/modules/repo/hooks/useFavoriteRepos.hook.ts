@@ -1,8 +1,8 @@
 import { computed, onMounted, ref } from 'vue'
 
 import { DataType } from '@/data/DataType.enum'
-import { FavoriteRepo } from '@/modules/models/FavoriteRepo'
-import { RepoBase } from '@/modules/interfaces/RepoBase'
+import { FavoriteRepo } from '@/modules/repo/models/FavoriteRepo'
+import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 import { data } from '@/data/data'
 import { useRepos } from '@/hooks/useRepos.hook'
 

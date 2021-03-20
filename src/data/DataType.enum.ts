@@ -1,4 +1,5 @@
 export enum DataType {
   GithubAccessToken = 'GithubAccessToken',
-  FavoriteRepo = 'FavoriteRepo'
+  FavoriteRepo = 'FavoriteRepo',
+  Note = 'Note'
 }

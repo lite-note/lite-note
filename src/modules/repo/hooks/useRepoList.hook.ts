@@ -1,4 +1,4 @@
-import { RepoBase } from '@/modules/interfaces/RepoBase'
+import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 import { computed } from 'vue'
 import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
 import { useRepos } from '@/hooks/useRepos.hook'

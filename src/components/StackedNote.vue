@@ -12,6 +12,12 @@
         {{ title }}
       </a>
     </div>
+    <img
+      class="offline-ready"
+      v-if="fromCache"
+      src="@/assets/icons/saved.svg"
+      alt="offline ready"
+    />
     <section v-html="content"></section>
   </div>
 </template>
@@ -33,7 +39,7 @@ export default defineComponent({
     sha: { type: String, required: true }
   },
   setup(props) {
-    const { content } = useFile(props.user, props.repo, props.sha)
+    const { content, fromCache } = useFile(props.user, props.repo, props.sha)
     const { listenToClick } = useLinks('stacked-note', props.sha)
     const { scrollToFocusedNote } = useFocus()
     const className = computed(() => `stacked-note-${props.index}`)
@@ -51,6 +57,7 @@ export default defineComponent({
 
     return {
       content,
+      fromCache,
       titleClassName,
       className,
       displayNoteOverlay,
@@ -75,6 +82,12 @@ $border-color: rgba(18, 19, 58, 0.2);
   section {
     padding: 0 1rem;
   }
+}
+
+.offline-ready {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 .title-stacked-note {
