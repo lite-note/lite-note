@@ -3,6 +3,7 @@ import { Ref, onMounted, ref, watch } from '@vue/runtime-core'
 import { Octokit } from '@octokit/rest'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
+import { useNoteCache } from '@/modules/note/hooks/useNoteCache'
 
 interface Tree {
   path?: string
@@ -14,6 +15,7 @@ interface Tree {
 }
 
 export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
+  const { getCachedNote, saveCacheNote } = useNoteCache('README')
   const { accessToken } = useGitHubLogin()
 
   const octokit = new Octokit({
@@ -29,8 +31,13 @@ export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
     if (!owner.value || !repo.value) {
       return
     }
+    const cachedReadme = await getCachedNote()
 
     try {
+      if (cachedReadme) {
+        readme.value = render(cachedReadme.content)
+      }
+
       const README = await octokit.repos.getReadme({
         owner: owner.value,
         repo: repo.value
@@ -38,6 +45,7 @@ export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
 
       if (README) {
         readme.value = render(README.data.content)
+        saveCacheNote(README.data.content)
       }
 
       const commits = await octokit.request(
@@ -69,7 +77,9 @@ export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
         console.log(tree.value)
       }
     } catch (error) {
-      notFound.value = true
+      if (!cachedReadme) {
+        notFound.value = true
+      }
     }
   }
 

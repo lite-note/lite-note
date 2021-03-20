@@ -12,12 +12,6 @@
         {{ title }}
       </a>
     </div>
-    <img
-      class="offline-ready"
-      v-if="fromCache"
-      src="@/assets/icons/saved.svg"
-      alt="offline ready"
-    />
     <section v-html="content"></section>
   </div>
 </template>

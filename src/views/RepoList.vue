@@ -2,7 +2,7 @@
   <div class="repo-list">
     <h1 class="title is-1">Repositories</h1>
     <go-back />
-    <span v-if="!isReady">loading...</span>
+    <div v-if="!isReady">loading...</div>
     <div v-else class="columns is-centered">
       <div class="column is-one-third">
         <table
