@@ -14,19 +14,15 @@ interface Tree {
   url?: string
 }
 
-export const useRepo = (
-  owner: Ref<string>,
-  repo: Ref<string>,
-  fetchRepo = true
-) => {
+export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
   const { getCachedNote, saveCacheNote } = useNoteCache('README')
   const { accessToken } = useGitHubLogin()
+  const { render } = useMarkdown()
 
   const octokit = new Octokit({
     auth: accessToken.value
   })
 
-  const { render } = useMarkdown()
   const readme = ref<string | null>(null)
   const notFound = ref(false)
   const tree = ref<Tree[]>([])
@@ -78,7 +74,6 @@ export const useRepo = (
 
       if (treeResponse) {
         tree.value = treeResponse.data.tree.filter((t) => t.type === 'blob')
-        console.log(tree.value)
       }
     } catch (error) {
       if (!cachedReadme) {
@@ -88,9 +83,7 @@ export const useRepo = (
   }
 
   onMounted(() => {
-    if (fetchRepo) {
-      retrieveRepo()
-    }
+    retrieveRepo()
   })
 
   watch([owner, repo], () => retrieveRepo())

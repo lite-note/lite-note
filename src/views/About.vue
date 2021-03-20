@@ -9,7 +9,7 @@
         <li>header note for quick actions ⏳</li>
         <li>offline notes</li>
         <li>full path resolver between notes</li>
-        <li>draft & "note on the fly" folders</li>
+        <li>draft & fleeting notes folders</li>
         <li>login with GitHub "Personal Access Token" tutorial</li>
         <li>private & public notes tutorial</li>
         <li>

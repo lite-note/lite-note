@@ -1,22 +1,21 @@
 <template>
   <div class="flux-note content note-container">
     <div class="note readme">
-      <header-note class="header" />
-      <slot>
-        <div class="repo-title">
-          <h1 class="title is-1">
-            [<router-link
-              :to="{ name: 'Home', params: { user, repo } }"
-              @click="resetStackedNotes"
-              >{{ repo }}</router-link
-            >]
-          </h1>
-          <h4 class="subtitle is-4">
-            <em>{{ user }}</em>
-          </h4>
-        </div>
-        <p class="note-display" v-html="readme"></p>
-      </slot>
+      <header-note class="header" :user="user" :repo="repo" />
+      <div class="repo-title">
+        <h1 class="title is-1">
+          [<router-link
+            :to="{ name: 'Home', params: { user, repo } }"
+            @click="resetStackedNotes"
+            >{{ repo }}</router-link
+          >]
+        </h1>
+        <h4 class="subtitle is-4">
+          <em>{{ user }}</em>
+        </h4>
+      </div>
+      <slot />
+      <p class="note-display" v-html="renderedContent ?? readme"></p>
     </div>
     <stacked-note
       class="note"
@@ -33,9 +32,18 @@
 
 <script lang="ts">
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { defineComponent, defineAsyncComponent, toRefs } from 'vue'
+import {
+  defineComponent,
+  defineAsyncComponent,
+  toRefs,
+  computed,
+  watch,
+  nextTick
+} from 'vue'
 import HeaderNote from '@/components/HeaderNote.vue'
 import { useNote } from '@/hooks/useNote.hook'
+import { useMarkdown } from '@/hooks/useMarkdown.hook'
+import { useLinks } from '@/hooks/useLinks.hook'
 
 const StackedNote = defineAsyncComponent(() =>
   import('@/components/StackedNote.vue')
@@ -48,14 +56,24 @@ export default defineComponent({
     StackedNote
   },
   props: {
-    user: { type: String, required: false, default: '' },
-    repo: { type: String, required: false, default: '' }
+    user: { type: String, required: true },
+    repo: { type: String, required: true },
+    content: { type: String, required: false, default: null }
   },
   setup(props) {
+    const { renderString } = useMarkdown()
     const refProps = toRefs(props)
+    const { listenToClick } = useLinks('note-display')
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
 
+    const renderedContent = computed(() =>
+      props.content !== null ? renderString(props.content) : null
+    )
+
+    watch(renderedContent, () => nextTick(() => listenToClick()))
+
     return {
+      renderedContent,
       stackedNotes,
       resetStackedNotes,
       ...useNote('note-container', refProps.user, refProps.repo)
@@ -68,6 +86,9 @@ export default defineComponent({
 $header-height: 40px;
 
 .flux-note {
+  display: flex;
+  flex: 1;
+
   .header {
     height: $header-height;
   }

@@ -28,11 +28,10 @@ export const useNote = (
   user: Ref<string>,
   repo: Ref<string>
 ) => {
-  const { push } = useRouter()
+  const { push, currentRoute } = useRouter()
   const { isMobile } = useOverlay(false)
   const { scrollToFocusedNote } = useFocus()
   const { stackedNotes, updateQueryStackedNotes } = useQueryStackedNotes()
-
   const { readme, notFound, tree } = useRepo(user, repo)
   const { listenToClick } = useLinks('note-display')
 
@@ -102,7 +101,7 @@ export const useNote = (
       const newStackedNotes = getStackedNotes()
 
       push({
-        name: 'Home',
+        name: currentRoute.value.name ?? 'Home',
         params: {
           user: user.value,
           repo: repo.value

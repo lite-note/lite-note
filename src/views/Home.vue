@@ -2,7 +2,7 @@
   <div class="home content" v-if="!user || !repo">
     <welcome-world />
   </div>
-  <flux-note class="home" :user="user" :repo="repo" :key="routeKey" v-else />
+  <flux-note :user="user" :repo="repo" :key="routeKey" v-else />
 </template>
 
 <script lang="ts">
