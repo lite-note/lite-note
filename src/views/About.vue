@@ -6,7 +6,8 @@
     <main>
       Work in progress:
       <ol>
-        <li>offline notes ⏳</li>
+        <li>header note for quick actions ⏳</li>
+        <li>offline notes</li>
         <li>full path resolver between notes</li>
         <li>draft & "note on the fly" folders</li>
         <li>login with GitHub "Personal Access Token" tutorial</li>
