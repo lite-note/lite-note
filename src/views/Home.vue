@@ -8,7 +8,8 @@
     </div>
   </div>
   <div class="home content note-container" v-else>
-    <div class="readme note">
+    <div class="note readme">
+      <header-note class="header" />
       <div class="repo-title">
         <h1 class="title is-1">
           [<router-link
@@ -41,6 +42,7 @@
 import { defineComponent, defineAsyncComponent, computed, toRefs } from 'vue'
 import { useNote } from '@/hooks/useNote.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import HeaderNote from '@/components/HeaderNote.vue'
 
 const StackedNote = defineAsyncComponent(() =>
   import('@/components/StackedNote.vue')
@@ -54,7 +56,8 @@ export default defineComponent({
   name: 'Home',
   components: {
     StackedNote,
-    WelcomeWorld
+    WelcomeWorld,
+    HeaderNote
   },
   props: {
     user: { type: String, required: false, default: '' },
@@ -73,17 +76,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$header-height: 40px;
+
 .home {
   display: flex;
   flex: 1;
+
+  .header {
+    height: $header-height;
+  }
 
   .readme {
     position: sticky;
     left: 0;
     top: 0;
-    padding: 2.5rem 2rem 1rem;
+    padding: 0 2rem 1rem;
 
     .repo-title {
+      margin-top: 1rem;
       text-align: center;
     }
   }
@@ -113,7 +123,7 @@ export default defineComponent({
     flex-wrap: wrap;
 
     .note {
-      width: 100vw;
+      width: 100%;
     }
   }
 }

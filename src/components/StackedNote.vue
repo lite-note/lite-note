@@ -97,7 +97,6 @@ $border-color: rgba(18, 19, 58, 0.2);
   a {
     color: #363636;
     display: block;
-    white-space: nowrap;
   }
 }
 
@@ -126,6 +125,10 @@ $border-color: rgba(18, 19, 58, 0.2);
     padding: 0 1rem;
     transform-origin: 0 0;
     transform: rotate(90deg);
+  }
+
+  a {
+    white-space: nowrap;
   }
 }
 </style>
