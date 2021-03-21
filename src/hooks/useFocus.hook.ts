@@ -21,7 +21,7 @@ export const useFocus = () => {
         const top = (index + 1) * (element?.clientHeight ?? height.value)
         scrollToNote(top)
       } else {
-        const left = index * NOTE_WIDTH
+        const left = (index + 1) * NOTE_WIDTH
         scrollToNote(left)
       }
     })
