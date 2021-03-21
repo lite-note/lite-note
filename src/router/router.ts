@@ -46,6 +46,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'SpaceCowboy',
+    component: () =>
+      import(/* webpackChunkName: "space-cowboy" */ '@/views/SpaceCowboy.vue')
   }
 ]
 
