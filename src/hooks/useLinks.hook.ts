@@ -45,9 +45,7 @@ export const useLinks = (className: string, sha?: string) => {
         return
       }
 
-      const isExternalLink =
-        LINKS.some((link) => href.startsWith(link)) &&
-        !href.startsWith(location.origin)
+      const isExternalLink = LINKS.some((link) => href.startsWith(link))
 
       if (isExternalLink) {
         element.classList.add('external-link')
