@@ -98,6 +98,16 @@
 
     <footer>
       <p>
+        Take a look at the
+        <router-link
+          :to="{
+            name: 'Home',
+            params: { user: 'lite-note', repo: 'getting-started' }
+          }"
+          >getting started guide</router-link
+        >.
+      </p>
+      <p>
         This web app was inspired by
         <a
           href="https://notes.andymatuschak.org/About_these_notes"
