@@ -36,10 +36,6 @@ export default defineComponent({
   align-items: center;
   justify-content: space-between;
 
-  a {
-    flex: 1;
-  }
-
   .special-folder {
     text-align: center;
   }
