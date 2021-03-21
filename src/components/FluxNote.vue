@@ -105,6 +105,10 @@ $header-height: 40px;
     }
   }
 
+  .note-display {
+    padding-bottom: 2rem;
+  }
+
   .note {
     text-align: left;
     overflow-y: auto;

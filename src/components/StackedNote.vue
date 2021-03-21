@@ -74,7 +74,7 @@ $border-color: rgba(18, 19, 58, 0.2);
   }
 
   section {
-    padding: 0 1rem;
+    padding: 0 1rem 2rem;
   }
 }
 
@@ -104,7 +104,7 @@ $border-color: rgba(18, 19, 58, 0.2);
     }
 
     section {
-      padding: 1rem 0;
+      padding: 1rem 0 2rem;
     }
   }
 }
