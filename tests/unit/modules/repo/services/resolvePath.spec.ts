@@ -33,5 +33,9 @@ describe('resolve path service', () => {
     expect(
       resolvePath('standard/you/are/here/README.md', './../../other-note.md')
     ).toEqual('standard/you/other-note.md')
+
+    expect(
+      resolvePath('standard/you/are/here/README.md', './../../../other-note.md')
+    ).toEqual('standard/other-note.md')
   })
 })
