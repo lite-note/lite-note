@@ -15,7 +15,10 @@
         </h4>
       </div>
       <slot />
-      <p class="note-display" v-html="renderedContent ?? readme"></p>
+      <div v-if="!hasContent">
+        No content here 📝
+      </div>
+      <p class="note-display" v-html="renderedContent"></p>
     </div>
     <stacked-note
       class="note"
@@ -66,17 +69,26 @@ export default defineComponent({
     const { listenToClick } = useLinks('note-display')
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
 
-    const renderedContent = computed(() =>
-      props.content !== null ? renderString(props.content) : null
+    const { readme, ...noteProps } = useNote(
+      'note-container',
+      refProps.user,
+      refProps.repo
     )
+
+    const renderedContent = computed(() =>
+      props.content !== null ? renderString(props.content) : readme.value
+    )
+
+    const hasContent = computed(() => !!renderedContent.value)
 
     watch(renderedContent, () => nextTick(() => listenToClick()))
 
     return {
+      hasContent,
       renderedContent,
       stackedNotes,
       resetStackedNotes,
-      ...useNote('note-container', refProps.user, refProps.repo)
+      ...noteProps
     }
   }
 })
