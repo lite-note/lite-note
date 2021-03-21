@@ -9,8 +9,9 @@
 </template>
 
 <script lang="ts">
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { useFolderNotes } from '@/modules/note/hooks/useFolderNotes'
-import { defineAsyncComponent, defineComponent, toRefs } from 'vue'
+import { defineAsyncComponent, defineComponent, onMounted, toRefs } from 'vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
@@ -32,6 +33,11 @@ export default defineComponent({
       refProps.user,
       refProps.repo
     )
+    const { resetStackedNotes } = useQueryStackedNotes()
+
+    onMounted(() => {
+      resetStackedNotes()
+    })
 
     return {
       content

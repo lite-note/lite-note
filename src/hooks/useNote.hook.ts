@@ -15,13 +15,7 @@ import { useOverlay } from '@/hooks/useOverlay.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { useRepo } from '@/hooks/useRepo.hook'
 import { useRouter } from 'vue-router'
-
-const sanitizePath = (path: string) => {
-  if (path.startsWith('./')) {
-    return decodeURIComponent(path.replace('./', ''))
-  }
-  return decodeURIComponent(path)
-}
+import { resolvePath } from '@/modules/repo/services/resolvePath'
 
 export const useNote = (
   containerClass: string,
@@ -59,19 +53,9 @@ export const useNote = (
     ({ path, currentNoteSHA }) => {
       const currentFile = tree.value.find((file) => file.sha === currentNoteSHA)
 
-      const absolutePathArray = currentFile?.path?.split('/') ?? []
-      absolutePathArray?.pop()
-      const absolutePath = absolutePathArray.join('/')
+      const finalPath = resolvePath(currentFile?.path ?? '', path)
 
-      const finalPath = absolutePath
-        ? `${sanitizePath(absolutePath)}/${sanitizePath(path)}`
-        : sanitizePath(path)
-
-      const relativePath = sanitizePath(path)
-
-      const file = tree.value.find(
-        (file) => file.path === finalPath || file.path === relativePath
-      )
+      const file = tree.value.find((file) => file.path === finalPath)
 
       if (!file?.sha || stackedNotes.value.includes(file.sha)) {
         scrollToFocusedNote(file?.sha)
