@@ -39,6 +39,22 @@ export const useLinks = (className: string, sha?: string) => {
     const elements = document.querySelectorAll(selector)
 
     elements.forEach((element) => {
+      const href = element.getAttribute('href')
+
+      if (!href) {
+        return
+      }
+
+      const isExternalLink =
+        LINKS.some((link) => href.startsWith(link)) &&
+        !href.startsWith(location.origin)
+
+      if (isExternalLink) {
+        element.classList.add('external-link')
+      }
+    })
+
+    elements.forEach((element) => {
       element.addEventListener('click', linkNote)
     })
   }
