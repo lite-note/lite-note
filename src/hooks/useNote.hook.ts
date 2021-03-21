@@ -44,6 +44,7 @@ export const useNote = (
         .split('/')
         .filter((path) => !path.includes('README'))
         .join('/')
+        .replaceAll('-', ' ')
 
       return obj
     }, {})
