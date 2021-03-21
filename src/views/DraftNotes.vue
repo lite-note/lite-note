@@ -1,8 +1,8 @@
 <template>
-  <div class="fleeting-notes">
+  <div class="draft-notes">
     <flux-note :user="user" :repo="repo" :content="content">
       <h3 class="subtitle is-3">
-        Fleeting notes
+        Drafts
       </h3>
     </flux-note>
   </div>
@@ -14,10 +14,10 @@ import { defineAsyncComponent, defineComponent, toRefs } from 'vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
-const FLEETING_NOTES_FOLDER = 'fleeting-notes'
+const DRAFT_FOLDER = 'drafts'
 
 export default defineComponent({
-  name: 'FleetingNotes',
+  name: 'DraftNotes',
   components: {
     FluxNote
   },
@@ -28,7 +28,7 @@ export default defineComponent({
   setup(props) {
     const refProps = toRefs(props)
     const { content } = useFolderNotes(
-      FLEETING_NOTES_FOLDER,
+      DRAFT_FOLDER,
       refProps.user,
       refProps.repo
     )
@@ -41,7 +41,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.fleeting-notes {
+.draft-notes {
   display: flex;
   flex: 1;
 

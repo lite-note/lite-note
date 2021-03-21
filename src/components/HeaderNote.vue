@@ -3,7 +3,16 @@
     <router-link :to="{ name: 'Home' }">
       <img src="@/assets/icons/dark-left-arrow.svg" alt="go back left arrow" />
     </router-link>
-    <router-link :to="{ name: 'FleetingNotes', params: { user, repo } }">
+    <router-link
+      class="special-folder"
+      :to="{ name: 'DraftNotes', params: { user, repo } }"
+    >
+      Draft
+    </router-link>
+    <router-link
+      class="special-folder"
+      :to="{ name: 'FleetingNotes', params: { user, repo } }"
+    >
       Fleeting notes
     </router-link>
   </header>
@@ -26,6 +35,14 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  a {
+    flex: 1;
+  }
+
+  .special-folder {
+    text-align: center;
+  }
 
   img:hover {
     cursor: pointer;

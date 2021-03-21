@@ -1,13 +1,15 @@
 import { useRepo } from '@/hooks/useRepo.hook'
 import { computed, Ref } from 'vue'
 
-const FLEETING_NOTES_FOLDER = 'fleeting-notes'
-
-export const useFleetingNotes = (owner: Ref<string>, repo: Ref<string>) => {
+export const useFolderNotes = (
+  folder: string,
+  owner: Ref<string>,
+  repo: Ref<string>
+) => {
   const { tree } = useRepo(owner, repo)
 
   const fleetingNotes = computed(() =>
-    tree.value.filter((file) => file.path?.startsWith(FLEETING_NOTES_FOLDER))
+    tree.value.filter((file) => file.path?.startsWith(folder))
   )
 
   const content = computed(() =>
