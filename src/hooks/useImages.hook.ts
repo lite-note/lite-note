@@ -3,7 +3,7 @@ import { useRepo } from '@/hooks/useRepo.hook'
 import { resolvePath } from '@/modules/repo/services/resolvePath'
 import { computed, Ref } from 'vue'
 
-const SRC_PREFIX = 'data:image/png;base64,'
+const SRC_PREFIX = 'data:image/jpeg;charset=utf-8;base64,'
 
 export const useImages = (
   user: Ref<string>,
