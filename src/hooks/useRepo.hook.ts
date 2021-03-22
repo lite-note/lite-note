@@ -1,4 +1,4 @@
-import { Ref, onMounted, ref, watch } from '@vue/runtime-core'
+import { Ref, ref, watch } from '@vue/runtime-core'
 
 import { Octokit } from '@octokit/rest'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
@@ -14,7 +14,13 @@ interface Tree {
   url?: string
 }
 
-export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
+const tree = ref<Tree[]>([])
+
+export const useRepo = (
+  owner: Ref<string>,
+  repo: Ref<string>,
+  retrieve = true
+) => {
   const { getCachedNote, saveCacheNote } = useNoteCache('README')
   const { accessToken } = useGitHubLogin()
   const { render } = useMarkdown()
@@ -25,7 +31,6 @@ export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
 
   const readme = ref<string | null>(null)
   const notFound = ref(false)
-  const tree = ref<Tree[]>([])
 
   const retrieveRepo = async () => {
     if (!owner.value || !repo.value) {
@@ -82,9 +87,9 @@ export const useRepo = (owner: Ref<string>, repo: Ref<string>) => {
     }
   }
 
-  onMounted(() => {
+  if (retrieve) {
     retrieveRepo()
-  })
+  }
 
   watch([owner, repo], () => retrieveRepo())
 

@@ -9,13 +9,16 @@ let initial = true
 export const useQueryStackedNotes = () => {
   const { query } = useRoute()
 
-  const setStackedNotes = () => {
-    stackedNotes.value = (Array.isArray(query.stackedNotes)
+  const initResetStackedNote = () =>
+    (Array.isArray(query.stackedNotes)
       ? query.stackedNotes
       : [query.stackedNotes]
     )
       .map((n) => n?.toString())
       .filter((n) => !!n) as string[]
+
+  const setStackedNotes = () => {
+    stackedNotes.value = initResetStackedNote()
   }
 
   if (initial) {
@@ -27,6 +30,6 @@ export const useQueryStackedNotes = () => {
     stackedNotes: readonly(stackedNotes),
     updateQueryStackedNotes: (newStackedNotes: string[]) =>
       (stackedNotes.value = newStackedNotes),
-    resetStackedNotes: () => (stackedNotes.value = [])
+    resetStackedNotes: () => initResetStackedNote()
   }
 }

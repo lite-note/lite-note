@@ -17,11 +17,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, watch } from 'vue'
+import { computed, defineComponent, nextTick, toRefs, watch } from 'vue'
 import { useFile } from '@/hooks/useFile.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
 import { useFocus } from '@/hooks/useFocus.hook'
+import { useImages } from '@/hooks/useImages.hook'
 
 export default defineComponent({
   name: 'StackedNote',
@@ -33,9 +34,10 @@ export default defineComponent({
     sha: { type: String, required: true }
   },
   setup(props) {
+    const refProps = toRefs(props)
+    const { scrollToFocusedNote } = useFocus()
     const { content, fromCache } = useFile(props.user, props.repo, props.sha)
     const { listenToClick } = useLinks('stacked-note', props.sha)
-    const { scrollToFocusedNote } = useFocus()
     const className = computed(() => `stacked-note-${props.index}`)
     const titleClassName = computed(() => `title-${className.value}`)
 
@@ -45,6 +47,7 @@ export default defineComponent({
       if (content.value) {
         nextTick(() => {
           listenToClick()
+          useImages(refProps.user, refProps.repo, props.sha)
         })
       }
     })

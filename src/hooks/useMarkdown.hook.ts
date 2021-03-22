@@ -1,7 +1,10 @@
 import MarkdownIt from 'markdown-it'
 import markdownItClass from '@toycode/markdown-it-class'
 
-const md = new MarkdownIt().use(markdownItClass, {
+const md = new MarkdownIt({
+  typographer: true,
+  quotes: ['«\xA0', '\xA0»', '‹\xA0', '\xA0›']
+}).use(markdownItClass, {
   h1: ['title', 'is-2'],
   h2: ['title', 'is-3'],
   h3: ['title', 'is-4'],

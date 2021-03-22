@@ -9,7 +9,9 @@ export const useFolderNotes = (
   const { tree } = useRepo(owner, repo)
 
   const fleetingNotes = computed(() =>
-    tree.value.filter((file) => file.path?.startsWith(folder))
+    tree.value.filter(
+      (file) => file.path?.startsWith(folder) && file.path?.endsWith('.md')
+    )
   )
 
   const content = computed(() =>

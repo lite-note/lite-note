@@ -4,7 +4,12 @@ import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { Octokit } from '@octokit/rest'
 import { useNoteCache } from '@/modules/note/hooks/useNoteCache'
 
-export const useFile = (owner: string, repo: string, sha: string) => {
+export const useFile = (
+  owner: string,
+  repo: string,
+  sha: string,
+  retrieveContent = true
+) => {
   const { getCachedNote, saveCacheNote } = useNoteCache(sha)
   const { accessToken } = useGitHubLogin()
   const fromCache = ref(false)
@@ -15,17 +20,7 @@ export const useFile = (owner: string, repo: string, sha: string) => {
 
   const content = ref('')
 
-  const getContent = async () => {
-    const { render } = useMarkdown()
-    const cachedNote = await getCachedNote()
-
-    fromCache.value = !!cachedNote
-
-    if (cachedNote) {
-      content.value = render(cachedNote.content)
-      return
-    }
-
+  const getFileContent = async () => {
     const file = await octokit.request(
       'GET /repos/{owner}/{repo}/git/blobs/{file_sha}',
       {
@@ -35,18 +30,36 @@ export const useFile = (owner: string, repo: string, sha: string) => {
       }
     )
 
-    if (!file) {
+    return file?.data.content
+  }
+
+  const getContent = async () => {
+    const { render } = useMarkdown()
+    const contentFile = await getFileContent()
+
+    const cachedNote = await getCachedNote()
+
+    fromCache.value = !!cachedNote
+
+    if (cachedNote) {
+      content.value = render(cachedNote.content)
       return
     }
 
-    saveCacheNote(file.data.content)
-    content.value = render(file.data.content)
+    if (!contentFile) {
+      return
+    }
+    saveCacheNote(contentFile)
+    content.value = render(contentFile)
   }
 
-  getContent()
+  if (retrieveContent) {
+    getContent()
+  }
 
   return {
     content,
+    getFileContent,
     fromCache
   }
 }
