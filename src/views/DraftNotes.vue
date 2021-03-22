@@ -1,6 +1,6 @@
 <template>
   <div class="draft-notes">
-    <flux-note :user="user" :repo="repo" :content="content">
+    <flux-note :user="user" :repo="repo" :content="content" key="draft-notes">
       <h3 class="subtitle is-3">
         Drafts
       </h3>

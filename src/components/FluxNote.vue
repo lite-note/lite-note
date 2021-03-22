@@ -41,7 +41,8 @@ import {
   toRefs,
   computed,
   watch,
-  nextTick
+  nextTick,
+  onUnmounted
 } from 'vue'
 import HeaderNote from '@/components/HeaderNote.vue'
 import { useNote } from '@/hooks/useNote.hook'
@@ -82,6 +83,10 @@ export default defineComponent({
     const hasContent = computed(() => !!renderedContent.value)
 
     watch(renderedContent, () => nextTick(() => listenToClick()))
+
+    onUnmounted(() => {
+      readme.value = ''
+    })
 
     return {
       hasContent,

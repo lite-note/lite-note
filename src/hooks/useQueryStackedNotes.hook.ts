@@ -10,20 +10,16 @@ export const useQueryStackedNotes = () => {
   const { query } = useRoute()
 
   const initResetStackedNote = () =>
-    (Array.isArray(query.stackedNotes)
+    (stackedNotes.value = (Array.isArray(query.stackedNotes)
       ? query.stackedNotes
       : [query.stackedNotes]
     )
       .map((n) => n?.toString())
-      .filter((n) => !!n) as string[]
-
-  const setStackedNotes = () => {
-    stackedNotes.value = initResetStackedNote()
-  }
+      .filter((n) => !!n) as string[])
 
   if (initial) {
     initial = false
-    setStackedNotes()
+    initResetStackedNote()
   }
 
   return {

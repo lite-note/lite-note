@@ -1,6 +1,11 @@
 <template>
   <div class="fleeting-notes">
-    <flux-note :user="user" :repo="repo" :content="content">
+    <flux-note
+      :user="user"
+      :repo="repo"
+      :content="content"
+      key="fleeting-notes"
+    >
       <h3 class="subtitle is-3">
         Fleeting notes
       </h3>
