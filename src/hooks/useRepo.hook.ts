@@ -19,7 +19,8 @@ const tree = ref<Tree[]>([])
 export const useRepo = (
   owner: Ref<string>,
   repo: Ref<string>,
-  retrieve = true
+  retrieve = true,
+  retrieveReadme = true
 ) => {
   const { getCachedNote, saveCacheNote } = useNoteCache('README')
   const { accessToken } = useGitHubLogin()
@@ -39,18 +40,20 @@ export const useRepo = (
     const cachedReadme = await getCachedNote()
 
     try {
-      if (cachedReadme) {
-        readme.value = render(cachedReadme.content)
-      }
+      if (retrieveReadme) {
+        if (cachedReadme) {
+          readme.value = render(cachedReadme.content)
+        }
 
-      const README = await octokit.repos.getReadme({
-        owner: owner.value,
-        repo: repo.value
-      })
+        const README = await octokit.repos.getReadme({
+          owner: owner.value,
+          repo: repo.value
+        })
 
-      if (README) {
-        readme.value = render(README.data.content)
-        saveCacheNote(README.data.content)
+        if (README) {
+          readme.value = render(README.data.content)
+          saveCacheNote(README.data.content)
+        }
       }
 
       const commits = await octokit.request(

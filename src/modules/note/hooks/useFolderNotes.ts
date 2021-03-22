@@ -6,7 +6,7 @@ export const useFolderNotes = (
   owner: Ref<string>,
   repo: Ref<string>
 ) => {
-  const { tree } = useRepo(owner, repo)
+  const { tree } = useRepo(owner, repo, true, false)
 
   const fleetingNotes = computed(() =>
     tree.value.filter(
