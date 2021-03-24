@@ -1,5 +1,10 @@
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
-import { getFiles, getMainReadme } from '@/modules/repo/services/repo'
+import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
+import {
+  getFiles,
+  getMainReadme,
+  getUserSettingsContent
+} from '@/modules/repo/services/repo'
 import { defineStore } from 'pinia'
 
 interface State {
@@ -7,6 +12,7 @@ interface State {
   repo: string
   files: RepoFile[]
   readme: string | null
+  userSettings: UserSettings | null
 }
 
 export const useUserRepoStore = defineStore({
@@ -15,7 +21,8 @@ export const useUserRepoStore = defineStore({
     user: '',
     repo: '',
     files: [],
-    readme: null
+    readme: null,
+    userSettings: null
   }),
   actions: {
     async setUserRepo(newUser: string, newRepo: string) {
@@ -25,6 +32,7 @@ export const useUserRepoStore = defineStore({
         getMainReadme(newUser, newRepo),
         getFiles(newUser, newRepo)
       ])
+      this.userSettings = await getUserSettingsContent(newUser, newRepo, files)
 
       this.readme = readme
       this.files = files

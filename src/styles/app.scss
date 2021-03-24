@@ -13,6 +13,10 @@
 $primary: #2c3a47;
 $link: #3b7e70;
 
+:root {
+  --font-family: 'Courier Prime', monospace;
+}
+
 @import '~bulma/bulma.sass';
 
 html {

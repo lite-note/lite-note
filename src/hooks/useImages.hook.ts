@@ -31,9 +31,9 @@ export const useImages = (sha: string) => {
       if (!imageFile?.sha) {
         return
       }
-      const { getFileContent } = useFile(imageFile.sha, false)
+      const { getContent } = useFile(imageFile.sha, false)
 
-      const fileContent = await getFileContent()
+      const fileContent = await getContent()
       image.setAttribute('src', `${SRC_PREFIX} ${fileContent}`)
     }
   })
