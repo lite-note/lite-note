@@ -38,7 +38,7 @@ export const useNote = (containerClass: string) => {
   )
 
   const unsubscribeLink = noteEventBus.addEventBusListener(
-    ({ path, currentNoteSHA }) => {
+    ({ user, repo, path, currentNoteSHA }) => {
       const currentFile = store.files.find(
         (file) => file.sha === currentNoteSHA
       )
@@ -77,8 +77,8 @@ export const useNote = (containerClass: string) => {
       push({
         name: currentRoute.value.name ?? 'Home',
         params: {
-          user: store.user,
-          repo: store.repo
+          user,
+          repo
         },
         query: {
           stackedNotes: newStackedNotes

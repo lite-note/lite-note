@@ -1,9 +1,12 @@
 import { noteEventBus } from '@/bus/noteBusEvent'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { onUnmounted } from '@vue/runtime-core'
 
 const LINKS = ['http://', 'https://']
 
 export const useLinks = (className: string, sha?: string) => {
+  const store = useUserRepoStore()
+
   const linkNote: EventListener = (event) => {
     event.preventDefault()
     const target = event.target as HTMLElement
@@ -20,7 +23,9 @@ export const useLinks = (className: string, sha?: string) => {
 
     noteEventBus.emit({
       path: href,
-      currentNoteSHA: sha
+      currentNoteSHA: sha,
+      user: store.user,
+      repo: store.repo
     })
   }
 

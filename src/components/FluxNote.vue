@@ -39,6 +39,7 @@ import {
   computed,
   watch,
   nextTick,
+  toRefs,
   onUnmounted
 } from 'vue'
 import HeaderNote from '@/components/HeaderNote.vue'
@@ -63,6 +64,7 @@ export default defineComponent({
     content: { type: String, required: false, default: null }
   },
   setup(props) {
+    const refProps = toRefs(props)
     const store = useUserRepoStore()
     const { renderString } = useMarkdown()
     const { listenToClick } = useLinks('note-display')
@@ -76,18 +78,26 @@ export default defineComponent({
 
     const hasContent = computed(() => !!renderedContent.value)
 
-    watch(renderedContent, () =>
-      nextTick(() => {
-        console.log(renderedContent)
-
-        listenToClick()
-      })
+    watch(
+      renderedContent,
+      () =>
+        nextTick(() => {
+          listenToClick()
+        }),
+      { immediate: true }
     )
 
-    store.setUserRepo(props.user, props.repo)
+    watch(
+      [refProps.user, refProps.repo],
+      () => {
+        store.setUserRepo(props.user, props.repo)
+      },
+      { immediate: true }
+    )
 
     onUnmounted(() => {
-      store.resetUserRepo()
+      store.resetFiles()
+      resetStackedNotes()
     })
 
     return {

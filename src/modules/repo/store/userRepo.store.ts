@@ -32,6 +32,9 @@ export const useUserRepoStore = defineStore({
     resetUserRepo() {
       this.user = ''
       this.repo = ''
+      this.resetFiles()
+    },
+    resetFiles() {
       this.files = []
       this.readme = null
     }
