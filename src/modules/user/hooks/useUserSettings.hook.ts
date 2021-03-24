@@ -7,6 +7,7 @@ export const useUserSettings = () => {
   watchEffect(() => {
     const fontFamily = store.userSettings?.fontFamily
     const root = document.documentElement
+
     if (fontFamily) {
       root.style.setProperty('--font-family', fontFamily)
     } else {
