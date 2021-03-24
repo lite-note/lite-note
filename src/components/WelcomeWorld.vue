@@ -25,7 +25,7 @@
           <ul>
             <li
               v-for="favoriteRepo in savedFavoriteRepos"
-              :key="favoriteRepo.id"
+              :key="favoriteRepo._id"
             >
               <router-link
                 :to="{
