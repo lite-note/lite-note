@@ -25,8 +25,6 @@
       v-for="(stackedNote, index) in stackedNotes"
       :key="stackedNote"
       :index="index"
-      :user="user"
-      :repo="repo"
       :sha="stackedNote"
       :title="titles[stackedNote ?? '']"
     />
@@ -38,7 +36,6 @@ import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import {
   defineComponent,
   defineAsyncComponent,
-  toRefs,
   computed,
   watch,
   nextTick,
@@ -48,6 +45,7 @@ import HeaderNote from '@/components/HeaderNote.vue'
 import { useNote } from '@/hooks/useNote.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
 const StackedNote = defineAsyncComponent(() =>
   import('@/components/StackedNote.vue')
@@ -65,27 +63,31 @@ export default defineComponent({
     content: { type: String, required: false, default: null }
   },
   setup(props) {
+    const store = useUserRepoStore()
     const { renderString } = useMarkdown()
-    const refProps = toRefs(props)
     const { listenToClick } = useLinks('note-display')
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
 
-    const { readme, ...noteProps } = useNote(
-      'note-container',
-      refProps.user,
-      refProps.repo
-    )
+    const { ...noteProps } = useNote('note-container')
 
     const renderedContent = computed(() =>
-      props.content !== null ? renderString(props.content) : readme.value
+      props.content !== null ? renderString(props.content) : store.readme
     )
 
     const hasContent = computed(() => !!renderedContent.value)
 
-    watch(renderedContent, () => nextTick(() => listenToClick()))
+    watch(renderedContent, () =>
+      nextTick(() => {
+        console.log(renderedContent)
+
+        listenToClick()
+      })
+    )
+
+    store.setUserRepo(props.user, props.repo)
 
     onUnmounted(() => {
-      readme.value = ''
+      store.resetUserRepo()
     })
 
     return {

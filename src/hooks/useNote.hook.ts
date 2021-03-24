@@ -1,40 +1,27 @@
-import {
-  computed,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  watch
-} from '@vue/runtime-core'
+import { computed, onMounted, onUnmounted, watch } from '@vue/runtime-core'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
-import { Ref } from '@vue/reactivity'
 import { noteEventBus } from '@/bus/noteBusEvent'
 import { useFocus } from '@/hooks/useFocus.hook'
-import { useLinks } from '@/hooks/useLinks.hook'
 import { useOverlay } from '@/hooks/useOverlay.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { useRepo } from '@/hooks/useRepo.hook'
 import { useRouter } from 'vue-router'
 import { resolvePath } from '@/modules/repo/services/resolvePath'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
-export const useNote = (
-  containerClass: string,
-  user: Ref<string>,
-  repo: Ref<string>
-) => {
+export const useNote = (containerClass: string) => {
+  const store = useUserRepoStore()
   const { push, currentRoute } = useRouter()
   const { isMobile } = useOverlay(false)
   const { scrollToFocusedNote } = useFocus()
   const { stackedNotes, updateQueryStackedNotes } = useQueryStackedNotes()
-  const { readme, notFound, tree } = useRepo(user, repo)
-  const { listenToClick } = useLinks('note-display')
 
   const titles = computed(() =>
     stackedNotes.value?.reduce((obj: Record<string, string>, note) => {
       if (!note) {
         return obj
       }
-      const filePath = tree.value.find((file) => file.sha === note)?.path ?? ''
+      const filePath = store.files.find((file) => file.sha === note)?.path ?? ''
 
       const fileNames = filePath.split('.')
 
@@ -52,11 +39,13 @@ export const useNote = (
 
   const unsubscribeLink = noteEventBus.addEventBusListener(
     ({ path, currentNoteSHA }) => {
-      const currentFile = tree.value.find((file) => file.sha === currentNoteSHA)
+      const currentFile = store.files.find(
+        (file) => file.sha === currentNoteSHA
+      )
 
       const finalPath = resolvePath(currentFile?.path ?? '', path)
 
-      const file = tree.value.find((file) => file.path === finalPath)
+      const file = store.files.find((file) => file.path === finalPath)
 
       if (!file?.sha || stackedNotes.value.includes(file.sha)) {
         scrollToFocusedNote(file?.sha)
@@ -88,8 +77,8 @@ export const useNote = (
       push({
         name: currentRoute.value.name ?? 'Home',
         params: {
-          user: user.value,
-          repo: repo.value
+          user: store.user,
+          repo: store.repo
         },
         query: {
           stackedNotes: newStackedNotes
@@ -100,12 +89,6 @@ export const useNote = (
       scrollToFocusedNote(file.sha)
     }
   )
-
-  watch([readme, user, repo], () => {
-    nextTick(() => {
-      listenToClick()
-    })
-  })
 
   const resizeContainer = () => {
     const element = document.querySelector(
@@ -134,8 +117,6 @@ export const useNote = (
   })
 
   return {
-    titles,
-    readme,
-    notFound
+    titles
   }
 }

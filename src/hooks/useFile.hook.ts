@@ -3,13 +3,10 @@ import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { Octokit } from '@octokit/rest'
 import { useNoteCache } from '@/modules/note/hooks/useNoteCache'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
-export const useFile = (
-  owner: string,
-  repo: string,
-  sha: string,
-  retrieveContent = true
-) => {
+export const useFile = (sha: string, retrieveContent = true) => {
+  const store = useUserRepoStore()
   const { getCachedNote, saveCacheNote } = useNoteCache(sha)
   const { accessToken } = useGitHubLogin()
   const fromCache = ref(false)
@@ -21,16 +18,20 @@ export const useFile = (
   const content = ref('')
 
   const getFileContent = async () => {
+    if (!store.user || !store.repo) {
+      null
+    }
+
     const file = await octokit.request(
       'GET /repos/{owner}/{repo}/git/blobs/{file_sha}',
       {
-        owner,
-        repo,
+        owner: store.user,
+        repo: store.repo,
         file_sha: sha
       }
     )
 
-    return file?.data.content
+    return file?.data.content ?? null
   }
 
   const getContent = async () => {

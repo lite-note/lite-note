@@ -1,5 +1,6 @@
 import '@/registerServiceWorker'
 
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
@@ -14,4 +15,5 @@ const i18n = createI18n({
 createApp(App)
   .use(router)
   .use(i18n)
+  .use(createPinia())
   .mount('#app')

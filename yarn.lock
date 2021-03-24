@@ -8886,6 +8886,11 @@ pify@^4.0.1:
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
+pinia@^2.0.0-alpha.7:
+  version "2.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.0-alpha.7.tgz#3b55af0185a45e6e1a75ba90f6da3e1a61623767"
+  integrity sha512-IXPG+4elwC+0h5r3FZUhcH+XwywMN+f9uxoMxzapz5ywBfo7BeE48wpC1o+81qnil5m3FhBOjMKZeS7t0t6ljw==
+
 pinkie-promise@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pinkie-promise/-/pinkie-promise-2.0.1.tgz#2135d6dfa7a358c069ac9b178776288228450ffa"

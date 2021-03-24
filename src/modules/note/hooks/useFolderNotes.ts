@@ -1,21 +1,17 @@
-import { useRepo } from '@/hooks/useRepo.hook'
-import { computed, Ref } from 'vue'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { computed } from 'vue'
 
-export const useFolderNotes = (
-  folder: string,
-  owner: Ref<string>,
-  repo: Ref<string>
-) => {
-  const { tree } = useRepo(owner, repo, true, false)
+export const useFolderNotes = (folder: string) => {
+  const store = useUserRepoStore()
 
   const fleetingNotes = computed(() =>
-    tree.value.filter(
+    store.files.filter(
       (file) => file.path?.startsWith(folder) && file.path?.endsWith('.md')
     )
   )
 
   const content = computed(() =>
-    fleetingNotes.value.length
+    fleetingNotes.value?.length
       ? fleetingNotes.value
           .map((note) => `- [${note.path}](${note.path})`)
           .join('\n')
