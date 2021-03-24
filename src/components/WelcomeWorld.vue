@@ -3,26 +3,14 @@
     <div class="columns">
       <div class="column">
         <h3 class="title is-3">Lite Note</h3>
-        <h4 class="subtitle is-4">Get started</h4>
-        <ol>
-          <li>
-            Take notes your favorite
-            <router-link :to="{ name: 'TextEditor' }">text editor</router-link>
-          </li>
-          <li>
-            Push to GitHub
-          </li>
-          <li>
-            Read it here
-          </li>
-          <li>
-            Share it with an URL
-          </li>
-          <li>
-            Or do it
-            <router-link :to="{ name: 'Login' }">privately</router-link>
-          </li>
-        </ol>
+        <router-link
+          :to="{
+            name: 'Home',
+            params: { user: 'lite-note', repo: 'getting-started' }
+          }"
+          class="button is-primary"
+          >getting started guide</router-link
+        >.
       </div>
       <div class="column">
         <p>
@@ -97,16 +85,6 @@
     </form>
 
     <footer>
-      <p>
-        Take a look at the
-        <router-link
-          :to="{
-            name: 'Home',
-            params: { user: 'lite-note', repo: 'getting-started' }
-          }"
-          >getting started guide</router-link
-        >.
-      </p>
       <p>
         This web app was inspired by
         <a
