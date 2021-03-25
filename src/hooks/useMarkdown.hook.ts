@@ -11,7 +11,7 @@ const md = new MarkdownIt({
   h4: ['title', 'is-5'],
   h5: ['title', 'is-6'],
   h6: ['title', 'is-6'],
-  table: ['table', 'is-striped', 'is-hoverable', 'is-fullwidth']
+  table: ['table', 'is-striped', 'is-hoverable']
 })
 
 export const useMarkdown = () => {

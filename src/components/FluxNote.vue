@@ -168,7 +168,7 @@ $header-height: 40px;
     flex-wrap: wrap;
 
     .note {
-      width: 100%;
+      width: 100vw;
     }
   }
 }

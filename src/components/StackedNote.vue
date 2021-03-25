@@ -12,7 +12,7 @@
         {{ title }}
       </a>
     </div>
-    <section v-html="content"></section>
+    <section class="note-content" v-html="content"></section>
   </div>
 </template>
 
@@ -105,6 +105,13 @@ $border-color: rgba(18, 19, 58, 0.2);
 
     section {
       padding: 1rem 0 2rem;
+      overflow-x: auto;
+    }
+
+    .note-content {
+      .table {
+        overflow-x: auto;
+      }
     }
   }
 }
