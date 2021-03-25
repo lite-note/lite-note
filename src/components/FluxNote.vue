@@ -2,6 +2,9 @@
   <div class="flux-note content note-container">
     <div class="note readme">
       <header-note class="header" :user="user" :repo="repo" />
+      <div class="repo-title-breadcrumb">
+        <a @click.prevent="focus">{{ repo }}</a>
+      </div>
       <div class="repo-title">
         <h1 class="title is-1">
           [<router-link
@@ -48,6 +51,7 @@ import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
+import { useFocus } from '@/hooks/useFocus.hook'
 
 const StackedNote = defineAsyncComponent(() =>
   import('@/components/StackedNote.vue')
@@ -71,6 +75,7 @@ export default defineComponent({
     const { renderString } = useMarkdown()
     const { listenToClick } = useLinks('note-display')
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
+    const { scrollToFocusedNote } = useFocus()
 
     const { ...noteProps } = useNote('note-container')
 
@@ -108,6 +113,7 @@ export default defineComponent({
       stackedNotes,
       resetStackedNotes,
       userSettings: computed(() => store.userSettings),
+      focus: () => scrollToFocusedNote(),
       ...noteProps
     }
   }
@@ -156,6 +162,18 @@ $header-height: 40px;
   }
 
   @media screen and (min-width: 769px) {
+    .repo-title-breadcrumb {
+      padding: 0 1rem;
+      transform-origin: 0 0;
+      transform: rotate(90deg);
+
+      a {
+        color: #363636;
+        display: block;
+        text-align: center;
+      }
+    }
+
     .note {
       min-width: 620px;
       max-width: 620px;
@@ -170,6 +188,11 @@ $header-height: 40px;
     .note {
       width: 100vw;
     }
+  }
+
+  .repo-title-breadcrumb {
+    display: none;
+    visibility: hidden;
   }
 }
 </style>

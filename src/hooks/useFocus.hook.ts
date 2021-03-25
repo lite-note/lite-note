@@ -11,8 +11,10 @@ export const useFocus = () => {
 
   const scrollToFocusedNote = (sha?: string) => {
     if (!sha) {
+      scrollToNote(0)
       return
     }
+
     nextTick(() => {
       const index = stackedNotes.value.findIndex((noteSHA) => noteSHA === sha)
 
