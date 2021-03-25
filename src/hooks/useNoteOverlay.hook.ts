@@ -4,7 +4,6 @@ import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
 
 const BOOKMARK_WIDTH = 2
-const BOOKMARK_HEIGHT = 2.5
 
 export const useNoteOverlay = (className: string, index: number) => {
   const { x, y, isMobile } = useOverlay()
@@ -28,7 +27,7 @@ export const useNoteOverlay = (className: string, index: number) => {
     noteHeight.value = noteElement.clientHeight
 
     if (isMobile.value) {
-      noteElement.style.top = `${(index + 1) * BOOKMARK_HEIGHT}rem`
+      noteElement.style.top = `0`
     } else {
       noteElement.style.left = `${(index + 1) * BOOKMARK_WIDTH}rem`
     }

@@ -91,16 +91,17 @@ export const useNote = (containerClass: string) => {
   )
 
   const resizeContainer = () => {
-    const element = document.querySelector(
+    const container = document.querySelector(
       `.${containerClass}`
     ) as HTMLElement | null
-    if (!element) {
+    if (!container) {
       return
     }
     if (isMobile.value) {
-      element.style.height = `${(stackedNotes.value.length + 1) * 100}vh`
+      container.style.height = `${(stackedNotes.value.length + 1) * 100}vh`
     } else {
-      element.style.width = `${NOTE_WIDTH * (stackedNotes.value.length + 1)}px`
+      container.style.width = `${NOTE_WIDTH *
+        (stackedNotes.value.length + 1)}px`
     }
   }
 
