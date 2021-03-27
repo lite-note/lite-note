@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-world">
-    <div class="columns">
-      <div class="column">
+    <div class="columns is-vcentered">
+      <div class="column get-started">
         <h3 class="title is-3">Lite Note</h3>
         <router-link
           :to="{
@@ -9,19 +9,16 @@
             params: { user: 'lite-note', repo: 'getting-started' }
           }"
           class="button is-primary"
-          >getting started guide</router-link
-        >.
+          >Get started</router-link
+        >
       </div>
       <div class="column">
-        <p>
-          <router-link :to="{ name: 'RepoList' }" v-if="isLogged"
-            >Manage your repos</router-link
-          >
-        </p>
         <section v-if="savedFavoriteRepos.length">
-          <h4 class="subtitle is-4">
-            ⭐
-          </h4>
+          <p>
+            <router-link :to="{ name: 'RepoList' }" v-if="isLogged"
+              >Manage your repos</router-link
+            >
+          </p>
           <ul>
             <li
               v-for="favoriteRepo in savedFavoriteRepos"
@@ -133,6 +130,11 @@ export default defineComponent({
   margin: auto;
   display: flex;
   flex-direction: column;
+
+  .get-started {
+    margin: center;
+    text-align: center;
+  }
 
   h3,
   h4 {
