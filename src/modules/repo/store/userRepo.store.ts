@@ -11,8 +11,8 @@ interface State {
   user: string
   repo: string
   files: RepoFile[]
-  readme: string | null
-  userSettings: UserSettings | null
+  readme?: string | null
+  userSettings?: UserSettings | null
 }
 
 export const useUserRepoStore = defineStore({
@@ -21,8 +21,8 @@ export const useUserRepoStore = defineStore({
     user: '',
     repo: '',
     files: [],
-    readme: null,
-    userSettings: null
+    readme: undefined,
+    userSettings: undefined
   }),
   actions: {
     async setUserRepo(newUser: string, newRepo: string) {
@@ -45,7 +45,7 @@ export const useUserRepoStore = defineStore({
     resetFiles() {
       this.files = []
       this.readme = null
-      this.userSettings = null
+      this.userSettings = undefined
     }
   }
 })

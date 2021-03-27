@@ -1,5 +1,5 @@
 <template>
-  <div class="flux-note content note-container">
+  <main class="flux-note content note-container" v-if="!isLoading">
     <div class="note readme">
       <header-note class="header" :user="user" :repo="repo" />
       <div class="repo-title-breadcrumb">
@@ -31,7 +31,7 @@
       :sha="stackedNote"
       :title="titles[stackedNote ?? '']"
     />
-  </div>
+  </main>
 </template>
 
 <script lang="ts">
@@ -84,6 +84,7 @@ export default defineComponent({
     )
 
     const hasContent = computed(() => !!renderedContent.value)
+    const isLoading = computed(() => renderedContent.value === undefined)
 
     watch(
       renderedContent,
@@ -109,6 +110,7 @@ export default defineComponent({
 
     return {
       hasContent,
+      isLoading,
       renderedContent,
       stackedNotes,
       resetStackedNotes,
@@ -120,14 +122,34 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 $header-height: 40px;
 
 .flux-note {
   font-family: var(--font-family);
+  color: var(--font-color);
+  background-color: var(--background-color);
+  transition-property: color, background-color;
+  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
 
   display: flex;
   flex: 1;
+
+  &.content {
+    .title,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--font-color);
+    }
+
+    blockquote {
+      background-color: var(--background-color);
+    }
+  }
 
   .header {
     height: $header-height;
@@ -154,7 +176,6 @@ $header-height: 40px;
     overflow-y: auto;
     height: 100vh;
     position: sticky;
-    background-color: #fff;
 
     &:not(:first-child) {
       border-top: 1px solid rgba(18, 19, 58, 0.2);
@@ -168,7 +189,7 @@ $header-height: 40px;
       transform: rotate(90deg);
 
       a {
-        color: #363636;
+        color: var(--font-color);
         display: block;
         text-align: center;
       }

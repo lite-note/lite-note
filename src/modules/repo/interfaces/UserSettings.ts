@@ -6,4 +6,5 @@ export interface UserSettings {
     | 'Maven Pro'
     | 'Noto Sans KR'
     | 'Tajawal'
+  mode?: 'light' | 'dark'
 }

@@ -66,6 +66,7 @@ $border-color: rgba(18, 19, 58, 0.2);
 
 .stacked-note {
   padding: 1rem 1.5rem;
+  background-color: var(--background-color);
 
   transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
 
@@ -89,7 +90,7 @@ $border-color: rgba(18, 19, 58, 0.2);
   top: 0;
 
   a {
-    color: #363636;
+    color: var(--font-color);
     display: block;
   }
 }
@@ -100,7 +101,6 @@ $border-color: rgba(18, 19, 58, 0.2);
 
     .title-stacked-note {
       padding: 0.5rem 0 0;
-      background-color: white;
     }
 
     section {

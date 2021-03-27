@@ -1,6 +1,9 @@
 <template>
   <header class="header-note">
-    <router-link :to="{ name: 'Home' }">
+    <router-link
+      :to="{ name: 'Home' }"
+      class="button is-small is-white back-button"
+    >
       <img src="@/assets/icons/dark-left-arrow.svg" alt="go back left arrow" />
     </router-link>
     <router-link
@@ -35,13 +38,16 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 10px;
 
   .special-folder {
     text-align: center;
   }
 
-  img:hover {
-    cursor: pointer;
+  img {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>

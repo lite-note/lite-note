@@ -1,5 +1,5 @@
 <template>
-  <button class="button is-primary go-back" @click="back">
+  <button class="button is-white go-back" @click="back">
     <img src="@/assets/icons/left-arrow.svg" alt="back" />
   </button>
 </template>
@@ -22,5 +22,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .go-back {
+  margin: 10px 0;
 }
 </style>
