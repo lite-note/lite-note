@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 
+import { serviceWorkerBusEvent } from '@/bus/serviceWorkerEventBus'
 import { register } from 'register-service-worker'
-import { emit } from 'retrobus'
-import { BusEvent } from '@/bus/busEvent'
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
@@ -23,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated() {
       console.log('New content is available; please refresh.')
-      emit(BusEvent.NEW_VERSION)
+      serviceWorkerBusEvent.emit()
     },
     offline() {
       console.log(

@@ -1,5 +1,6 @@
 <template>
   <div class="home content" v-if="!user || !repo">
+    <new-version class="new-version" />
     <welcome-world />
   </div>
   <flux-note :user="user" :repo="repo" :key="routeKey" v-else />
@@ -8,6 +9,7 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent, computed } from 'vue'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import NewVersion from '@/components/NewVersion.vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
@@ -19,7 +21,8 @@ export default defineComponent({
   name: 'Home',
   components: {
     WelcomeWorld,
-    FluxNote
+    FluxNote,
+    NewVersion
   },
   props: {
     user: { type: String, required: false, default: '' },
@@ -40,5 +43,11 @@ export default defineComponent({
 .home {
   display: flex;
   flex: 1;
+  flex-direction: column;
+  align-items: center;
+
+  .new-version {
+    margin-top: 1rem;
+  }
 }
 </style>
