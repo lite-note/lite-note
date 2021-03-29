@@ -1,7 +1,7 @@
 import { computed, onMounted, onUnmounted, watch } from '@vue/runtime-core'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
-import { noteEventBus } from '@/bus/noteBusEvent'
+import { noteEventBus } from '@/bus/noteEventBus'
 import { useFocus } from '@/hooks/useFocus.hook'
 import { useOverlay } from '@/hooks/useOverlay.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'

@@ -1,4 +1,4 @@
-import { noteEventBus } from '@/bus/noteBusEvent'
+import { noteEventBus } from '@/bus/noteEventBus'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { onUnmounted } from '@vue/runtime-core'
 

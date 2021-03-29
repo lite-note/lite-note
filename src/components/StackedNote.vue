@@ -89,6 +89,7 @@ $border-color: rgba(18, 19, 58, 0.2);
   background-color: var(--background-color);
   position: sticky;
   top: 0;
+  font-size: 0.8em;
 
   a {
     color: var(--font-color);
