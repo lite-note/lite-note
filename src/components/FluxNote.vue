@@ -115,7 +115,7 @@ export default defineComponent({
       stackedNotes,
       resetStackedNotes,
       userSettings: computed(() => store.userSettings),
-      focus: () => scrollToFocusedNote(),
+      focus: () => scrollToFocusedNote(undefined, true),
       ...noteProps
     }
   }

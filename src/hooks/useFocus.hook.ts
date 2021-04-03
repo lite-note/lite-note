@@ -9,8 +9,13 @@ export const useFocus = () => {
   const { scrollToNote, isMobile } = useOverlay(false)
   const { stackedNotes } = useQueryStackedNotes()
 
-  const scrollToFocusedNote = (sha?: string) => {
+  const scrollToFocusedNote = (sha?: string, backToTop?: boolean) => {
     if (!sha) {
+      return
+    }
+
+    if (backToTop) {
+      scrollToNote(0)
       return
     }
 

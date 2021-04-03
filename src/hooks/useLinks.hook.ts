@@ -12,6 +12,8 @@ export const useLinks = (className: string, sha?: string) => {
     const target = event.target as HTMLElement
     const href = target.getAttribute('href')
 
+    console.log(target, href)
+
     if (!href) {
       return
     }
