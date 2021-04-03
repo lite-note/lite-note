@@ -10,7 +10,7 @@
       class="special-folder"
       :to="{ name: 'DraftNotes', params: { user, repo } }"
     >
-      Draft
+      draft
     </router-link>
     <router-link
       class="special-folder"
