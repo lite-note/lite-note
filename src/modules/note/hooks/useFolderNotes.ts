@@ -11,11 +11,11 @@ export const useFolderNotes = (folder: string) => {
   )
 
   const content = computed(() =>
-    fleetingNotes.value?.length
+    fleetingNotes.value?.length > 0
       ? fleetingNotes.value
           .map((note) => `- [${note.path}](${note.path})`)
           .join('\n')
-      : ''
+      : null
   )
 
   return {

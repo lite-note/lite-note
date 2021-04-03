@@ -7,7 +7,7 @@
       key="fleeting-notes"
     >
       <h3 class="subtitle is-3">
-        Fleeting notes
+        Inbox
       </h3>
     </flux-note>
   </div>
