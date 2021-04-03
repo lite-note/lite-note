@@ -7,7 +7,7 @@
       key="fleeting-notes"
     >
       <h3 class="subtitle is-3">
-        Fleeting notes
+        Inbox
       </h3>
     </flux-note>
   </div>
@@ -19,7 +19,7 @@ import { defineAsyncComponent, defineComponent } from 'vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
-const FLEETING_NOTES_FOLDER = 'fleeting-notes'
+const FLEETING_NOTES_FOLDER = 'inbox'
 
 export default defineComponent({
   name: 'FleetingNotes',

@@ -1,5 +1,5 @@
 <template>
-  <main class="flux-note content note-container" v-if="!isLoading">
+  <main class="flux-note content note-container">
     <div class="note readme">
       <header-note class="header" :user="user" :repo="repo" />
       <div class="repo-title-breadcrumb">
@@ -18,7 +18,14 @@
         </h4>
       </div>
       <slot />
-      <div v-if="!hasContent">
+      <div v-if="isLoading" class="loading">
+        <img
+          class="is-loading"
+          src="@/assets/icons/loading.svg"
+          alt="loading..."
+        />
+      </div>
+      <div v-else-if="!hasContent">
         No content here 📝
       </div>
       <p class="note-display" v-html="renderedContent"></p>
@@ -199,6 +206,17 @@ $header-height: 40px;
     .note {
       min-width: 620px;
       max-width: 620px;
+    }
+  }
+
+  .loading {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+    .is-loading {
+      animation: spinAround 0.8s infinite linear;
     }
   }
 }

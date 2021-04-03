@@ -10,12 +10,12 @@ export const useFocus = () => {
   const { stackedNotes } = useQueryStackedNotes()
 
   const scrollToFocusedNote = (sha?: string, backToTop?: boolean) => {
-    if (!sha) {
+    if (backToTop) {
+      scrollToNote(0)
       return
     }
 
-    if (backToTop) {
-      scrollToNote(0)
+    if (!sha) {
       return
     }
 

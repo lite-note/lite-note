@@ -10,13 +10,13 @@
       class="special-folder"
       :to="{ name: 'DraftNotes', params: { user, repo } }"
     >
-      Draft
+      draft
     </router-link>
     <router-link
       class="special-folder"
       :to="{ name: 'FleetingNotes', params: { user, repo } }"
     >
-      Fleeting notes
+      inbox
     </router-link>
   </header>
 </template>
