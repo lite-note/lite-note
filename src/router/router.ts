@@ -27,13 +27,11 @@ const routes: Array<RouteRecordRaw> = [
     component: Home
   },
   {
-    path: '/:user/:repo/fleeting-notes',
+    path: '/:user/:repo/inbox',
     name: 'FleetingNotes',
     props: true,
     component: () =>
-      import(
-        /* webpackChunkName: "fleeting-notes" */ '@/views/FleetingNotes.vue'
-      )
+      import(/* webpackChunkName: "inbox" */ '@/views/FleetingNotes.vue')
   },
   {
     path: '/:user/:repo/draft',

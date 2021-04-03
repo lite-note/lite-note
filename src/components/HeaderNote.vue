@@ -16,7 +16,7 @@
       class="special-folder"
       :to="{ name: 'FleetingNotes', params: { user, repo } }"
     >
-      Fleeting notes
+      inbox
     </router-link>
   </header>
 </template>
