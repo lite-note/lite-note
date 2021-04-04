@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { DataType } from '@/data/DataType.enum'
 import { GithubAccessToken } from '@/data/models/GithubAccessToken'
 import { data } from '@/data/data'
+import { confirmMessage } from '@/utils/notif'
 
 const personalAccessTokenId = 'PAT'
 const username = ref<string | null>(null)
@@ -40,6 +41,7 @@ export const useGitHubLogin = () => {
 
     await data.add(personalAccessToken)
     getAccessToken()
+    confirmMessage('token saved!')
   }
 
   return {
