@@ -13,12 +13,12 @@
         >
       </div>
       <div class="column">
+        <p>
+          <router-link :to="{ name: 'RepoList' }" v-if="isLogged"
+            >Manage your repos</router-link
+          >
+        </p>
         <section v-if="savedFavoriteRepos.length">
-          <p>
-            <router-link :to="{ name: 'RepoList' }" v-if="isLogged"
-              >Manage your repos</router-link
-            >
-          </p>
           <ul>
             <li
               v-for="favoriteRepo in savedFavoriteRepos"

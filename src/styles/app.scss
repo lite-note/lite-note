@@ -57,12 +57,18 @@ body {
   display: flex;
 }
 
-a.external-link {
-  text-decoration: underline;
+a {
+  &:hover {
+    color: darken($link, 20);
+  }
 
-  &::after {
-    margin-left: 0.2rem;
-    vertical-align: text-top;
-    content: url('assets/icons/external-link.svg');
+  &.external-link {
+    text-decoration: underline;
+
+    &::after {
+      margin-left: 0.2rem;
+      vertical-align: text-top;
+      content: url('assets/icons/external-link.svg');
+    }
   }
 }
