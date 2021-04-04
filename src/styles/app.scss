@@ -18,6 +18,7 @@ $family-primary: 'Courier Prime', monospace;
   --font-family: var(#{$family-primary});
   --font-color: #4a4a4a;
   --background-color: white;
+  --note-width: 620px;
 }
 
 @import '~bulma/bulma.sass';
