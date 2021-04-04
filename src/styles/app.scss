@@ -11,10 +11,11 @@
 */
 
 $primary: #2c3a47;
-$link: #3b7e70;
+$link: #44b9a0;
+$family-primary: 'Courier Prime', monospace;
 
 :root {
-  --font-family: 'Courier Prime', monospace;
+  --font-family: var(#{$family-primary});
   --font-color: #4a4a4a;
   --background-color: white;
 }
@@ -27,7 +28,6 @@ html {
 }
 
 body {
-  font-family: 'Courier Prime', monospace;
   height: 100vh;
   scroll-behavior: smooth;
   overflow-y: auto;
