@@ -83,16 +83,6 @@
 
     <footer>
       <p>
-        This web app was inspired by
-        <a
-          href="https://notes.andymatuschak.org/About_these_notes"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Andy Matuschak's website</a
-        >.
-      </p>
-
-      <p>
         Made with <img src="@/assets/icons/love.svg" alt="love" /> by
         <a
           href="http://github.com/jcalixte"
