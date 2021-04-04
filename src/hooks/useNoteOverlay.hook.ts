@@ -2,12 +2,14 @@ import { computed, onMounted, ref } from '@vue/runtime-core'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 
 const BOOKMARK_WIDTH = 2
 
 export const useNoteOverlay = (className: string, index: number) => {
   const { x, y, isMobile } = useOverlay()
   const noteHeight = ref(0)
+
   const displayNoteOverlay = computed(() => {
     if (isMobile.value) {
       return y.value > index * noteHeight.value
@@ -17,6 +19,7 @@ export const useNoteOverlay = (className: string, index: number) => {
   })
 
   onMounted(() => {
+    const { stackedNotes } = useQueryStackedNotes()
     const noteElement = document.querySelector(
       `.${className}`
     ) as HTMLElement | null
@@ -30,6 +33,10 @@ export const useNoteOverlay = (className: string, index: number) => {
       noteElement.style.top = `0`
     } else {
       noteElement.style.left = `${(index + 1) * BOOKMARK_WIDTH}rem`
+      noteElement.style.right = `calc(-${NOTE_WIDTH}px + ${(stackedNotes.value
+        .length -
+        index) *
+        BOOKMARK_WIDTH}rem)`
     }
   })
 
