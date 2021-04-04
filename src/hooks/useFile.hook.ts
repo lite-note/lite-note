@@ -5,6 +5,7 @@ import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { getFileContent } from '@/modules/repo/services/repo'
 
 export const useFile = (sha: string, retrieveContent = true) => {
+  const { render } = useMarkdown()
   const store = useUserRepoStore()
   const { getCachedNote, saveCacheNote } = useNoteCache(sha)
   const fromCache = ref(false)
@@ -12,23 +13,29 @@ export const useFile = (sha: string, retrieveContent = true) => {
   const content = ref('')
 
   const getContent = async () => {
-    const { render } = useMarkdown()
-    const contentFile = await getFileContent(store.user, store.repo, sha)
+    const fileContent = await getCachedFileContent()
+    if (!fileContent) {
+      return
+    }
+    content.value = render(fileContent)
+  }
 
+  const getCachedFileContent = async (): Promise<string | null> => {
     const cachedNote = await getCachedNote()
 
     fromCache.value = !!cachedNote
 
     if (cachedNote) {
-      content.value = render(cachedNote.content)
-      return
+      return cachedNote.content
     }
 
+    const contentFile = await getFileContent(store.user, store.repo, sha)
+
     if (!contentFile) {
-      return
+      return null
     }
     saveCacheNote(contentFile)
-    content.value = render(contentFile)
+    return contentFile
   }
 
   if (retrieveContent) {
@@ -38,6 +45,7 @@ export const useFile = (sha: string, retrieveContent = true) => {
   return {
     content,
     getContent,
+    getCachedFileContent,
     fromCache
   }
 }

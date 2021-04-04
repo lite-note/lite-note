@@ -84,7 +84,7 @@ export default defineComponent({
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
     const { scrollToFocusedNote } = useFocus()
 
-    const { ...noteProps } = useNote('note-container')
+    const { titles } = useNote('note-container')
 
     const renderedContent = computed(() =>
       props.content !== null ? renderString(props.content) : store.readme
@@ -123,7 +123,7 @@ export default defineComponent({
       resetStackedNotes,
       userSettings: computed(() => store.userSettings),
       focus: () => scrollToFocusedNote(undefined, true),
-      ...noteProps
+      titles
     }
   }
 })
