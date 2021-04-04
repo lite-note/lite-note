@@ -17,7 +17,7 @@ $family-primary: 'Courier Prime', monospace;
 :root {
   --font-family: var(#{$family-primary});
   --font-color: #4a4a4a;
-  --background-color: white;
+  --background-color: #ffffff;
   --note-width: 620px;
 }
 
@@ -33,6 +33,7 @@ body {
   scroll-behavior: smooth;
   overflow-y: auto;
   font-size: 1.2em;
+  background-color: var(--background-color);
 }
 
 @media screen and (min-width: 769px) {
