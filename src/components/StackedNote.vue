@@ -9,7 +9,7 @@
   >
     <div class="title-stacked-note" :class="titleClassName">
       <a @click.prevent="focus">
-        {{ title }}
+        {{ displayedTitle }}
       </a>
     </div>
     <section class="note-content" v-html="content"></section>
@@ -39,6 +39,7 @@ export default defineComponent({
     const titleClassName = computed(() => `title-${className.value}`)
 
     const { displayNoteOverlay } = useNoteOverlay(className.value, props.index)
+    const displayedTitle = computed(() => props.title.replaceAll('/', ' / '))
 
     watch(content, () => {
       if (content.value) {
@@ -55,6 +56,7 @@ export default defineComponent({
       titleClassName,
       className,
       displayNoteOverlay,
+      displayedTitle,
       focus: () => scrollToFocusedNote(props.sha)
     }
   }
