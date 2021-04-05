@@ -19,7 +19,7 @@ import { defineAsyncComponent, defineComponent } from 'vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
-const FLEETING_NOTES_FOLDER = 'inbox'
+const FLEETING_NOTES_FOLDER = ['inbox', '_inbox']
 
 export default defineComponent({
   name: 'FleetingNotes',
