@@ -5,3 +5,4 @@ declare module '*.vue' {
 }
 declare module 'pouchdb-adapter-indexeddb'
 declare module '@toycode/markdown-it-class'
+declare module 'markdown-it-block-embed'
