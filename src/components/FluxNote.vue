@@ -195,6 +195,7 @@ $header-height: 40px;
       padding: 0 1rem;
       transform-origin: 0 0;
       transform: rotate(90deg);
+      font-size: 0.8em;
 
       a {
         color: var(--font-color);
