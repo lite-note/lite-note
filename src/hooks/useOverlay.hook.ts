@@ -1,10 +1,9 @@
 import { computed, ref } from 'vue'
 import { useEventListener, useWindowSize } from '@vueuse/core'
-
 import { MOBILE_BREAKPOINT } from '@/constants/mobile'
 
 export const useOverlay = (listen = true) => {
-  const body = document.querySelector('body') as HTMLBodyElement
+  const body = document.body
   const x = ref(0)
   const y = ref(0)
   const { width } = useWindowSize()

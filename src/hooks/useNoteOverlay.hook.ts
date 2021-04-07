@@ -1,4 +1,4 @@
-import { computed, onMounted, ref } from '@vue/runtime-core'
+import { computed, onMounted, ref, watch } from '@vue/runtime-core'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
@@ -33,10 +33,17 @@ export const useNoteOverlay = (className: string, index: number) => {
       noteElement.style.top = `0`
     } else {
       noteElement.style.left = `${(index + 1) * BOOKMARK_WIDTH}rem`
-      noteElement.style.right = `calc(-${NOTE_WIDTH}px + ${(stackedNotes.value
-        .length -
-        index) *
-        BOOKMARK_WIDTH}rem)`
+
+      const stackedNoteContainers = document.querySelectorAll(
+        '.stacked-note'
+      ) as NodeListOf<HTMLElement>
+
+      stackedNoteContainers.forEach((stackedNote, ind) => {
+        stackedNote.style.right = `calc(-${NOTE_WIDTH}px + ${(stackedNotes.value
+          .length -
+          ind) *
+          BOOKMARK_WIDTH}rem)`
+      })
     }
   })
 
