@@ -1,7 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import markdownItClass from '@toycode/markdown-it-class'
 import blockEmbedPlugin from 'markdown-it-block-embed'
-import { NOTE_WIDTH } from '@/constants/note-width'
 
 const md = new MarkdownIt({
   typographer: true,
@@ -18,7 +17,7 @@ const md = new MarkdownIt({
   })
   .use(blockEmbedPlugin, {
     youtube: {
-      width: NOTE_WIDTH - 80
+      width: '100%'
     }
   })
 
