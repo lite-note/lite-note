@@ -22,13 +22,15 @@ export const useFocus = () => {
     nextTick(() => {
       const index = stackedNotes.value.findIndex((noteSHA) => noteSHA === sha)
 
+      const hasOneStackedNote = stackedNotes.value.length === 1
+
       if (isMobile.value) {
         const element = document.querySelector(`.note-${sha}`) as HTMLElement
         const top = (index + 1) * (element?.clientHeight ?? height.value)
-        scrollToNote(top)
+        scrollToNote(top, hasOneStackedNote)
       } else {
         const left = (index + 1) * NOTE_WIDTH
-        scrollToNote(left)
+        scrollToNote(left, hasOneStackedNote)
       }
     })
   }
