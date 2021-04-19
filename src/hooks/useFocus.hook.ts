@@ -29,7 +29,8 @@ export const useFocus = () => {
         const top = (index + 1) * (element?.clientHeight ?? height.value)
         scrollToNote(top, hasOneStackedNote)
       } else {
-        const left = (index + 1) * NOTE_WIDTH
+        const margin = index * 44
+        const left = (index + 1) * NOTE_WIDTH - margin
         scrollToNote(left, hasOneStackedNote)
       }
     })
