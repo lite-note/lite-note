@@ -192,7 +192,7 @@ $header-height: 40px;
 
   @media screen and (min-width: 769px) {
     .repo-title-breadcrumb {
-      padding: 0 1rem;
+      padding: 0.5rem 1rem 0;
       transform-origin: 0 0;
       transform: rotate(90deg);
       font-size: 0.8em;
