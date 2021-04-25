@@ -1,7 +1,7 @@
 <template>
   <main class="flux-note content note-container">
     <div class="note readme">
-      <header-note class="header" :user="user" :repo="repo" />
+      <header-note v-if="withHeader" class="header" :user="user" :repo="repo" />
       <div class="repo-title-breadcrumb">
         <a @click.prevent="focus">{{ repo }}</a>
       </div>
@@ -36,6 +36,8 @@
       :key="stackedNote"
       :index="index"
       :sha="stackedNote"
+      :user="user"
+      :repo="repo"
       :title="titles[stackedNote ?? '']"
     />
   </main>
@@ -73,7 +75,8 @@ export default defineComponent({
   props: {
     user: { type: String, required: true },
     repo: { type: String, required: true },
-    content: { type: String, required: false, default: null }
+    content: { type: String, required: false, default: null },
+    withHeader: { type: Boolean, required: false, default: true }
   },
   setup(props) {
     const refProps = toRefs(props)
@@ -190,25 +193,26 @@ $header-height: 40px;
     }
   }
 
-  @media screen and (min-width: 769px) {
-    .repo-title-breadcrumb {
-      padding: 0.5rem 1rem 0;
-      transform-origin: 0 0;
-      transform: rotate(90deg);
-      font-size: 0.8em;
+  // @media screen and (min-width: 769px) {
+  //   .repo-title-breadcrumb {
+  //     padding: 0.5rem 1rem 0;
+  //     transform-origin: 0 0;
+  //     transform: rotate(90deg);
+  //     font-size: 0.8em;
 
-      a {
-        color: var(--font-color);
-        display: block;
-        text-align: center;
-      }
-    }
+  //     a {
+  //       color: var(--font-color);
+  //       display: block;
+  //       text-align: center;
+  //     }
+  //   }
 
-    .note {
-      min-width: var(--note-width);
-      max-width: var(--note-width);
-    }
-  }
+  //   .note {
+  //     min-width: var(--note-width);
+  //     max-width: var(--note-width);
+  //     height: auto;
+  //   }
+  // }
 
   .loading {
     display: flex;
@@ -222,12 +226,19 @@ $header-height: 40px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media print, screen {
+  .readme {
+    position: static;
+  }
+
   .flux-note {
     flex-wrap: wrap;
 
     .note {
       width: 100vw;
+      height: auto;
+      position: static;
+      overflow-y: visible;
     }
   }
 

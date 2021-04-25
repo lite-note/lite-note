@@ -12,6 +12,16 @@
         {{ displayedTitle }}
       </a>
     </div>
+    <div class="share">
+      <router-link
+        :to="{
+          name: 'ShareNotes',
+          params: { user: user, repo: repo, note: sha }
+        }"
+      >
+        <img src="@/assets/icons/share.svg" alt="share" />
+      </router-link>
+    </div>
     <section class="note-content" v-html="content"></section>
   </div>
 </template>
@@ -27,6 +37,8 @@ import { useImages } from '@/hooks/useImages.hook'
 export default defineComponent({
   name: 'StackedNote',
   props: {
+    user: { type: String, required: true },
+    repo: { type: String, required: true },
     index: { type: Number, required: true },
     title: { type: String, required: true },
     sha: { type: String, required: true }
@@ -96,6 +108,13 @@ $border-color: rgba(18, 19, 58, 0.2);
   a {
     color: var(--font-color);
     display: block;
+  }
+}
+
+.share {
+  float: right;
+  img {
+    vertical-align: bottom;
   }
 }
 

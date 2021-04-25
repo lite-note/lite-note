@@ -35,10 +35,18 @@ body {
   font-size: 1.2em;
 }
 
-@media screen and (min-width: 769px) {
+// @media screen and (min-width: 769px) {
+//   html,
+//   body {
+//     overflow-y: hidden;
+//   }
+// }
+
+@media print, screen {
   html,
   body {
-    overflow-y: hidden;
+    overflow-y: auto;
+    height: auto;
   }
 }
 
