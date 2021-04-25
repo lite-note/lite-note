@@ -193,26 +193,26 @@ $header-height: 40px;
     }
   }
 
-  // @media screen and (min-width: 769px) {
-  //   .repo-title-breadcrumb {
-  //     padding: 0.5rem 1rem 0;
-  //     transform-origin: 0 0;
-  //     transform: rotate(90deg);
-  //     font-size: 0.8em;
+  @media screen and (min-width: 769px) {
+    .repo-title-breadcrumb {
+      padding: 0.5rem 1rem 0;
+      transform-origin: 0 0;
+      transform: rotate(90deg);
+      font-size: 0.8em;
 
-  //     a {
-  //       color: var(--font-color);
-  //       display: block;
-  //       text-align: center;
-  //     }
-  //   }
+      a {
+        color: var(--font-color);
+        display: block;
+        text-align: center;
+      }
+    }
 
-  //   .note {
-  //     min-width: var(--note-width);
-  //     max-width: var(--note-width);
-  //     height: auto;
-  //   }
-  // }
+    .note {
+      min-width: var(--note-width);
+      max-width: var(--note-width);
+      height: auto;
+    }
+  }
 
   .loading {
     display: flex;
@@ -226,7 +226,7 @@ $header-height: 40px;
   }
 }
 
-@media print, screen {
+@media print {
   .readme {
     position: static;
   }

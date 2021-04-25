@@ -102,6 +102,7 @@ $border-color: rgba(18, 19, 58, 0.2);
 .title-stacked-note {
   background-color: var(--background-color);
   position: sticky;
+
   top: 0;
   font-size: 0.8em;
 
@@ -113,6 +114,8 @@ $border-color: rgba(18, 19, 58, 0.2);
 
 .share {
   float: right;
+  margin: 0.2rem;
+
   img {
     vertical-align: bottom;
   }
@@ -153,6 +156,16 @@ $border-color: rgba(18, 19, 58, 0.2);
 
   a {
     white-space: nowrap;
+  }
+}
+
+@media print {
+  .stacked-note {
+    break-after: always;
+
+    &.overlay {
+      box-shadow: none;
+    }
   }
 }
 </style>
