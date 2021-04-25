@@ -12,7 +12,7 @@
         {{ displayedTitle }}
       </a>
     </div>
-    <div class="share">
+    <div class="share" v-if="false">
       <router-link
         :to="{
           name: 'ShareNotes',
