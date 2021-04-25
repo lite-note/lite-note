@@ -11,10 +11,13 @@ import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'GoBack',
   setup() {
-    const { go } = useRouter()
+    const { push } = useRouter()
 
     return {
-      back: () => go(-1)
+      back: () =>
+        push({
+          name: 'Home'
+        })
     }
   }
 })

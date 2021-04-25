@@ -72,12 +72,20 @@ import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'Login',
   setup() {
-    const { go } = useRouter()
+    const { push } = useRouter()
     const { username, accessToken, ...form } = useGitHubLogin()
     const user = ref(username.value ?? '')
     const token = ref(accessToken.value ?? '')
 
-    return { ...form, user, token, back: () => go(-1) }
+    return {
+      ...form,
+      user,
+      token,
+      back: () =>
+        push({
+          name: 'Home'
+        })
+    }
   }
 })
 </script>
