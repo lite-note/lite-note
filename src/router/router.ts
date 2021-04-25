@@ -4,12 +4,6 @@ import Home from '@/views/Home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/text-editor',
-    name: 'TextEditor',
-    component: () =>
-      import(/* webpackChunkName: "text-editor" */ '@/views/TextEditor.vue')
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue')
@@ -25,6 +19,13 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     props: true,
     component: Home
+  },
+  {
+    path: '/:user/:repo/share/:note',
+    name: 'ShareNotes',
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "share-notes" */ '@/views/ShareNotes.vue')
   },
   {
     path: '/:user/:repo/inbox',
