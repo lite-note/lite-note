@@ -226,20 +226,14 @@ $header-height: 40px;
   }
 }
 
-@media print {
-  .readme {
-    position: static;
-  }
-
+@media print, screen and (max-width: 768px) {
   .flux-note {
     flex-wrap: wrap;
+  }
 
-    .note {
-      width: 100vw;
-      height: auto;
-      position: static;
-      overflow-y: visible;
-    }
+  .note {
+    width: 100vw;
+    overflow-y: visible;
   }
 
   .repo-title-breadcrumb {
