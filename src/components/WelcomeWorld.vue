@@ -11,6 +11,8 @@
           class="button is-primary"
           >Get started</router-link
         >
+        <hr />
+        <sign-in-github />
       </div>
       <div class="column">
         <p>
@@ -102,8 +104,10 @@ import { defineComponent } from 'vue'
 import { useForm } from '@/hooks/useForm.hook'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
+import SignInGithub from '@/components/SignInGithub.vue'
 
 export default defineComponent({
+  components: { SignInGithub },
   name: 'WelcomeWord',
   setup() {
     const { isLogged, username } = useGitHubLogin()
