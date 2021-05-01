@@ -6,6 +6,7 @@ import { confirmMessage } from '@/utils/notif'
 import { GithubAccessToken } from '@/data/models/GithubAccessToken'
 import { Octokit } from '@octokit/rest'
 import { GithubToken } from '@/modules/user/interfaces/GithubToken'
+import { addMilliseconds } from 'date-fns'
 
 const personalTokenId = 'token'
 const username = ref<string | null>(null)
@@ -39,10 +40,20 @@ export const useGitHubLogin = () => {
       $type: DataType.GithubAccessToken,
       token: githubToken.access_token,
       expiresIn: githubToken.expires_in,
+      expirationDate: addMilliseconds(
+        new Date(),
+        githubToken.expires_in
+      ).toISOString(),
       refreshToken: githubToken.refresh_token,
       refreshTokenExpiresIn: githubToken.refresh_token_expires_in,
+      refreshTokenExpirationDate: addMilliseconds(
+        new Date(),
+        githubToken.refresh_token_expires_in
+      ).toISOString(),
       username: ''
     }
+
+    console.log(accessToken)
 
     const octokit = new Octokit({
       auth: accessToken.token
