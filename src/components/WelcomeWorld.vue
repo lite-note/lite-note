@@ -3,16 +3,20 @@
     <div class="columns is-vcentered">
       <div class="column get-started">
         <h3 class="title is-3">Lite Note</h3>
-        <router-link
-          :to="{
-            name: 'Home',
-            params: { user: 'lite-note', repo: 'getting-started' }
-          }"
-          class="button is-primary"
-          >Get started</router-link
-        >
-        <hr />
-        <sign-in-github />
+        <div class="buttons is-centered">
+          <router-link
+            :to="{
+              name: 'Home',
+              params: { user: 'lite-note', repo: 'getting-started' }
+            }"
+            class="button is-primary"
+            >Get started</router-link
+          >
+          <router-link class="button" :to="{ name: 'About' }"
+            >about</router-link
+          >
+        </div>
+        <sign-in-github class="github-login" />
       </div>
       <div class="column">
         <p>
@@ -92,8 +96,6 @@
           rel="noopener noreferrer"
           >Julien</a
         >
-        |
-        <router-link :to="{ name: 'About' }">about</router-link>
       </p>
     </footer>
   </div>
@@ -123,7 +125,9 @@ export default defineComponent({
   padding: 1rem;
   margin: auto;
   display: flex;
+  flex: 1;
   flex-direction: column;
+  justify-content: space-between;
 
   .get-started {
     margin: center;
@@ -133,6 +137,10 @@ export default defineComponent({
   h3,
   h4 {
     text-align: center;
+  }
+
+  .github-login {
+    margin-top: 1rem;
   }
 }
 

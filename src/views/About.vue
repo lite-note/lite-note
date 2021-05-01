@@ -1,24 +1,22 @@
 <template>
   <div class="about content">
-    <h1 class="title is-1">Lite Note</h1>
     <go-back />
-    <hr />
     <main>
       Work in progress:
       <ol>
-        <li>header note for quick actions ⏳</li>
-        <li>offline notes</li>
-        <li>full path resolver between notes</li>
-        <li>draft & fleeting notes folders</li>
-        <li>login with GitHub "Personal Access Token" tutorial</li>
-        <li>private & public notes tutorial</li>
+        <li>header note for quick actions ✅</li>
+        <li>offline notes ✅</li>
+        <li>full path resolver between notes ✅</li>
+        <li>draft & fleeting notes folders ✅</li>
+        <li>private & public notes tutorial ✅</li>
         <li>
           custom settings:
           <ul>
-            <li>light & dark modes</li>
-            <li>font families</li>
+            <li>light & dark modes ✅</li>
+            <li>font families ✅</li>
           </ul>
         </li>
+        <li>Share PDF section of a note (and its subnotes) ⏳</li>
       </ol>
     </main>
   </div>
