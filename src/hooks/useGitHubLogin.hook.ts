@@ -34,22 +34,26 @@ export const useGitHubLogin = () => {
   const saveCredentials = async (githubToken: GithubToken) => {
     const actualPAT = await getAccessToken()
 
+    const expirationDate = addMilliseconds(
+      new Date(),
+      githubToken.expires_in
+    ).toISOString()
+
+    const refreshTokenExpirationDate = addMilliseconds(
+      new Date(),
+      githubToken.refresh_token_expires_in
+    ).toISOString()
+
     const accessToken: GithubAccessToken = {
       ...actualPAT,
       _id: data.generateId(DataType.GithubAccessToken, personalTokenId),
       $type: DataType.GithubAccessToken,
       token: githubToken.access_token,
       expiresIn: githubToken.expires_in,
-      expirationDate: addMilliseconds(
-        new Date(),
-        githubToken.expires_in
-      ).toISOString(),
+      expirationDate,
       refreshToken: githubToken.refresh_token,
       refreshTokenExpiresIn: githubToken.refresh_token_expires_in,
-      refreshTokenExpirationDate: addMilliseconds(
-        new Date(),
-        githubToken.refresh_token_expires_in
-      ).toISOString(),
+      refreshTokenExpirationDate,
       username: ''
     }
 
