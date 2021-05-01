@@ -51,12 +51,12 @@ export default defineComponent({
 
   .new-version {
     position: absolute;
-    margin-top: 1rem;
+    top: 1rem;
+    right: 1rem;
   }
 }
 
 .authorize {
-  position: absolute;
   margin: auto;
 }
 </style>

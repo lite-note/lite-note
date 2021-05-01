@@ -6,7 +6,7 @@ import { confirmMessage } from '@/utils/notif'
 import { GithubAccessToken } from '@/data/models/GithubAccessToken'
 import { Octokit } from '@octokit/rest'
 import { GithubToken } from '@/modules/user/interfaces/GithubToken'
-import { addMilliseconds } from 'date-fns'
+import { addSeconds } from 'date-fns'
 
 const personalTokenId = 'token'
 const username = ref<string | null>(null)
@@ -34,12 +34,12 @@ export const useGitHubLogin = () => {
   const saveCredentials = async (githubToken: GithubToken) => {
     const actualPAT = await getAccessToken()
 
-    const expirationDate = addMilliseconds(
+    const expirationDate = addSeconds(
       new Date(),
       githubToken.expires_in
     ).toISOString()
 
-    const refreshTokenExpirationDate = addMilliseconds(
+    const refreshTokenExpirationDate = addSeconds(
       new Date(),
       githubToken.refresh_token_expires_in
     ).toISOString()

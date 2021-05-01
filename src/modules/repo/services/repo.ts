@@ -15,7 +15,7 @@ const personalTokenId = 'token'
 
 const GITHUB_URL = 'https://github.com/login/oauth/access_token'
 
-const refreshToken = async () => {
+export const refreshToken = async () => {
   const accessToken = await data.get<
     DataType.GithubAccessToken,
     GithubAccessToken
@@ -24,8 +24,15 @@ const refreshToken = async () => {
     return
   }
 
+  console.log(
+    new Date(accessToken.expirationDate) >= new Date(),
+    accessToken.expirationDate,
+    new Date()
+  )
+
   if (new Date(accessToken.expirationDate) >= new Date()) {
     const response = await fetch(GITHUB_URL, {
+      method: 'POST',
       body: JSON.stringify({
         refresh_token: accessToken.refreshToken,
         grant_type: 'refresh_token'
@@ -39,20 +46,24 @@ const refreshToken = async () => {
       return
     }
 
+    const expirationDate = addMilliseconds(
+      new Date(),
+      githubToken.expires_in
+    ).toISOString()
+
+    const refreshTokenExpirationDate = addMilliseconds(
+      new Date(),
+      githubToken.refresh_token_expires_in
+    ).toISOString()
+
     const updatedAccessToken: GithubAccessToken = {
       ...accessToken,
       token: githubToken.access_token,
       expiresIn: githubToken.expires_in,
-      expirationDate: addMilliseconds(
-        new Date(),
-        githubToken.expires_in
-      ).toISOString(),
+      expirationDate,
       refreshToken: githubToken.refresh_token,
       refreshTokenExpiresIn: githubToken.refresh_token_expires_in,
-      refreshTokenExpirationDate: addMilliseconds(
-        new Date(),
-        githubToken.refresh_token_expires_in
-      ).toISOString()
+      refreshTokenExpirationDate
     }
 
     await data.add<DataType.GithubAccessToken>({
@@ -68,7 +79,6 @@ export const getFiles = async (
   if (!owner || !repo) {
     return []
   }
-  await refreshToken()
 
   const { accessToken } = useGitHubLogin()
 
@@ -104,7 +114,6 @@ export const getMainReadme = async (owner: string, repo: string) => {
   if (!owner || !repo) {
     return null
   }
-  await refreshToken()
 
   const { render } = useMarkdown()
   const { getCachedNote, saveCacheNote } = useNoteCache('README')
@@ -169,8 +178,6 @@ export const getFileContent = async (
   if (!user || !repo) {
     null
   }
-
-  await refreshToken()
 
   const file = await octokit.request(
     'GET /repos/{owner}/{repo}/git/blobs/{file_sha}',
