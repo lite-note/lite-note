@@ -53,8 +53,6 @@ export const useGitHubLogin = () => {
       username: ''
     }
 
-    console.log(accessToken)
-
     const octokit = new Octokit({
       auth: accessToken.token
     })
