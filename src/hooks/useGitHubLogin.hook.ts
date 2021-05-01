@@ -1,11 +1,13 @@
 import { computed, ref } from 'vue'
 
 import { DataType } from '@/data/DataType.enum'
-import { GithubAccessToken } from '@/data/models/GithubAccessToken'
 import { data } from '@/data/data'
 import { confirmMessage } from '@/utils/notif'
+import { GithubAccessToken } from '@/data/models/GithubAccessToken'
+import { Octokit } from '@octokit/rest'
+import { GithubToken } from '@/modules/user/interfaces/GithubToken'
 
-const personalAccessTokenId = 'PAT'
+const personalTokenId = 'token'
 const username = ref<string | null>(null)
 const accessToken = ref<string | null>(null)
 
@@ -16,9 +18,9 @@ export const useGitHubLogin = () => {
     const response = await data.get<
       DataType.GithubAccessToken,
       GithubAccessToken
-    >(data.generateId(DataType.GithubAccessToken, personalAccessTokenId))
+    >(data.generateId(DataType.GithubAccessToken, personalTokenId))
     username.value = response?.username || ''
-    accessToken.value = response?.personalAccessToken || ''
+    accessToken.value = response?.token || ''
 
     return response
   }
@@ -28,24 +30,35 @@ export const useGitHubLogin = () => {
     getAccessToken()
   }
 
-  const saveCredentials = async (username: string, token: string) => {
+  const saveCredentials = async (githubToken: GithubToken) => {
     const actualPAT = await getAccessToken()
 
-    const personalAccessToken: GithubAccessToken = {
+    const accessToken: GithubAccessToken = {
       ...actualPAT,
-      _id: data.generateId(DataType.GithubAccessToken, personalAccessTokenId),
+      _id: data.generateId(DataType.GithubAccessToken, personalTokenId),
       $type: DataType.GithubAccessToken,
-      username,
-      personalAccessToken: token
+      token: githubToken.access_token,
+      expiresIn: githubToken.expires_in,
+      refreshToken: githubToken.refresh_token,
+      refreshTokenExpiresIn: githubToken.refresh_token_expires_in,
+      username: ''
     }
 
-    await data.add(personalAccessToken)
+    const octokit = new Octokit({
+      auth: accessToken.token
+    })
+
+    const user = await octokit.request('GET /user')
+    accessToken.username = user.data.login
+    username.value = accessToken.username
+
+    await data.add(accessToken)
     getAccessToken()
-    confirmMessage('token saved!')
+    confirmMessage(`${accessToken.username} is logged in!`)
   }
 
   return {
-    isLogged: !!username.value && !!accessToken.value,
+    isLogged: !!accessToken.value,
     isReady: computed(() => accessToken.value !== null),
     username,
     accessToken,
