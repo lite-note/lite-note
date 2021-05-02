@@ -4,7 +4,7 @@ import { GithubAccessToken } from '@/data/models/GithubAccessToken'
 import { GithubToken } from '@/modules/user/interfaces/GithubToken'
 import { GithubTokenError } from '@/modules/user/interfaces/GithubTokenError'
 import { Octokit } from '@octokit/rest'
-import { addMilliseconds } from 'date-fns'
+import { addSeconds } from 'date-fns'
 
 const AUTHENTICATION_SERVER = 'https://litenote.li212.fr'
 const personalTokenId = 'token'
@@ -34,7 +34,7 @@ export const refreshToken = async () => {
   console.log(
     new Date(accessToken.expirationDate) >= new Date(),
     accessToken.expirationDate,
-    new Date()
+    accessToken
   )
 
   if (new Date(accessToken.expirationDate) >= new Date()) {
@@ -46,6 +46,8 @@ export const refreshToken = async () => {
     const githubToken = (await response.json()) as
       | GithubToken
       | GithubTokenError
+
+    console.log(response)
 
     if ('error' in githubToken) {
       return null
@@ -69,12 +71,12 @@ export const getAccessToken = async () => {
 export const saveAccessToken = async (githubToken: GithubToken) => {
   const actualPAT = await getAccessToken()
 
-  const expirationDate = addMilliseconds(
+  const expirationDate = addSeconds(
     new Date(),
     githubToken.expires_in
   ).toISOString()
 
-  const refreshTokenExpirationDate = addMilliseconds(
+  const refreshTokenExpirationDate = addSeconds(
     new Date(),
     githubToken.refresh_token_expires_in
   ).toISOString()
