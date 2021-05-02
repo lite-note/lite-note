@@ -40,14 +40,9 @@ export const refreshToken = async () => {
   if (new Date(accessToken.expirationDate) >= new Date()) {
     const authenticationServerURL = new URL(AUTHENTICATION_SERVER)
     authenticationServerURL.searchParams.set('type', 'refresh')
+    authenticationServerURL.searchParams.set('code', accessToken.refreshToken)
 
-    const response = await fetch(authenticationServerURL.toString(), {
-      method: 'POST',
-      body: JSON.stringify({
-        refresh_token: accessToken.refreshToken,
-        grant_type: 'refresh_token'
-      })
-    })
+    const response = await fetch(authenticationServerURL.toString())
     const githubToken = (await response.json()) as
       | GithubToken
       | GithubTokenError

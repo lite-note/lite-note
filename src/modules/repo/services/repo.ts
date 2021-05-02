@@ -3,6 +3,7 @@ import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNoteCache } from '@/modules/note/hooks/useNoteCache'
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
+import { refreshToken } from '@/modules/user/service/signIn'
 import { Octokit } from '@octokit/rest'
 
 export const getFiles = async (
@@ -12,6 +13,7 @@ export const getFiles = async (
   if (!owner || !repo) {
     return []
   }
+  await refreshToken()
 
   const { accessToken } = useGitHubLogin()
 
@@ -54,6 +56,7 @@ export const getMainReadme = async (owner: string, repo: string) => {
   const cachedReadme = await getCachedNote()
 
   try {
+    await refreshToken()
     const { accessToken } = useGitHubLogin()
     const octokit = new Octokit({
       auth: accessToken.value
@@ -102,6 +105,7 @@ export const getFileContent = async (
   repo: string,
   sha: string
 ) => {
+  await refreshToken()
   const { accessToken } = useGitHubLogin()
 
   const octokit = new Octokit({
