@@ -1,76 +1,9 @@
-import { data } from '@/data/data'
-import { DataType } from '@/data/DataType.enum'
-import { GithubAccessToken } from '@/data/models/GithubAccessToken'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNoteCache } from '@/modules/note/hooks/useNoteCache'
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
-import { GithubToken } from '@/modules/user/interfaces/GithubToken'
-import { GithubTokenError } from '@/modules/user/interfaces/GithubTokenError'
 import { Octokit } from '@octokit/rest'
-import { addMilliseconds } from 'date-fns'
-
-const personalTokenId = 'token'
-
-const GITHUB_URL = 'https://github.com/login/oauth/access_token'
-
-export const refreshToken = async () => {
-  const accessToken = await data.get<
-    DataType.GithubAccessToken,
-    GithubAccessToken
-  >(data.generateId(DataType.GithubAccessToken, personalTokenId))
-  if (!accessToken) {
-    return
-  }
-
-  console.log(
-    new Date(accessToken.expirationDate) >= new Date(),
-    accessToken.expirationDate,
-    new Date()
-  )
-
-  if (new Date(accessToken.expirationDate) >= new Date()) {
-    const response = await fetch(GITHUB_URL, {
-      method: 'POST',
-      body: JSON.stringify({
-        refresh_token: accessToken.refreshToken,
-        grant_type: 'refresh_token'
-      })
-    })
-    const githubToken = (await response.json()) as
-      | GithubToken
-      | GithubTokenError
-
-    if ('error' in githubToken) {
-      return
-    }
-
-    const expirationDate = addMilliseconds(
-      new Date(),
-      githubToken.expires_in
-    ).toISOString()
-
-    const refreshTokenExpirationDate = addMilliseconds(
-      new Date(),
-      githubToken.refresh_token_expires_in
-    ).toISOString()
-
-    const updatedAccessToken: GithubAccessToken = {
-      ...accessToken,
-      token: githubToken.access_token,
-      expiresIn: githubToken.expires_in,
-      expirationDate,
-      refreshToken: githubToken.refresh_token,
-      refreshTokenExpiresIn: githubToken.refresh_token_expires_in,
-      refreshTokenExpirationDate
-    }
-
-    await data.add<DataType.GithubAccessToken>({
-      ...updatedAccessToken
-    })
-  }
-}
 
 export const getFiles = async (
   owner: string,

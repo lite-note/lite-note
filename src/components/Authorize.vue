@@ -5,13 +5,10 @@
 </template>
 
 <script lang="ts">
-import { GithubToken } from '@/modules/user/interfaces/GithubToken'
-import { GithubTokenError } from '@/modules/user/interfaces/GithubTokenError'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
-const AUTHENTICATION_SERVER = 'https://litenote.li212.fr'
+import { signIn } from '@/modules/user/service/signIn'
 
 export default defineComponent({
   name: 'Authorize',
@@ -25,11 +22,7 @@ export default defineComponent({
 
     onBeforeMount(async () => {
       if (code) {
-        const authenticationServerURL = new URL(AUTHENTICATION_SERVER)
-        authenticationServerURL.searchParams.set('code', code.toString())
-
-        const response = await fetch(authenticationServerURL.toString())
-        const body = (await response.json()) as GithubToken | GithubTokenError
+        const body = await signIn(code.toString())
 
         if ('error' in body) {
           hasError.value = true
