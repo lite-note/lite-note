@@ -21,6 +21,19 @@ export const signIn = async (
   return body
 }
 
+export const needToRefreshToken = async () => {
+  const accessToken = await data.get<
+    DataType.GithubAccessToken,
+    GithubAccessToken
+  >(data.generateId(DataType.GithubAccessToken, personalTokenId))
+
+  if (!accessToken) {
+    return false
+  }
+
+  return new Date(accessToken.expirationDate) <= new Date()
+}
+
 export const refreshToken = async () => {
   const accessToken = await data.get<
     DataType.GithubAccessToken,
@@ -31,13 +44,9 @@ export const refreshToken = async () => {
     return null
   }
 
-  console.log(
-    new Date(accessToken.expirationDate) >= new Date(),
-    accessToken.expirationDate,
-    accessToken
-  )
+  console.log(accessToken.refreshToken)
 
-  if (new Date(accessToken.expirationDate) >= new Date()) {
+  if (await needToRefreshToken()) {
     const authenticationServerURL = new URL(AUTHENTICATION_SERVER)
     authenticationServerURL.searchParams.set('type', 'refresh')
     authenticationServerURL.searchParams.set('code', accessToken.refreshToken)
@@ -47,7 +56,7 @@ export const refreshToken = async () => {
       | GithubToken
       | GithubTokenError
 
-    console.log(response)
+    console.log(githubToken)
 
     if ('error' in githubToken) {
       return null
@@ -94,8 +103,10 @@ export const saveAccessToken = async (githubToken: GithubToken) => {
     username: ''
   }
 
+  console.log(accessToken)
+
   const octokit = new Octokit({
-    auth: accessToken.token
+    auth: accessToken?.token
   })
 
   const user = await octokit.request('GET /user')

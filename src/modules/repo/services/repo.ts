@@ -1,10 +1,8 @@
-import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNoteCache } from '@/modules/note/hooks/useNoteCache'
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
-import { refreshToken } from '@/modules/user/service/signIn'
-import { Octokit } from '@octokit/rest'
+import { getOctokit } from '@/modules/repo/services/octo'
 
 export const getFiles = async (
   owner: string,
@@ -13,13 +11,7 @@ export const getFiles = async (
   if (!owner || !repo) {
     return []
   }
-  await refreshToken()
-
-  const { accessToken } = useGitHubLogin()
-
-  const octokit = new Octokit({
-    auth: accessToken.value
-  })
+  const octokit = await getOctokit()
 
   const commits = await octokit.request('GET /repos/{owner}/{repo}/commits', {
     owner,
@@ -56,11 +48,7 @@ export const getMainReadme = async (owner: string, repo: string) => {
   const cachedReadme = await getCachedNote()
 
   try {
-    await refreshToken()
-    const { accessToken } = useGitHubLogin()
-    const octokit = new Octokit({
-      auth: accessToken.value
-    })
+    const octokit = await getOctokit()
 
     const README = await octokit.repos.getReadme({
       owner,
@@ -105,12 +93,7 @@ export const getFileContent = async (
   repo: string,
   sha: string
 ) => {
-  await refreshToken()
-  const { accessToken } = useGitHubLogin()
-
-  const octokit = new Octokit({
-    auth: accessToken.value
-  })
+  const octokit = await getOctokit()
 
   if (!user || !repo) {
     null
