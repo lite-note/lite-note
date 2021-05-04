@@ -8,7 +8,10 @@ module.exports = {
     'eslint:recommended',
     '@vue/typescript/recommended',
     '@vue/prettier',
-    '@vue/prettier/@typescript-eslint'
+    '@vue/prettier/@typescript-eslint',
+    'plugin:vue/recommended',
+    'plugin:prettier-vue/recommended',
+    'prettier'
   ],
   parserOptions: {
     ecmaVersion: 2020
@@ -17,7 +20,16 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/camelcase': 'off'
+    '@typescript-eslint/camelcase': 'off',
+    'prettier-vue/prettier': [
+      'error',
+      {
+        semi: false,
+        singleQuote: true,
+        trailingComma: 'none',
+        arrowParens: 'always'
+      }
+    ]
   },
   overrides: [
     {
