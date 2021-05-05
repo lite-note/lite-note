@@ -6,12 +6,8 @@ module.exports = {
   extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
-    '@vue/typescript/recommended',
-    '@vue/prettier',
-    '@vue/prettier/@typescript-eslint',
     'plugin:vue/recommended',
-    'plugin:prettier-vue/recommended',
-    'prettier'
+    'plugin:prettier-vue/recommended'
   ],
   parserOptions: {
     ecmaVersion: 2020
@@ -29,7 +25,8 @@ module.exports = {
         trailingComma: 'none',
         arrowParens: 'always'
       }
-    ]
+    ],
+    'vue/no-v-html': 'off'
   },
   overrides: [
     {

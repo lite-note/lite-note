@@ -25,15 +25,13 @@
           alt="loading..."
         />
       </div>
-      <div v-else-if="!hasContent">
-        No content here 📝
-      </div>
+      <div v-else-if="!hasContent">No content here 📝</div>
       <p class="note-display" v-html="renderedContent"></p>
     </div>
     <stacked-note
-      class="note"
       v-for="(stackedNote, index) in stackedNotes"
       :key="stackedNote"
+      class="note"
       :index="index"
       :sha="stackedNote"
       :user="user"
@@ -62,8 +60,8 @@ import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
 import { useFocus } from '@/hooks/useFocus.hook'
 
-const StackedNote = defineAsyncComponent(() =>
-  import('@/components/StackedNote.vue')
+const StackedNote = defineAsyncComponent(
+  () => import('@/components/StackedNote.vue')
 )
 
 export default defineComponent({

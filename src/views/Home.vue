@@ -1,10 +1,10 @@
 <template>
-  <div class="home content" v-if="!user || !repo">
+  <div v-if="!user || !repo" class="home content">
     <authorize class="authorize" />
     <new-version class="new-version" />
     <welcome-world />
   </div>
-  <flux-note :user="user" :repo="repo" :key="routeKey" v-else />
+  <flux-note v-else :key="routeKey" :user="user" :repo="repo" />
 </template>
 
 <script lang="ts">
@@ -15,8 +15,8 @@ import Authorize from '@/components/Authorize.vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
-const WelcomeWorld = defineAsyncComponent(() =>
-  import('@/components/WelcomeWorld.vue')
+const WelcomeWorld = defineAsyncComponent(
+  () => import('@/components/WelcomeWorld.vue')
 )
 
 export default defineComponent({
