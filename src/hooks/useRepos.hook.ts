@@ -1,7 +1,7 @@
-import { Octokit } from '@octokit/rest'
 import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 import { useAsyncState } from '@vueuse/core'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
+import { getOctokit } from '@/modules/repo/services/octo'
 
 export const useRepos = () => {
   const { username, accessToken } = useGitHubLogin()
@@ -10,9 +10,7 @@ export const useRepos = () => {
       return []
     }
 
-    const octokit = new Octokit({
-      auth: accessToken.value
-    })
+    const octokit = await getOctokit()
 
     const repoList = await octokit.request('GET /search/repositories', {
       q: `user:${username.value}`,

@@ -28,10 +28,8 @@ export const useUserRepoStore = defineStore({
     async setUserRepo(newUser: string, newRepo: string) {
       this.user = newUser
       this.repo = newRepo
-      const [readme, files] = await Promise.all([
-        getMainReadme(newUser, newRepo),
-        getFiles(newUser, newRepo)
-      ])
+      const readme = await getMainReadme(newUser, newRepo)
+      const files = await getFiles(newUser, newRepo)
       this.userSettings = await getUserSettingsContent(newUser, newRepo, files)
 
       this.readme = readme

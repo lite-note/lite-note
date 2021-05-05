@@ -1,51 +1,35 @@
 import { computed, ref } from 'vue'
 
-import { DataType } from '@/data/DataType.enum'
-import { GithubAccessToken } from '@/data/models/GithubAccessToken'
-import { data } from '@/data/data'
 import { confirmMessage } from '@/utils/notif'
+import { GithubToken } from '@/modules/user/interfaces/GithubToken'
+import { getAccessToken, saveAccessToken } from '@/modules/user/service/signIn'
 
-const personalAccessTokenId = 'PAT'
 const username = ref<string | null>(null)
 const accessToken = ref<string | null>(null)
 
 let init = true
 
 export const useGitHubLogin = () => {
-  const getAccessToken = async () => {
-    const response = await data.get<
-      DataType.GithubAccessToken,
-      GithubAccessToken
-    >(data.generateId(DataType.GithubAccessToken, personalAccessTokenId))
+  const saveAccessTokenToLocal = async () => {
+    const response = await getAccessToken()
     username.value = response?.username || ''
-    accessToken.value = response?.personalAccessToken || ''
-
-    return response
+    accessToken.value = response?.token || ''
   }
 
   if (init) {
     init = false
-    getAccessToken()
+    saveAccessTokenToLocal()
   }
 
-  const saveCredentials = async (username: string, token: string) => {
-    const actualPAT = await getAccessToken()
+  const saveCredentials = async (githubToken: GithubToken) => {
+    const accessToken = await saveAccessToken(githubToken)
 
-    const personalAccessToken: GithubAccessToken = {
-      ...actualPAT,
-      _id: data.generateId(DataType.GithubAccessToken, personalAccessTokenId),
-      $type: DataType.GithubAccessToken,
-      username,
-      personalAccessToken: token
-    }
-
-    await data.add(personalAccessToken)
-    getAccessToken()
-    confirmMessage('token saved!')
+    await saveAccessTokenToLocal()
+    confirmMessage(`${accessToken.username} is logged in!`)
   }
 
   return {
-    isLogged: !!username.value && !!accessToken.value,
+    isLogged: !!accessToken.value,
     isReady: computed(() => accessToken.value !== null),
     username,
     accessToken,
