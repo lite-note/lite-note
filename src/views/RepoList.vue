@@ -6,8 +6,8 @@
     <div v-else class="columns is-centered">
       <div class="column is-one-third">
         <table
-          class="table is-striped is-hoverable"
           v-if="favoriteRepos.length > 0"
+          class="table is-striped is-hoverable"
         >
           <thead>
             <tr>

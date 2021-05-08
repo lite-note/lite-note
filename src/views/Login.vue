@@ -13,10 +13,10 @@
             <div class="field-body">
               <div class="control">
                 <input
+                  v-model="user"
                   class="input"
                   type="text"
                   placeholder="GitHub username"
-                  v-model="user"
                 />
               </div>
             </div>
@@ -28,10 +28,10 @@
             <div class="field-body">
               <div class="control">
                 <input
+                  v-model="token"
                   class="input"
                   type="password"
                   placeholder="Personal Access Token"
-                  v-model="token"
                 />
               </div>
             </div>

@@ -1,5 +1,5 @@
 <template>
-  <aside class="new-version" v-if="hasNewVersion">
+  <aside v-if="hasNewVersion" class="new-version">
     <button class="button is-primary" @click="reload">
       new version available
     </button>

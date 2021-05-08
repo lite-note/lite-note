@@ -39,10 +39,9 @@ export const useNoteOverlay = (className: string, index: number) => {
       ) as NodeListOf<HTMLElement>
 
       stackedNoteContainers.forEach((stackedNote, ind) => {
-        stackedNote.style.right = `calc(-${NOTE_WIDTH}px + ${(stackedNotes.value
-          .length -
-          ind) *
-          BOOKMARK_WIDTH}rem)`
+        stackedNote.style.right = `calc(-${NOTE_WIDTH}px + ${
+          (stackedNotes.value.length - ind) * BOOKMARK_WIDTH
+        }rem)`
       })
     }
   })

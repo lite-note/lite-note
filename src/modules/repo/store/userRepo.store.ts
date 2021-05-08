@@ -5,7 +5,6 @@ import {
   getMainReadme,
   getUserSettingsContent
 } from '@/modules/repo/services/repo'
-import { refreshToken } from '@/modules/user/service/signIn'
 import { defineStore } from 'pinia'
 
 interface State {
