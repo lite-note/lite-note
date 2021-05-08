@@ -8,10 +8,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent, computed } from 'vue'
+import { defineComponent, defineAsyncComponent, computed, onMounted } from 'vue'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import NewVersion from '@/components/NewVersion.vue'
 import Authorize from '@/components/Authorize.vue'
+import { refreshToken } from '@/modules/user/service/signIn'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
@@ -33,6 +34,9 @@ export default defineComponent({
   },
   setup(props) {
     const { resetStackedNotes } = useQueryStackedNotes()
+    onMounted(() => {
+      refreshToken()
+    })
 
     return {
       resetStackedNotes,
