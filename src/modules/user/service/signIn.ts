@@ -44,8 +44,6 @@ export const refreshToken = async () => {
     return null
   }
 
-  console.log(accessToken.refreshToken)
-
   if (await needToRefreshToken()) {
     const authenticationServerURL = new URL(AUTHENTICATION_SERVER)
     authenticationServerURL.searchParams.set('type', 'refresh')
@@ -55,8 +53,6 @@ export const refreshToken = async () => {
     const githubToken = (await response.json()) as
       | GithubToken
       | GithubTokenError
-
-    console.log(githubToken)
 
     if ('error' in githubToken) {
       return null
@@ -102,8 +98,6 @@ export const saveAccessToken = async (githubToken: GithubToken) => {
     refreshTokenExpirationDate,
     username: ''
   }
-
-  console.log(accessToken)
 
   const octokit = new Octokit({
     auth: accessToken?.token
