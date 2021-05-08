@@ -20,7 +20,7 @@
       </div>
       <div class="column">
         <p>
-          <router-link :to="{ name: 'RepoList' }" v-if="isLogged"
+          <router-link v-if="isLogged" :to="{ name: 'RepoList' }"
             >Manage your repos</router-link
           >
         </p>
@@ -49,17 +49,15 @@
 
     <form @submit.prevent>
       <div class="columns is-centered is-vcentered to-user-repo">
-        <div class="column">
-          https://github.com/
-        </div>
+        <div class="column">https://github.com/</div>
         <div class="columns column is-mobile is-centered is-vcentered">
           <div class="column">
             <div class="field">
               <div class="control">
                 <input
+                  v-model="userInput"
                   class="input"
                   type="text"
-                  v-model="userInput"
                   placeholder="user"
                 />
               </div>
@@ -70,9 +68,9 @@
             <div class="field">
               <div class="control">
                 <input
+                  v-model="repoInput"
                   class="input"
                   type="text"
-                  v-model="repoInput"
                   placeholder="repo"
                 />
               </div>
@@ -109,8 +107,8 @@ import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
 import SignInGithub from '@/components/SignInGithub.vue'
 
 export default defineComponent({
-  components: { SignInGithub },
   name: 'WelcomeWord',
+  components: { SignInGithub },
   setup() {
     const { isLogged, username } = useGitHubLogin()
     const { savedFavoriteRepos } = useFavoriteRepos()

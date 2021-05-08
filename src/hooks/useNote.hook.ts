@@ -100,8 +100,9 @@ export const useNote = (containerClass: string) => {
     if (isMobile.value) {
       container.style.height = `${(stackedNotes.value.length + 1) * 100}vh`
     } else {
-      container.style.width = `${NOTE_WIDTH *
-        (stackedNotes.value.length + 1)}px`
+      container.style.width = `${
+        NOTE_WIDTH * (stackedNotes.value.length + 1)
+      }px`
     }
   }
 
