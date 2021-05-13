@@ -7,6 +7,7 @@
     </article>
     <flux-note
       key="share-notes"
+      class="notes"
       :user="user"
       :repo="repo"
       :content="content"
@@ -16,7 +17,8 @@
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent, defineComponent, ref } from 'vue'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { defineAsyncComponent, defineComponent, onMounted, ref } from 'vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
@@ -32,6 +34,11 @@ export default defineComponent({
   },
   setup() {
     const content = ref('Getting stacked notes...')
+    const { resetStackedNotes } = useQueryStackedNotes()
+
+    onMounted(() => {
+      resetStackedNotes()
+    })
 
     return {
       content
@@ -42,8 +49,21 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .share-notes {
+  background-color: var(--background-color);
+  min-width: 100vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   article {
     margin: 1rem;
+  }
+}
+
+@media print {
+  article {
+    display: none;
   }
 }
 </style>

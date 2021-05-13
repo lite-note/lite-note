@@ -218,7 +218,6 @@ $header-height: 40px;
     .note {
       min-width: var(--note-width);
       max-width: var(--note-width);
-      height: auto;
     }
   }
 
