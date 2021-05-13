@@ -74,6 +74,7 @@ export default defineComponent({
     user: { type: String, required: true },
     repo: { type: String, required: true },
     content: { type: String, required: false, default: null },
+    parseContent: { type: Boolean, required: false, default: true },
     withHeader: { type: Boolean, required: false, default: true }
   },
   setup(props) {
@@ -88,7 +89,11 @@ export default defineComponent({
     const { titles } = useNote('note-container')
 
     const renderedContent = computed(() =>
-      props.content !== null ? renderString(props.content) : store.readme
+      props.content !== null
+        ? props.parseContent
+          ? renderString(props.content)
+          : props.content
+        : store.readme
     )
 
     const hasContent = computed(() => !!renderedContent.value)

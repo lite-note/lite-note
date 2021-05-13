@@ -12,13 +12,15 @@
       :repo="repo"
       :content="content"
       :with-header="false"
+      :parse-content="false"
     />
   </div>
 </template>
 
 <script lang="ts">
+import { useFile } from '@/hooks/useFile.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { defineAsyncComponent, defineComponent, onMounted, ref } from 'vue'
+import { defineAsyncComponent, defineComponent, onMounted } from 'vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
@@ -32,9 +34,9 @@ export default defineComponent({
     repo: { type: String, required: true },
     note: { type: String, required: true }
   },
-  setup() {
-    const content = ref('Getting stacked notes...')
+  setup(props) {
     const { resetStackedNotes } = useQueryStackedNotes()
+    const { content } = useFile(props.note)
 
     onMounted(() => {
       resetStackedNotes()
