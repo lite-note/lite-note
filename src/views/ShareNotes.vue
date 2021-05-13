@@ -6,10 +6,10 @@
       </div>
     </article>
     <flux-note
+      key="share-notes"
       :user="user"
       :repo="repo"
       :content="content"
-      key="share-notes"
       :with-header="false"
     />
   </div>

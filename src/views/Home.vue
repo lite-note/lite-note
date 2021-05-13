@@ -34,6 +34,9 @@ export default defineComponent({
   },
   setup(props) {
     const { resetStackedNotes } = useQueryStackedNotes()
+    onMounted(() => {
+      refreshToken()
+    })
 
     onMounted(() => {
       refreshToken()

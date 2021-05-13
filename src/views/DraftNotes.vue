@@ -1,9 +1,7 @@
 <template>
   <div class="draft-notes">
-    <flux-note :user="user" :repo="repo" :content="content" key="draft-notes">
-      <h3 class="subtitle is-3">
-        Drafts
-      </h3>
+    <flux-note key="draft-notes" :user="user" :repo="repo" :content="content">
+      <h3 class="subtitle is-3">Drafts</h3>
     </flux-note>
   </div>
 </template>

@@ -7,6 +7,8 @@ module.exports = {
     'plugin:vue/vue3-essential',
     'eslint:recommended',
     'plugin:vue/recommended',
+    '@vue/typescript/recommended',
+    '@vue/prettier/@typescript-eslint',
     'plugin:prettier-vue/recommended'
   ],
   parserOptions: {
@@ -17,7 +19,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/camelcase': 'off',
-    'vue/no-multiple-template-root': 'off',
     'prettier-vue/prettier': [
       'error',
       {

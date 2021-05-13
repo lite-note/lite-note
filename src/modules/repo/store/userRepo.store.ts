@@ -5,7 +5,6 @@ import {
   getMainReadme,
   getUserSettingsContent
 } from '@/modules/repo/services/repo'
-import { refreshToken } from '@/modules/user/service/signIn'
 import { defineStore } from 'pinia'
 
 interface State {
@@ -29,7 +28,6 @@ export const useUserRepoStore = defineStore({
     async setUserRepo(newUser: string, newRepo: string) {
       this.user = newUser
       this.repo = newRepo
-      await refreshToken()
       const [readme, files] = await Promise.all([
         getMainReadme(newUser, newRepo),
         getFiles(newUser, newRepo)

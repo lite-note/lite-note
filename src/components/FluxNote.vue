@@ -155,6 +155,16 @@ $header-height: 40px;
       color: var(--font-color);
     }
 
+    table {
+      color: var(--font-color);
+      background-color: var(--background-color);
+      thead {
+        th {
+          color: var(--font-color);
+        }
+      }
+    }
+
     blockquote {
       background-color: var(--background-color);
     }

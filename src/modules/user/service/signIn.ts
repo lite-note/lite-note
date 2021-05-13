@@ -58,8 +58,6 @@ export const refreshToken = async () => {
       | GithubToken
       | GithubTokenError
 
-    console.log(githubToken)
-
     if ('error' in githubToken) {
       return null
     }
@@ -104,8 +102,6 @@ export const saveAccessToken = async (githubToken: GithubToken) => {
     refreshTokenExpirationDate,
     username: ''
   }
-
-  console.log(accessToken)
 
   const octokit = new Octokit({
     auth: accessToken?.token

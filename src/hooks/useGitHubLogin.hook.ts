@@ -1,31 +1,31 @@
 import { computed, ref } from 'vue'
 
 import { confirmMessage } from '@/utils/notif'
-import { GithubToken } from '@/modules/user/interfaces/GithubToken'
 import { getAccessToken, saveAccessToken } from '@/modules/user/service/signIn'
+import { GithubToken } from '@/modules/user/interfaces/GithubToken'
 
 const username = ref<string | null>(null)
 const accessToken = ref<string | null>(null)
 
 let init = true
 
-export const useGitHubLogin = () => {
-  const saveAccessTokenToLocal = async () => {
-    const response = await getAccessToken()
-    username.value = response?.username || ''
-    accessToken.value = response?.token || ''
-  }
+const saveAccessTokenToLocal = async () => {
+  const response = await getAccessToken()
+  username.value = response?.username || ''
+  accessToken.value = response?.token || ''
+}
 
+const saveCredentials = async (token: GithubToken): Promise<void> => {
+  const accessToken = await saveAccessToken(token)
+
+  await saveAccessTokenToLocal()
+  confirmMessage(`${accessToken.username} is logged in!`)
+}
+
+export const useGitHubLogin = () => {
   if (init) {
     init = false
     saveAccessTokenToLocal()
-  }
-
-  const saveCredentials = async (githubToken: GithubToken) => {
-    const accessToken = await saveAccessToken(githubToken)
-
-    await saveAccessTokenToLocal()
-    confirmMessage(`${accessToken.username} is logged in!`)
   }
 
   return {
