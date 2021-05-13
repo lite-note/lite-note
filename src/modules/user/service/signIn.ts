@@ -4,7 +4,7 @@ import { GithubAccessToken } from '@/data/models/GithubAccessToken'
 import { GithubToken } from '@/modules/user/interfaces/GithubToken'
 import { GithubTokenError } from '@/modules/user/interfaces/GithubTokenError'
 import { Octokit } from '@octokit/rest'
-import { addSeconds } from 'date-fns'
+import { addMinutes, addSeconds } from 'date-fns'
 
 const AUTHENTICATION_SERVER = 'https://litenote.li212.fr'
 const personalTokenId = 'token'
@@ -31,7 +31,7 @@ export const needToRefreshToken = async () => {
     return false
   }
 
-  return new Date(accessToken.expirationDate) <= new Date()
+  return new Date(accessToken.expirationDate) <= addMinutes(new Date(), -15)
 }
 
 export const refreshToken = async () => {
@@ -44,9 +44,11 @@ export const refreshToken = async () => {
     return null
   }
 
-  console.log(accessToken.refreshToken)
+  const needRefresh = await needToRefreshToken()
 
-  if (await needToRefreshToken()) {
+  console.log(accessToken.refreshToken, needRefresh)
+
+  if (needRefresh) {
     const authenticationServerURL = new URL(AUTHENTICATION_SERVER)
     authenticationServerURL.searchParams.set('type', 'refresh')
     authenticationServerURL.searchParams.set('code', accessToken.refreshToken)
