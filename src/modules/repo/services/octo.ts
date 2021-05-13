@@ -26,7 +26,7 @@ export const getOctokit = async (): Promise<Octokit> => {
       const accessToken = await refreshToken()
       if (accessToken) {
         octokit = new Octokit({
-          auth: accessToken?.token
+          auth: accessToken.token
         })
       }
     }
