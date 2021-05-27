@@ -9,9 +9,9 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'App',
   setup() {
-    const { isReady, accessToken } = useGitHubLogin()
+    const { isReady } = useGitHubLogin()
 
-    return { isReady, accessToken }
+    return { isReady }
   }
 })
 </script>
