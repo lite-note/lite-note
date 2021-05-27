@@ -31,7 +31,7 @@ export default defineComponent({
           saveCredentials(body)
         }
 
-        router.push({ name: 'Home' })
+        router.replace({ name: 'Home' })
       }
     })
 
