@@ -8,4 +8,5 @@ export interface UserSettings {
     | 'Tajawal'
     | 'Domine'
   mode?: 'light' | 'dark'
+  backlink?: boolean
 }

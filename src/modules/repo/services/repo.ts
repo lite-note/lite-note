@@ -79,6 +79,7 @@ export const getUserSettingsContent = async (
   if (!configFile?.sha) {
     return null
   }
+
   const content = await getFileContent(user, repo, configFile.sha)
 
   if (!content) {

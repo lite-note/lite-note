@@ -23,6 +23,7 @@
       </router-link>
     </div>
     <section class="note-content" v-html="content"></section>
+    <linked-notes v-if="content" :sha="sha" />
   </div>
 </template>
 
@@ -33,9 +34,13 @@ import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
 import { useFocus } from '@/hooks/useFocus.hook'
 import { useImages } from '@/hooks/useImages.hook'
+import LinkedNotes from '@/components/LinkedNotes.vue'
 
 export default defineComponent({
   name: 'StackedNote',
+  components: {
+    LinkedNotes
+  },
   props: {
     user: { type: String, required: true },
     repo: { type: String, required: true },
