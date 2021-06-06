@@ -7,4 +7,4 @@ interface EventBusParams {
   currentNoteSHA?: string
 }
 
-export const noteEventBus = createEventBus<EventBusParams>('note')
+export const noteEventBus = createEventBus<EventBusParams>()

@@ -1,2 +1,2 @@
 export const filenameToNoteTitle = (title: string) =>
-  title.replaceAll('/', ' / ')
+  title.replaceAll('/', ' / ').replaceAll('-', ' ')

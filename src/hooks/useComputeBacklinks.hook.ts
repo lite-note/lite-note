@@ -1,3 +1,4 @@
+import { backlinkEventBus } from '@/bus/backlinkEventBus'
 import { data } from '@/data/data'
 import { DataType } from '@/data/DataType.enum'
 import { useFile } from '@/hooks/useFile.hook'
@@ -80,15 +81,7 @@ export const useComputeBacklinks = () => {
       }
 
       await data.add(backlinkNote)
+      backlinkEventBus.emit({ fileSha: sha })
     }
-
-    const backlinksInDb = await data.getAll<
-      DataType.BacklinkNote,
-      BacklinkNote
-    >({
-      prefix: DataType.BacklinkNote
-    })
-
-    console.log(backlinksInDb.filter((b) => b.links.length))
   })
 }
