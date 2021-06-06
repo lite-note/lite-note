@@ -8,6 +8,7 @@ import { resolvePath } from '@/modules/repo/services/resolvePath'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { isExternalLink } from '@/utils/link'
 import { filenameToNoteTitle } from '@/utils/noteTitle'
+import { confirmMessage } from '@/utils/notif'
 import { watch } from 'vue'
 
 const isMarkdown = (filename?: string) => filename?.endsWith('.md') ?? false
@@ -19,6 +20,8 @@ export const useComputeBacklinks = () => {
     if (!store.userSettings?.backlink) {
       return
     }
+
+    let notifiedForComputation = false
 
     const backlinks: Map<string, Backlink[]> = new Map()
 
@@ -65,6 +68,11 @@ export const useComputeBacklinks = () => {
           continue
         }
 
+        if (!notifiedForComputation) {
+          notifiedForComputation = true
+          confirmMessage('Updating backlinks...')
+        }
+
         backlinks.set(backlinkFile.sha, [
           ...previousBacklinks,
           {
@@ -84,7 +92,7 @@ export const useComputeBacklinks = () => {
         links: fileBacklinks
       }
 
-      await data.add(backlinkNote)
+      await data.update(backlinkNote)
       backlinkEventBus.emit({ fileSha: sha })
     }
   })
