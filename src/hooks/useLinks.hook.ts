@@ -1,8 +1,7 @@
 import { noteEventBus } from '@/bus/noteEventBus'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { isExternalLink } from '@/utils/link'
 import { onUnmounted } from '@vue/runtime-core'
-
-const LINKS = ['http://', 'https://']
 
 export const useLinks = (className: string, sha?: string) => {
   const store = useUserRepoStore()
@@ -16,7 +15,7 @@ export const useLinks = (className: string, sha?: string) => {
       return
     }
 
-    if (LINKS.some((link) => href.startsWith(link))) {
+    if (isExternalLink(href)) {
       window.open(href, '_blank')
       return
     }
@@ -50,9 +49,7 @@ export const useLinks = (className: string, sha?: string) => {
         return
       }
 
-      const isExternalLink = LINKS.some((link) => href.startsWith(link))
-
-      if (isExternalLink) {
+      if (isExternalLink(href)) {
         element.classList.add('external-link')
       }
     })

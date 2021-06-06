@@ -35,6 +35,7 @@ import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
 import { useFocus } from '@/hooks/useFocus.hook'
 import { useImages } from '@/hooks/useImages.hook'
 import LinkedNotes from '@/components/LinkedNotes.vue'
+import { filenameToNoteTitle } from '@/utils/noteTitle'
 
 export default defineComponent({
   name: 'StackedNote',
@@ -56,7 +57,7 @@ export default defineComponent({
     const titleClassName = computed(() => `title-${className.value}`)
 
     const { displayNoteOverlay } = useNoteOverlay(className.value, props.index)
-    const displayedTitle = computed(() => props.title.replaceAll('/', ' / '))
+    const displayedTitle = computed(() => filenameToNoteTitle(props.title))
 
     watch(content, () => {
       if (content.value) {

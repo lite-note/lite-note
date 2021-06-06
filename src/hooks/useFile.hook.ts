@@ -18,6 +18,7 @@ export const useFile = (sha: string, retrieveContent = true) => {
       return
     }
     content.value = render(fileContent)
+    return content.value
   }
 
   const getCachedFileContent = async (): Promise<string | null> => {

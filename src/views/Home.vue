@@ -12,7 +12,7 @@ import { defineComponent, defineAsyncComponent, computed } from 'vue'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import NewVersion from '@/components/NewVersion.vue'
 import Authorize from '@/components/Authorize.vue'
-import { useBackLinks } from '@/hooks/useBacklinks.hook'
+import { useComputeBacklinks } from '@/hooks/useComputeBacklinks.hook'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
@@ -34,7 +34,7 @@ export default defineComponent({
   },
   setup(props) {
     const { resetStackedNotes } = useQueryStackedNotes()
-    useBackLinks()
+    useComputeBacklinks()
 
     return {
       resetStackedNotes,
