@@ -13,11 +13,13 @@
 
 $primary: #2c3a47;
 $link: #44b9a0;
+$light-link: lighten($link, 45%);
 $family-primary: 'Courier Prime', monospace;
 
 :root {
   --font-family: var(#{$family-primary});
   --font-color: #4a4a4a;
+  --light-link: #{$light-link};
   --background-color: #ffffff;
   --note-width: 620px;
 }
