@@ -4,7 +4,9 @@
     <h4 class="subtitle is-4">🔗 Links to this note</h4>
     <ul>
       <li v-for="link in backlink?.links" :key="link.sha">
-        {{ link.title }}
+        <a @click.prevent="emitNote(link.sha)">
+          {{ link.title }}
+        </a>
       </li>
     </ul>
   </div>
@@ -12,6 +14,7 @@
 
 <script lang="ts">
 import { useBacklinks } from '@/hooks/useBacklinks.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -21,8 +24,15 @@ export default defineComponent({
   },
   setup(props) {
     const { backlink } = useBacklinks(props.sha)
+    const { addStackedNote } = useQueryStackedNotes()
+
+    const emitNote = (sha: string) => {
+      addStackedNote(props.sha, sha)
+    }
+
     return {
-      backlink: backlink.state
+      backlink: backlink.state,
+      emitNote
     }
   }
 })

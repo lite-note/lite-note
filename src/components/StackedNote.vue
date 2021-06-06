@@ -32,10 +32,10 @@ import { computed, defineComponent, nextTick, watch } from 'vue'
 import { useFile } from '@/hooks/useFile.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
-import { useFocus } from '@/hooks/useFocus.hook'
 import { useImages } from '@/hooks/useImages.hook'
 import LinkedNotes from '@/components/LinkedNotes.vue'
 import { filenameToNoteTitle } from '@/utils/noteTitle'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 
 export default defineComponent({
   name: 'StackedNote',
@@ -50,7 +50,7 @@ export default defineComponent({
     sha: { type: String, required: true }
   },
   setup(props) {
-    const { scrollToFocusedNote } = useFocus()
+    const { scrollToFocusedNote } = useQueryStackedNotes()
     const { content, fromCache } = useFile(props.sha)
     const { listenToClick } = useLinks('stacked-note', props.sha)
     const className = computed(() => `stacked-note-${props.index}`)

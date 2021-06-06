@@ -58,7 +58,6 @@ import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
-import { useFocus } from '@/hooks/useFocus.hook'
 
 const StackedNote = defineAsyncComponent(
   () => import('@/components/StackedNote.vue')
@@ -84,7 +83,7 @@ export default defineComponent({
     const { renderString } = useMarkdown()
     const { listenToClick } = useLinks('note-display')
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
-    const { scrollToFocusedNote } = useFocus()
+    const { scrollToFocusedNote } = useQueryStackedNotes()
 
     const { titles } = useNote('note-container')
 

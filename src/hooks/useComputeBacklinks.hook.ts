@@ -61,6 +61,10 @@ export const useComputeBacklinks = () => {
         }
 
         const previousBacklinks = backlinks.get(backlinkFile.sha) ?? []
+        if (previousBacklinks.find((bl) => bl.sha === file.sha)) {
+          continue
+        }
+
         backlinks.set(backlinkFile.sha, [
           ...previousBacklinks,
           {
