@@ -62,12 +62,11 @@ export default defineComponent({
 .spaced-repetition-card {
   display: flex;
   flex: 1;
-  padding: 0 1rem;
 
   .flip-card {
+    display: flex;
     background-color: transparent;
-    width: 400px;
-    height: 200px;
+    padding: 0 1rem;
     margin: auto;
 
     &:hover {
@@ -76,9 +75,8 @@ export default defineComponent({
   }
 
   .flip-card-inner {
+    flex: 1;
     position: relative;
-    width: 100%;
-    height: 100%;
     transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.4s;
     transform-style: preserve-3d;
     border-radius: 1rem;
@@ -91,12 +89,11 @@ export default defineComponent({
   .flip-card-front,
   .flip-card-back {
     position: absolute;
-    width: 100%;
-    height: 100%;
     backface-visibility: hidden;
   }
 
   .flip-card-content {
+    width: 100%;
     background-color: #ebebeb;
     color: var(--font-color);
     padding: 1rem;
