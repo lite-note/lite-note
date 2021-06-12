@@ -11,6 +11,17 @@ export const useFile = (sha: string, retrieveContent = true) => {
   const fromCache = ref(false)
 
   const content = ref('')
+  const rawContent = ref('')
+
+  const getRawContent = async () => {
+    const fileContent = await getCachedFileContent()
+    if (!fileContent) {
+      return
+    }
+    content.value = render(fileContent)
+    rawContent.value = fileContent
+    return rawContent.value
+  }
 
   const getContent = async () => {
     const fileContent = await getCachedFileContent()
@@ -18,6 +29,7 @@ export const useFile = (sha: string, retrieveContent = true) => {
       return
     }
     content.value = render(fileContent)
+    rawContent.value = fileContent
     return content.value
   }
 
@@ -45,6 +57,7 @@ export const useFile = (sha: string, retrieveContent = true) => {
 
   return {
     content,
+    getRawContent,
     getContent,
     getCachedFileContent,
     fromCache

@@ -8,6 +8,12 @@
     </router-link>
     <router-link
       class="special-folder"
+      :to="{ name: 'SpacedRepetitionCard', params: { user, repo } }"
+    >
+      cards
+    </router-link>
+    <router-link
+      class="special-folder"
       :to="{ name: 'DraftNotes', params: { user, repo } }"
     >
       draft

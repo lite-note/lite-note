@@ -8,6 +8,7 @@ export const useLinks = (className: string, sha?: string) => {
 
   const linkNote: EventListener = (event) => {
     event.preventDefault()
+    event.stopPropagation()
     const target = event.target as HTMLElement
     const href = target.getAttribute('href')
 

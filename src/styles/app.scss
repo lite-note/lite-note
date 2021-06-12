@@ -80,6 +80,14 @@ a {
   background-color: $link;
 }
 
+.repo-note {
+  font-family: var(--font-family);
+  color: var(--font-color);
+  background-color: var(--background-color);
+  transition-property: color, background-color;
+  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
+}
+
 @media print {
   html,
   body {

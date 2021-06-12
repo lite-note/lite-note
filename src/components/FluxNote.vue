@@ -1,5 +1,5 @@
 <template>
-  <main class="flux-note content note-container">
+  <main class="flux-note repo-note content note-container">
     <div class="note readme">
       <header-note v-if="withHeader" class="header" :user="user" :repo="repo" />
       <div class="repo-title-breadcrumb">
@@ -26,7 +26,11 @@
         />
       </div>
       <div v-else-if="!hasContent">No content here 📝</div>
-      <p class="note-display" v-html="renderedContent"></p>
+      <p
+        v-else-if="withContent"
+        class="note-display"
+        v-html="renderedContent"
+      ></p>
     </div>
     <stacked-note
       v-for="(stackedNote, index) in stackedNotes"
@@ -74,6 +78,7 @@ export default defineComponent({
     repo: { type: String, required: true },
     content: { type: String, required: false, default: null },
     parseContent: { type: Boolean, required: false, default: true },
+    withContent: { type: Boolean, required: false, default: true },
     withHeader: { type: Boolean, required: false, default: true }
   },
   setup(props) {
@@ -138,12 +143,6 @@ export default defineComponent({
 $header-height: 40px;
 
 .flux-note {
-  font-family: var(--font-family);
-  color: var(--font-color);
-  background-color: var(--background-color);
-  transition-property: color, background-color;
-  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
-
   display: flex;
   flex: 1;
 
