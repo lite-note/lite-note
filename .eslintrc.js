@@ -28,7 +28,19 @@ module.exports = {
         arrowParens: 'always'
       }
     ],
-    'vue/no-v-html': 'off'
+    'vue/no-v-html': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'vue-demi',
+            importNames: ['computed'],
+            message: 'Please use computed from vue instead.'
+          }
+        ]
+      }
+    ]
   },
   overrides: [
     {
