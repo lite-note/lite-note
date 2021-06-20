@@ -19,10 +19,12 @@ export const useSpacedRepetitionCards = () => {
 
   const cards = asyncComputed(async () => {
     const cards: Card[] = []
+
     for (const cardFile of cardFiles.value) {
       if (!cardFile.sha) {
         continue
       }
+
       const { getRawContent } = useFile(cardFile.sha, false)
       const content = await getRawContent()
 
@@ -35,6 +37,7 @@ export const useSpacedRepetitionCards = () => {
         references: renderString(references)
       })
     }
+
     return cards
   }, [])
 

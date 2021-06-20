@@ -29,6 +29,7 @@ export const useComputeBacklinks = () => {
       if (!isMarkdown(file.path) || !file.sha) {
         continue
       }
+
       const fileBacklinkId = data.generateId(DataType.BacklinkNote, file.sha)
       const fileBacklink = await data.get<DataType.BacklinkNote, BacklinkNote>(
         fileBacklinkId
@@ -36,7 +37,11 @@ export const useComputeBacklinks = () => {
       if (fileBacklink) {
         continue
       }
-      backlinks.set(file.sha, [])
+
+      if (!backlinks.has(file.sha)) {
+        backlinks.set(file.sha, [])
+      }
+
       const { getContent } = useFile(file.sha, false)
       const note = await getContent()
 
@@ -64,6 +69,7 @@ export const useComputeBacklinks = () => {
         }
 
         const previousBacklinks = backlinks.get(backlinkFile.sha) ?? []
+
         if (previousBacklinks.find((bl) => bl.sha === file.sha)) {
           continue
         }
