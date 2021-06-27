@@ -6,7 +6,10 @@
       :repo="repo"
       :with-content="false"
     >
-      <flip-card v-if="firstCard" :card="firstCard" />
+      <section v-if="firstCard">
+        <h3 class="subtitle is-3">Level: {{ firstCard.repetition.level }}</h3>
+        <flip-card :card="firstCard.card" />
+      </section>
       <section v-else>No cards to review!</section>
     </flux-note>
   </div>
@@ -31,8 +34,8 @@ export default defineComponent({
   setup() {
     const { cards } = useSpacedRepetitionCards()
     const firstCard = computed(() => {
-      const [firstCard] = cards.value
-      return firstCard
+      const [repetitionCard] = cards.value
+      return repetitionCard
     })
 
     return {

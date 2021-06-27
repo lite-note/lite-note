@@ -8,8 +8,8 @@
         <div class="references" v-html="card.references"></div>
         <hr />
         <div class="buttons is-centered">
-          <div class="button is-danger" @click.stop="action">failed</div>
-          <div class="button is-success" @click.stop="action">got it</div>
+          <div class="button is-danger" @click.stop="success">failed</div>
+          <div class="button is-success" @click.stop="fail">got it</div>
         </div>
       </div>
     </div>
@@ -25,15 +25,15 @@ export default defineComponent({
   props: {
     card: { type: Object as PropType<Card>, required: true }
   },
-  setup() {
+  setup(_, context) {
     const flipped = ref(false)
-
     const flip = () => (flipped.value = !flipped.value)
-    const action = () => {
-      console.log('action')
-    }
 
-    return { flip, flipped, action }
+    const success = () => context.emit('success')
+
+    const fail = () => context.emit('fail')
+
+    return { flip, flipped, success, fail }
   }
 })
 </script>
