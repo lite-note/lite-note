@@ -23,8 +23,8 @@ const md = new MarkdownIt({
 
 export const useMarkdown = () => {
   return {
-    renderString: (content: string) => md.render(content),
+    renderString: (content: string) => (content ? md.render(content) : ''),
     render: (content: string) =>
-      md.render(decodeURIComponent(escape(atob(content))))
+      content ? md.render(decodeURIComponent(escape(atob(content)))) : ''
   }
 }
