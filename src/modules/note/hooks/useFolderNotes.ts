@@ -4,7 +4,7 @@ import { computed } from 'vue'
 export const useFolderNotes = (folders: string[]) => {
   const store = useUserRepoStore()
 
-  const fleetingNotes = computed(() =>
+  const filteredNotes = computed(() =>
     store.files.filter(
       (file) =>
         folders.some((folder) => file.path?.startsWith(folder)) &&
@@ -13,8 +13,8 @@ export const useFolderNotes = (folders: string[]) => {
   )
 
   const content = computed(() =>
-    fleetingNotes.value?.length > 0
-      ? fleetingNotes.value
+    filteredNotes.value?.length > 0
+      ? filteredNotes.value
           .map((note) => {
             const firstFolder = note.path?.split('/').shift()
 

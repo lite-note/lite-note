@@ -7,7 +7,7 @@ import { Card } from '@/modules/card/models/Card'
 import { RepetitionCard } from '@/modules/card/models/RepetitionCard'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { asyncComputed } from '@vueuse/core'
-import { isAfter, isBefore } from 'date-fns'
+import { isAfter } from 'date-fns'
 import { computed, nextTick, watch } from 'vue'
 
 interface Repetition {
