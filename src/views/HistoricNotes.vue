@@ -7,7 +7,9 @@
       :with-content="false"
     >
       <h3 class="subtitle is-3">History</h3>
-      {{ notes }}
+      There are {{ notes.length }} notes
+
+      <pre>{{ notes }}</pre>
     </flux-note>
   </div>
 </template>
@@ -28,7 +30,7 @@ export default defineComponent({
     repo: { type: String, required: true }
   },
   setup() {
-    const notes = useNotes()
+    const { notes } = useNotes()
 
     return { notes }
   }
