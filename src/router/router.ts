@@ -42,6 +42,15 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "draft-notes" */ '@/views/DraftNotes.vue')
   },
   {
+    path: '/:user/:repo/history',
+    name: 'HistoricNotes',
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "historic-notes" */ '@/views/HistoricNotes.vue'
+      )
+  },
+  {
     path: '/:user/:repo/spaced-repetition',
     name: 'SpacedRepetitionCard',
     props: true,
