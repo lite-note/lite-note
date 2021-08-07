@@ -7823,6 +7823,13 @@ markdown-it-block-embed@^0.0.3:
   resolved "https://registry.yarnpkg.com/markdown-it-block-embed/-/markdown-it-block-embed-0.0.3.tgz#5eb08253f35c37b34c07eec2b9e275ee85eea906"
   integrity sha1-XrCCU/NcN7NMB+7CueJ17oXuqQY=
 
+markdown-it-checkbox@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/markdown-it-checkbox/-/markdown-it-checkbox-1.1.0.tgz#20cff97f33d77d172f9dcf1bcfc92cecc5330fac"
+  integrity sha1-IM/5fzPXfRcvnc8bz8ks7MUzD6w=
+  dependencies:
+    underscore "^1.8.2"
+
 markdown-it@^12.0.6:
   version "12.0.6"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-12.0.6.tgz#adcc8e5fe020af292ccbdf161fe84f1961516138"
@@ -11389,6 +11396,11 @@ uglify-js@3.4.x:
   dependencies:
     commander "~2.19.0"
     source-map "~0.6.1"
+
+underscore@^1.8.2:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.1.tgz#0c1c6bd2df54b6b69f2314066d65b6cde6fcf9d1"
+  integrity sha512-hzSoAVtJF+3ZtiFX0VgfFPHEDRm7Y/QPjGyNo4TVdnDTdft3tr8hEkD25a1jC+TjTuE7tkHGKkhwCgs9dgBB2g==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

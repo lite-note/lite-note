@@ -1,6 +1,7 @@
 import MarkdownIt from 'markdown-it'
 import markdownItClass from '@toycode/markdown-it-class'
 import blockEmbedPlugin from 'markdown-it-block-embed'
+import markdownItCheckbox from 'markdown-it-checkbox'
 
 const md = new MarkdownIt({
   typographer: true,
@@ -20,6 +21,7 @@ const md = new MarkdownIt({
       width: '100%'
     }
   })
+  .use(markdownItCheckbox)
 
 export const useMarkdown = () => {
   return {
