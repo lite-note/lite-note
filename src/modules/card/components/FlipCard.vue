@@ -25,6 +25,7 @@ export default defineComponent({
   props: {
     card: { type: Object as PropType<Card>, required: true }
   },
+  emits: ['success', 'fail'],
   setup(_, context) {
     const flipped = ref(false)
     const flip = () => (flipped.value = !flipped.value)
