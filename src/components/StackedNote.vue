@@ -8,9 +8,7 @@
     }"
   >
     <div class="title-stacked-note" :class="titleClassName">
-      <a @click.prevent="focus">
-        {{ displayedTitle }}
-      </a>
+      <a @click.prevent="focus">{{ displayedTitle }}</a>
     </div>
     <div v-if="false" class="share">
       <router-link
