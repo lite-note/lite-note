@@ -34,6 +34,7 @@ import { useImages } from '@/hooks/useImages.hook'
 import LinkedNotes from '@/components/LinkedNotes.vue'
 import { filenameToNoteTitle } from '@/utils/noteTitle'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
 
 export default defineComponent({
   name: 'StackedNote',
@@ -53,6 +54,7 @@ export default defineComponent({
     const { listenToClick } = useLinks('stacked-note', props.sha)
     const className = computed(() => `stacked-note-${props.index}`)
     const titleClassName = computed(() => `title-${className.value}`)
+    useTitleNotes(props.repo)
 
     const { displayNoteOverlay } = useNoteOverlay(className.value, props.index)
     const displayedTitle = computed(() => filenameToNoteTitle(props.title))

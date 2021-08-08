@@ -6,6 +6,7 @@ import { useOverlay } from '@/hooks/useOverlay.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { resolvePath } from '@/modules/repo/services/resolvePath'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { pathToNoteTitle } from '@/utils/noteTitle'
 
 export const useNote = (containerClass: string) => {
   const store = useUserRepoStore()
@@ -19,15 +20,7 @@ export const useNote = (containerClass: string) => {
       }
       const filePath = store.files.find((file) => file.sha === note)?.path ?? ''
 
-      const fileNames = filePath.split('.')
-
-      fileNames.pop()
-      obj[note] = fileNames
-        .join('.')
-        .split('/')
-        .filter((path) => !path.includes('README'))
-        .join('/')
-        .replaceAll('-', ' ')
+      obj[note] = pathToNoteTitle(filePath)
 
       return obj
     }, {})
