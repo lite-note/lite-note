@@ -10,19 +10,19 @@
       class="special-folder"
       :to="{ name: 'SpacedRepetitionCard', params: { user, repo } }"
     >
-      cards
+      <img src="@/assets/icons/card.svg" alt="card" />
     </router-link>
     <router-link
       class="special-folder"
       :to="{ name: 'DraftNotes', params: { user, repo } }"
     >
-      draft
+      <img src="@/assets/icons/draft.svg" alt="card" />
     </router-link>
     <router-link
       class="special-folder"
       :to="{ name: 'FleetingNotes', params: { user, repo } }"
     >
-      inbox
+      <img src="@/assets/icons/mailbox.svg" alt="card" />
     </router-link>
   </header>
 </template>
