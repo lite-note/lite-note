@@ -1,7 +1,7 @@
 export const filenameToNoteTitle = (title: string) =>
   title.replaceAll('/', ' / ').replaceAll('-', ' ')
 
-export const pathToNoteTitle = (path: string) => {
+export const pathToNotePathTitle = (path: string) => {
   const fileNames = path.split('.')
 
   fileNames.pop()
@@ -11,4 +11,8 @@ export const pathToNoteTitle = (path: string) => {
     .filter((path) => !path.includes('README'))
     .join('/')
     .replaceAll('-', ' ')
+}
+
+export const pathToNoteTitle = (notePathTitle: string) => {
+  return pathToNotePathTitle(notePathTitle).split('/').pop()?.trim() ?? ''
 }
