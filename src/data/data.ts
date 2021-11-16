@@ -14,14 +14,23 @@ interface GetAllParams {
 }
 
 class Data {
-  private locale = new PouchDb('lite-note', {
-    adapter: 'indexeddb'
-  })
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  private readonly locale: PouchDB.Database<{}> | null = null
+
+  constructor() {
+    try {
+      this.locale = new PouchDb('lite-note', {
+        adapter: 'indexeddb'
+      })
+    } catch (error) {
+      console.warn('data error', error)
+    }
+  }
 
   public async add<DT extends DataType>(model: Model<DT>): Promise<boolean> {
     try {
-      const result = await this.locale.put(model)
-      return result.ok
+      const result = await this.locale?.put(model)
+      return result?.ok ?? false
     } catch (error) {
       console.warn(error)
 
@@ -34,12 +43,12 @@ class Data {
       if (model._id) {
         const oldModel = await this.get(model._id)
         if (oldModel) {
-          const result = await this.locale.put({ ...oldModel, ...model })
-          return result.ok
+          const result = await this.locale?.put({ ...oldModel, ...model })
+          return result?.ok ?? false
         }
       }
-      const result = await this.locale.put(model)
-      return result.ok
+      const result = await this.locale?.put(model)
+      return result?.ok ?? false
     } catch (error) {
       console.warn(error)
 
@@ -53,11 +62,11 @@ class Data {
       if (!doc) {
         return false
       }
-      const { ok } = await this.locale.put({
+      const result = await this.locale?.put({
         ...doc,
         _deleted: true
       })
-      return ok
+      return result?.ok ?? false
     } catch {
       return false
     }
@@ -67,7 +76,7 @@ class Data {
     id: string
   ): Promise<T | null> {
     try {
-      return ((await this.locale.get(id)) as T) || null
+      return ((await this.locale?.get(id)) as T) || null
     } catch {
       return null
     }
@@ -79,6 +88,10 @@ class Data {
     includeAttachments = false,
     keys = []
   }: GetAllParams): Promise<T[]> {
+    if (!this.locale) {
+      return []
+    }
+
     if (keys.length) {
       const response = await this.locale.allDocs({
         include_docs: includeDocs,
