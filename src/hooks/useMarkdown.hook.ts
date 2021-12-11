@@ -34,10 +34,14 @@ const md = new MarkdownIt({
   })
   .use(markdownItFootnote)
 
-export const useMarkdown = () => {
+export const useMarkdown = (defaultPrefix?: string) => {
   return {
     renderString: (content: string) => (content ? md.render(content) : ''),
-    render: (content: string) =>
-      content ? md.render(decodeURIComponent(escape(atob(content)))) : ''
+    render: (content: string, prefix?: string) =>
+      content
+        ? md.render(decodeURIComponent(escape(atob(content))), {
+            docId: defaultPrefix ?? prefix ?? ''
+          })
+        : ''
   }
 }

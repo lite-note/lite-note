@@ -85,7 +85,7 @@ export default defineComponent({
     const refProps = toRefs(props)
     const store = useUserRepoStore()
     useUserSettings()
-    const { renderString } = useMarkdown()
+    const { renderString } = useMarkdown(props.repo)
     const { listenToClick } = useLinks('note-display')
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
     const { scrollToFocusedNote } = useQueryStackedNotes()

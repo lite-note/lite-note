@@ -5,7 +5,7 @@ import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { getFileContent } from '@/modules/repo/services/repo'
 
 export const useFile = (sha: string, retrieveContent = true) => {
-  const { render } = useMarkdown()
+  const { render } = useMarkdown(sha)
   const store = useUserRepoStore()
   const { getCachedNote, saveCacheNote } = useNoteCache(sha)
   const fromCache = ref(false)
