@@ -3,6 +3,7 @@ import markdownItClass from '@toycode/markdown-it-class'
 import blockEmbedPlugin from 'markdown-it-block-embed'
 import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItSvgCodeCopy from 'markdown-it-svg-code-copy'
+import markdownItFootnote from 'markdown-it-footnote'
 
 const md = new MarkdownIt({
   typographer: true,
@@ -31,6 +32,7 @@ const md = new MarkdownIt({
 </svg>`,
     buttonClass: 'button is-light'
   })
+  .use(markdownItFootnote)
 
 export const useMarkdown = () => {
   return {
