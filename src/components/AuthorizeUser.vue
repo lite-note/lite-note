@@ -1,5 +1,5 @@
 <template>
-  <div class="authorize">
+  <div class="authorize-user">
     <div v-if="hasError">An error occured when sign in...</div>
   </div>
 </template>
@@ -11,7 +11,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { signIn } from '@/modules/user/service/signIn'
 
 export default defineComponent({
-  name: 'Authorize',
+  name: 'AuthorizeUser',
   setup() {
     const route = useRoute()
     const router = useRouter()
@@ -22,13 +22,13 @@ export default defineComponent({
 
     onBeforeMount(async () => {
       if (code) {
-        const body = await signIn(code.toString())
+        const token = await signIn(code.toString())
 
-        if ('error' in body) {
+        if ('error' in token) {
           hasError.value = true
         } else {
-          body.access_token
-          saveCredentials(body)
+          token.access_token
+          saveCredentials(token)
         }
 
         router.replace({ name: 'Home' })

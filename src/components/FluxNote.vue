@@ -105,10 +105,10 @@ export default defineComponent({
 
     watch(
       renderedContent,
-      () =>
-        nextTick(() => {
-          listenToClick()
-        }),
+      async () => {
+        await nextTick()
+        listenToClick()
+      },
       { immediate: true }
     )
 

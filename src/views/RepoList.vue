@@ -34,9 +34,8 @@
                     name: 'Home',
                     params: { user: username, repo: repo.name }
                   }"
+                  >{{ repo.name }}</router-link
                 >
-                  {{ repo.name }}
-                </router-link>
               </td>
             </tr>
           </tbody>
@@ -66,9 +65,8 @@
                     name: 'Home',
                     params: { user: username, repo: repo.name }
                   }"
+                  >{{ repo.name }}</router-link
                 >
-                  {{ repo.name }}
-                </router-link>
               </td>
             </tr>
           </tbody>
@@ -91,12 +89,10 @@ export default defineComponent({
   setup() {
     const { username } = useGitHubLogin()
     const { isReady } = useRepos()
-    const {
-      favoriteRepos,
-      otherRepos,
-      favoriteCheckboxes,
-      toggleCheckbox
-    } = useRepoList()
+    // eslint-disable-next-line prettier-vue/prettier
+    const { favoriteRepos, otherRepos, favoriteCheckboxes, toggleCheckbox } =
+      // eslint-disable-next-line prettier-vue/prettier
+      useRepoList()
 
     return {
       isReady,

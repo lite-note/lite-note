@@ -1,6 +1,6 @@
 <template>
   <div v-if="!user || !repo" class="home content">
-    <authorize class="authorize" />
+    <authorize-user class="authorize" />
     <new-version class="new-version" />
     <welcome-world />
   </div>
@@ -11,7 +11,7 @@
 import { defineComponent, defineAsyncComponent, computed } from 'vue'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import NewVersion from '@/components/NewVersion.vue'
-import Authorize from '@/components/Authorize.vue'
+import AuthorizeUser from '@/components/AuthorizeUser.vue'
 import { useComputeBacklinks } from '@/hooks/useComputeBacklinks.hook'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
@@ -21,12 +21,12 @@ const WelcomeWorld = defineAsyncComponent(
 )
 
 export default defineComponent({
-  name: 'Home',
+  name: 'HomeApp',
   components: {
     WelcomeWorld,
     FluxNote,
     NewVersion,
-    Authorize
+    AuthorizeUser
   },
   props: {
     user: { type: String, required: false, default: '' },
