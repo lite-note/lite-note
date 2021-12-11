@@ -3,5 +3,6 @@ export enum DataType {
   FavoriteRepo = 'FavoriteRepo',
   Note = 'Note',
   BacklinkNote = 'BacklinkNote',
-  RepetitionCard = 'RepetitionCard'
+  RepetitionCard = 'RepetitionCard',
+  History = 'History'
 }

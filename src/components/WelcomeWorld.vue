@@ -85,6 +85,8 @@
       </div>
     </form>
 
+    <last-visited />
+
     <footer>
       <p>
         Made with <img src="@/assets/icons/love.svg" alt="love" /> by
@@ -105,10 +107,11 @@ import { useForm } from '@/hooks/useForm.hook'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
 import SignInGithub from '@/components/SignInGithub.vue'
+import LastVisited from '@/modules/history/components/LastVisited.vue'
 
 export default defineComponent({
   name: 'WelcomeWord',
-  components: { SignInGithub },
+  components: { SignInGithub, LastVisited },
   setup() {
     const { isLogged, username } = useGitHubLogin()
     const { savedFavoriteRepos } = useFavoriteRepos()
