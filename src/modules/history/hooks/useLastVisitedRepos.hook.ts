@@ -7,7 +7,7 @@ import { computed } from 'vue'
 export const useLastVisitedRepos = () => {
   const history = useAsyncState(
     data.get<DataType.History, History>(
-      data.generateId(DataType.BacklinkNote, 'history')
+      data.generateId(DataType.History, 'history')
     ),
     null
   )

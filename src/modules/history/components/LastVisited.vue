@@ -7,7 +7,7 @@
       <router-link
         :to="{
           name: `Home`,
-          props: { user: lastVisitedRepo.user, repo: lastVisitedRepo.repo }
+          params: { user: lastVisitedRepo.user, repo: lastVisitedRepo.repo }
         }"
         >{{ lastVisitedRepo.user }}/{{ lastVisitedRepo.repo }}</router-link
       >

@@ -54,7 +54,8 @@ import {
   watch,
   nextTick,
   toRefs,
-  onUnmounted
+  onUnmounted,
+  onMounted
 } from 'vue'
 import HeaderNote from '@/components/HeaderNote.vue'
 import { useNote } from '@/hooks/useNote.hook'
@@ -62,6 +63,7 @@ import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
+import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
 
 const StackedNote = defineAsyncComponent(
   () => import('@/components/StackedNote.vue')
@@ -85,6 +87,7 @@ export default defineComponent({
     const refProps = toRefs(props)
     const store = useUserRepoStore()
     useUserSettings()
+    const { visitRepo } = useVisitRepo({ user: props.user, repo: props.repo })
     const { renderString } = useMarkdown(props.repo)
     const { listenToClick } = useLinks('note-display')
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
@@ -119,6 +122,8 @@ export default defineComponent({
       },
       { immediate: true }
     )
+
+    onMounted(() => visitRepo())
 
     onUnmounted(() => {
       store.resetFiles()
