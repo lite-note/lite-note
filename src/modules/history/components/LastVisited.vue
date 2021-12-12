@@ -1,18 +1,29 @@
 <template>
-  <ul v-if="lastVisitedRepos.length" class="last-visited">
-    <li
-      v-for="lastVisitedRepo in lastVisitedRepos"
-      :key="`${lastVisitedRepo.user}-${lastVisitedRepo.repo}`"
-    >
-      <router-link
-        :to="{
-          name: `Home`,
-          params: { user: lastVisitedRepo.user, repo: lastVisitedRepo.repo }
-        }"
-        >{{ lastVisitedRepo.user }}/{{ lastVisitedRepo.repo }}</router-link
+  <section v-if="lastVisitedRepos.length" class="last-visited">
+    <h4>Last visited repos</h4>
+    <ul>
+      <li
+        v-for="lastVisitedRepo in lastVisitedRepos"
+        :key="`${lastVisitedRepo.user}-${lastVisitedRepo.repo}`"
       >
-    </li>
-  </ul>
+        <div>
+          <router-link
+            :to="{
+              name: `Home`,
+              params: { user: lastVisitedRepo.user, repo: lastVisitedRepo.repo }
+            }"
+            >{{ lastVisitedRepo.user }}/{{ lastVisitedRepo.repo }}</router-link
+          >
+          <button
+            class="button is-link is-inverted is-small"
+            @click="removeRepo(lastVisitedRepo)"
+          >
+            ❌
+          </button>
+        </div>
+      </li>
+    </ul>
+  </section>
 </template>
 
 <script lang="ts">
@@ -22,10 +33,11 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'LastVisited',
   setup() {
-    const { lastVisitedRepos } = useLastVisitedRepos()
+    const { lastVisitedRepos, removeRepo } = useLastVisitedRepos()
 
     return {
-      lastVisitedRepos
+      lastVisitedRepos,
+      removeRepo
     }
   }
 })
@@ -33,5 +45,11 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .last-visited {
+  li {
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 </style>

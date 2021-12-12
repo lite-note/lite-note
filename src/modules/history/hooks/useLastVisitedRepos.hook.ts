@@ -4,17 +4,39 @@ import { History } from '@/data/models/History'
 import { useAsyncState } from '@vueuse/core'
 import { computed } from 'vue'
 
+const HISTORY_ID = data.generateId(DataType.History, 'history')
+
 export const useLastVisitedRepos = () => {
   const history = useAsyncState(
-    data.get<DataType.History, History>(
-      data.generateId(DataType.History, 'history')
-    ),
+    () =>
+      data.get<DataType.History, History>(
+        data.generateId(DataType.History, 'history')
+      ),
     null
   )
 
   const lastVisitedRepos = computed(() => history.state.value?.repos ?? [])
 
+  const removeRepo = async (params: { user: string; repo: string }) => {
+    const storedHistory = await data.get<DataType.History, History>(HISTORY_ID)
+    if (!storedHistory) {
+      return
+    }
+
+    const clearedRepo = storedHistory.repos.filter(
+      (repo) => repo.user !== params.user && repo.repo !== params.repo
+    )
+
+    const newHistory: History = {
+      ...storedHistory,
+      repos: clearedRepo
+    }
+    await data.update(newHistory)
+    history.execute()
+  }
+
   return {
-    lastVisitedRepos
+    lastVisitedRepos,
+    removeRepo
   }
 }
