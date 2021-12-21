@@ -14,12 +14,6 @@
             }"
             >{{ lastVisitedRepo.user }}/{{ lastVisitedRepo.repo }}</router-link
           >
-          <button
-            class="button is-link is-inverted is-small"
-            @click="removeRepo(lastVisitedRepo)"
-          >
-            ❌
-          </button>
         </div>
       </li>
     </ul>
@@ -33,11 +27,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'LastVisited',
   setup() {
-    const { lastVisitedRepos, removeRepo } = useLastVisitedRepos()
+    const { lastVisitedRepos } = useLastVisitedRepos()
 
     return {
-      lastVisitedRepos,
-      removeRepo
+      lastVisitedRepos
     }
   }
 })
