@@ -4,7 +4,7 @@ import blockEmbedPlugin from 'markdown-it-block-embed'
 import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItSvgCodeCopy from 'markdown-it-svg-code-copy'
 import markdownItFootnote from 'markdown-it-footnote'
-import htmlMedia from 'markdown-it-html5-media'
+import { html5Media } from '@/utils/markdown/markdown-html5-media'
 
 const md = new MarkdownIt({
   typographer: true,
@@ -19,6 +19,7 @@ const md = new MarkdownIt({
     h6: ['title', 'is-6'],
     table: ['table', 'is-fullwidth']
   })
+  .use(html5Media)
   .use(blockEmbedPlugin, {
     youtube: {
       width: '100%'
@@ -34,7 +35,6 @@ const md = new MarkdownIt({
     buttonClass: 'button is-light'
   })
   .use(markdownItFootnote)
-  .use(htmlMedia.html5Media)
 
 export const useMarkdown = (defaultPrefix?: string) => {
   return {
