@@ -21,7 +21,6 @@
     "markdown-it-block-embed": "^0.0.3",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-footnote": "^3.0.3",
-    "markdown-it-html5-media": "^0.7.0",
     "markdown-it-svg-code-copy": "^1.0.0",
     "nanoid": "^3.1.30",
     "notyf": "^3.10.0",
