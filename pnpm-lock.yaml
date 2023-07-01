@@ -72,11 +72,8 @@ dependencies:
     specifier: ^9.2.2
     version: 9.2.2(vue@3.3.4)
   vue-router:
-    specifier: ^4.0.0-rc.2
-    version: 4.0.0-rc.2(vue@3.3.4)
-  vuex:
-    specifier: ^4.0.0-rc.1
-    version: 4.0.0-rc.1(vue@3.3.4)
+    specifier: ^4.2.2
+    version: 4.2.2(vue@3.3.4)
 
 devDependencies:
   '@babel/core':
@@ -4589,11 +4586,12 @@ packages:
       vue: 3.3.4
     dev: false
 
-  /vue-router@4.0.0-rc.2(vue@3.3.4):
-    resolution: {integrity: sha512-51mBp39rzBFpk1nyU9SkhPcwR67gBzWIH8p3pyeDmtNYgWzGF3q8MneD/xbMwsfTQkw2H1qBk6uwRaVy3M8Nxw==}
+  /vue-router@4.2.2(vue@3.3.4):
+    resolution: {integrity: sha512-cChBPPmAflgBGmy3tBsjeoe3f3VOSG6naKyY5pjtrqLGbNEXdzCigFUHgBvp9e3ysAtFtEx7OLqcSDh/1Cq2TQ==}
     peerDependencies:
-      vue: ^3.0.0
+      vue: ^3.2.0
     dependencies:
+      '@vue/devtools-api': 6.5.0
       vue: 3.3.4
     dev: false
 
@@ -4605,14 +4603,6 @@ packages:
       '@vue/runtime-dom': 3.3.4
       '@vue/server-renderer': 3.3.4(vue@3.3.4)
       '@vue/shared': 3.3.4
-
-  /vuex@4.0.0-rc.1(vue@3.3.4):
-    resolution: {integrity: sha512-zgXVCQygF1Sm7ezyudEEMynoV2PBxZdcjE12D0BY1xIKZMrA7GFP6xqADTEAzwfVemXboExJ+/KThfxJFtM/5w==}
-    peerDependencies:
-      vue: ^3.0.0-beta.10
-    dependencies:
-      vue: 3.3.4
-    dev: false
 
   /vuvuzela@1.0.3:
     resolution: {integrity: sha512-Tm7jR1xTzBbPW+6y1tknKiEhz04Wf/1iZkcTJjSFcpNko43+dFW6+OOeQe9taJIug3NdfUAjFKgUSyQrIKaDvQ==}
