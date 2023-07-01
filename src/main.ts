@@ -1,4 +1,3 @@
-import '@/registerServiceWorker'
 import 'notyf/notyf.min.css'
 
 import { createPinia } from 'pinia'
