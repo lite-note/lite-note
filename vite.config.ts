@@ -5,7 +5,7 @@ import { UserConfigExport } from 'vitest/dist/config'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-const mainColor = '#2C3A47'
+const mainColor = '#ffffff'
 
 export default defineConfig(({ command }) => {
   const config: UserConfigExport = {
@@ -37,7 +37,7 @@ export default defineConfig(({ command }) => {
               type: 'image/png'
             },
             {
-              src: 'pwa-512x512.png',
+              src: 'masked-icon.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable'
