@@ -6,8 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/repo-list',
     name: 'RepoList',
-    component: () =>
-      import(/* webpackChunkName: "repo-list" */ '@/views/RepoList.vue')
+    component: () => import('@/views/RepoList.vue')
   },
   {
     path: '/:user?/:repo?',
@@ -19,56 +18,45 @@ const routes: Array<RouteRecordRaw> = [
     path: '/:user/:repo/share/:note',
     name: 'ShareNotes',
     props: true,
-    component: () =>
-      import(/* webpackChunkName: "share-notes" */ '@/views/ShareNotes.vue')
+    component: () => import('@/views/ShareNotes.vue')
   },
   {
     path: '/:user/:repo/inbox',
     name: 'FleetingNotes',
     props: true,
-    component: () =>
-      import(/* webpackChunkName: "inbox" */ '@/views/FleetingNotes.vue')
+    component: () => import('@/views/FleetingNotes.vue')
   },
   {
     path: '/:user/:repo/draft',
     name: 'DraftNotes',
     props: true,
-    component: () =>
-      import(/* webpackChunkName: "draft-notes" */ '@/views/DraftNotes.vue')
+    component: () => import('@/views/DraftNotes.vue')
   },
   {
     path: '/:user/:repo/history',
     name: 'HistoricNotes',
     props: true,
-    component: () =>
-      import(
-        /* webpackChunkName: "historic-notes" */ '@/views/HistoricNotes.vue'
-      )
+    component: () => import('@/views/HistoricNotes.vue')
   },
   {
     path: '/:user/:repo/spaced-repetition',
     name: 'SpacedRepetitionCard',
     props: true,
-    component: () =>
-      import(
-        /* webpackChunkName: "spaced-repetition-card" */ '@/views/SpacedRepetitionCard.vue'
-      )
+    component: () => import('@/views/SpacedRepetitionCard.vue')
   },
   {
     path: '/about',
     name: 'About',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '@/views/AboutApp.vue')
+    component: () => import('@/views/AboutApp.vue')
   },
   {
     path: '/:catchAll(.*)',
     name: 'SpaceCowboy',
-    component: () =>
-      import(/* webpackChunkName: "space-cowboy" */ '@/views/SpaceCowboy.vue')
+    component: () => import('@/views/SpaceCowboy.vue')
   }
 ]
 
 export const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
