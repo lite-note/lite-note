@@ -99,7 +99,15 @@ class Data {
         keys: keys.map((key) => this.generateId(prefix, key))
       })
 
-      return response.rows.map((row) => row.doc).filter((doc) => !!doc) as T[]
+      return response.rows
+        .map((row) => {
+          if ('error' in row) {
+            return null
+          }
+
+          return row.doc
+        })
+        .filter((doc) => !!doc) as T[]
     }
 
     const response = await this.locale.allDocs({

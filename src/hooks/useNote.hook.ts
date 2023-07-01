@@ -1,4 +1,4 @@
-import { computed, onMounted, onUnmounted, watch } from '@vue/runtime-core'
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { noteEventBus } from '@/bus/noteEventBus'

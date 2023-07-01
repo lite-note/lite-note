@@ -1,7 +1,7 @@
 import { noteEventBus } from '@/bus/noteEventBus'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { isExternalLink } from '@/utils/link'
-import { onUnmounted } from '@vue/runtime-core'
+import { onUnmounted } from 'vue'
 
 export const useLinks = (className: string, sha?: string) => {
   const store = useUserRepoStore()

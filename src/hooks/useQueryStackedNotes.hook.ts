@@ -1,7 +1,7 @@
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
-import { readonly, ref } from '@vue/reactivity'
+import { readonly, ref } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { nextTick } from 'vue'
 

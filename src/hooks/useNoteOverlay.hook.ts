@@ -1,4 +1,4 @@
-import { computed, onMounted, ref } from '@vue/runtime-core'
+import { computed, onMounted, ref } from 'vue'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
