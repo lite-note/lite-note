@@ -1,0 +1,14 @@
+{
+  "patterns": {
+    "**/*.vue": [
+      {
+        "label": "Vue i18n",
+        "uri": "https://vue-i18n.intlify.dev/guide/introduction.html"
+      }
+    ],
+    "vite.config.ts": {
+      "label": "Lite Note GitHub app",
+      "uri": "https://github.com/organizations/lite-note/settings/apps/lite-note"
+    }
+  }
+}
