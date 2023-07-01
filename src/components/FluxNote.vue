@@ -199,7 +199,7 @@ $header-height: 40px;
   }
 
   .note {
-    text-align: left;
+    text-align: justify;
     overflow-y: auto;
     height: 100vh;
     position: sticky;
