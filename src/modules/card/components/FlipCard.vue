@@ -8,8 +8,12 @@
         <div class="references" v-html="card.references"></div>
         <hr />
         <div class="buttons is-centered">
-          <div class="button is-danger" @click.stop="success">failed</div>
-          <div class="button is-success" @click.stop="fail">got it</div>
+          <div class="button is-warning is-light" @click.stop="success">
+            failed
+          </div>
+          <div class="button is-success is-light" @click.stop="fail">
+            got it
+          </div>
         </div>
       </div>
     </div>
@@ -40,6 +44,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+$border-radius: 0.5rem;
+
 .flip-card {
   display: flex;
   background-color: transparent;
@@ -55,7 +61,7 @@ export default defineComponent({
     position: relative;
     transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.4s;
     transform-style: preserve-3d;
-    border-radius: 1rem;
+    border-radius: $border-radius;
   }
 
   &.flipped .flip-card-inner {
@@ -70,10 +76,10 @@ export default defineComponent({
 
   .flip-card-content {
     width: 100%;
-    background-color: #ebebeb;
+    background-color: #ede4e0;
     color: var(--font-color);
     padding: 1rem;
-    border-radius: 1rem;
+    border-radius: $border-radius;
   }
 
   .flip-card-back {
