@@ -1,3 +1,18 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { Card } from '../models/Card'
+
+defineProps<{ card: Card }>()
+const emit = defineEmits(['success', 'fail'])
+
+const flipped = ref(false)
+const flip = () => (flipped.value = !flipped.value)
+
+const success = () => emit('success')
+
+const fail = () => emit('fail')
+</script>
+
 <template>
   <div class="flip-card" :class="{ flipped }" @click="flip">
     <div class="flip-card-inner">
@@ -8,10 +23,10 @@
         <div class="references" v-html="card.references"></div>
         <hr />
         <div class="buttons is-centered">
-          <div class="button is-warning is-light" @click.stop="success">
+          <div class="button is-warning is-light" @click.stop="fail">
             failed
           </div>
-          <div class="button is-success is-light" @click.stop="fail">
+          <div class="button is-success is-light" @click.stop="success">
             got it
           </div>
         </div>
@@ -19,29 +34,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
-import { Card } from '../models/Card'
-
-export default defineComponent({
-  name: 'FlipCard',
-  props: {
-    card: { type: Object as PropType<Card>, required: true }
-  },
-  emits: ['success', 'fail'],
-  setup(_, context) {
-    const flipped = ref(false)
-    const flip = () => (flipped.value = !flipped.value)
-
-    const success = () => context.emit('success')
-
-    const fail = () => context.emit('fail')
-
-    return { flip, flipped, success, fail }
-  }
-})
-</script>
 
 <style scoped lang="scss">
 $border-radius: 0.5rem;

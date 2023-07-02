@@ -1,8 +1,8 @@
+import { nanoid } from 'nanoid'
+import indexedDb from 'pouchdb-adapter-indexeddb'
+import PouchDb from 'pouchdb-browser'
 import { DataType } from './DataType.enum'
 import { Model } from './models/Model'
-import PouchDb from 'pouchdb-browser'
-import indexedDb from 'pouchdb-adapter-indexeddb'
-import { nanoid } from 'nanoid'
 
 PouchDb.plugin(indexedDb)
 
@@ -38,7 +38,9 @@ class Data {
     }
   }
 
-  public async update<DT extends DataType>(model: Model<DT>): Promise<boolean> {
+  public async update<DT extends DataType, T extends Model<DT>>(
+    model: T
+  ): Promise<boolean> {
     try {
       if (model._id) {
         const oldModel = await this.get(model._id)
@@ -80,6 +82,21 @@ class Data {
     } catch {
       return null
     }
+  }
+
+  public async getOrCreate<DT extends DataType, T extends Model<DT>>(
+    id: string,
+    initialValue: T
+  ): Promise<T> {
+    const element = await this.get<DT, T>(id)
+
+    if (element) {
+      return element
+    }
+
+    await data.add<DT>({ ...initialValue, _id: id })
+
+    return this.getOrCreate(id, initialValue)
   }
 
   public async getAll<DT extends DataType, T extends Model<DT>>({

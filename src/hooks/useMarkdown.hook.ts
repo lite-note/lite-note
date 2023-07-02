@@ -1,11 +1,11 @@
-import MarkdownIt from 'markdown-it'
+import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
+import { html5Media } from '@/utils/markdown/markdown-html5-media'
 import markdownItClass from '@toycode/markdown-it-class'
+import MarkdownIt from 'markdown-it'
 import blockEmbedPlugin from 'markdown-it-block-embed'
 import markdownItCheckbox from 'markdown-it-checkbox'
-import markdownItSvgCodeCopy from 'markdown-it-svg-code-copy'
 import markdownItFootnote from 'markdown-it-footnote'
-import { html5Media } from '@/utils/markdown/markdown-html5-media'
-import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
+import markdownItSvgCodeCopy from 'markdown-it-svg-code-copy'
 
 const md = new MarkdownIt({
   typographer: true,
