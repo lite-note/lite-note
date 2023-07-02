@@ -1,5 +1,5 @@
-import { data } from '@/data/data'
 import { DataType } from '@/data/DataType.enum'
+import { data } from '@/data/data'
 import { useFile } from '@/hooks/useFile.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
