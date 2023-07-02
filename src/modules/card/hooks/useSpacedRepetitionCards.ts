@@ -11,6 +11,8 @@ import { useAsyncState } from '@vueuse/core'
 import { addDays, isAfter } from 'date-fns'
 import { computed, nextTick, watch } from 'vue'
 
+const MAX_LEVEL = 10
+
 interface Repetition {
   repetition: RepetitionCard
   card: Card
@@ -106,7 +108,7 @@ export const useSpacedRepetitionCards = () => {
 
     await data.update<DataType.RepetitionCard, RepetitionCard>({
       ...repetition,
-      level: repetition.level,
+      level: Math.min(repetition.level, MAX_LEVEL),
       repeatDate: addDays(new Date(), repetition.level)
     })
 
