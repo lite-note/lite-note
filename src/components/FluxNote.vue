@@ -88,7 +88,7 @@ export default defineComponent({
     const store = useUserRepoStore()
     useUserSettings()
     const { visitRepo } = useVisitRepo({ user: props.user, repo: props.repo })
-    const { renderString } = useMarkdown(props.repo)
+    const { toHTML } = useMarkdown(props.repo)
     const { listenToClick } = useLinks('note-display')
     const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
     const { scrollToFocusedNote } = useQueryStackedNotes()
@@ -98,7 +98,7 @@ export default defineComponent({
     const renderedContent = computed(() =>
       props.content !== null
         ? props.parseContent
-          ? renderString(props.content)
+          ? toHTML(props.content)
           : props.content
         : store.readme
     )

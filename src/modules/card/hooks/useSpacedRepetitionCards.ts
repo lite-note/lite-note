@@ -6,6 +6,7 @@ import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { Card } from '@/modules/card/models/Card'
 import { RepetitionCard } from '@/modules/card/models/RepetitionCard'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
 import { asyncComputed } from '@vueuse/core'
 import { isAfter } from 'date-fns'
 import { computed, nextTick, watch } from 'vue'
@@ -16,7 +17,7 @@ interface Repetition {
 }
 
 export const useSpacedRepetitionCards = () => {
-  const { renderString } = useMarkdown()
+  const { toHTML } = useMarkdown()
   const store = useUserRepoStore()
   const { listenToClick } = useLinks('flip-card')
 
@@ -64,14 +65,14 @@ export const useSpacedRepetitionCards = () => {
       const content = await getRawContent()
 
       const [front, back, references] =
-        decodeURIComponent(escape(atob(content ?? '')))?.split('___') ?? []
+        decodeBase64ToUTF8(content ?? '').split('___') ?? []
 
       cards.push({
         repetition,
         card: {
-          front: renderString(front),
-          back: renderString(back),
-          references: renderString(references)
+          front: toHTML(front),
+          back: toHTML(back),
+          references: toHTML(references)
         }
       })
     }

@@ -5,6 +5,7 @@ import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItSvgCodeCopy from 'markdown-it-svg-code-copy'
 import markdownItFootnote from 'markdown-it-footnote'
 import { html5Media } from '@/utils/markdown/markdown-html5-media'
+import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
 
 const md = new MarkdownIt({
   typographer: true,
@@ -38,10 +39,10 @@ const md = new MarkdownIt({
 
 export const useMarkdown = (defaultPrefix?: string) => {
   return {
-    renderString: (content: string) => (content ? md.render(content) : ''),
+    toHTML: (content: string) => (content ? md.render(content) : ''),
     render: (content: string, prefix?: string) =>
       content
-        ? md.render(decodeURIComponent(escape(atob(content))), {
+        ? md.render(decodeBase64ToUTF8(content), {
             docId: defaultPrefix ?? prefix ?? ''
           })
         : ''
