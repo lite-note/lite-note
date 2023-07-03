@@ -43,6 +43,7 @@ $border-radius: 0.5rem;
   background-color: transparent;
   padding: 0 1rem;
   margin: auto;
+  user-select: none;
 
   &:hover {
     cursor: pointer;
