@@ -74,8 +74,6 @@ export const useSpacedRepetitionCards = () => {
         })
       }
 
-      console.log(cards)
-
       return cards
     },
     [],
