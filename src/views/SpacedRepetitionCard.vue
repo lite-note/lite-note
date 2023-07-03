@@ -26,6 +26,7 @@ const firstCard = computed(() => {
       :repo="repo"
       :with-content="false"
     >
+      <div id="tweet-1675991484753952769"></div>
       <section v-if="isLoading">Loading...</section>
       <section v-else-if="firstCard">
         <h3 class="subtitle is-3">Level: {{ firstCard.repetition.level }}</h3>
