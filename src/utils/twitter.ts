@@ -41,3 +41,11 @@ export const createTweet = (
     )
   })
 }
+
+export const generateTweets = () => {
+  const elements = document.querySelectorAll('.markdown-tweet')
+
+  elements.forEach((element) => {
+    createTweet(element.dataset.tweetId)
+  })
+}

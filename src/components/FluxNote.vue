@@ -1,69 +1,23 @@
-<template>
-  <main class="flux-note repo-note content note-container">
-    <div class="note readme">
-      <header-note v-if="withHeader" class="header" :user="user" :repo="repo" />
-      <div class="repo-title-breadcrumb">
-        <a @click.prevent="focus">{{ repo }}</a>
-      </div>
-      <div class="repo-title">
-        <h1 class="title is-1">
-          [<router-link
-            :to="{ name: 'Home', params: { user, repo } }"
-            @click="resetStackedNotes"
-            >{{ repo }}</router-link
-          >]
-        </h1>
-        <h4 class="subtitle is-4">
-          <em>{{ user }}</em>
-        </h4>
-      </div>
-      <slot />
-      <div v-if="isLoading" class="loading">
-        <img
-          class="is-loading"
-          src="@/assets/icons/loading.svg"
-          alt="loading..."
-        />
-      </div>
-      <div v-else-if="!hasContent">No content here 📝</div>
-      <p
-        v-else-if="withContent"
-        class="note-display"
-        v-html="renderedContent"
-      ></p>
-    </div>
-    <stacked-note
-      v-for="(stackedNote, index) in stackedNotes"
-      :key="stackedNote"
-      class="note"
-      :index="index"
-      :sha="stackedNote"
-      :user="user"
-      :repo="repo"
-      :title="titles[stackedNote ?? '']"
-    />
-  </main>
-</template>
-
 <script lang="ts">
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import {
-  defineComponent,
-  defineAsyncComponent,
-  computed,
-  watch,
-  nextTick,
-  toRefs,
-  onUnmounted,
-  onMounted
-} from 'vue'
 import HeaderNote from '@/components/HeaderNote.vue'
-import { useNote } from '@/hooks/useNote.hook'
-import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
+import { useMarkdown } from '@/hooks/useMarkdown.hook'
+import { useNote } from '@/hooks/useNote.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
-import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
+
+import {
+  computed,
+  defineAsyncComponent,
+  defineComponent,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  toRefs,
+  watch
+} from 'vue'
 
 const StackedNote = defineAsyncComponent(
   () => import('@/components/StackedNote.vue')
@@ -143,6 +97,53 @@ export default defineComponent({
   }
 })
 </script>
+
+<template>
+  <main class="flux-note repo-note content note-container">
+    <div class="note readme">
+      <header-note v-if="withHeader" class="header" :user="user" :repo="repo" />
+      <div class="repo-title-breadcrumb">
+        <a @click.prevent="focus">{{ repo }}</a>
+      </div>
+      <div class="repo-title">
+        <h1 class="title is-1">
+          [<router-link
+            :to="{ name: 'Home', params: { user, repo } }"
+            @click="resetStackedNotes"
+            >{{ repo }}</router-link
+          >]
+        </h1>
+        <h4 class="subtitle is-4">
+          <em>{{ user }}</em>
+        </h4>
+      </div>
+      <slot />
+      <div v-if="isLoading" class="loading">
+        <img
+          class="is-loading"
+          src="@/assets/icons/loading.svg"
+          alt="loading..."
+        />
+      </div>
+      <div v-else-if="!hasContent">No content here 📝</div>
+      <p
+        v-else-if="withContent"
+        class="note-display"
+        v-html="renderedContent"
+      ></p>
+    </div>
+    <stacked-note
+      v-for="(stackedNote, index) in stackedNotes"
+      :key="stackedNote"
+      class="note"
+      :index="index"
+      :sha="stackedNote"
+      :user="user"
+      :repo="repo"
+      :title="titles[stackedNote ?? '']"
+    />
+  </main>
+</template>
 
 <style lang="scss">
 $header-height: 40px;

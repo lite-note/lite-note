@@ -1,5 +1,6 @@
 import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
 import { html5Media } from '@/utils/markdown/markdown-html5-media'
+import { twitterPlugin } from '@/utils/markdown/markdown-it-twitter'
 import markdownItClass from '@toycode/markdown-it-class'
 import MarkdownIt from 'markdown-it'
 import blockEmbedPlugin from 'markdown-it-block-embed'
@@ -26,6 +27,7 @@ const md = new MarkdownIt({
       width: '100%'
     }
   })
+  .use(twitterPlugin)
   .use(markdownItCheckbox)
   .use(markdownItSvgCodeCopy, {
     svg: `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3a47" fill="none" stroke-linecap="round" stroke-linejoin="round">

@@ -26,15 +26,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, watch } from 'vue'
+import LinkedNotes from '@/components/LinkedNotes.vue'
 import { useFile } from '@/hooks/useFile.hook'
+import { useImages } from '@/hooks/useImages.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
-import { useImages } from '@/hooks/useImages.hook'
-import LinkedNotes from '@/components/LinkedNotes.vue'
-import { filenameToNoteTitle } from '@/utils/noteTitle'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
+import { filenameToNoteTitle } from '@/utils/noteTitle'
+import { generateTweets } from '@/utils/twitter'
+import { computed, defineComponent, nextTick, watch } from 'vue'
 
 export default defineComponent({
   name: 'StackedNote',
@@ -64,6 +65,7 @@ export default defineComponent({
         nextTick(() => {
           listenToClick()
           useImages(props.sha)
+          generateTweets()
         })
       }
     })
