@@ -1,13 +1,4 @@
 // @ts-nocheck
-
-// https://github.com/rlidwka/markdown-it-regexp
-/* 
-const texte = "@[tweet](21345)";
-const regex = /@\[tweet]\((.*?)\)/;
-const resultat = regex.exec(texte)[1];
-console.log(resultat);
-*/
-
 window.twttr = (function (d, s, id) {
   let js,
     fjs = d.getElementsByTagName(s)[0],

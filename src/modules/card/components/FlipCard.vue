@@ -22,12 +22,11 @@ const fail = () => emit('fail')
         <hr />
         <div class="references" v-html="card.references"></div>
         <hr />
-        <div class="buttons is-centered">
-          <div class="button is-warning is-light" @click.stop="fail">
-            failed
-          </div>
-          <div class="button is-success is-light" @click.stop="success">
-            got it
+        <div class="actions">
+          <p>Did you remember this?</p>
+          <div class="buttons is-centered">
+            <div class="button is-warning" @click.stop="fail">failed</div>
+            <div class="button is-success" @click.stop="success">got it</div>
           </div>
         </div>
       </div>
@@ -44,9 +43,12 @@ $border-radius: 0.5rem;
   padding: 0 1rem;
   margin: auto;
   user-select: none;
+  transition: 0.1s;
+  perspective: 1500px;
 
   &:hover {
     cursor: pointer;
+    transform: scale(1.03);
   }
 
   .flip-card-inner {
@@ -77,6 +79,14 @@ $border-radius: 0.5rem;
 
   .flip-card-back {
     transform: rotateY(180deg);
+  }
+}
+
+.actions {
+  text-align: center;
+
+  p {
+    margin-bottom: 0.5rem;
   }
 }
 </style>
