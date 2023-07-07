@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { Card } from '../models/Card'
 
 defineProps<{ card: Card }>()
-const emit = defineEmits(['success', 'fail'])
+const emit = defineEmits<{ success: []; fail: [] }>()
 
 const flipped = ref(false)
 const flip = () => (flipped.value = !flipped.value)
@@ -43,7 +43,7 @@ $border-radius: 0.5rem;
   padding: 0 1rem;
   margin: auto;
   user-select: none;
-  transition: 0.1s;
+  transition: 0.3s;
   perspective: 1500px;
 
   &:hover {

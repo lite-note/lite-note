@@ -1,40 +1,28 @@
 <script lang="ts" setup>
 import FluxNote from '@/components/FluxNote.vue'
-import FlipCard from '@/modules/card/components/FlipCard.vue'
+import FlipCardList from '@/modules/card/components/FlipCardList.vue'
 import { useSpacedRepetitionCards } from '@/modules/card/hooks/useSpacedRepetitionCards'
-import { computed } from 'vue'
 
 defineProps<{
   user: string
   repo: string
 }>()
 
-const { cards, isLoading, successRepetition, failRepetition } =
-  useSpacedRepetitionCards()
-
-const firstCard = computed(() => {
-  const [repetitionCard] = cards.value
-  return repetitionCard
-})
+const { cards, isLoading, successRepetition } = useSpacedRepetitionCards()
 </script>
 
 <template>
   <div class="spaced-repetition-card repo-note">
     <flux-note
       key="spaced-repetition-card"
+      class="card-container"
       :user="user"
       :repo="repo"
       :with-content="false"
     >
-      <div id="tweet-1675991484753952769"></div>
       <section v-if="isLoading">Loading...</section>
-      <section v-else-if="firstCard">
-        <h3 class="subtitle is-3">Level: {{ firstCard.repetition.level }}</h3>
-        <flip-card
-          :card="firstCard.card"
-          @success="() => successRepetition(firstCard.repetition._id ?? '')"
-          @fail="() => failRepetition(firstCard.repetition._id ?? '')"
-        />
+      <section v-else-if="cards.length" class="cards">
+        <flip-card-list :cards="cards" @success="successRepetition" />
       </section>
       <section v-else>No cards to review!</section>
     </flux-note>
@@ -45,5 +33,14 @@ const firstCard = computed(() => {
 .spaced-repetition-card {
   display: flex;
   flex: 1;
+
+  .card-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cards {
+    flex: 1;
+  }
 }
 </style>

@@ -13,7 +13,7 @@ import { computed, nextTick, watch } from 'vue'
 
 const MAX_LEVEL = 10
 
-interface Repetition {
+export interface Repetition {
   repetition: RepetitionCard
   card: Card
 }
@@ -80,22 +80,6 @@ export const useSpacedRepetitionCards = () => {
     { immediate: false }
   )
 
-  const failRepetition = async (cardId: string) => {
-    const repetition = await data.get<DataType.RepetitionCard, RepetitionCard>(
-      cardId
-    )
-    if (!repetition) {
-      return
-    }
-
-    await data.update<DataType.RepetitionCard, RepetitionCard>({
-      ...repetition,
-      repeatDate: addDays(new Date(), 1)
-    })
-
-    await execute()
-  }
-
   const successRepetition = async (cardId: string) => {
     const repetition = await data.get<DataType.RepetitionCard, RepetitionCard>(
       cardId
@@ -104,13 +88,13 @@ export const useSpacedRepetitionCards = () => {
       return
     }
 
+    const newLevel = repetition.level + 1
+
     await data.update<DataType.RepetitionCard, RepetitionCard>({
       ...repetition,
-      level: Math.min(repetition.level, MAX_LEVEL),
-      repeatDate: addDays(new Date(), repetition.level)
+      level: Math.min(newLevel, MAX_LEVEL),
+      repeatDate: addDays(new Date(), newLevel)
     })
-
-    await execute()
   }
 
   watch(
@@ -122,7 +106,7 @@ export const useSpacedRepetitionCards = () => {
     { immediate: true }
   )
 
-  watch(cardFiles, () => execute(), { immediate: true })
+  watch(cardFiles, () => execute())
 
-  return { cards, failRepetition, successRepetition, isLoading: !isReady }
+  return { cards, successRepetition, isLoading: !isReady }
 }
