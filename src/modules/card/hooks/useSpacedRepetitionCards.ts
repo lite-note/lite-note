@@ -96,6 +96,24 @@ export const useSpacedRepetitionCards = () => {
       repeatDate: addDays(new Date(), newLevel)
     })
   }
+  const failRepetition = async (cardId: string) => {
+    const repetition = await data.get<DataType.RepetitionCard, RepetitionCard>(
+      cardId
+    )
+    if (!repetition) {
+      return
+    }
+
+    const level = 1
+
+    await data.update<DataType.RepetitionCard, RepetitionCard>({
+      ...repetition,
+      level,
+      repeatDate: addDays(new Date(), level)
+    })
+
+    await execute()
+  }
 
   watch(
     cards,
@@ -108,5 +126,5 @@ export const useSpacedRepetitionCards = () => {
 
   watch(cardFiles, () => execute())
 
-  return { cards, successRepetition, isLoading: !isReady }
+  return { cards, successRepetition, failRepetition, isLoading: !isReady }
 }

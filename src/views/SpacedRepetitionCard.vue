@@ -8,7 +8,8 @@ defineProps<{
   repo: string
 }>()
 
-const { cards, isLoading, successRepetition } = useSpacedRepetitionCards()
+const { cards, isLoading, successRepetition, failRepetition } =
+  useSpacedRepetitionCards()
 </script>
 
 <template>
@@ -22,7 +23,11 @@ const { cards, isLoading, successRepetition } = useSpacedRepetitionCards()
     >
       <section v-if="isLoading">Loading...</section>
       <section v-else-if="cards.length" class="cards">
-        <flip-card-list :cards="cards" @success="successRepetition" />
+        <flip-card-list
+          :cards="cards"
+          @success="successRepetition"
+          @fail="failRepetition"
+        />
       </section>
       <section v-else>No cards to review!</section>
     </flux-note>

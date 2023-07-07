@@ -6,6 +6,7 @@ import { computed, ref } from 'vue'
 const props = defineProps<{ cards: Repetition[] }>()
 const emits = defineEmits<{
   success: [id: string]
+  fail: [id: string]
 }>()
 
 const cards = ref(props.cards)
@@ -17,14 +18,16 @@ const cardsToDisplay = computed(() => {
 })
 
 const goToNextCard = (success: boolean) => {
+  const id = cardsToDisplay.value[currentIndex.value].repetition._id ?? ''
+
   if (success) {
-    const id = cardsToDisplay.value[currentIndex.value].repetition._id ?? ''
     emits('success', id)
   } else {
     const failedCard = cards.value.at(currentIndex.value)
     if (failedCard) {
       cards.value.push(failedCard)
     }
+    emits('fail', id)
   }
 
   currentIndex.value++
