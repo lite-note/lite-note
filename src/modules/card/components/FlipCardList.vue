@@ -9,7 +9,11 @@ const emits = defineEmits<{
   fail: [id: string]
 }>()
 
-const cards = ref(props.cards)
+const cards = ref(
+  [...props.cards].sort((a, b) =>
+    a.repetition.level > b.repetition.level ? -1 : 1
+  )
+)
 
 const currentIndex = ref(0)
 

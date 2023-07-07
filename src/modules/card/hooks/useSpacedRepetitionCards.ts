@@ -1,3 +1,5 @@
+// https://npm.io/package/supermemo
+
 import { DataType } from '@/data/DataType.enum'
 import { data } from '@/data/data'
 import { useFile } from '@/hooks/useFile.hook'
@@ -11,7 +13,7 @@ import { useAsyncState } from '@vueuse/core'
 import { addDays, isAfter } from 'date-fns'
 import { computed, nextTick, watch } from 'vue'
 
-const MAX_LEVEL = 10
+const MAX_LEVEL = 8
 
 export interface Repetition {
   repetition: RepetitionCard
@@ -54,7 +56,10 @@ export const useSpacedRepetitionCards = () => {
           repeatDate: new Date()
         })
 
-        if (isAfter(new Date(repetition.repeatDate), new Date())) {
+        if (
+          isAfter(new Date(repetition.repeatDate), new Date()) ||
+          repetition.level === MAX_LEVEL
+        ) {
           continue
         }
 
@@ -88,12 +93,10 @@ export const useSpacedRepetitionCards = () => {
       return
     }
 
-    const newLevel = repetition.level + 1
-
     await data.update<DataType.RepetitionCard, RepetitionCard>({
       ...repetition,
-      level: Math.min(newLevel, MAX_LEVEL),
-      repeatDate: addDays(new Date(), newLevel)
+      level: Math.min(repetition.level + 1, MAX_LEVEL),
+      repeatDate: addDays(new Date(), 2 ** repetition.level)
     })
   }
   const failRepetition = async (cardId: string) => {
