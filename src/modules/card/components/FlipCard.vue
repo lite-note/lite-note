@@ -6,7 +6,9 @@ defineProps<{ card: Card }>()
 const emit = defineEmits<{ success: []; fail: [] }>()
 
 const flipped = ref(false)
-const flip = () => (flipped.value = !flipped.value)
+const flip = () => {
+  flipped.value = !flipped.value
+}
 
 const success = () => emit('success')
 
@@ -34,7 +36,7 @@ const fail = () => emit('fail')
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 $border-radius: 0.5rem;
 
 .flip-card {
@@ -48,7 +50,6 @@ $border-radius: 0.5rem;
 
   &:hover {
     cursor: pointer;
-    transform: scale(1.03);
   }
 
   .flip-card-inner {
@@ -88,5 +89,9 @@ $border-radius: 0.5rem;
   p {
     margin-bottom: 0.5rem;
   }
+}
+
+.title.is-2 {
+  font-size: 16pt;
 }
 </style>
