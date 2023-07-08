@@ -1,9 +1,9 @@
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import { defineConfig } from 'vite'
-import { UserConfigExport } from 'vitest/dist/config'
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { UserConfigExport } from 'vitest/dist/config'
 
 const mainColor = '#ffffff'
 
@@ -13,7 +13,7 @@ export default defineConfig(({ command }) => {
       vue(),
       VueI18nPlugin({}),
       VitePWA({
-        registerType: 'autoUpdate',
+        registerType: 'prompt',
         includeAssets: [
           'favicon.ico',
           'apple-touch-icon.png',
