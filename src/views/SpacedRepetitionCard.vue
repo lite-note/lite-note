@@ -46,6 +46,7 @@ const { cards, isLoading, successRepetition, failRepetition } =
 
   .cards {
     flex: 1;
+    display: flex;
   }
 }
 </style>

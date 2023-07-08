@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FlipCard from '@/modules/card/components/FlipCard.vue'
 import { Repetition } from '@/modules/card/hooks/useSpacedRepetitionCards'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps<{ cards: Repetition[] }>()
 const emits = defineEmits<{
@@ -17,12 +17,8 @@ const cards = ref(
 
 const currentIndex = ref(0)
 
-const cardsToDisplay = computed(() => {
-  return cards.value
-})
-
 const goToNextCard = (success: boolean) => {
-  const id = cardsToDisplay.value[currentIndex.value].repetition._id ?? ''
+  const id = cards.value[currentIndex.value].repetition._id ?? ''
 
   if (success) {
     emits('success', id)
@@ -41,13 +37,13 @@ const goToNextCard = (success: boolean) => {
 <template>
   <div class="flip-card-list">
     <h3 class="subtitle is-3">
-      Level: {{ cardsToDisplay[currentIndex].repetition.level }}
+      Level: {{ cards[currentIndex].repetition.level }}
     </h3>
-    <h4>cards left: {{ cardsToDisplay.length - currentIndex }}</h4>
+    <h4>cards left: {{ cards.length - currentIndex }}</h4>
 
     <div v-if="currentIndex < cards.length">
       <flip-card
-        v-for="(card, index) in cardsToDisplay"
+        v-for="(card, index) in cards"
         :key="card.repetition._id ?? ''"
         class="card"
         :style="{
@@ -65,7 +61,7 @@ const goToNextCard = (success: boolean) => {
 <style scoped lang="scss">
 .flip-card-list {
   overflow-x: hidden;
-  height: 100%;
+  flex: 1;
 
   .card {
     position: relative;
