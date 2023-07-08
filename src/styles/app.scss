@@ -19,7 +19,8 @@ $light-link: lighten($link, 45%);
 $family-primary: 'Courier Prime', monospace;
 
 :root {
-  --font-family: var(#{$family-primary});
+  --primary-color: #{$primary};
+  --font-family: #{$family-primary};
   --font-color: #4a4a4a;
   --light-link: #{$light-link};
   --background-color: #ffffff;

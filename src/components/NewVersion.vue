@@ -1,32 +1,50 @@
+<script setup lang="ts">
+import { useRegisterSW } from 'virtual:pwa-register/vue'
+import { ref } from 'vue'
+
+const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW()
+
+const close = async () => {
+  offlineReady.value = false
+  needRefresh.value = false
+}
+const devMode = ref(import.meta.env.DEV)
+</script>
+
 <template>
-  <aside v-if="hasNewVersion" class="new-version">
-    <button class="button is-primary" @click="reload">
-      new version available
+  <div
+    v-if="devMode || offlineReady || needRefresh"
+    class="pwa-toast"
+    role="alert"
+  >
+    <div>
+      <span v-if="offlineReady">App ready to work offline </span>
+      <span v-else>
+        New content available, click on reload button to update.
+      </span>
+    </div>
+    <button
+      class="button is-primary"
+      v-if="needRefresh"
+      @click="updateServiceWorker()"
+    >
+      Reload
     </button>
-  </aside>
+    <button class="button" @click="close">Close</button>
+  </div>
 </template>
 
-<script lang="ts">
-import { serviceWorkerBusEvent } from '@/bus/serviceWorkerEventBus'
-import { defineComponent, onMounted, ref } from 'vue'
-
-export default defineComponent({
-  name: 'NewVersion',
-  setup() {
-    const hasNewVersion = ref(false)
-    onMounted(() => {
-      serviceWorkerBusEvent.addEventBusListener(
-        () => {
-          hasNewVersion.value = true
-        },
-        {
-          once: true,
-          retro: true
-        }
-      )
-    })
-
-    return { hasNewVersion, reload: () => location.reload() }
-  }
-})
-</script>
+<style scoped>
+.pwa-toast {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 1rem;
+  padding: 0.5rem;
+  width: 200px;
+  color: var(--primary-color);
+  border: var(--primary-color) 2px solid;
+  border-radius: 4px;
+  background-color: var(--background-color);
+}
+</style>
