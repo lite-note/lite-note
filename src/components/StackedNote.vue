@@ -1,3 +1,46 @@
+<script lang="ts" setup>
+import LinkedNotes from '@/components/LinkedNotes.vue'
+import { useFile } from '@/hooks/useFile.hook'
+import { useImages } from '@/hooks/useImages.hook'
+import { useLinks } from '@/hooks/useLinks.hook'
+import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
+import { filenameToNoteTitle } from '@/utils/noteTitle'
+import { generateTweets } from '@/utils/twitter'
+import { computed, nextTick, watch } from 'vue'
+
+const props = defineProps<{
+  user: string
+  repo: string
+  index: number
+  title: string
+  sha: string
+}>()
+
+const { scrollToFocusedNote } = useQueryStackedNotes()
+const { content } = useFile(props.sha)
+const { listenToClick } = useLinks('stacked-note', props.sha)
+const className = computed(() => `stacked-note-${props.index}`)
+const titleClassName = computed(() => `title-${className.value}`)
+useTitleNotes(props.repo)
+
+const { displayNoteOverlay } = useNoteOverlay(className.value, props.index)
+const displayedTitle = computed(() => filenameToNoteTitle(props.title))
+
+watch(content, () => {
+  if (content.value) {
+    nextTick(() => {
+      listenToClick()
+      useImages(props.sha)
+      generateTweets()
+    })
+  }
+})
+
+const focus = () => scrollToFocusedNote(props.sha)
+</script>
+
 <template>
   <div
     class="stacked-note"
@@ -24,64 +67,6 @@
     <linked-notes v-if="content" :sha="sha" />
   </div>
 </template>
-
-<script lang="ts">
-import LinkedNotes from '@/components/LinkedNotes.vue'
-import { useFile } from '@/hooks/useFile.hook'
-import { useImages } from '@/hooks/useImages.hook'
-import { useLinks } from '@/hooks/useLinks.hook'
-import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
-import { filenameToNoteTitle } from '@/utils/noteTitle'
-import { generateTweets } from '@/utils/twitter'
-import { computed, defineComponent, nextTick, watch } from 'vue'
-
-export default defineComponent({
-  name: 'StackedNote',
-  components: {
-    LinkedNotes
-  },
-  props: {
-    user: { type: String, required: true },
-    repo: { type: String, required: true },
-    index: { type: Number, required: true },
-    title: { type: String, required: true },
-    sha: { type: String, required: true }
-  },
-  setup(props) {
-    const { scrollToFocusedNote } = useQueryStackedNotes()
-    const { content, fromCache } = useFile(props.sha)
-    const { listenToClick } = useLinks('stacked-note', props.sha)
-    const className = computed(() => `stacked-note-${props.index}`)
-    const titleClassName = computed(() => `title-${className.value}`)
-    useTitleNotes(props.repo)
-
-    const { displayNoteOverlay } = useNoteOverlay(className.value, props.index)
-    const displayedTitle = computed(() => filenameToNoteTitle(props.title))
-
-    watch(content, () => {
-      if (content.value) {
-        nextTick(() => {
-          listenToClick()
-          useImages(props.sha)
-          generateTweets()
-        })
-      }
-    })
-
-    return {
-      content,
-      fromCache,
-      titleClassName,
-      className,
-      displayNoteOverlay,
-      displayedTitle,
-      focus: () => scrollToFocusedNote(props.sha)
-    }
-  }
-})
-</script>
 
 <style lang="scss" scoped>
 $border-color: rgba(18, 19, 58, 0.2);
