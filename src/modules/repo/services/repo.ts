@@ -43,7 +43,9 @@ export const getMainReadme = async (owner: string, repo: string) => {
   }
 
   const { render } = useMarkdown()
-  const { getCachedNote, saveCacheNote } = useNoteCache('README')
+  const { getCachedNote, saveCacheNote } = useNoteCache(
+    `${owner}-${repo}-README`
+  )
 
   const cachedReadme = await getCachedNote()
 
