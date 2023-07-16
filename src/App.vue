@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import NewVersion from '@/components/NewVersion.vue'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 
 const { isReady } = useGitHubLogin()
@@ -6,6 +7,7 @@ const { isReady } = useGitHubLogin()
 
 <template>
   <router-view v-if="isReady" />
+  <new-version />
 </template>
 
 <style lang="scss">
