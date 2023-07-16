@@ -6,6 +6,7 @@ import MarkdownIt from 'markdown-it'
 import blockEmbedPlugin from 'markdown-it-block-embed'
 import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItFootnote from 'markdown-it-footnote'
+import markdownItLatex from 'markdown-it-latex'
 import markdownItSvgCodeCopy from 'markdown-it-svg-code-copy'
 
 const md = new MarkdownIt({
@@ -38,6 +39,7 @@ const md = new MarkdownIt({
     buttonClass: 'button is-light'
   })
   .use(markdownItFootnote)
+  .use(markdownItLatex)
 
 export const useMarkdown = (defaultPrefix?: string) => {
   return {

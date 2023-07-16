@@ -41,6 +41,9 @@ dependencies:
   markdown-it-footnote:
     specifier: ^3.0.3
     version: 3.0.3
+  markdown-it-latex:
+    specifier: ^0.2.0
+    version: 0.2.0
   markdown-it-svg-code-copy:
     specifier: ^1.0.0
     version: 1.0.0
@@ -2718,6 +2721,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /asciimath-to-latex@0.3.2:
+    resolution: {integrity: sha512-+80CDzm6nXdtsYwUdxBOLo7FA6ZO5CfRyYHgqLpUZgavPYqodXHamOQuLZJksV+4CUteJs1h7cBaF63d2qa97Q==}
+    dev: false
+
   /assertion-error@1.1.0:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
     dev: true
@@ -4115,6 +4122,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /katex@0.9.0:
+    resolution: {integrity: sha512-lp3x90LT1tDZBW2tjLheJ98wmRMRjUHwk4QpaswT9bhqoQZ+XA4cPcjcQBxgOQNwaOSt6ZeL/a6GKQ1of3LFxQ==}
+    hasBin: true
+    dependencies:
+      match-at: 0.1.1
+    dev: false
+
   /leven@3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
     engines: {node: '>=6'}
@@ -4208,6 +4222,13 @@ packages:
     resolution: {integrity: sha512-YZMSuCGVZAjzKMn+xqIco9d1cLGxbELHZ9do/TSYVzraooV8ypsppKNmUJ0fVH5ljkCInQAtFpm8Rb3eXSrt5w==}
     dev: false
 
+  /markdown-it-latex@0.2.0:
+    resolution: {integrity: sha512-vCaS6Dws9faA8lZel7Slfa1IYEnbYOjHzian/tDBulONBS+f9vRkFfQ4S0eFnTGtDTTXqE7zAnoezkv18b9IIA==}
+    dependencies:
+      asciimath-to-latex: 0.3.2
+      katex: 0.9.0
+    dev: false
+
   /markdown-it-svg-code-copy@1.0.0:
     resolution: {integrity: sha512-lrYKVi2k0txtnecCWzddeJ+mJWbhy6AkrXN0Fe5kL+N2Ergx9XMurJSb8JNoqdssdfNPx0koLG+hVFzL2On2wg==}
     dependencies:
@@ -4223,6 +4244,10 @@ packages:
       linkify-it: 3.0.3
       mdurl: 1.0.1
       uc.micro: 1.0.6
+    dev: false
+
+  /match-at@0.1.1:
+    resolution: {integrity: sha512-h4Yd392z9mST+dzc+yjuybOGFNOZjmXIPKWjxBd1Bb23r4SmDOsk2NYCU2BMUBGbSpZqwVsZYNq26QS3xfaT3Q==}
     dev: false
 
   /md5-hex@3.0.1:

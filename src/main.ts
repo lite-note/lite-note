@@ -1,5 +1,6 @@
 import { messages } from '@/locales/message'
 import { router } from '@/router/router'
+import 'markdown-it-latex/dist/index.css'
 import 'notyf/notyf.min.css'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
