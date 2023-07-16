@@ -2,13 +2,14 @@
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import { ref } from 'vue'
 
+const devMode = ref(import.meta.env.DEV)
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW()
 
 const close = async () => {
   offlineReady.value = false
   needRefresh.value = false
+  devMode.value = false
 }
-const devMode = ref(import.meta.env.DEV)
 </script>
 
 <template>
