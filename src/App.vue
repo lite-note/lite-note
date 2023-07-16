@@ -5,7 +5,7 @@ const { isReady } = useGitHubLogin()
 </script>
 
 <template>
-  <router-view v-if="isReady" class="app" />
+  <router-view v-if="isReady" />
 </template>
 
 <style lang="scss">

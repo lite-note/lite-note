@@ -11,7 +11,7 @@ const WelcomeWorld = defineAsyncComponent(
   () => import('@/components/WelcomeWorld.vue')
 )
 
-const props = defineProps<{ user: string; repo: string }>()
+const props = defineProps<{ user?: string; repo?: string }>()
 
 useQueryStackedNotes()
 useComputeBacklinks()
