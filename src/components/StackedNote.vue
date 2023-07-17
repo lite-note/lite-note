@@ -36,13 +36,15 @@ const { displayNoteOverlay } = useNoteOverlay(className.value, props.index)
 const displayedTitle = computed(() => filenameToNoteTitle(props.title))
 
 watch(content, () => {
-  if (content.value) {
-    nextTick(() => {
-      listenToClick()
-      useImages(props.sha)
-      generateTweets()
-    })
+  if (!content.value) {
+    return
   }
+
+  nextTick(() => {
+    listenToClick()
+    useImages(props.sha)
+    generateTweets()
+  })
 })
 
 const focus = () => scrollToFocusedNote(props.sha)
