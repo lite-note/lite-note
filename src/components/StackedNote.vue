@@ -6,6 +6,7 @@ import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { filenameToNoteTitle } from '@/utils/noteTitle'
 import { generateTweets } from '@/utils/twitter'
 import { computed, nextTick, watch } from 'vue'
@@ -24,6 +25,9 @@ const { listenToClick } = useLinks('stacked-note', props.sha)
 const className = computed(() => `stacked-note-${props.index}`)
 const titleClassName = computed(() => `title-${className.value}`)
 useTitleNotes(props.repo)
+
+const store = useUserRepoStore()
+const hasBacklinks = computed(() => store.userSettings?.backlink)
 
 const { displayNoteOverlay } = useNoteOverlay(className.value, props.index)
 const displayedTitle = computed(() => filenameToNoteTitle(props.title))
@@ -64,7 +68,7 @@ const focus = () => scrollToFocusedNote(props.sha)
       </router-link>
     </div>
     <section class="note-content" v-html="content"></section>
-    <linked-notes v-if="content" :sha="sha" />
+    <linked-notes v-if="hasBacklinks && content" :sha="sha" />
   </div>
 </template>
 
