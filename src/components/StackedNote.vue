@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import LinkedNotes from '@/components/LinkedNotes.vue'
 import { useFile } from '@/hooks/useFile.hook'
 import { useImages } from '@/hooks/useImages.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
@@ -9,7 +8,11 @@ import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { filenameToNoteTitle } from '@/utils/noteTitle'
 import { generateTweets } from '@/utils/twitter'
-import { computed, nextTick, watch } from 'vue'
+import { computed, defineAsyncComponent, nextTick, watch } from 'vue'
+
+const LinkedNotes = defineAsyncComponent(
+  () => import('@/components/LinkedNotes.vue')
+)
 
 const props = defineProps<{
   user: string

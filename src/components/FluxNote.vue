@@ -1,5 +1,4 @@
-<script lang="ts">
-import HeaderNote from '@/components/HeaderNote.vue'
+<script lang="ts" setup>
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNote } from '@/hooks/useNote.hook'
@@ -11,7 +10,6 @@ import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
 import {
   computed,
   defineAsyncComponent,
-  defineComponent,
   nextTick,
   onMounted,
   onUnmounted,
@@ -19,83 +17,78 @@ import {
   watch
 } from 'vue'
 
+const HeaderNote = defineAsyncComponent(
+  () => import('@/components/HeaderNote.vue')
+)
+
 const StackedNote = defineAsyncComponent(
   () => import('@/components/StackedNote.vue')
 )
 
-export default defineComponent({
-  name: 'FluxNote',
-  components: {
-    HeaderNote,
-    StackedNote
-  },
-  props: {
-    user: { type: String, required: true },
-    repo: { type: String, required: true },
-    content: { type: String, required: false, default: null },
-    parseContent: { type: Boolean, required: false, default: true },
-    withContent: { type: Boolean, required: false, default: true },
-    withHeader: { type: Boolean, required: false, default: true }
-  },
-  setup(props) {
-    const refProps = toRefs(props)
-    const store = useUserRepoStore()
-    useUserSettings()
-    const { visitRepo } = useVisitRepo({ user: props.user, repo: props.repo })
-    const { toHTML } = useMarkdown(props.repo)
-    const { listenToClick } = useLinks('note-display')
-    const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
-    const { scrollToFocusedNote } = useQueryStackedNotes()
-
-    const { titles } = useNote('note-container')
-
-    const renderedContent = computed(() =>
-      props.content !== null
-        ? props.parseContent
-          ? toHTML(props.content)
-          : props.content
-        : store.readme
-    )
-
-    const hasContent = computed(() => !!renderedContent.value)
-    const isLoading = computed(() => renderedContent.value === undefined)
-
-    watch(
-      renderedContent,
-      async () => {
-        await nextTick()
-        listenToClick()
-      },
-      { immediate: true }
-    )
-
-    watch(
-      [refProps.user, refProps.repo],
-      () => {
-        store.setUserRepo(props.user, props.repo)
-      },
-      { immediate: true }
-    )
-
-    onMounted(() => visitRepo())
-
-    onUnmounted(() => {
-      store.resetFiles()
-      resetStackedNotes()
-    })
-
-    return {
-      hasContent,
-      isLoading,
-      renderedContent,
-      stackedNotes,
-      resetStackedNotes,
-      userSettings: computed(() => store.userSettings),
-      focus: () => scrollToFocusedNote(undefined, true),
-      titles
-    }
+const props = withDefaults(
+  defineProps<{
+    user: string
+    repo: string
+    content?: string | null
+    parseContent?: boolean
+    withContent?: boolean
+    withHeader?: boolean
+  }>(),
+  {
+    content: null,
+    parseContent: true,
+    withContent: true,
+    withHeader: true
   }
+)
+
+const refProps = toRefs(props)
+const store = useUserRepoStore()
+useUserSettings()
+const { visitRepo } = useVisitRepo({ user: props.user, repo: props.repo })
+const { toHTML } = useMarkdown(props.repo)
+const { listenToClick } = useLinks('note-display')
+const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
+const { scrollToFocusedNote } = useQueryStackedNotes()
+
+const { titles } = useNote('note-container')
+
+const renderedContent = computed(() =>
+  props.content !== null
+    ? props.parseContent
+      ? toHTML(props.content)
+      : props.content
+    : store.readme
+)
+
+const hasContent = computed(() => !!renderedContent.value)
+const isLoading = computed(() => renderedContent.value === undefined)
+
+watch(
+  renderedContent,
+  async () => {
+    await nextTick()
+    listenToClick()
+  },
+  { immediate: true }
+)
+
+watch(
+  [refProps.user, refProps.repo],
+  () => {
+    store.setUserRepo(props.user, props.repo)
+  },
+  { immediate: true }
+)
+
+onMounted(() => visitRepo())
+
+onUnmounted(() => {
+  store.resetFiles()
+  resetStackedNotes()
 })
+
+const focus = () => scrollToFocusedNote(undefined, true)
 </script>
 
 <template>
