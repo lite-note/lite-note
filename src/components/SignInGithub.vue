@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 const GITHUB_URL = 'https://github.com/login/oauth/authorize'
 
 const CLIENT_ID = 'Iv1.12dc43d013ce3623'

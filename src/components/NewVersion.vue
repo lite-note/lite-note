@@ -44,7 +44,7 @@ const close = async () => {
   bottom: 0;
   margin: 1rem;
   padding: 0.5rem;
-  width: 200px;
+  width: 220px;
   color: var(--primary-color);
   border: var(--primary-color) 2px solid;
   border-radius: 4px;
