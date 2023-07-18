@@ -6,6 +6,7 @@ import MarkdownIt from 'markdown-it'
 import blockEmbedPlugin from 'markdown-it-block-embed'
 import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItFootnote from 'markdown-it-footnote'
+import markdownItIframe from 'markdown-it-iframe'
 import markdownItLatex from 'markdown-it-latex'
 import markdownItSvgCodeCopy from 'markdown-it-svg-code-copy'
 
@@ -40,6 +41,10 @@ const md = new MarkdownIt({
   })
   .use(markdownItFootnote)
   .use(markdownItLatex)
+  .use(markdownItIframe, {
+    width: '100%',
+    height: 400
+  })
 
 export const useMarkdown = (defaultPrefix?: string) => {
   return {

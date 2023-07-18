@@ -41,6 +41,9 @@ dependencies:
   markdown-it-footnote:
     specifier: ^3.0.3
     version: 3.0.3
+  markdown-it-iframe:
+    specifier: ^1.0.0
+    version: 1.0.0
   markdown-it-latex:
     specifier: ^0.2.0
     version: 0.2.0
@@ -4181,6 +4184,10 @@ packages:
 
   /markdown-it-footnote@3.0.3:
     resolution: {integrity: sha512-YZMSuCGVZAjzKMn+xqIco9d1cLGxbELHZ9do/TSYVzraooV8ypsppKNmUJ0fVH5ljkCInQAtFpm8Rb3eXSrt5w==}
+    dev: false
+
+  /markdown-it-iframe@1.0.0:
+    resolution: {integrity: sha512-UA/MZARLnUXJkhd+ECpMUBLLnMmOB4LmgOUL41+1GMqcwZnb1utP6VNZ4ZvEn5o9ZnuAUh6zvYcsQciwxy7WvA==}
     dev: false
 
   /markdown-it-latex@0.2.0:

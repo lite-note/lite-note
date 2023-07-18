@@ -23,6 +23,7 @@
     "markdown-it-block-embed": "^0.0.3",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-footnote": "^3.0.3",
+    "markdown-it-iframe": "^1.0.0",
     "markdown-it-latex": "^0.2.0",
     "markdown-it-svg-code-copy": "^1.0.0",
     "nanoid": "^4.0.2",
