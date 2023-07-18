@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 
 const GITHUB_URL = 'https://github.com/login/oauth/authorize'
 
 const CLIENT_ID = 'Iv1.12dc43d013ce3623'
 const SCOPE = 'repo'
 const REDIRECT_URI = window.location.origin
-const { isLogged } = useGitHubLogin()
 
 const url = new URL(GITHUB_URL)
 url.searchParams.set('client_id', CLIENT_ID)
@@ -17,7 +15,7 @@ const href = url.toString()
 </script>
 
 <template>
-  <a :href="href" class="sign-in-github button is-primary" v-if="!isLogged">
+  <a :href="href" class="sign-in-github button is-primary">
     <span>
       Sign in with
       <img src="@/assets/icons/github.svg" alt="GitHub" />
