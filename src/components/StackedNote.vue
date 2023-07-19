@@ -24,8 +24,8 @@ const props = defineProps<{
 
 const { scrollToFocusedNote } = useQueryStackedNotes()
 const { content } = useFile(props.sha)
-const { listenToClick } = useLinks('stacked-note', props.sha)
 const className = computed(() => `stacked-note-${props.index}`)
+const { listenToClick } = useLinks(className.value, props.sha)
 const titleClassName = computed(() => `title-${className.value}`)
 useTitleNotes(props.repo)
 

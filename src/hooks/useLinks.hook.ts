@@ -1,9 +1,12 @@
 import { noteEventBus } from '@/bus/noteEventBus'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { isExternalLink } from '@/utils/link'
-import { onUnmounted } from 'vue'
+import { ComputedRef, onUnmounted, toValue } from 'vue'
 
-export const useLinks = (className: string, sha?: string) => {
+export const useLinks = (
+  className: ComputedRef<string> | string,
+  sha?: string
+) => {
   const store = useUserRepoStore()
 
   const linkNote: EventListener = (event) => {
@@ -34,7 +37,7 @@ export const useLinks = (className: string, sha?: string) => {
     })
   }
 
-  const selector = `.${className} a`
+  const selector = `.${toValue(className)} a`
 
   const removeListeners = () => {
     const elements = document.querySelectorAll(selector)
