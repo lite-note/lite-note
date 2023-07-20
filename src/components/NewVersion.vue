@@ -1,14 +1,21 @@
 <script setup lang="ts">
+import LiteLoading from '@/components/LiteLoading.vue'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import { ref } from 'vue'
 
 const devMode = ref(import.meta.env.DEV)
+const isLoading = ref(false)
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW()
 
 const close = async () => {
   offlineReady.value = false
   needRefresh.value = false
   devMode.value = false
+}
+
+const reload = () => {
+  isLoading.value = true
+  updateServiceWorker()
 }
 </script>
 
@@ -25,12 +32,9 @@ const close = async () => {
       </span>
     </div>
     <div class="buttons">
-      <button
-        class="button is-primary"
-        v-if="needRefresh"
-        @click="updateServiceWorker()"
-      >
-        Reload
+      <button class="button is-primary" v-if="needRefresh" @click="reload">
+        <LiteLoading v-if="isLoading" />
+        <span v-else>Reload</span>
       </button>
       <button class="button" @click="close">Close</button>
     </div>
