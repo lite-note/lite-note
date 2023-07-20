@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import LiteLoading from '@/components/LiteLoading.vue'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNote } from '@/hooks/useNote.hook'
@@ -111,13 +112,7 @@ const focus = () => scrollToFocusedNote(undefined, true)
         </h4>
       </div>
       <slot />
-      <div v-if="isLoading" class="loading">
-        <img
-          class="is-loading"
-          src="@/assets/icons/loading.svg"
-          alt="loading..."
-        />
-      </div>
+      <lite-loading v-if="isLoading" />
       <div v-else-if="!hasContent">No content here 📝</div>
       <p
         v-else-if="withContent"
@@ -230,17 +225,6 @@ $header-height: 40px;
     .note {
       min-width: var(--note-width);
       max-width: var(--note-width);
-    }
-  }
-
-  .loading {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-
-    .is-loading {
-      animation: spinAround 0.8s infinite linear;
     }
   }
 }
