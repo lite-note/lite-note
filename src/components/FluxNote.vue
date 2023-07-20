@@ -184,7 +184,11 @@ $header-height: 40px;
 
     .repo-title {
       margin-top: 1rem;
-      text-align: center;
+
+      .title,
+      .subtitle {
+        text-align: center;
+      }
     }
   }
 
@@ -202,6 +206,10 @@ $header-height: 40px;
 
     &:not(:first-child) {
       border-top: 1px solid rgba(18, 19, 58, 0.2);
+    }
+
+    .title {
+      text-align: left;
     }
   }
 

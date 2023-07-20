@@ -125,7 +125,7 @@ $border-color: rgba(18, 19, 58, 0.2);
 
 @media screen and (max-width: 768px) {
   .stacked-note {
-    padding: 0 1.5rem;
+    padding: 0 0.5rem 1rem;
 
     .title-stacked-note {
       padding: 0.5rem 0 0;
@@ -137,6 +137,8 @@ $border-color: rgba(18, 19, 58, 0.2);
     }
 
     .note-content {
+      padding: 0 1.5rem;
+
       .table {
         overflow-x: auto;
       }
