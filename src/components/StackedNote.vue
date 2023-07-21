@@ -81,7 +81,7 @@ const focus = () => scrollToFocusedNote(props.sha)
 $border-color: rgba(18, 19, 58, 0.2);
 
 .stacked-note {
-  padding: 1rem 1.5rem;
+  padding: 0 1.5rem 1rem;
   background-color: var(--background-color);
 
   transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
