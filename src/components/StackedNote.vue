@@ -24,8 +24,8 @@ const props = defineProps<{
 
 const { scrollToFocusedNote } = useQueryStackedNotes()
 const { content } = useFile(props.sha)
-const { listenToClick } = useLinks('stacked-note', props.sha)
 const className = computed(() => `stacked-note-${props.index}`)
+const { listenToClick } = useLinks(className.value, props.sha)
 const titleClassName = computed(() => `title-${className.value}`)
 useTitleNotes(props.repo)
 
@@ -81,7 +81,7 @@ const focus = () => scrollToFocusedNote(props.sha)
 $border-color: rgba(18, 19, 58, 0.2);
 
 .stacked-note {
-  padding: 1rem 1.5rem;
+  padding: 0 1.5rem 1rem;
   background-color: var(--background-color);
 
   transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
@@ -125,7 +125,7 @@ $border-color: rgba(18, 19, 58, 0.2);
 
 @media screen and (max-width: 768px) {
   .stacked-note {
-    padding: 0 1.5rem;
+    padding: 0 0.5rem 1rem;
 
     .title-stacked-note {
       padding: 0.5rem 0 0;
@@ -137,6 +137,8 @@ $border-color: rgba(18, 19, 58, 0.2);
     }
 
     .note-content {
+      padding: 0 1.5rem;
+
       .table {
         overflow-x: auto;
       }
