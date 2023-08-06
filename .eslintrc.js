@@ -1,3 +1,5 @@
+require('@rushstack/eslint-patch/modern-module-resolution')
+
 module.exports = {
   root: true,
   env: {
@@ -9,7 +11,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:vue/recommended',
     '@vue/typescript/recommended',
-    '@vue/prettier/@typescript-eslint',
+    '@vue/prettier',
+    '@vue/eslint-config-typescript',
     'plugin:prettier-vue/recommended'
   ],
   rules: {
@@ -26,6 +29,7 @@ module.exports = {
         arrowParens: 'always'
       }
     ],
+    semi: 0,
     'vue/no-v-html': 'off',
     'no-restricted-imports': [
       'error',
