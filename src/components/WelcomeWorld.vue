@@ -6,7 +6,7 @@
         <div class="buttons is-centered">
           <router-link
             :to="{
-              name: 'Home',
+              name: 'FluxNoteView',
               params: { user: 'lite-note', repo: 'getting-started' }
             }"
             class="button is-primary"
@@ -32,7 +32,7 @@
             >
               <router-link
                 :to="{
-                  name: 'Home',
+                  name: 'FluxNoteView',
                   params: {
                     user: username,
                     repo: favoriteRepo.name
@@ -102,15 +102,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import SignInGithub from '@/components/SignInGithub.vue'
 import { useForm } from '@/hooks/useForm.hook'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
-import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
-import SignInGithub from '@/components/SignInGithub.vue'
 import LastVisited from '@/modules/history/components/LastVisited.vue'
+import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'WelcomeWord',
+  name: 'WelcomeWorld',
   components: { SignInGithub, LastVisited },
   setup() {
     const { isLogged, username } = useGitHubLogin()

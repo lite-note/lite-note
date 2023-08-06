@@ -102,7 +102,7 @@ const focus = () => scrollToFocusedNote(undefined, true)
       <div class="repo-title">
         <h1 class="title is-1">
           [<router-link
-            :to="{ name: 'Home', params: { user, repo } }"
+            :to="{ name: 'FluxNoteView', params: { user, repo } }"
             @click="resetStackedNotes"
             >{{ repo }}</router-link
           >]

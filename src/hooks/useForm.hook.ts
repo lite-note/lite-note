@@ -12,7 +12,7 @@ export const useForm = () => {
     }
 
     push({
-      name: 'Home',
+      name: 'FluxNoteView',
       params: {
         user: userInput.value,
         repo: repoInput.value

@@ -9,7 +9,7 @@
         <div>
           <router-link
             :to="{
-              name: `Home`,
+              name: `FluxNoteView`,
               params: { user: lastVisitedRepo.user, repo: lastVisitedRepo.repo }
             }"
             >{{ lastVisitedRepo.user }}/{{ lastVisitedRepo.repo }}</router-link
