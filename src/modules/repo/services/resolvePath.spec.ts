@@ -1,5 +1,5 @@
-import { resolvePath } from '@/modules/repo/services/resolvePath'
 import { describe, expect, it } from 'vitest'
+import { resolvePath } from './resolvePath'
 
 describe('resolve path service', () => {
   it('set the absolute path if path to resolve is empty', () => {

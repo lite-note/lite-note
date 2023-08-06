@@ -1,7 +1,7 @@
 // https://npm.io/package/supermemo
 
-import { DataType } from '@/data/DataType.enum'
 import { data } from '@/data/data'
+import { DataType } from '@/data/DataType.enum'
 import { useFile } from '@/hooks/useFile.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
@@ -53,12 +53,14 @@ export const useSpacedRepetitionCards = () => {
         >(data.generateId(DataType.RepetitionCard, cardFile.path), {
           $type: DataType.RepetitionCard,
           level: 1,
-          repeatDate: new Date()
+          repeatDate: new Date(),
+          needsReview: false
         })
 
         if (
           isAfter(new Date(repetition.repeatDate), new Date()) ||
-          repetition.level === MAX_LEVEL
+          repetition.level === MAX_LEVEL ||
+          repetition.needsReview
         ) {
           continue
         }
@@ -95,6 +97,7 @@ export const useSpacedRepetitionCards = () => {
 
     await data.update<DataType.RepetitionCard, RepetitionCard>({
       ...repetition,
+      needsReview: false,
       level: Math.min(repetition.level + 1, MAX_LEVEL),
       repeatDate: addDays(new Date(), 2 ** repetition.level)
     })
@@ -113,7 +116,22 @@ export const useSpacedRepetitionCards = () => {
     await data.update<DataType.RepetitionCard, RepetitionCard>({
       ...repetition,
       level,
+      needsReview: false,
       repeatDate: addDays(new Date(), level)
+    })
+  }
+
+  const needsReview = async (cardId: string) => {
+    const repetition = await data.get<DataType.RepetitionCard, RepetitionCard>(
+      cardId
+    )
+    if (!repetition) {
+      return
+    }
+
+    await data.update<DataType.RepetitionCard, RepetitionCard>({
+      ...repetition,
+      needsReview: true
     })
   }
 
@@ -128,5 +146,11 @@ export const useSpacedRepetitionCards = () => {
 
   watch(cardFiles, () => execute())
 
-  return { cards, successRepetition, failRepetition, isLoading: !isReady }
+  return {
+    cards,
+    successRepetition,
+    failRepetition,
+    needsReview,
+    isLoading: !isReady
+  }
 }

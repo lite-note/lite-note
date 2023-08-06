@@ -4,4 +4,5 @@ import { Model } from '@/data/models/Model'
 export interface RepetitionCard extends Model<DataType.RepetitionCard> {
   level: number
   repeatDate: Date
+  needsReview: boolean
 }

@@ -44,6 +44,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/SpacedRepetitionCard.vue')
   },
   {
+    path: '/:user/:repo/need-review-cards',
+    name: 'NeedReviewCards',
+    props: true,
+    component: () => import('@/views/NeedReviewCards.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import('@/views/AboutApp.vue')
