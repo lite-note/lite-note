@@ -106,6 +106,11 @@ const focus = () => scrollToFocusedNote(undefined, true)
             @click="resetStackedNotes"
             >{{ repo }}</router-link
           >]
+          <img
+            v-if="store.isReadmeOffline"
+            src="@/assets/icons/offline.svg"
+            alt="ofline"
+          />
         </h1>
         <h4 class="subtitle is-4">
           <em>{{ user }}</em>
@@ -183,6 +188,13 @@ $header-height: 40px;
       .title,
       .subtitle {
         text-align: center;
+      }
+
+      .title {
+        img {
+          position: absolute;
+          right: 0;
+        }
       }
     }
   }

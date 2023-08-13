@@ -13,6 +13,7 @@ interface State {
   user: string
   repo: string
   files: RepoFile[]
+  isReadmeOffline: boolean
   readme?: string | null
   userSettings?: UserSettings | null
   needToLogin: boolean
@@ -24,12 +25,14 @@ export const useUserRepoStore = defineStore({
     user: '',
     repo: '',
     files: [],
+    isReadmeOffline: true,
     readme: undefined,
     userSettings: undefined,
     needToLogin: false
   }),
   actions: {
     async setUserRepo(newUser: string, newRepo: string) {
+      this.isReadmeOffline = true
       this.user = newUser
       this.repo = newRepo
       try {
@@ -37,17 +40,15 @@ export const useUserRepoStore = defineStore({
       } catch (error) {
         console.warn('impossible to refresh token')
       }
-      const [cachedReadme] = await Promise.all([
-        getCachedMainReadme(newUser, newRepo)
-      ])
 
-      this.readme = cachedReadme
+      this.readme = await getCachedMainReadme(newUser, newRepo)
 
       const [readme, files] = await Promise.all([
         getMainReadme(newUser, newRepo),
         getFiles(newUser, newRepo)
       ])
       this.readme = readme
+      this.isReadmeOffline = false
       this.files = files
 
       this.userSettings = await getUserSettingsContent(newUser, newRepo, files)
