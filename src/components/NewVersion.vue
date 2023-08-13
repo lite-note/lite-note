@@ -32,7 +32,7 @@ const reload = () => {
       </span>
     </div>
     <div class="buttons">
-      <button class="button is-primary" v-if="needRefresh" @click="reload">
+      <button v-if="needRefresh" class="button is-primary" @click="reload">
         <LiteLoading v-if="isLoading" />
         <span v-else>Reload</span>
       </button>

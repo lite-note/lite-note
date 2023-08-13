@@ -31,7 +31,7 @@
 
                 <router-link
                   :to="{
-                    name: 'Home',
+                    name: 'FluxNoteView',
                     params: { user: username, repo: repo.name }
                   }"
                   >{{ repo.name }}</router-link
@@ -62,7 +62,7 @@
               <td>
                 <router-link
                   :to="{
-                    name: 'Home',
+                    name: 'FluxNoteView',
                     params: { user: username, repo: repo.name }
                   }"
                   >{{ repo.name }}</router-link
@@ -77,11 +77,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
-import { useRepoList } from '@/modules/repo/hooks/useRepoList.hook'
-import { useRepos } from '@/hooks/useRepos.hook'
 import GoBack from '@/components/GoBack.vue'
+import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
+import { useRepos } from '@/hooks/useRepos.hook'
+import { useRepoList } from '@/modules/repo/hooks/useRepoList.hook'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'RepoList',

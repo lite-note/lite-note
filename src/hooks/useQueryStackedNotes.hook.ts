@@ -1,10 +1,8 @@
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
-import { readonly, ref } from 'vue'
 import { useWindowSize } from '@vueuse/core'
-import { nextTick } from 'vue'
-
+import { nextTick, readonly, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const stackedNotes = ref<string[]>([])
@@ -90,7 +88,7 @@ export const useQueryStackedNotes = () => {
     const newStackedNotes = getStackedNotes()
 
     push({
-      name: currentRoute.value.name ?? 'Home',
+      name: currentRoute.value.name ?? 'FluxNoteView',
       params: {
         user: store.user,
         repo: store.repo

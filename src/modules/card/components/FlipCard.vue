@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { Card } from '../models/Card'
 
 defineProps<{ card: Card }>()
-const emit = defineEmits<{ success: []; fail: [] }>()
+const emit = defineEmits<{ success: []; fail: []; needsReview: [] }>()
 
 const flipped = ref(false)
 const flip = () => {
@@ -11,8 +11,8 @@ const flip = () => {
 }
 
 const success = () => emit('success')
-
 const fail = () => emit('fail')
+const needsReview = () => emit('needsReview')
 </script>
 
 <template>
@@ -27,8 +27,13 @@ const fail = () => emit('fail')
         <div class="actions">
           <p>Did you remember this?</p>
           <div class="buttons is-centered">
-            <div class="button is-warning" @click.stop="fail">failed</div>
-            <div class="button is-success" @click.stop="success">got it</div>
+            <button class="button is-warning" @click.stop="fail">failed</button>
+            <button class="button is-success" @click.stop="success">
+              got it
+            </button>
+            <button class="button is-danger" @click.stop="needsReview">
+              <em>needs review</em>
+            </button>
           </div>
         </div>
       </div>

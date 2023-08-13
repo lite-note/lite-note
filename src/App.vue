@@ -6,10 +6,18 @@ const { isReady } = useGitHubLogin()
 </script>
 
 <template>
-  <router-view v-if="isReady" />
-  <new-version />
+  <div id="main-app">
+    <router-view v-if="isReady" />
+    <new-version />
+  </div>
 </template>
 
 <style lang="scss">
 @import 'styles/app';
+
+#main-app {
+  height: 100vh;
+  display: flex;
+  flex: 1;
+}
 </style>

@@ -7,6 +7,7 @@ const props = defineProps<{ cards: Repetition[] }>()
 const emits = defineEmits<{
   success: [id: string]
   fail: [id: string]
+  needsReview: [id: string]
 }>()
 
 const cards = ref(
@@ -32,6 +33,12 @@ const goToNextCard = (success: boolean) => {
 
   currentIndex.value++
 }
+
+const needsReview = () => {
+  const id = cards.value[currentIndex.value].repetition._id ?? ''
+  emits('needsReview', id)
+  currentIndex.value++
+}
 </script>
 
 <template>
@@ -52,6 +59,7 @@ const goToNextCard = (success: boolean) => {
         :card="card.card"
         @success="goToNextCard(true)"
         @fail="goToNextCard(false)"
+        @needs-review="needsReview"
       />
     </div>
     <div v-else>No more cards to check!</div>

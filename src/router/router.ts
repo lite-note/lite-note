@@ -1,6 +1,5 @@
-import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
-
 import Home from '@/views/HomeApp.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,10 +8,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/RepoList.vue')
   },
   {
-    path: '/:user?/:repo?',
-    name: 'Home',
+    path: '/:user/:repo',
+    name: 'FluxNoteView',
     props: true,
-    component: Home
+    component: () => import('@/views/FluxNoteView.vue')
   },
   {
     path: '/:user/:repo/share/:note',
@@ -45,9 +44,20 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/SpacedRepetitionCard.vue')
   },
   {
+    path: '/:user/:repo/need-review-cards',
+    name: 'NeedReviewCards',
+    props: true,
+    component: () => import('@/views/NeedReviewCards.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import('@/views/AboutApp.vue')
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
   },
   {
     path: '/:catchAll(.*)',

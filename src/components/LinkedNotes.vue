@@ -1,3 +1,23 @@
+<script lang="ts" setup>
+import { useBacklinks } from '@/hooks/useBacklinks.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { computed } from 'vue'
+
+const props = defineProps<{
+  sha: string
+}>()
+
+const shaProp = computed((props) => props.sha)
+
+const { backlink } = useBacklinks(shaProp)
+const { addStackedNote } = useQueryStackedNotes()
+const hasBacklinks = computed(() => (backlink.value?.links.length ?? 0) > 0)
+
+const emitNote = (sha: string) => {
+  addStackedNote(props.sha, sha)
+}
+</script>
+
 <template>
   <div v-if="hasBacklinks" class="linked-notes">
     <h5 class="subtitle is-5">🔗</h5>
@@ -10,36 +30,6 @@
     </ul>
   </div>
 </template>
-
-<script lang="ts">
-import { useBacklinks } from '@/hooks/useBacklinks.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { computed, defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'LinkedNotes',
-  props: {
-    sha: { type: String, required: true }
-  },
-  setup(props) {
-    const { backlink } = useBacklinks(props.sha)
-    const { addStackedNote } = useQueryStackedNotes()
-    const hasBacklinks = computed(
-      () => (backlink.state.value?.links.length ?? 0) > 0
-    )
-
-    const emitNote = (sha: string) => {
-      addStackedNote(props.sha, sha)
-    }
-
-    return {
-      backlink: backlink.state,
-      hasBacklinks,
-      emitNote
-    }
-  }
-})
-</script>
 
 <style scoped lang="scss">
 .linked-notes {
