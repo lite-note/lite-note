@@ -1,8 +1,8 @@
-import { ref } from 'vue'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNoteCache } from '@/modules/note/hooks/useNoteCache'
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { getFileContent } from '@/modules/repo/services/repo'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { ref } from 'vue'
 
 export const useFile = (sha: string, retrieveContent = true) => {
   const { render } = useMarkdown(sha)
@@ -47,6 +47,7 @@ export const useFile = (sha: string, retrieveContent = true) => {
     if (!contentFile) {
       return null
     }
+
     saveCacheNote(contentFile)
     return contentFile
   }

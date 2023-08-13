@@ -1,6 +1,7 @@
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
 import {
+  getCachedMainReadme,
   getFiles,
   getMainReadme,
   getUserSettingsContent
@@ -36,14 +37,20 @@ export const useUserRepoStore = defineStore({
       } catch (error) {
         console.warn('impossible to refresh token')
       }
+      const [cachedReadme] = await Promise.all([
+        getCachedMainReadme(newUser, newRepo)
+      ])
+
+      this.readme = cachedReadme
+
       const [readme, files] = await Promise.all([
         getMainReadme(newUser, newRepo),
         getFiles(newUser, newRepo)
       ])
-      this.userSettings = await getUserSettingsContent(newUser, newRepo, files)
-
       this.readme = readme
       this.files = files
+
+      this.userSettings = await getUserSettingsContent(newUser, newRepo, files)
     },
     resetUserRepo() {
       this.user = ''

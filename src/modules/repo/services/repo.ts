@@ -37,6 +37,22 @@ export const getFiles = async (
   return treeResponse?.data.tree.filter((t) => t.type === 'blob') ?? []
 }
 
+export const getCachedMainReadme = async (owner: string, repo: string) => {
+  if (!owner || !repo) {
+    return null
+  }
+  const { render } = useMarkdown()
+
+  const { getCachedNote } = useNoteCache(`${owner}-${repo}-README`)
+  const cachedReadme = await getCachedNote()
+
+  if (!cachedReadme) {
+    return null
+  }
+
+  return render(cachedReadme.content)
+}
+
 export const getMainReadme = async (owner: string, repo: string) => {
   if (!owner || !repo) {
     return null
@@ -46,8 +62,6 @@ export const getMainReadme = async (owner: string, repo: string) => {
   const { getCachedNote, saveCacheNote } = useNoteCache(
     `${owner}-${repo}-README`
   )
-
-  const cachedReadme = await getCachedNote()
 
   try {
     const octokit = await getOctokit()
@@ -63,6 +77,8 @@ export const getMainReadme = async (owner: string, repo: string) => {
     }
   } catch (error) {
     console.warn(error)
+    const cachedReadme = await getCachedNote()
+
     if (cachedReadme) {
       return render(cachedReadme.content)
     }
