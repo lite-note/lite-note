@@ -1,5 +1,5 @@
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
-import { useNoteCache } from '@/modules/note/hooks/useNoteCache'
+import { prepareNoteCache } from '@/modules/note/cache/useNoteCache'
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
 import { getOctokit } from '@/modules/repo/services/octo'
@@ -43,7 +43,7 @@ export const getCachedMainReadme = async (owner: string, repo: string) => {
   }
   const { render } = useMarkdown()
 
-  const { getCachedNote } = useNoteCache(`${owner}-${repo}-README`)
+  const { getCachedNote } = prepareNoteCache(`${owner}-${repo}-README`)
   const cachedReadme = await getCachedNote()
 
   if (!cachedReadme) {
@@ -59,7 +59,7 @@ export const getMainReadme = async (owner: string, repo: string) => {
   }
 
   const { render } = useMarkdown()
-  const { getCachedNote, saveCacheNote } = useNoteCache(
+  const { getCachedNote, saveCacheNote } = prepareNoteCache(
     `${owner}-${repo}-README`
   )
 

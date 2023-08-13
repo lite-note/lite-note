@@ -2,7 +2,7 @@ import { data } from '@/data/data'
 import { DataType } from '@/data/DataType.enum'
 import { Note } from '@/modules/note/models/Note'
 
-export const useNoteCache = (sha: string) => {
+export const prepareNoteCache = (sha: string) => {
   const noteId = data.generateId(DataType.Note, sha)
   const getCachedNote = async () => data.get<DataType.Note, Note>(noteId)
 
