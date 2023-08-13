@@ -1,5 +1,5 @@
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
-import { prepareNoteCache } from '@/modules/note/cache/useNoteCache'
+import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
 import { getOctokit } from '@/modules/repo/services/octo'

@@ -1,5 +1,5 @@
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
-import { prepareNoteCache } from '@/modules/note/cache/useNoteCache'
+import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
 import { getFileContent } from '@/modules/repo/services/repo'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { ref } from 'vue'
