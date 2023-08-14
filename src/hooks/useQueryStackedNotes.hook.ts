@@ -58,10 +58,6 @@ export const useQueryStackedNotes = () => {
     }
 
     const getStackedNotes = () => {
-      if (!sha) {
-        return []
-      }
-
       if (!currentSHA) {
         return [sha]
       }
