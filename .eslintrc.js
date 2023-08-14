@@ -17,7 +17,7 @@ module.exports = {
     '@vue/eslint-config-typescript',
     'plugin:prettier-vue/recommended'
   ],
-  plugins: ['simple-import-sort'],
+  plugins: ['simple-import-sort', 'unused-imports'],
   rules: {
     'no-console': DEV_TOOL_ACTIVATED,
     'no-debugger': DEV_TOOL_ACTIVATED,
@@ -46,7 +46,8 @@ module.exports = {
       }
     ],
     'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error'
+    'simple-import-sort/exports': 'error',
+    'unused-imports/no-unused-imports': 'error'
   },
   overrides: [
     {
