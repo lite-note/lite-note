@@ -10,6 +10,7 @@ import {
 } from 'vue'
 
 import LiteLoading from '@/components/LiteLoading.vue'
+import StackedNote from '@/components/StackedNote.vue'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNote } from '@/hooks/useNote.hook'
@@ -20,10 +21,6 @@ import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
 
 const HeaderNote = defineAsyncComponent(
   () => import('@/components/HeaderNote.vue')
-)
-
-const StackedNote = defineAsyncComponent(
-  () => import('@/components/StackedNote.vue')
 )
 
 const props = withDefaults(
@@ -142,7 +139,7 @@ const focus = () => scrollToFocusedNote(undefined, true)
       :sha="stackedNote"
       :user="user"
       :repo="repo"
-      :title="titles[stackedNote ?? '']"
+      :title="titles[stackedNote]"
     />
   </main>
 </template>
