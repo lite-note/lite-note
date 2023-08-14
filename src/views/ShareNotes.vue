@@ -1,20 +1,14 @@
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onMounted } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 
 import { useFile } from '@/hooks/useFile.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 
 const props = defineProps<{ user: string; repo: string; note: string }>()
 
-const { resetStackedNotes } = useQueryStackedNotes()
 const note = computed(() => props.note)
 const { content } = useFile(note)
-
-onMounted(() => {
-  resetStackedNotes()
-})
 </script>
 
 <template>

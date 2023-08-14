@@ -5,7 +5,7 @@ import { useFile } from '@/hooks/useFile.hook'
 import { useImages } from '@/hooks/useImages.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
 import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { filenameToNoteTitle } from '@/utils/noteTitle'
@@ -27,7 +27,7 @@ const sha = computed(() => props.sha)
 const index = computed(() => props.index)
 const repo = computed(() => props.repo)
 
-const { scrollToFocusedNote } = useQueryStackedNotes()
+const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 
 const { content } = useFile(sha)
 const className = computed(() => `stacked-note-${props.index}`)

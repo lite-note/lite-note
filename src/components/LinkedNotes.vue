@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 import { useBacklinks } from '@/hooks/useBacklinks.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
 
 const props = defineProps<{
   sha: string
@@ -11,7 +11,7 @@ const props = defineProps<{
 const shaProp = computed((props) => props.sha)
 
 const { backlink } = useBacklinks(shaProp)
-const { addStackedNote } = useQueryStackedNotes()
+const { addStackedNote } = useRouteQueryStackedNotes()
 const hasBacklinks = computed(() => (backlink.value?.links.length ?? 0) > 0)
 
 const emitNote = (sha: string) => {

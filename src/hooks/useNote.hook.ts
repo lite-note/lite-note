@@ -3,7 +3,7 @@ import { computed, onMounted, onUnmounted, watch } from 'vue'
 import { noteEventBus } from '@/bus/noteEventBus'
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
 import { resolvePath } from '@/modules/repo/services/resolvePath'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { pathToNotePathTitle } from '@/utils/noteTitle'
@@ -11,7 +11,7 @@ import { pathToNotePathTitle } from '@/utils/noteTitle'
 export const useNote = (containerClass: string) => {
   const store = useUserRepoStore()
   const { isMobile } = useOverlay(false)
-  const { stackedNotes, addStackedNote } = useQueryStackedNotes()
+  const { stackedNotes, addStackedNote } = useRouteQueryStackedNotes()
 
   const titles = computed(() =>
     stackedNotes.value?.reduce((obj: Record<string, string>, note) => {

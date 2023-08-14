@@ -14,7 +14,7 @@ import StackedNote from '@/components/StackedNote.vue'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNote } from '@/hooks/useNote.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
 import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
@@ -49,7 +49,7 @@ useUserSettings()
 const { visitRepo } = useVisitRepo({ user: user, repo: repo })
 const { toHTML } = useMarkdown(repo)
 const { listenToClick } = useLinks('note-display')
-const { stackedNotes, resetStackedNotes, scrollToTop } = useQueryStackedNotes()
+const { stackedNotes, scrollToTop } = useRouteQueryStackedNotes()
 
 const { titles } = useNote('note-container')
 
@@ -85,7 +85,6 @@ onMounted(() => visitRepo())
 
 onUnmounted(() => {
   store.resetFiles()
-  resetStackedNotes()
 })
 
 const focusREADME = () => scrollToTop()
@@ -100,10 +99,7 @@ const focusREADME = () => scrollToTop()
       </div>
       <div class="repo-title">
         <h1 class="title is-1">
-          <router-link
-            :to="{ name: 'FluxNoteView', params: { user, repo } }"
-            @click="resetStackedNotes"
-          >
+          <router-link :to="{ name: 'FluxNoteView', params: { user, repo } }">
             {{ repo }}
           </router-link>
         </h1>

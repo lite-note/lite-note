@@ -2,7 +2,7 @@ import { computed, onMounted, Ref, ref, toValue } from 'vue'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
 
 const BOOKMARK_WIDTH = 2
 
@@ -22,7 +22,7 @@ export const useNoteOverlay = (
   })
 
   onMounted(() => {
-    const { stackedNotes } = useQueryStackedNotes()
+    const { stackedNotes } = useRouteQueryStackedNotes()
     const noteElement = document.querySelector(
       `.${className}`
     ) as HTMLElement | null
