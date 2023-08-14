@@ -17,16 +17,7 @@ export const useQueryStackedNotes = () => {
   const { height } = useWindowSize()
   const { scrollToNote, isMobile } = useOverlay(false)
 
-  const scrollToFocusedNote = (sha?: string, backToTop?: boolean) => {
-    if (backToTop) {
-      scrollToNote(0)
-      return
-    }
-
-    if (!sha) {
-      return
-    }
-
+  const scrollToFocusedNote = (sha: string) => {
     nextTick(() => {
       const index = stackedNotes.value.findIndex((noteSHA) => noteSHA === sha)
 
@@ -108,6 +99,7 @@ export const useQueryStackedNotes = () => {
     updateQueryStackedNotes,
     addStackedNote,
     resetStackedNotes: () => initResetStackedNote(),
-    scrollToFocusedNote
+    scrollToFocusedNote,
+    scrollToTop: () => scrollToNote(0)
   }
 }

@@ -52,8 +52,6 @@ watch(content, () => {
     generateTweets()
   })
 })
-
-const focus = () => scrollToFocusedNote(props.sha)
 </script>
 
 <template>
@@ -66,7 +64,9 @@ const focus = () => scrollToFocusedNote(props.sha)
     }"
   >
     <div class="title-stacked-note" :class="titleClassName">
-      <a @click.prevent="focus">{{ displayedTitle }}</a>
+      <a @click.prevent="scrollToFocusedNote(props.sha)">{{
+        displayedTitle
+      }}</a>
     </div>
     <div v-if="false" class="share">
       <router-link

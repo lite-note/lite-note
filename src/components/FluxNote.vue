@@ -49,8 +49,7 @@ useUserSettings()
 const { visitRepo } = useVisitRepo({ user: user, repo: repo })
 const { toHTML } = useMarkdown(repo)
 const { listenToClick } = useLinks('note-display')
-const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
-const { scrollToFocusedNote } = useQueryStackedNotes()
+const { stackedNotes, resetStackedNotes, scrollToTop } = useQueryStackedNotes()
 
 const { titles } = useNote('note-container')
 
@@ -89,7 +88,7 @@ onUnmounted(() => {
   resetStackedNotes()
 })
 
-const focus = () => scrollToFocusedNote(undefined, true)
+const focusREADME = () => scrollToTop()
 </script>
 
 <template>
@@ -97,7 +96,7 @@ const focus = () => scrollToFocusedNote(undefined, true)
     <div class="note readme">
       <header-note v-if="withHeader" class="header" :user="user" :repo="repo" />
       <div class="repo-title-breadcrumb">
-        <a @click.prevent="focus">{{ repo }}</a>
+        <a @click.prevent="focusREADME">{{ repo }}</a>
       </div>
       <div class="repo-title">
         <h1 class="title is-1">
