@@ -52,8 +52,7 @@ export const useUserRepoStore = defineStore({
       this.files = files
 
       // if the offline state is too quick,
-      // it gives more the impression of
-      // glitch.
+      // it gives more the impression of glitch.
       setTimeout(() => {
         this.isReadmeOffline = false
       }, 500)

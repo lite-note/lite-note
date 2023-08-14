@@ -35,7 +35,7 @@ export const useQueryStackedNotes = () => {
     })
   }
 
-  const initResetStackedNote = () => {
+  const resetStackedNotes = () => {
     stackedNotes.value = Array.isArray(query.stackedNotes)
       ? (query.stackedNotes as string[])
       : ([query.stackedNotes]
@@ -45,7 +45,7 @@ export const useQueryStackedNotes = () => {
 
   if (initial) {
     initial = false
-    initResetStackedNote()
+    resetStackedNotes()
   }
 
   const updateQueryStackedNotes = (newStackedNotes: string[]) =>
@@ -98,7 +98,7 @@ export const useQueryStackedNotes = () => {
     stackedNotes: readonly(stackedNotes),
     updateQueryStackedNotes,
     addStackedNote,
-    resetStackedNotes: () => initResetStackedNote(),
+    resetStackedNotes,
     scrollToFocusedNote,
     scrollToTop: () => scrollToNote(0)
   }

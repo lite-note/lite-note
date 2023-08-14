@@ -100,14 +100,14 @@ const focusREADME = () => scrollToTop()
       </div>
       <div class="repo-title">
         <h1 class="title is-1">
-          [<router-link
+          <router-link
             :to="{ name: 'FluxNoteView', params: { user, repo } }"
             @click="resetStackedNotes"
           >
-            {{ repo }} </router-link
-          >]
+            {{ repo }}
+          </router-link>
         </h1>
-        <h4 class="subtitle is-4">
+        <h4 class="subtitle is-5">
           <em>{{ user }}</em> -
           <img
             v-show="store.isReadmeOffline"
