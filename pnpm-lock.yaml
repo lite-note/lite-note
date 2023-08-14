@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@vueuse/router@10.3.0':
+    hash: pdkyccfdzwjuqyn56qzindctwa
+    path: patches/@vueuse__router@10.3.0.patch
+
 dependencies:
   '@intlify/unplugin-vue-i18n':
     specifier: ^0.12.2
@@ -22,7 +27,7 @@ dependencies:
     version: 10.3.0(vue@3.3.4)
   '@vueuse/router':
     specifier: ^10.3.0
-    version: 10.3.0(vue-router@4.2.4)(vue@3.3.4)
+    version: 10.3.0(patch_hash=pdkyccfdzwjuqyn56qzindctwa)(vue-router@4.2.4)(vue@3.3.4)
   bulma:
     specifier: ^0.9.4
     version: 0.9.4
@@ -2603,7 +2608,7 @@ packages:
     resolution: {integrity: sha512-Ema3YhNOa4swDsV0V7CEY5JXvK19JI/o1szFO1iWxdFg3vhdFtCtSTP26PCvbUpnUtNHBY2wx5y3WDXND5Pvnw==}
     dev: false
 
-  /@vueuse/router@10.3.0(vue-router@4.2.4)(vue@3.3.4):
+  /@vueuse/router@10.3.0(patch_hash=pdkyccfdzwjuqyn56qzindctwa)(vue-router@4.2.4)(vue@3.3.4):
     resolution: {integrity: sha512-WCx/BAxO0eInuOcyNRBxDLS16tnNqzdaR6/babg6AUgAIL0TCfmHBh46wJa6hhg+NMGjd6HzCaktxBasp+0c0A==}
     peerDependencies:
       vue-router: '>=4.0.0-rc.1'
@@ -2615,6 +2620,7 @@ packages:
       - '@vue/composition-api'
       - vue
     dev: false
+    patched: true
 
   /@vueuse/shared@10.3.0(vue@3.3.4):
     resolution: {integrity: sha512-kGqCTEuFPMK4+fNWy6dUOiYmxGcUbtznMwBZLC1PubidF4VZY05B+Oht7Jh7/6x4VOWGpvu3R37WHi81cKpiqg==}

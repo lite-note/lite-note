@@ -1,0 +1,23 @@
+diff --git a/index.mjs b/index.mjs
+index db9d9d98750cbf854c821cb10f146c65371f2dc4..acd5743ecc5f33a7089686c7775049ae93e7371e 100644
+--- a/index.mjs
++++ b/index.mjs
+@@ -155,13 +155,11 @@ function useRouteQuery(name, defaultValue, options = {}) {
+           return;
+         _query.set(name, v);
+         trigger();
+-        nextTick(() => {
+-          const { params, query, hash } = route;
+-          router[toValue(mode)]({
+-            params,
+-            query: __spreadValues(__spreadValues({}, query), Object.fromEntries(_query.entries())),
+-            hash
+-          });
++        const { params, query, hash } = route;
++        router[toValue(mode)]({
++          params,
++          query: __spreadValues(__spreadValues({}, query), Object.fromEntries(_query.entries())),
++          hash
+         });
+       }
+     };

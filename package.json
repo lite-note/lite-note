@@ -64,5 +64,10 @@
     "vite-plugin-pwa": "^0.16.4",
     "vitest": "^0.34.1",
     "webpack": "^5.88.2"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@vueuse/router@10.3.0": "patches/@vueuse__router@10.3.0.patch"
+    }
   }
 }
