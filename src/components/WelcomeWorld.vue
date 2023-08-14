@@ -102,12 +102,13 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
+
 import SignInGithub from '@/components/SignInGithub.vue'
 import { useForm } from '@/hooks/useForm.hook'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import LastVisited from '@/modules/history/components/LastVisited.vue'
 import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
-import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'WelcomeWorld',

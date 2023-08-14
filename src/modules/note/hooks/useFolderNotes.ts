@@ -1,5 +1,6 @@
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { computed } from 'vue'
+
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
 export const useFolderNotes = (folders: string[]) => {
   const store = useUserRepoStore()

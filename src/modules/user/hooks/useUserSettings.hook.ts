@@ -1,5 +1,6 @@
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { watchEffect } from 'vue'
+
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
 const DEFAULT_FONT_POLICY = "'Courier Prime', monospace"
 

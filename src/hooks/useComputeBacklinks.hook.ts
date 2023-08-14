@@ -1,3 +1,5 @@
+import { watch } from 'vue'
+
 import { backlinkEventBus } from '@/bus/backlinkEventBus'
 import { data } from '@/data/data'
 import { DataType } from '@/data/DataType.enum'
@@ -9,7 +11,6 @@ import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { isExternalLink } from '@/utils/link'
 import { filenameToNoteTitle } from '@/utils/noteTitle'
 import { confirmMessage } from '@/utils/notif'
-import { watch } from 'vue'
 
 const isMarkdown = (filename?: string) => filename?.endsWith('.md') ?? false
 

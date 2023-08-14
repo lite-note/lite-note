@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { resolvePath } from './resolvePath'
 
 describe('resolve path service', () => {

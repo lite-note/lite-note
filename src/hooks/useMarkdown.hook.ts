@@ -1,6 +1,3 @@
-import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
-import { html5Media } from '@/utils/markdown/markdown-html5-media'
-import { twitterPlugin } from '@/utils/markdown/markdown-it-twitter'
 import markdownItClass from '@toycode/markdown-it-class'
 import MarkdownIt from 'markdown-it'
 import blockEmbedPlugin from 'markdown-it-block-embed'
@@ -9,6 +6,10 @@ import markdownItFootnote from 'markdown-it-footnote'
 import markdownItIframe from 'markdown-it-iframe'
 import markdownItLatex from 'markdown-it-latex'
 import { Ref, toValue } from 'vue'
+
+import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
+import { html5Media } from '@/utils/markdown/markdown-html5-media'
+import { twitterPlugin } from '@/utils/markdown/markdown-it-twitter'
 
 const md = new MarkdownIt({
   typographer: true,

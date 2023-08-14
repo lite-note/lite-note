@@ -1,10 +1,10 @@
 import { computed, onMounted, ref } from 'vue'
 
-import { DataType } from '@/data/DataType.enum'
-import { FavoriteRepo } from '@/modules/repo/models/FavoriteRepo'
-import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 import { data } from '@/data/data'
+import { DataType } from '@/data/DataType.enum'
 import { useRepos } from '@/hooks/useRepos.hook'
+import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
+import { FavoriteRepo } from '@/modules/repo/models/FavoriteRepo'
 
 export const useFavoriteRepos = () => {
   const { repos } = useRepos()

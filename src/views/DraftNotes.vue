@@ -7,8 +7,9 @@
 </template>
 
 <script lang="ts">
-import { useFolderNotes } from '@/modules/note/hooks/useFolderNotes'
 import { defineAsyncComponent, defineComponent } from 'vue'
+
+import { useFolderNotes } from '@/modules/note/hooks/useFolderNotes'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 

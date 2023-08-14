@@ -1,9 +1,10 @@
-import { NOTE_WIDTH } from '@/constants/note-width'
-import { useOverlay } from '@/hooks/useOverlay.hook'
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useWindowSize } from '@vueuse/core'
 import { nextTick, readonly, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+
+import { NOTE_WIDTH } from '@/constants/note-width'
+import { useOverlay } from '@/hooks/useOverlay.hook'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
 const stackedNotes = ref<string[]>([])
 

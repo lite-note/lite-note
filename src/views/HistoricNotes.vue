@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { useNotes } from '@/modules/note/hooks/useNotes'
 import { defineAsyncComponent, ref } from 'vue'
+
+import { useNotes } from '@/modules/note/hooks/useNotes'
 
 const devMode = ref(import.meta.env.DEV)
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))

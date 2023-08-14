@@ -1,8 +1,9 @@
+import { useTitle } from '@vueuse/core'
+import { computed, Ref, toValue, watch } from 'vue'
+
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { useNotes } from '@/modules/note/hooks/useNotes'
 import { pathToNoteTitle } from '@/utils/noteTitle'
-import { useTitle } from '@vueuse/core'
-import { computed, Ref, toValue, watch } from 'vue'
 
 export const generateTitle = (titles: string[]) => titles.join(' | ')
 

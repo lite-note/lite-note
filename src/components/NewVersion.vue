@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import LiteLoading from '@/components/LiteLoading.vue'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import { ref } from 'vue'
+
+import LiteLoading from '@/components/LiteLoading.vue'
 
 const devMode = ref(import.meta.env.DEV)
 const isLoading = ref(false)

@@ -1,7 +1,8 @@
+import { computed, watch } from 'vue'
+
 import { useFile } from '@/hooks/useFile.hook'
 import { resolvePath } from '@/modules/repo/services/resolvePath'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
-import { computed, watch } from 'vue'
 
 const SRC_PREFIX = 'data:image/jpeg;charset=utf-8;base64,'
 

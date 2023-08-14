@@ -1,5 +1,9 @@
 // https://npm.io/package/supermemo
 
+import { useAsyncState } from '@vueuse/core'
+import { addDays, isAfter } from 'date-fns'
+import { computed, nextTick, watch } from 'vue'
+
 import { data } from '@/data/data'
 import { DataType } from '@/data/DataType.enum'
 import { useFile } from '@/hooks/useFile.hook'
@@ -9,9 +13,6 @@ import { Card } from '@/modules/card/models/Card'
 import { RepetitionCard } from '@/modules/card/models/RepetitionCard'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
-import { useAsyncState } from '@vueuse/core'
-import { addDays, isAfter } from 'date-fns'
-import { computed, nextTick, watch } from 'vue'
 
 const MAX_LEVEL = 8
 

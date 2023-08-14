@@ -8,8 +8,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { locales } from '@/locales/message'
 import { useI18n } from 'vue-i18n'
+
+import { locales } from '@/locales/message'
 
 export default defineComponent({
   name: 'FooterTranslation',

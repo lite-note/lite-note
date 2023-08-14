@@ -1,3 +1,5 @@
+import { defineStore } from 'pinia'
+
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
 import {
@@ -7,7 +9,6 @@ import {
   getUserSettingsContent
 } from '@/modules/repo/services/repo'
 import { refreshToken } from '@/modules/user/service/signIn'
-import { defineStore } from 'pinia'
 
 interface State {
   user: string
@@ -48,8 +49,14 @@ export const useUserRepoStore = defineStore({
         getFiles(newUser, newRepo)
       ])
       this.readme = readme
-      this.isReadmeOffline = false
       this.files = files
+
+      // if the offline state is too quick,
+      // it gives more the impression of
+      // glitch.
+      setTimeout(() => {
+        this.isReadmeOffline = false
+      }, 500)
 
       this.userSettings = await getUserSettingsContent(newUser, newRepo, files)
     },

@@ -1,8 +1,8 @@
 import { computed, ref } from 'vue'
 
-import { confirmMessage } from '@/utils/notif'
-import { getAccessToken, saveAccessToken } from '@/modules/user/service/signIn'
 import { GithubToken } from '@/modules/user/interfaces/GithubToken'
+import { getAccessToken, saveAccessToken } from '@/modules/user/service/signIn'
+import { confirmMessage } from '@/utils/notif'
 
 const username = ref<string | null>(null)
 const accessToken = ref<string | null>(null)

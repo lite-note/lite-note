@@ -1,7 +1,8 @@
+import { computed, onMounted, Ref, ref, toValue } from 'vue'
+
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { computed, onMounted, Ref, ref, toValue } from 'vue'
 
 const BOOKMARK_WIDTH = 2
 

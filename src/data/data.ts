@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid'
 import indexedDb from 'pouchdb-adapter-indexeddb'
 import PouchDb from 'pouchdb-browser'
+
 import { DataType } from './DataType.enum'
 import { Model } from './models/Model'
 

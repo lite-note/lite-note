@@ -1,5 +1,6 @@
-import { computed, ref } from 'vue'
 import { useEventListener, useWindowSize } from '@vueuse/core'
+import { computed, ref } from 'vue'
+
 import { MOBILE_BREAKPOINT } from '@/constants/mobile'
 
 export const useOverlay = (listen = true) => {

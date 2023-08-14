@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
+
 import { useBacklinks } from '@/hooks/useBacklinks.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { computed } from 'vue'
 
 const props = defineProps<{
   sha: string

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 import FluxNote from '@/components/FluxNote.vue'
 import { useComputeBacklinks } from '@/hooks/useComputeBacklinks.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { computed } from 'vue'
 
 useQueryStackedNotes()
 useComputeBacklinks()

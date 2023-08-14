@@ -1,7 +1,8 @@
-import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 import { computed } from 'vue'
-import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
+
 import { useRepos } from '@/hooks/useRepos.hook'
+import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
+import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 
 export const useRepoList = () => {
   const { savedFavoriteRepos, addFavorite, removeFavorite } = useFavoriteRepos()

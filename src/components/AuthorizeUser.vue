@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
-import { signIn } from '@/modules/user/service/signIn'
 import { onBeforeMount, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+
+import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
+import { signIn } from '@/modules/user/service/signIn'
 
 const route = useRoute()
 const router = useRouter()

@@ -1,8 +1,9 @@
+import { Ref, ref, toValue } from 'vue'
+
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
 import { getFileContent } from '@/modules/repo/services/repo'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
-import { Ref, ref, toValue } from 'vue'
 
 export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
   const { render } = useMarkdown(toValue(sha))

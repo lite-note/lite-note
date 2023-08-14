@@ -23,8 +23,9 @@
 </template>
 
 <script lang="ts">
-import GoBack from '@/components/GoBack.vue'
 import { defineComponent } from 'vue'
+
+import GoBack from '@/components/GoBack.vue'
 
 export default defineComponent({
   components: { GoBack }

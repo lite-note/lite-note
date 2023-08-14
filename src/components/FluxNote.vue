@@ -1,12 +1,4 @@
 <script lang="ts" setup>
-import LiteLoading from '@/components/LiteLoading.vue'
-import { useLinks } from '@/hooks/useLinks.hook'
-import { useMarkdown } from '@/hooks/useMarkdown.hook'
-import { useNote } from '@/hooks/useNote.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
-import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
 import {
   computed,
   defineAsyncComponent,
@@ -16,6 +8,15 @@ import {
   toRefs,
   watch
 } from 'vue'
+
+import LiteLoading from '@/components/LiteLoading.vue'
+import { useLinks } from '@/hooks/useLinks.hook'
+import { useMarkdown } from '@/hooks/useMarkdown.hook'
+import { useNote } from '@/hooks/useNote.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
+import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
 
 const HeaderNote = defineAsyncComponent(
   () => import('@/components/HeaderNote.vue')
@@ -109,14 +110,19 @@ const focus = () => scrollToFocusedNote(undefined, true)
           >
             {{ repo }} </router-link
           >]
+        </h1>
+        <h4 class="subtitle is-4">
+          <em>{{ user }}</em> -
           <img
-            v-if="store.isReadmeOffline"
+            v-show="store.isReadmeOffline"
             src="@/assets/icons/offline.svg"
             alt="ofline"
           />
-        </h1>
-        <h4 class="subtitle is-4">
-          <em>{{ user }}</em>
+          <img
+            v-show="!store.isReadmeOffline"
+            src="@/assets/icons/online.svg"
+            alt="ofline"
+          />
         </h4>
       </div>
       <slot />
@@ -194,11 +200,8 @@ $header-height: 40px;
         text-align: center;
       }
 
-      .title {
-        img {
-          position: absolute;
-          right: 0;
-        }
+      img {
+        vertical-align: middle;
       }
     }
   }

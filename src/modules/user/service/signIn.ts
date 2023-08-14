@@ -1,10 +1,11 @@
+import { Octokit } from '@octokit/rest'
+import { addMinutes, addSeconds, isBefore } from 'date-fns'
+
 import { data } from '@/data/data'
 import { DataType } from '@/data/DataType.enum'
 import { GithubAccessToken } from '@/data/models/GithubAccessToken'
 import { GithubToken } from '@/modules/user/interfaces/GithubToken'
 import { GithubTokenError } from '@/modules/user/interfaces/GithubTokenError'
-import { Octokit } from '@octokit/rest'
-import { addMinutes, addSeconds, isBefore } from 'date-fns'
 
 const AUTHENTICATION_SERVER = 'https://litenote.li212.fr'
 const personalTokenId = 'token'

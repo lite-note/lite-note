@@ -1,6 +1,7 @@
-import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 import { useAsyncState } from '@vueuse/core'
+
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
+import { RepoBase } from '@/modules/repo/interfaces/RepoBase'
 import { getOctokit } from '@/modules/repo/services/octo'
 
 export const useRepos = () => {

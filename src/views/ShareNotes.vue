@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { computed, defineAsyncComponent, onMounted } from 'vue'
+
 import { useFile } from '@/hooks/useFile.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { computed, defineAsyncComponent, onMounted } from 'vue'
 
 const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
 

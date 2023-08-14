@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { computed, ref } from 'vue'
+
 import FlipCard from '@/modules/card/components/FlipCard.vue'
 import { Repetition } from '@/modules/card/hooks/useSpacedRepetitionCards'
-import { computed, ref } from 'vue'
 
 const props = defineProps<{ cards: Repetition[] }>()
 const emits = defineEmits<{

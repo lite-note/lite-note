@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 import FluxNote from '@/components/FluxNote.vue'
 import { DataType } from '@/data/DataType.enum'
 import { useNeedReviewCards } from '@/modules/card/hooks/useNeedReviewCards'
-import { computed } from 'vue'
 
 defineProps<{
   user: string

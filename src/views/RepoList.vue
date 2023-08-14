@@ -77,11 +77,12 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
+
 import GoBack from '@/components/GoBack.vue'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import { useRepos } from '@/hooks/useRepos.hook'
 import { useRepoList } from '@/modules/repo/hooks/useRepoList.hook'
-import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'RepoList',

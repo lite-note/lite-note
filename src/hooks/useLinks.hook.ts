@@ -1,7 +1,8 @@
+import { ComputedRef, onUnmounted, Ref, toValue } from 'vue'
+
 import { noteEventBus } from '@/bus/noteEventBus'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { isExternalLink } from '@/utils/link'
-import { ComputedRef, onUnmounted, Ref, toValue } from 'vue'
 
 export const useLinks = (
   className: ComputedRef<string> | string,

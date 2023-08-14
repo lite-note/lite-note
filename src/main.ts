@@ -1,10 +1,13 @@
-import { messages } from '@/locales/message'
-import { router } from '@/router/router'
 import 'markdown-it-latex/dist/index.css'
 import 'notyf/notyf.min.css'
+
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
+
+import { messages } from '@/locales/message'
+import { router } from '@/router/router'
+
 import App from './App.vue'
 
 const i18n = createI18n({

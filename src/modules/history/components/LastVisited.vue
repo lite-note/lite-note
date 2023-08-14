@@ -24,8 +24,9 @@
 </template>
 
 <script lang="ts">
-import { useLastVisitedRepos } from '@/modules/history/hooks/useLastVisitedRepos.hook'
 import { defineComponent } from 'vue'
+
+import { useLastVisitedRepos } from '@/modules/history/hooks/useLastVisitedRepos.hook'
 
 export default defineComponent({
   name: 'LastVisited',

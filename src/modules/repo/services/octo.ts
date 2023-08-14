@@ -1,5 +1,6 @@
-import { getAccessToken } from '@/modules/user/service/signIn'
 import { Octokit } from '@octokit/rest'
+
+import { getAccessToken } from '@/modules/user/service/signIn'
 
 export const getOctokit = async (): Promise<Octokit> => {
   const response = await getAccessToken()
