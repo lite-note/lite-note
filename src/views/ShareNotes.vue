@@ -1,3 +1,21 @@
+<script lang="ts" setup>
+import { useFile } from '@/hooks/useFile.hook'
+import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
+import { computed, defineAsyncComponent, onMounted } from 'vue'
+
+const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
+
+const props = defineProps<{ user: string; repo: string; note: string }>()
+
+const { resetStackedNotes } = useQueryStackedNotes()
+const note = computed(() => props.note)
+const { content } = useFile(note)
+
+onMounted(() => {
+  resetStackedNotes()
+})
+</script>
+
 <template>
   <div class="share-notes">
     <article class="message is-primary">
@@ -16,38 +34,6 @@
     />
   </div>
 </template>
-
-<script lang="ts">
-import { useFile } from '@/hooks/useFile.hook'
-import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
-import { defineAsyncComponent, defineComponent, onMounted } from 'vue'
-
-const FluxNote = defineAsyncComponent(() => import('@/components/FluxNote.vue'))
-
-export default defineComponent({
-  name: 'ShareNotes',
-  components: {
-    FluxNote
-  },
-  props: {
-    user: { type: String, required: true },
-    repo: { type: String, required: true },
-    note: { type: String, required: true }
-  },
-  setup(props) {
-    const { resetStackedNotes } = useQueryStackedNotes()
-    const { content } = useFile(props.note)
-
-    onMounted(() => {
-      resetStackedNotes()
-    })
-
-    return {
-      content
-    }
-  }
-})
-</script>
 
 <style scoped lang="scss">
 .share-notes {

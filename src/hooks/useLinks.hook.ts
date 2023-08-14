@@ -1,11 +1,11 @@
 import { noteEventBus } from '@/bus/noteEventBus'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { isExternalLink } from '@/utils/link'
-import { ComputedRef, onUnmounted, toValue } from 'vue'
+import { ComputedRef, onUnmounted, Ref, toValue } from 'vue'
 
 export const useLinks = (
   className: ComputedRef<string> | string,
-  sha?: string
+  sha?: Ref<string> | string
 ) => {
   const store = useUserRepoStore()
 
@@ -31,7 +31,7 @@ export const useLinks = (
 
     noteEventBus.emit({
       path: href,
-      currentNoteSHA: sha,
+      currentNoteSHA: toValue(sha),
       user: store.user,
       repo: store.repo
     })

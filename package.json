@@ -7,7 +7,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore --fix src",
     "pwa:asset": "npx vue-pwa-asset-generator -a public/img/logo.png --no-manifest"
   },
   "dependencies": {
@@ -52,7 +52,6 @@
     "@vue/eslint-config-typescript": "^11.0.3",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-prettier-vue": "^4.2.0",
     "eslint-plugin-vue": "^9.16.1",
     "prettier": "^3.0.1",

@@ -89,9 +89,7 @@ export default defineComponent({
   setup() {
     const { username } = useGitHubLogin()
     const { isReady } = useRepos()
-    // eslint-disable-next-line prettier-vue/prettier
     const { favoriteRepos, otherRepos, favoriteCheckboxes, toggleCheckbox } =
-      // eslint-disable-next-line prettier-vue/prettier
       useRepoList()
 
     return {

@@ -1,5 +1,8 @@
 require('@rushstack/eslint-patch/modern-module-resolution')
 
+const DEV_TOOL_ACTIVATED =
+  process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+
 module.exports = {
   root: true,
   env: {
@@ -11,13 +14,12 @@ module.exports = {
     'eslint:recommended',
     'plugin:vue/recommended',
     '@vue/typescript/recommended',
-    '@vue/prettier',
     '@vue/eslint-config-typescript',
     'plugin:prettier-vue/recommended'
   ],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-console': DEV_TOOL_ACTIVATED,
+    'no-debugger': DEV_TOOL_ACTIVATED,
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/camelcase': 'off',
     'prettier-vue/prettier': [
@@ -29,7 +31,6 @@ module.exports = {
         arrowParens: 'always'
       }
     ],
-    semi: 0,
     'vue/no-v-html': 'off',
     'no-restricted-imports': [
       'error',

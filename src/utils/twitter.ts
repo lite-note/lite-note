@@ -1,14 +1,14 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 window.twttr = (function (d, s, id) {
-  let js,
-    fjs = d.getElementsByTagName(s)[0],
+  const fjs = d.getElementsByTagName(s)[0],
     t = window.twttr || {}
 
   if (d.getElementById(id)) {
     return t
   }
 
-  js = d.createElement(s)
+  const js = d.createElement(s)
   js.id = id
   js.src = 'https://platform.twitter.com/widgets.js'
   fjs.parentNode.insertBefore(js, fjs)

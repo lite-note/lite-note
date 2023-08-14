@@ -1,9 +1,9 @@
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
-import { defineConfig } from 'vite'
-import { VitePWA } from 'vite-plugin-pwa'
 import { UserConfigExport } from 'vitest/dist/config'
+import { VitePWA } from 'vite-plugin-pwa'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+import { defineConfig } from 'vite'
+import path from 'path'
+import vue from '@vitejs/plugin-vue'
 
 const mainColor = '#ffffff'
 

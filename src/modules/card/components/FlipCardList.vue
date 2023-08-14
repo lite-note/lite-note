@@ -1,7 +1,7 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import FlipCard from '@/modules/card/components/FlipCard.vue'
 import { Repetition } from '@/modules/card/hooks/useSpacedRepetitionCards'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{ cards: Repetition[] }>()
 const emits = defineEmits<{
@@ -10,8 +10,10 @@ const emits = defineEmits<{
   needsReview: [id: string]
 }>()
 
-const cards = ref(
-  [...props.cards].sort((a, b) =>
+const propCards = computed(() => props.cards)
+
+const sortedCards = ref(
+  [...propCards.value].sort((a, b) =>
     a.repetition.level > b.repetition.level ? -1 : 1
   )
 )
@@ -19,14 +21,14 @@ const cards = ref(
 const currentIndex = ref(0)
 
 const goToNextCard = (success: boolean) => {
-  const id = cards.value[currentIndex.value].repetition._id ?? ''
+  const id = sortedCards.value[currentIndex.value].repetition._id ?? ''
 
   if (success) {
     emits('success', id)
   } else {
-    const failedCard = cards.value.at(currentIndex.value)
+    const failedCard = sortedCards.value.at(currentIndex.value)
     if (failedCard) {
-      cards.value.push(failedCard)
+      sortedCards.value.push(failedCard)
     }
     emits('fail', id)
   }
@@ -35,7 +37,7 @@ const goToNextCard = (success: boolean) => {
 }
 
 const needsReview = () => {
-  const id = cards.value[currentIndex.value].repetition._id ?? ''
+  const id = sortedCards.value[currentIndex.value].repetition._id ?? ''
   emits('needsReview', id)
   currentIndex.value++
 }
@@ -44,13 +46,13 @@ const needsReview = () => {
 <template>
   <div class="flip-card-list">
     <h3 class="subtitle is-3">
-      Level: {{ cards[currentIndex].repetition.level }}
+      Level: {{ sortedCards[currentIndex].repetition.level }}
     </h3>
-    <h4>cards left: {{ cards.length - currentIndex }}</h4>
+    <h4>cards left: {{ sortedCards.length - currentIndex }}</h4>
 
-    <div v-if="currentIndex < cards.length">
+    <div v-if="currentIndex < sortedCards.length">
       <flip-card
-        v-for="(card, index) in cards"
+        v-for="(card, index) in sortedCards"
         :key="card.repetition._id ?? ''"
         class="card"
         :style="{

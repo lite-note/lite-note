@@ -8,6 +8,7 @@ import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItFootnote from 'markdown-it-footnote'
 import markdownItIframe from 'markdown-it-iframe'
 import markdownItLatex from 'markdown-it-latex'
+import { Ref, toValue } from 'vue'
 
 const md = new MarkdownIt({
   typographer: true,
@@ -37,13 +38,13 @@ const md = new MarkdownIt({
     height: 400
   })
 
-export const useMarkdown = (defaultPrefix?: string) => {
+export const useMarkdown = (defaultPrefix?: Ref<string> | string) => {
   return {
     toHTML: (content: string) => (content ? md.render(content) : ''),
     render: (content: string, prefix?: string) =>
       content
         ? md.render(decodeBase64ToUTF8(content), {
-            docId: defaultPrefix ?? prefix ?? ''
+            docId: defaultPrefix ? toValue(defaultPrefix) : prefix ?? ''
           })
         : ''
   }

@@ -7,7 +7,6 @@ import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
-
 import {
   computed,
   defineAsyncComponent,
@@ -43,11 +42,14 @@ const props = withDefaults(
   }
 )
 
+const user = computed(() => props.user)
+const repo = computed(() => props.repo)
+
 const refProps = toRefs(props)
 const store = useUserRepoStore()
 useUserSettings()
-const { visitRepo } = useVisitRepo({ user: props.user, repo: props.repo })
-const { toHTML } = useMarkdown(props.repo)
+const { visitRepo } = useVisitRepo({ user: user, repo: repo })
+const { toHTML } = useMarkdown(repo)
 const { listenToClick } = useLinks('note-display')
 const { stackedNotes, resetStackedNotes } = useQueryStackedNotes()
 const { scrollToFocusedNote } = useQueryStackedNotes()
@@ -104,7 +106,8 @@ const focus = () => scrollToFocusedNote(undefined, true)
           [<router-link
             :to="{ name: 'FluxNoteView', params: { user, repo } }"
             @click="resetStackedNotes"
-            >{{ repo }}</router-link
+          >
+            {{ repo }} </router-link
           >]
           <img
             v-if="store.isReadmeOffline"
@@ -123,7 +126,7 @@ const focus = () => scrollToFocusedNote(undefined, true)
         v-else-if="withContent"
         class="note-display"
         v-html="renderedContent"
-      ></p>
+      />
     </div>
     <stacked-note
       v-for="(stackedNote, index) in stackedNotes"
@@ -160,6 +163,7 @@ $header-height: 40px;
     table {
       color: var(--font-color);
       background-color: var(--background-color);
+
       thead {
         th {
           color: var(--font-color);

@@ -1,12 +1,11 @@
-import { computed, onMounted, onUnmounted, watch } from 'vue'
-
-import { NOTE_WIDTH } from '@/constants/note-width'
 import { noteEventBus } from '@/bus/noteEventBus'
+import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
 import { useQueryStackedNotes } from '@/hooks/useQueryStackedNotes.hook'
 import { resolvePath } from '@/modules/repo/services/resolvePath'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { pathToNotePathTitle } from '@/utils/noteTitle'
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 
 export const useNote = (containerClass: string) => {
   const store = useUserRepoStore()

@@ -22,17 +22,22 @@ const props = defineProps<{
   sha: string
 }>()
 
+const sha = computed(() => props.sha)
+const index = computed(() => props.index)
+const repo = computed(() => props.repo)
+
 const { scrollToFocusedNote } = useQueryStackedNotes()
-const { content } = useFile(props.sha)
+
+const { content } = useFile(sha)
 const className = computed(() => `stacked-note-${props.index}`)
-const { listenToClick } = useLinks(className.value, props.sha)
+const { listenToClick } = useLinks(className.value, sha)
 const titleClassName = computed(() => `title-${className.value}`)
-useTitleNotes(props.repo)
+useTitleNotes(repo)
 
 const store = useUserRepoStore()
 const hasBacklinks = computed(() => store.userSettings?.backlink)
 
-const { displayNoteOverlay } = useNoteOverlay(className.value, props.index)
+const { displayNoteOverlay } = useNoteOverlay(className.value, index)
 const displayedTitle = computed(() => filenameToNoteTitle(props.title))
 
 watch(content, () => {

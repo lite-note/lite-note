@@ -10,7 +10,10 @@
           <router-link
             :to="{
               name: `FluxNoteView`,
-              params: { user: lastVisitedRepo.user, repo: lastVisitedRepo.repo }
+              params: {
+                user: lastVisitedRepo.user,
+                repo: lastVisitedRepo.repo
+              }
             }"
             >{{ lastVisitedRepo.user }}/{{ lastVisitedRepo.repo }}</router-link
           >
