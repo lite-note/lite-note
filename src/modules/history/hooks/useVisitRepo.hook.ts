@@ -24,7 +24,9 @@ export const useVisitRepo = (newRepo: {
     }
 
     const clearedRepos = history.repos.filter(
-      (repo) => repo.user !== newRepo.user && repo.repo !== newRepo.repo
+      (repo) =>
+        repo.user !== toValue(newRepo.user) &&
+        repo.repo !== toValue(newRepo.repo)
     )
 
     const historyRepos = [
