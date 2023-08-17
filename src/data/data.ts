@@ -2,6 +2,8 @@ import { nanoid } from 'nanoid'
 import indexedDb from 'pouchdb-adapter-indexeddb'
 import PouchDb from 'pouchdb-browser'
 
+import { PersistedModel } from '@/data/models/PersistedModel'
+
 import { DataType } from './DataType.enum'
 import { Model } from './models/Model'
 
@@ -40,16 +42,19 @@ class Data {
   }
 
   public async update<DT extends DataType, T extends Model<DT>>(
-    model: T
+    model: T & PersistedModel<DT>
   ): Promise<boolean> {
     try {
-      if (model._id) {
-        const oldModel = await this.get(model._id)
-        if (oldModel) {
-          const result = await this.locale?.put({ ...oldModel, ...model })
-          return result?.ok ?? false
-        }
+      const lastModel = await this.get(model._id)
+
+      if (lastModel) {
+        const result = await this.locale?.put({
+          ...model,
+          _rev: lastModel._rev
+        })
+        return result?.ok ?? false
       }
+
       const result = await this.locale?.put(model)
       return result?.ok ?? false
     } catch (error) {
@@ -77,9 +82,9 @@ class Data {
 
   public async get<DT extends DataType, T extends Model<DT>>(
     id: string
-  ): Promise<T | null> {
+  ): Promise<(T & PersistedModel<DT>) | null> {
     try {
-      return ((await this.locale?.get(id)) as T) || null
+      return ((await this.locale?.get(id)) as T & PersistedModel<DT>) || null
     } catch {
       return null
     }
@@ -88,7 +93,7 @@ class Data {
   public async getOrCreate<DT extends DataType, T extends Model<DT>>(
     id: string,
     initialValue: T
-  ): Promise<T> {
+  ): Promise<T & PersistedModel<DT>> {
     const element = await this.get<DT, T>(id)
 
     if (element) {
@@ -100,32 +105,13 @@ class Data {
     return this.getOrCreate(id, initialValue)
   }
 
-  public async getAll<DT extends DataType, T extends Model<DT>>({
+  public async getAll<DT extends DataType, T extends PersistedModel<DT>>({
     prefix,
     includeDocs = true,
-    includeAttachments = false,
-    keys = []
+    includeAttachments = false
   }: GetAllParams): Promise<T[]> {
     if (!this.locale) {
       return []
-    }
-
-    if (keys.length) {
-      const response = await this.locale.allDocs({
-        include_docs: includeDocs,
-        attachments: includeAttachments,
-        keys: keys.map((key) => this.generateId(prefix, key))
-      })
-
-      return response.rows
-        .map((row) => {
-          if ('error' in row) {
-            return null
-          }
-
-          return row.doc
-        })
-        .filter((doc) => !!doc) as T[]
     }
 
     const response = await this.locale.allDocs({
