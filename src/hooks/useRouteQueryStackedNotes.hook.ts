@@ -1,6 +1,6 @@
 import { useWindowSize } from '@vueuse/core'
 import { useRouteQuery } from '@vueuse/router'
-import { nextTick, readonly, watch } from 'vue'
+import { nextTick, readonly } from 'vue'
 
 import { NOTE_WIDTH } from '@/constants/note-width'
 import { useOverlay } from '@/hooks/useOverlay.hook'
@@ -18,8 +18,6 @@ export const useRouteQueryStackedNotes = () => {
   const { height } = useWindowSize()
 
   const { scrollToNote, isMobile } = useOverlay(false)
-
-  watch(stackedNotes, (val) => console.log(val))
 
   const scrollToFocusedNote = (
     sha: string,
