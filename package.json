@@ -69,5 +69,6 @@
     "patchedDependencies": {
       "@vueuse/router@10.3.0": "patches/@vueuse__router@10.3.0.patch"
     }
-  }
+  },
+  "packageManager": "pnpm@8.6.12"
 }
