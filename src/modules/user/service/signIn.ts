@@ -33,9 +33,9 @@ export const needToRefreshToken = async () => {
   }
 
   const expirationDate = new Date(accessToken.expirationDate)
-  const dateToCompare = addMinutes(new Date(), 15)
+  const minimumViableDate = addMinutes(new Date(), 15)
 
-  return isBefore(expirationDate, dateToCompare)
+  return isBefore(expirationDate, minimumViableDate)
 }
 
 export const refreshToken = async () => {

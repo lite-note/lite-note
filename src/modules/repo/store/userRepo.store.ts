@@ -44,19 +44,18 @@ export const useUserRepoStore = defineStore({
 
       this.readme = await getCachedMainReadme(newUser, newRepo)
 
-      const [readme, files] = await Promise.all([
-        getMainReadme(newUser, newRepo),
-        getFiles(newUser, newRepo)
-      ])
-      this.readme = readme
+      getMainReadme(newUser, newRepo).then((readme) => {
+        this.readme = readme
+
+        // if the offline state is too quick,
+        // it gives more the impression of glitch.
+        setTimeout(() => {
+          this.isReadmeOffline = false
+        }, 500)
+      })
+
+      const files = await getFiles(newUser, newRepo)
       this.files = files
-
-      // if the offline state is too quick,
-      // it gives more the impression of glitch.
-      setTimeout(() => {
-        this.isReadmeOffline = false
-      }, 500)
-
       this.userSettings = await getUserSettingsContent(newUser, newRepo, files)
     },
     resetUserRepo() {
