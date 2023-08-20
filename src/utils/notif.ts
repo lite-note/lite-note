@@ -14,3 +14,5 @@ export const confirmMessage = (message: string) =>
     type: 'confirm',
     message
   })
+
+export const errorMessage = (message: string) => notif.error(message)
