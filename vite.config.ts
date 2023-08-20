@@ -1,9 +1,9 @@
-import { UserConfigExport } from 'vitest/dist/config'
-import { VitePWA } from 'vite-plugin-pwa'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
-import { defineConfig } from 'vite'
-import path from 'path'
 import vue from '@vitejs/plugin-vue'
+import path from 'path'
+import { defineConfig } from 'vite'
+import { VitePWA } from 'vite-plugin-pwa'
+import { UserConfigExport } from 'vitest/dist/config'
 
 const mainColor = '#ffffff'
 
@@ -22,7 +22,7 @@ export default defineConfig(({ command }) => {
         manifest: {
           name: 'Lite Note',
           short_name: 'LiteNote',
-          description: 'Lite Note for note taking',
+          description: 'Lite note taking',
           background_color: mainColor,
           theme_color: mainColor,
           icons: [
