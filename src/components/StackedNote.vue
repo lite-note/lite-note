@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, nextTick, watch } from 'vue'
+import { computed, defineAsyncComponent, nextTick, ref, watch } from 'vue'
 
 import { useFile } from '@/hooks/useFile.hook'
 import { useImages } from '@/hooks/useImages.hook'
@@ -29,7 +29,7 @@ const repo = computed(() => props.repo)
 
 const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 
-const { content } = useFile(sha)
+const { content, rawContent } = useFile(sha)
 const className = computed(() => `stacked-note-${props.index}`)
 const { listenToClick } = useLinks(className.value, sha)
 const titleClassName = computed(() => `title-${className.value}`)
@@ -40,6 +40,11 @@ const hasBacklinks = computed(() => store.userSettings?.backlink)
 
 const { displayNoteOverlay } = useNoteOverlay(className.value, index)
 const displayedTitle = computed(() => filenameToNoteTitle(props.title))
+
+const mode = ref<'read' | 'edit'>('read')
+const toggleMode = () => {
+  mode.value = mode.value === 'read' ? 'edit' : 'read'
+}
 
 watch(content, () => {
   if (!content.value) {
@@ -64,21 +69,33 @@ watch(content, () => {
     }"
   >
     <div class="title-stacked-note" :class="titleClassName">
-      <a @click.prevent="scrollToFocusedNote(props.sha)">{{
-        displayedTitle
-      }}</a>
+      <a @click.prevent="scrollToFocusedNote(props.sha)"
+        >{{ displayedTitle }}
+      </a>
     </div>
-    <div v-if="false" class="share">
+    <section class="text-content">
+      <button
+        class="action button is-text"
+        :class="{ 'is-link': mode === 'edit' }"
+        @click="toggleMode"
+      >
+        <img src="@/assets/icons/edit.svg" alt="edit" />
+      </button>
       <router-link
+        v-if="false"
         :to="{
           name: 'ShareNotes',
           params: { user: user, repo: repo, note: sha }
         }"
+        class="action"
       >
         <img src="@/assets/icons/share.svg" alt="share" />
       </router-link>
-    </div>
-    <section class="note-content" v-html="content"></section>
+      <div v-if="mode === 'edit'" class="edit">
+        <textarea id="" v-model="rawContent" name="raw-content"></textarea>
+      </div>
+      <div v-if="mode === 'read'" class="note-content" v-html="content"></div>
+    </section>
     <linked-notes v-if="hasBacklinks && content" :sha="sha" />
   </div>
 </template>
@@ -120,13 +137,29 @@ $border-color: rgba(18, 19, 58, 0.2);
   }
 }
 
-.share {
+.text-content {
+  flex: 1;
+
+  div {
+    height: 100%;
+  }
+}
+
+.action {
   float: right;
   margin: 0.2rem;
 
   img {
     vertical-align: bottom;
   }
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  flex: 1;
+  resize: none;
 }
 
 @media screen and (max-width: 768px) {

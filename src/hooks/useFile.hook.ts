@@ -6,33 +6,15 @@ import { getFileContent } from '@/modules/repo/services/repo'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
 export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
-  const { render } = useMarkdown(toValue(sha))
+  const { render, getRawContent: getRawContentFromFile } = useMarkdown(
+    toValue(sha)
+  )
   const store = useUserRepoStore()
   const { getCachedNote, saveCacheNote } = prepareNoteCache(toValue(sha))
   const fromCache = ref(false)
 
   const content = ref('')
   const rawContent = ref('')
-
-  const getRawContent = async () => {
-    const fileContent = await getCachedFileContent()
-    if (!fileContent) {
-      return
-    }
-    content.value = render(fileContent)
-    rawContent.value = fileContent
-    return rawContent.value
-  }
-
-  const getContent = async () => {
-    const fileContent = await getCachedFileContent()
-    if (!fileContent) {
-      return
-    }
-    content.value = render(fileContent)
-    rawContent.value = fileContent
-    return content.value
-  }
 
   const getCachedFileContent = async (): Promise<string | null> => {
     const cachedNote = await getCachedNote()
@@ -57,12 +39,32 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     return contentFile
   }
 
+  const getRawContent = async () => {
+    const fileContent = await getCachedFileContent()
+    if (!fileContent) {
+      return
+    }
+    rawContent.value = getRawContentFromFile(fileContent)
+    return rawContent.value
+  }
+
+  const getContent = async () => {
+    const fileContent = await getCachedFileContent()
+    if (!fileContent) {
+      return
+    }
+    content.value = render(fileContent)
+    return content.value
+  }
+
   if (retrieveContent) {
     getContent()
+    getRawContent()
   }
 
   return {
     content,
+    rawContent,
     getRawContent,
     getContent,
     getCachedFileContent,

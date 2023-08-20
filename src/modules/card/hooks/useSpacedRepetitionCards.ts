@@ -66,8 +66,8 @@ export const useSpacedRepetitionCards = () => {
           continue
         }
 
-        const { getRawContent } = useFile(cardFile.sha, false)
-        const content = (await getRawContent()) ?? ''
+        const { getContent } = useFile(cardFile.sha, false)
+        const content = (await getContent()) ?? ''
 
         const [front, back, references] =
           decodeBase64ToUTF8(content).split('___') ?? []

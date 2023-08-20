@@ -40,6 +40,8 @@ const md = new MarkdownIt({
   })
 
 export const useMarkdown = (defaultPrefix?: Ref<string> | string) => {
+  const getRawContent = (content: string) => decodeBase64ToUTF8(content)
+
   return {
     toHTML: (content: string) => (content ? md.render(content) : ''),
     render: (content: string, prefix?: string) =>
@@ -47,6 +49,7 @@ export const useMarkdown = (defaultPrefix?: Ref<string> | string) => {
         ? md.render(decodeBase64ToUTF8(content), {
             docId: defaultPrefix ? toValue(defaultPrefix) : prefix ?? ''
           })
-        : ''
+        : '',
+    getRawContent
   }
 }
