@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+defineProps<{
+  modelValue: string
+}>()
 
-const props = defineProps<{ sha: string; initialContent: string }>()
-const content = ref('')
-
-onMounted(() => {
-  content.value = props.initialContent
-})
+const emits = defineEmits<{
+  (event: 'update:modelValue', payload: string): void
+}>()
 
 const handleInput = (input: string) => {
-  content.value = input
+  emits('update:modelValue', input)
 }
 </script>
 
 <template>
   <div>
     <pre
+      v-once
       contenteditable
       @input="(e) => handleInput((e.target as any)?.innerText ?? '')"
-      >{{ initialContent }}</pre
+      >{{ modelValue }}</pre
     >
   </div>
 </template>

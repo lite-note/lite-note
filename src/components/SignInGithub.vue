@@ -2,7 +2,7 @@
 const GITHUB_URL = 'https://github.com/login/oauth/authorize'
 
 const CLIENT_ID = 'Iv1.12dc43d013ce3623'
-const SCOPE = 'repo'
+const SCOPE = 'repo%20workflow'
 const REDIRECT_URI = window.location.origin
 
 const url = new URL(GITHUB_URL)

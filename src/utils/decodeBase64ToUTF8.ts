@@ -6,3 +6,7 @@ export const decodeBase64ToUTF8 = (content: string): string => {
       .join('')
   )
 }
+export const encodeUTF8ToBase64 = (content: string): string => {
+  const utf8Bytes: Uint8Array = new TextEncoder().encode(content)
+  return btoa(String.fromCharCode(...utf8Bytes))
+}

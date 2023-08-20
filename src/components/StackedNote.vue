@@ -1,7 +1,15 @@
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, nextTick, ref, watch } from 'vue'
+import {
+  computed,
+  defineAsyncComponent,
+  nextTick,
+  onMounted,
+  ref,
+  watch
+} from 'vue'
 
 import { useFile } from '@/hooks/useFile.hook'
+import { useGitHubUpdate } from '@/hooks/useGitHubUpdate.hook'
 import { useImages } from '@/hooks/useImages.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
@@ -27,13 +35,15 @@ const props = defineProps<{
   sha: string
 }>()
 
+const user = computed(() => props.user)
+const repo = computed(() => props.repo)
 const sha = computed(() => props.sha)
 const index = computed(() => props.index)
-const repo = computed(() => props.repo)
 
 const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 
-const { content, rawContent } = useFile(sha)
+const { path, content, rawContent, getRawContent } = useFile(sha)
+const initialRawContent = ref<string | null>(null)
 const className = computed(() => `stacked-note-${props.index}`)
 const { listenToClick } = useLinks(className.value, sha)
 const titleClassName = computed(() => `title-${className.value}`)
@@ -45,10 +55,20 @@ const hasBacklinks = computed(() => store.userSettings?.backlink)
 const { displayNoteOverlay } = useNoteOverlay(className.value, index)
 const displayedTitle = computed(() => filenameToNoteTitle(props.title))
 
+const { updateFile } = useGitHubUpdate({
+  user: user.value,
+  repo: repo.value,
+  sha: sha.value
+})
+
 const mode = ref<'read' | 'edit'>('read')
 const toggleMode = () => {
   mode.value = mode.value === 'read' ? 'edit' : 'read'
 }
+
+onMounted(async () => {
+  initialRawContent.value = await getRawContent()
+})
 
 watch([content, mode], () => {
   if (!content.value) {
@@ -60,6 +80,12 @@ watch([content, mode], () => {
     useImages(props.sha)
     generateTweets()
   })
+})
+
+watch(mode, (newMode) => {
+  if (newMode === 'read' && rawContent.value !== initialRawContent.value) {
+    updateFile({ content: rawContent.value, path: path.value })
+  }
 })
 </script>
 
@@ -96,7 +122,7 @@ watch([content, mode], () => {
         <img src="@/assets/icons/share.svg" alt="share" />
       </router-link>
       <div v-if="mode === 'edit'" class="edit">
-        <edit-note :sha="sha" :initial-content="rawContent" />
+        <edit-note v-model="rawContent" />
       </div>
       <div v-if="mode === 'read'" class="note-content" v-html="content"></div>
     </section>

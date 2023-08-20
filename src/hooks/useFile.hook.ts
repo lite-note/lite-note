@@ -1,4 +1,4 @@
-import { Ref, ref, toValue } from 'vue'
+import { computed, Ref, ref, toValue } from 'vue'
 
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
@@ -6,10 +6,16 @@ import { getFileContent } from '@/modules/repo/services/repo'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
 export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
+  const store = useUserRepoStore()
+
+  const path = computed(() => {
+    const file = store.files.find((file) => file.sha === toValue(sha))
+    return file?.path ?? ''
+  })
+
   const { render, getRawContent: getRawContentFromFile } = useMarkdown(
     toValue(sha)
   )
-  const store = useUserRepoStore()
   const { getCachedNote, saveCacheNote } = prepareNoteCache(toValue(sha))
   const fromCache = ref(false)
 
@@ -41,28 +47,37 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
 
   const getRawContent = async () => {
     const fileContent = await getCachedFileContent()
+
     if (!fileContent) {
-      return
+      return null
     }
-    rawContent.value = getRawContentFromFile(fileContent)
-    return rawContent.value
+
+    return getRawContentFromFile(fileContent)
   }
 
   const getContent = async () => {
     const fileContent = await getCachedFileContent()
+
     if (!fileContent) {
-      return
+      return null
     }
-    content.value = render(fileContent)
-    return content.value
+
+    return render(fileContent)
   }
 
   if (retrieveContent) {
-    getContent()
-    getRawContent()
+    getCachedFileContent().then((fileContent) => {
+      if (!fileContent) {
+        return
+      }
+
+      rawContent.value = getRawContentFromFile(fileContent)
+      content.value = render(fileContent)
+    })
   }
 
   return {
+    path,
     content,
     rawContent,
     getRawContent,
