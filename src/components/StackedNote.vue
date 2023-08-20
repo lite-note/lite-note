@@ -15,6 +15,10 @@ const LinkedNotes = defineAsyncComponent(
   () => import('@/components/LinkedNotes.vue')
 )
 
+const EditNote = defineAsyncComponent(
+  () => import('@/modules/note/components/EditNote.vue')
+)
+
 const props = defineProps<{
   user: string
   repo: string
@@ -46,7 +50,7 @@ const toggleMode = () => {
   mode.value = mode.value === 'read' ? 'edit' : 'read'
 }
 
-watch(content, () => {
+watch([content, mode], () => {
   if (!content.value) {
     return
   }
@@ -92,7 +96,7 @@ watch(content, () => {
         <img src="@/assets/icons/share.svg" alt="share" />
       </router-link>
       <div v-if="mode === 'edit'" class="edit">
-        <textarea id="" v-model="rawContent" name="raw-content"></textarea>
+        <edit-note :sha="sha" :initial-content="rawContent" />
       </div>
       <div v-if="mode === 'read'" class="note-content" v-html="content"></div>
     </section>
@@ -152,14 +156,6 @@ $border-color: rgba(18, 19, 58, 0.2);
   img {
     vertical-align: bottom;
   }
-}
-
-textarea {
-  width: 100%;
-  height: 100%;
-  border: none;
-  flex: 1;
-  resize: none;
 }
 
 @media screen and (max-width: 768px) {
