@@ -13,14 +13,18 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     return file?.path ?? ''
   })
 
-  const { render, getRawContent: getRawContentFromFile } = useMarkdown(
-    toValue(sha)
-  )
+  const {
+    render,
+    renderFromUTF8,
+    getRawContent: getRawContentFromFile
+  } = useMarkdown(toValue(sha))
   const { getCachedNote, saveCacheNote } = prepareNoteCache(toValue(sha))
   const fromCache = ref(false)
 
-  const content = ref('')
   const rawContent = ref('')
+  const content = computed(() =>
+    rawContent.value ? renderFromUTF8(rawContent.value) : ''
+  )
 
   const getCachedFileContent = async (): Promise<string | null> => {
     const cachedNote = await getCachedNote()
@@ -72,7 +76,6 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
       }
 
       rawContent.value = getRawContentFromFile(fileContent)
-      content.value = render(fileContent)
     })
   }
 
@@ -83,6 +86,7 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     getRawContent,
     getContent,
     getCachedFileContent,
-    fromCache
+    fromCache,
+    saveCacheNote
   }
 }

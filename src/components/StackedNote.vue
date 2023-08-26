@@ -16,6 +16,7 @@ import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
 import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
 import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { encodeUTF8ToBase64 } from '@/utils/decodeBase64ToUTF8'
 import { filenameToNoteTitle } from '@/utils/noteTitle'
 import { generateTweets } from '@/utils/twitter'
 
@@ -39,10 +40,11 @@ const user = computed(() => props.user)
 const repo = computed(() => props.repo)
 const sha = computed(() => props.sha)
 const index = computed(() => props.index)
+const editedSha = ref(sha.value)
 
 const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 
-const { path, content, rawContent, getRawContent } = useFile(sha)
+const { path, content, rawContent, getRawContent, saveCacheNote } = useFile(sha)
 const initialRawContent = ref<string | null>(null)
 const className = computed(() => `stacked-note-${props.index}`)
 const { listenToClick } = useLinks(className.value, sha)
@@ -57,8 +59,7 @@ const displayedTitle = computed(() => filenameToNoteTitle(props.title))
 
 const { updateFile } = useGitHubUpdate({
   user: user.value,
-  repo: repo.value,
-  sha: sha.value
+  repo: repo.value
 })
 
 const mode = ref<'read' | 'edit'>('read')
@@ -82,9 +83,21 @@ watch([content, mode], () => {
   })
 })
 
-watch(mode, (newMode) => {
+watch(mode, async (newMode) => {
   if (newMode === 'read' && rawContent.value !== initialRawContent.value) {
-    updateFile({ content: rawContent.value, path: path.value })
+    const newSha = await updateFile({
+      content: rawContent.value,
+      path: path.value,
+      sha: editedSha.value
+    })
+
+    if (!newSha) {
+      return
+    }
+
+    editedSha.value = newSha
+    await saveCacheNote(encodeUTF8ToBase64(rawContent.value))
+    initialRawContent.value = rawContent.value
   }
 })
 </script>

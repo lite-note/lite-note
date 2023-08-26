@@ -4,19 +4,19 @@ import { confirmMessage, errorMessage } from '@/utils/notif'
 
 export const useGitHubUpdate = ({
   user,
-  repo,
-  sha
+  repo
 }: {
   user: string
   repo: string
-  sha: string
 }) => {
   const updateFile = async ({
     content,
-    path
+    path,
+    sha
   }: {
     content: string
     path: string
+    sha: string
   }) => {
     try {
       const octokit = await getOctokit()
@@ -35,7 +35,9 @@ export const useGitHubUpdate = ({
 
       confirmMessage('file saved on GitHub')
 
-      return response?.data.commit.sha ?? null
+      console.log(response)
+
+      return response?.data.content?.sha ?? null
     } catch (error) {
       errorMessage('File could not be saved')
     }
