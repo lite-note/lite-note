@@ -31,5 +31,6 @@ pre {
   flex: 1;
   resize: none;
   white-space: pre-wrap;
+  text-align: left;
 }
 </style>
