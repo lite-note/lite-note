@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useMagicKeys } from '@vueuse/core'
 import {
   computed,
   defineAsyncComponent,
@@ -98,6 +99,14 @@ watch(mode, async (newMode) => {
     editedSha.value = newSha
     await saveCacheNote(encodeUTF8ToBase64(rawContent.value))
     initialRawContent.value = rawContent.value
+  }
+})
+
+const { escape } = useMagicKeys()
+
+watch(escape, () => {
+  if (mode.value === 'edit') {
+    toggleMode()
   }
 })
 </script>
