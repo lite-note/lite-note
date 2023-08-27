@@ -41,10 +41,6 @@ export const useRouteQueryStackedNotes = () => {
   }
 
   const addStackedNote = (currentSHA: string, sha: string) => {
-    if (!stackedNotes.value) {
-      return
-    }
-
     if (stackedNotes.value.includes(sha)) {
       scrollToFocusedNote(sha)
       return

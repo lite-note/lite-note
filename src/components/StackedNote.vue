@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useMagicKeys } from '@vueuse/core'
 import {
   computed,
   defineAsyncComponent,
@@ -9,8 +8,9 @@ import {
   watch
 } from 'vue'
 
+import { useEditionMode } from '@/hooks/useEditionMode'
 import { useFile } from '@/hooks/useFile.hook'
-import { useGitHubUpdate } from '@/hooks/useGitHubUpdate.hook'
+import { useGitHubContent } from '@/hooks/useGitHubContent.hook'
 import { useImages } from '@/hooks/useImages.hook'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
@@ -58,19 +58,16 @@ const hasBacklinks = computed(() => store.userSettings?.backlink)
 const { displayNoteOverlay } = useNoteOverlay(className.value, index)
 const displayedTitle = computed(() => filenameToNoteTitle(props.title))
 
-const { updateFile } = useGitHubUpdate({
+const { updateFile } = useGitHubContent({
   user: user.value,
   repo: repo.value
 })
 
-const mode = ref<'read' | 'edit'>('read')
-const toggleMode = () => {
-  mode.value = mode.value === 'read' ? 'edit' : 'read'
-}
-
 onMounted(async () => {
   initialRawContent.value = await getRawContent()
 })
+
+const { mode, toggleMode } = useEditionMode()
 
 watch([content, mode], () => {
   if (!content.value) {
@@ -99,14 +96,6 @@ watch(mode, async (newMode) => {
     editedSha.value = newSha
     await saveCacheNote(encodeUTF8ToBase64(rawContent.value))
     initialRawContent.value = rawContent.value
-  }
-})
-
-const { escape } = useMagicKeys()
-
-watch(escape, () => {
-  if (mode.value === 'edit') {
-    toggleMode()
   }
 })
 </script>

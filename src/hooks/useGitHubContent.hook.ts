@@ -2,21 +2,21 @@ import { getOctokit } from '@/modules/repo/services/octo'
 import { encodeUTF8ToBase64 } from '@/utils/decodeBase64ToUTF8'
 import { confirmMessage, errorMessage } from '@/utils/notif'
 
-export const useGitHubUpdate = ({
+export const useGitHubContent = ({
   user,
   repo
 }: {
   user: string
   repo: string
 }) => {
-  const updateFile = async ({
+  const putFile = async ({
     content,
     path,
     sha
   }: {
     content: string
     path: string
-    sha: string
+    sha?: string
   }) => {
     try {
       const octokit = await getOctokit()
@@ -35,8 +35,6 @@ export const useGitHubUpdate = ({
 
       confirmMessage('file saved on GitHub')
 
-      console.log(response)
-
       return response?.data.content?.sha ?? null
     } catch (error) {
       errorMessage('File could not be saved')
@@ -46,6 +44,9 @@ export const useGitHubUpdate = ({
   }
 
   return {
-    updateFile
+    updateFile: async (props: { content: string; path: string; sha: string }) =>
+      putFile(props),
+    createFile: async (props: { content: string; path: string }) =>
+      putFile(props)
   }
 }
