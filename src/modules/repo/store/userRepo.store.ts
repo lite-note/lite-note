@@ -42,21 +42,27 @@ export const useUserRepoStore = defineStore({
         console.warn('impossible to refresh token')
       }
 
-      this.readme = await getCachedMainReadme(newUser, newRepo)
+      getFiles(newUser, newRepo)
+        .then((files) => {
+          this.files = files
+          return getUserSettingsContent(newUser, newRepo, files)
+        })
+        .then((userSettings) => (this.userSettings = userSettings))
 
-      getMainReadme(newUser, newRepo).then((readme) => {
-        this.readme = readme
+      getCachedMainReadme(newUser, newRepo)
+        .then((readme) => {
+          this.readme = readme
+        })
+        .then(() => getMainReadme(newUser, newRepo))
+        .then((readme) => {
+          this.readme = readme
 
-        // if the offline state is too quick,
-        // it gives more the impression of glitch.
-        setTimeout(() => {
-          this.isReadmeOffline = false
-        }, 500)
-      })
-
-      const files = await getFiles(newUser, newRepo)
-      this.files = files
-      this.userSettings = await getUserSettingsContent(newUser, newRepo, files)
+          // if the offline state is too quick,
+          // it gives an impression of glitch.
+          setTimeout(() => {
+            this.isReadmeOffline = false
+          }, 500)
+        })
     },
     resetUserRepo() {
       this.user = ''
