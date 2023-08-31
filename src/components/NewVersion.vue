@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 import LiteLoading from '@/components/LiteLoading.vue'
 
-const devMode = ref(import.meta.env.DEV)
+const devMode = ref(false) // import.meta.env.DEV
 const isLoading = ref(false)
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW()
 
