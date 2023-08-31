@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { format } from 'date-fns'
 import { computed, ref, watch } from 'vue'
 
 import FluxNote from '@/components/FluxNote.vue'
@@ -19,7 +20,7 @@ const repo = computed(() => props.repo)
 const { addStackedNote } = useRouteQueryStackedNotes()
 const { content } = useFolderNotes(FLEETING_NOTES_FOLDER)
 
-const today = new Date().toISOString().split('T')[0]
+const today = format(new Date(), 'yyyy-MM-dd')
 const newContentPath = `_inbox/${today}.md`
 const initialContent = ``
 const newContent = ref(initialContent)
