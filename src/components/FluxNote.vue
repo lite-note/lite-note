@@ -108,12 +108,12 @@ const focusREADME = () => scrollToTop()
           <img
             v-show="store.isReadmeOffline"
             src="@/assets/icons/offline.svg"
-            alt="ofline"
+            alt="offline"
           />
           <img
             v-show="!store.isReadmeOffline"
             src="@/assets/icons/online.svg"
-            alt="ofline"
+            alt="online"
           />
         </h4>
       </div>
