@@ -33,7 +33,7 @@ export const useGitHubContent = ({
         }
       )
 
-      confirmMessage('file saved on GitHub')
+      confirmMessage('Note saved')
 
       return response?.data.content?.sha ?? null
     } catch (error) {
