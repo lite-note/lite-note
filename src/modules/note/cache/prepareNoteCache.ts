@@ -6,11 +6,12 @@ export const prepareNoteCache = (sha: string) => {
   const noteId = data.generateId(DataType.Note, sha)
   const getCachedNote = async () => data.get<DataType.Note, Note>(noteId)
 
-  const saveCacheNote = async (content: string) => {
+  const saveCacheNote = async (content: string, editedSha?: string) => {
     const newNote: Note = {
       _id: noteId,
       $type: DataType.Note,
-      content
+      content,
+      editedSha
     }
 
     await data.update(newNote)

@@ -37,7 +37,7 @@ export const useGitHubContent = ({
 
       return response?.data.content?.sha ?? null
     } catch (error) {
-      errorMessage('File could not be saved')
+      errorMessage('Note could not be saved')
     }
 
     return null

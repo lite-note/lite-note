@@ -3,4 +3,5 @@ import { Model } from '@/data/models/Model'
 
 export interface Note extends Model<DataType.Note> {
   content: string
+  editedSha?: string
 }

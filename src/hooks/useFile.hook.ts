@@ -26,6 +26,16 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     rawContent.value ? renderFromUTF8(rawContent.value) : ''
   )
 
+  const getEditedSha = async () => {
+    const note = await getCachedNote()
+
+    if (!note) {
+      return null
+    }
+
+    return note.editedSha ?? null
+  }
+
   const getCachedFileContent = async (): Promise<string | null> => {
     const cachedNote = await getCachedNote()
 
@@ -86,6 +96,7 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     getRawContent,
     getContent,
     getCachedFileContent,
+    getEditedSha,
     fromCache,
     saveCacheNote
   }

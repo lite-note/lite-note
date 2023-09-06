@@ -41,11 +41,17 @@ const user = computed(() => props.user)
 const repo = computed(() => props.repo)
 const sha = computed(() => props.sha)
 const index = computed(() => props.index)
-const editedSha = ref(sha.value)
 
 const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 
-const { path, content, rawContent, getRawContent, saveCacheNote } = useFile(sha)
+const {
+  path,
+  content,
+  rawContent,
+  getRawContent,
+  saveCacheNote,
+  getEditedSha
+} = useFile(sha)
 const initialRawContent = ref<string | null>(null)
 const className = computed(() => `stacked-note-${props.index}`)
 const { listenToClick } = useLinks(className.value, sha)
@@ -83,18 +89,19 @@ watch([content, mode], () => {
 
 watch(mode, async (newMode) => {
   if (newMode === 'read' && rawContent.value !== initialRawContent.value) {
+    const editedSha = (await getEditedSha()) ?? sha.value
+
     const newSha = await updateFile({
       content: rawContent.value,
       path: path.value,
-      sha: editedSha.value
+      sha: editedSha
     })
 
     if (!newSha) {
       return
     }
 
-    editedSha.value = newSha
-    await saveCacheNote(encodeUTF8ToBase64(rawContent.value))
+    await saveCacheNote(encodeUTF8ToBase64(rawContent.value), newSha)
     initialRawContent.value = rawContent.value
   }
 })
