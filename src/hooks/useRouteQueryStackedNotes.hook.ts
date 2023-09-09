@@ -40,22 +40,22 @@ export const useRouteQueryStackedNotes = () => {
     })
   }
 
-  const addStackedNote = (currentSHA: string, sha: string) => {
+  const addStackedNote = (currentSha: string, sha: string) => {
     if (stackedNotes.value.includes(sha)) {
       scrollToFocusedNote(sha)
       return
     }
 
-    if (!currentSHA) {
+    if (!currentSha) {
       stackedNotes.value = [sha]
     } else {
       const [splittedStackedNotes] = stackedNotes.value
         .join(';')
-        .split(currentSHA)
+        .split(currentSha)
 
       const newStackedNotes = [
         ...splittedStackedNotes.replaceAll(';;', ';').split(';'),
-        currentSHA,
+        currentSha,
         sha
       ].filter((sha) => !!sha)
 

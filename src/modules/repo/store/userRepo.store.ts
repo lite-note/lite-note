@@ -36,6 +36,7 @@ export const useUserRepoStore = defineStore({
       this.isReadmeOffline = true
       this.user = newUser
       this.repo = newRepo
+
       try {
         await refreshToken()
       } catch (error) {
@@ -57,11 +58,11 @@ export const useUserRepoStore = defineStore({
         .then((readme) => {
           this.readme = readme
 
-          // if the offline state is too quick,
+          // if the offline state is too fast,
           // it gives an impression of glitch.
           setTimeout(() => {
             this.isReadmeOffline = false
-          }, 500)
+          }, 350)
         })
     },
     resetUserRepo() {
