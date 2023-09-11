@@ -1,4 +1,7 @@
-export interface UserSettings {
+import { DataType } from '@/data/DataType.enum'
+import { Model } from '@/data/models/Model'
+
+export interface UserSettings extends Model<DataType.UserSettings> {
   fontFamily?:
     | 'Courgette'
     | 'IBM Plex Serif'

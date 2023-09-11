@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 
+import { data } from '@/data/data'
+import { DataType } from '@/data/DataType.enum'
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
 import {
@@ -32,10 +34,10 @@ export const useUserRepoStore = defineStore({
     needToLogin: false
   }),
   actions: {
-    async setUserRepo(newUser: string, newRepo: string) {
+    async setUserRepo(user: string, repo: string) {
       this.isReadmeOffline = true
-      this.user = newUser
-      this.repo = newRepo
+      this.user = user
+      this.repo = repo
 
       try {
         await refreshToken()
@@ -43,18 +45,37 @@ export const useUserRepoStore = defineStore({
         console.warn('impossible to refresh token')
       }
 
-      getFiles(newUser, newRepo)
+      const userSettingsId = `UserSetting-${user}-${repo}`
+      const cachedUserSettings = await data.get<
+        DataType.UserSettings,
+        UserSettings
+      >(userSettingsId)
+
+      if (cachedUserSettings) {
+        this.userSettings = cachedUserSettings
+      }
+
+      getFiles(user, repo)
         .then((files) => {
           this.files = files
-          return getUserSettingsContent(newUser, newRepo, files)
+          return getUserSettingsContent(user, repo, files)
         })
-        .then((userSettings) => (this.userSettings = userSettings))
+        .then((userSettings) => {
+          this.userSettings = userSettings
 
-      getCachedMainReadme(newUser, newRepo)
+          if (userSettings) {
+            data.update<DataType.UserSettings, UserSettings>({
+              ...userSettings,
+              _id: userSettingsId
+            })
+          }
+        })
+
+      getCachedMainReadme(user, repo)
         .then((readme) => {
           this.readme = readme
         })
-        .then(() => getMainReadme(newUser, newRepo))
+        .then(() => getMainReadme(user, repo))
         .then((readme) => {
           this.readme = readme
 

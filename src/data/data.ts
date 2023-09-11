@@ -50,6 +50,7 @@ class Data {
           return result?.ok ?? false
         }
       }
+
       const result = await this.locale?.put(model)
       return result?.ok ?? false
     } catch (error) {
