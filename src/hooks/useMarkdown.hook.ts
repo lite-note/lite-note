@@ -27,7 +27,8 @@ const md = new MarkdownIt({
   .use(html5Media)
   .use(blockEmbedPlugin, {
     youtube: {
-      width: '100%'
+      width: '100%',
+      height: 300
     }
   })
   .use(twitterPlugin)
