@@ -17,7 +17,8 @@ export default defineConfig(({ command }) => {
         includeAssets: [
           'favicon.ico',
           'apple-touch-icon.png',
-          'masked-icon.svg'
+          'masked-icon.svg',
+          'assets/*.svg'
         ],
         manifest: {
           name: 'Lite Note',
