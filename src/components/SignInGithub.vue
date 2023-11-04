@@ -17,7 +17,7 @@ const href = url.toString()
   <a :href="href" class="sign-in-github button is-primary">
     <span>
       Sign in with
-      <img src="@/assets/icons/github.svg" alt="GitHub" />
+      <img src="/assets/github.svg" alt="GitHub" />
     </span>
   </a>
 </template>

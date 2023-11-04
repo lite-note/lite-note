@@ -89,7 +89,7 @@
 
     <footer>
       <p>
-        Made with <img src="@/assets/icons/love.svg" alt="love" /> by
+        Made with <img src="/assets/love.svg" alt="love" /> by
         <a
           href="http://github.com/jcalixte"
           target="_blank"

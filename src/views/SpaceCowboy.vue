@@ -1,9 +1,9 @@
 <template>
   <main class="space-cowboy content">
     <p>
-      <img src="@/assets/icons/alert.svg" alt="alert" />
+      <img src="/assets/alert.svg" alt="alert" />
       Oops, you've been lost!
-      <img src="@/assets/icons/alert.svg" alt="alert" />
+      <img src="/assets/alert.svg" alt="alert" />
     </p>
     <p>A note link can't be used as URL.</p>
     <router-link class="button is-links" :to="{ name: 'Home' }"

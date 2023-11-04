@@ -78,7 +78,7 @@ watch(mode, async (newMode) => {
         <div class="columns is-centered">
           <div class="column is-half is-centered">
             <button class="button is-light" @click="toggleMode">
-              <img src="@/assets/icons/saved.svg" alt="save" />
+              <img src="/assets/saved.svg" alt="save" />
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="lite-loading">
-    <img class="is-loading" src="@/assets/icons/loading.svg" alt="loading..." />
+    <img class="is-loading" src="/assets/loading.svg" alt="loading..." />
   </div>
 </template>
 

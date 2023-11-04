@@ -4,25 +4,25 @@
       :to="{ name: 'Home' }"
       class="button is-small is-white back-button"
     >
-      <img src="@/assets/icons/dark-left-arrow.svg" alt="go back left arrow" />
+      <img src="/assets/dark-left-arrow.svg" alt="go back left arrow" />
     </router-link>
     <router-link
       class="special-folder"
       :to="{ name: 'SpacedRepetitionCard', params: { user, repo } }"
     >
-      <img src="@/assets/icons/card.svg" alt="card" />
+      <img src="/assets/card.svg" alt="card" />
     </router-link>
     <router-link
       class="special-folder"
       :to="{ name: 'DraftNotes', params: { user, repo } }"
     >
-      <img src="@/assets/icons/draft.svg" alt="card" />
+      <img src="/assets/draft.svg" alt="card" />
     </router-link>
     <router-link
       class="special-folder"
       :to="{ name: 'FleetingNotes', params: { user, repo } }"
     >
-      <img src="@/assets/icons/mailbox.svg" alt="card" />
+      <img src="/assets/mailbox.svg" alt="card" />
     </router-link>
   </header>
 </template>

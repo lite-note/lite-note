@@ -1,6 +1,6 @@
 <template>
   <button class="button is-white go-back" @click="back">
-    <img src="@/assets/icons/dark-left-arrow.svg" alt="back" />
+    <img src="/assets/dark-left-arrow.svg" alt="back" />
   </button>
 </template>
 

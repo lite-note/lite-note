@@ -127,7 +127,7 @@ watch(mode, async (newMode) => {
         :class="{ 'is-link': mode === 'edit' }"
         @click="toggleMode"
       >
-        <img src="@/assets/icons/edit.svg" alt="edit" />
+        <img src="/assets/edit.svg" alt="edit" />
       </button>
       <router-link
         v-if="false"
@@ -137,7 +137,7 @@ watch(mode, async (newMode) => {
         }"
         class="action"
       >
-        <img src="@/assets/icons/share.svg" alt="share" />
+        <img src="/assets/share.svg" alt="share" />
       </router-link>
       <div v-if="mode === 'edit'" class="edit">
         <edit-note v-model="rawContent" />

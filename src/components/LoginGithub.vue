@@ -3,7 +3,7 @@
     <br />
     <a :href="url.toString()" target="_blank" rel="noopener noreferrer">
       login to
-      <img src="@/assets/icons/github.svg" alt="GitHub icon" />
+      <img src="/assets/github.svg" alt="GitHub icon" />
     </a>
   </div>
 </template>
