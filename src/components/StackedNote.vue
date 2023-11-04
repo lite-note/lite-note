@@ -123,7 +123,7 @@ watch(mode, async (newMode) => {
     </div>
     <section class="text-content">
       <button
-        class="action button is-text"
+        class="action button is-text is-light"
         :class="{ 'is-link': mode === 'edit' }"
         @click="toggleMode"
       >
@@ -141,6 +141,14 @@ watch(mode, async (newMode) => {
       </router-link>
       <div v-if="mode === 'edit'" class="edit">
         <edit-note v-model="rawContent" />
+
+        <button
+          class="action button is-text is-light"
+          :class="{ 'is-link': mode === 'edit' }"
+          @click="toggleMode"
+        >
+          <img src="/assets/edit.svg" alt="edit" />
+        </button>
       </div>
       <div v-if="mode === 'read'" class="note-content" v-html="content"></div>
     </section>
