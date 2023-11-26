@@ -13,17 +13,19 @@ export const useNote = (containerClass: string) => {
   const { isMobile } = useOverlay(false)
   const { stackedNotes, addStackedNote } = useRouteQueryStackedNotes()
 
-  const titles = computed(() =>
-    stackedNotes.value?.reduce((obj: Record<string, string>, note) => {
-      if (!note) {
+  const titles = computed(
+    () =>
+      stackedNotes.value?.reduce((obj: Record<string, string>, note) => {
+        if (!note) {
+          return obj
+        }
+        const filePath =
+          store.files.find((file) => file.sha === note)?.path ?? ''
+
+        obj[note] = pathToNotePathTitle(filePath)
+
         return obj
-      }
-      const filePath = store.files.find((file) => file.sha === note)?.path ?? ''
-
-      obj[note] = pathToNotePathTitle(filePath)
-
-      return obj
-    }, {})
+      }, {})
   )
 
   const unsubscribeLink = noteEventBus.addEventBusListener(
