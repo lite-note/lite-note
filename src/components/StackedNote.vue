@@ -91,6 +91,12 @@ watch(mode, async (newMode) => {
   if (newMode === 'read' && rawContent.value !== initialRawContent.value) {
     const editedSha = (await getEditedSha()) ?? sha.value
 
+    if (!path.value) {
+      console.warn('no path found for this file')
+
+      return
+    }
+
     const newSha = await updateFile({
       content: rawContent.value,
       path: path.value,
@@ -98,10 +104,14 @@ watch(mode, async (newMode) => {
     })
 
     if (!newSha) {
+      console.warn('no new SHA found for this file')
+
       return
     }
 
-    await saveCacheNote(encodeUTF8ToBase64(rawContent.value), newSha)
+    await saveCacheNote(encodeUTF8ToBase64(rawContent.value), {
+      editedSha: newSha
+    })
     initialRawContent.value = rawContent.value
   }
 })

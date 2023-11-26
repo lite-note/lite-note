@@ -86,6 +86,9 @@ export const useUserRepoStore = defineStore({
           }, 350)
         })
     },
+    addFile(file: RepoFile) {
+      this.files = [...this.files.filter((f) => f.sha !== file.sha), file]
+    },
     resetUserRepo() {
       this.user = ''
       this.repo = ''

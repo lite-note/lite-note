@@ -50,7 +50,10 @@ watch(mode, async (newMode) => {
 
     newContent.value = initialContent
     const { saveCacheNote } = prepareNoteCache(newSha)
-    await saveCacheNote(encodeUTF8ToBase64(content))
+    await saveCacheNote(encodeUTF8ToBase64(content), {
+      editedSha: newSha,
+      path: newContentPath
+    })
 
     addStackedNote('', newSha)
   }

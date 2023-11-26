@@ -17,7 +17,7 @@ const isMarkdown = (filename?: string) => filename?.endsWith('.md') ?? false
 export const useComputeBacklinks = () => {
   const store = useUserRepoStore()
 
-  watch(store,async () => {
+  watch(store, async () => {
     if (!store.userSettings?.backlink) {
       return
     }

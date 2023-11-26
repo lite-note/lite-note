@@ -10,7 +10,7 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
 
   const path = computed(() => {
     const file = store.files.find((file) => file.sha === toValue(sha))
-    return file?.path ?? ''
+    return file?.path
   })
 
   const {
