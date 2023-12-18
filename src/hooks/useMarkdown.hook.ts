@@ -1,5 +1,6 @@
 import markdownItClass from '@toycode/markdown-it-class'
 import MarkdownIt from 'markdown-it'
+import Renderer from 'markdown-it/lib/renderer'
 import blockEmbedPlugin from 'markdown-it-block-embed'
 import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItFootnote from 'markdown-it-footnote'
@@ -21,8 +22,7 @@ const md = new MarkdownIt({
     h3: ['title', 'is-4'],
     h4: ['title', 'is-5'],
     h5: ['title', 'is-6'],
-    h6: ['title', 'is-6'],
-    table: ['table', 'is-fullwidth']
+    h6: ['title', 'is-6']
   })
   .use(html5Media)
   .use(blockEmbedPlugin, {
@@ -39,6 +39,14 @@ const md = new MarkdownIt({
     width: '100%',
     height: 400
   })
+
+const rules: Renderer.RenderRuleRecord = {
+  table_close: () => '</table>\n</div>',
+  table_open: () =>
+    '<div class="table-wrapper table is-fullwidth is striped">\n<table>\n'
+}
+
+md.renderer.rules = { ...md.renderer.rules, ...rules }
 
 export const useMarkdown = (defaultPrefix?: Ref<string> | string) => {
   const getRawContent = (content: string) => decodeBase64ToUTF8(content)
