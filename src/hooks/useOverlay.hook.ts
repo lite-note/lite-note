@@ -26,26 +26,22 @@ export const useOverlay = (listen = true) => {
     )
   }
 
-  const scrollToNote = (to: number, wait = false) => {
+  const scrollToNote = (to: number) => {
     const go = () => {
-      if (isMobile.value) {
-        body.scroll({
-          top: to
-        })
-      } else {
-        body.scroll({
-          left: to
-        })
-      }
+      const scrollOptions = isMobile.value
+        ? {
+            top: to
+          }
+        : {
+            left: to
+          }
+
+      body.scroll(scrollOptions)
     }
 
-    if (wait) {
-      setTimeout(() => {
-        go()
-      }, 100)
-    } else {
+    setTimeout(() => {
       go()
-    }
+    }, 80)
   }
 
   return {

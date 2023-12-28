@@ -26,16 +26,14 @@ export const useRouteQueryStackedNotes = () => {
     nextTick(() => {
       const index = notes.findIndex((noteSHA) => noteSHA === sha)
 
-      const hasOneStackedNote = notes.length === 1
-
       if (isMobile.value) {
         const element = document.querySelector(`.note-${sha}`) as HTMLElement
         const top = (index + 1) * (element?.clientHeight ?? height.value)
-        scrollToNote(top, hasOneStackedNote)
+        scrollToNote(top)
       } else {
         const margin = index * 44
         const left = (index + 1) * NOTE_WIDTH - margin
-        scrollToNote(left, hasOneStackedNote)
+        scrollToNote(left)
       }
     })
   }
