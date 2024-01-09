@@ -6,6 +6,7 @@ import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItFootnote from 'markdown-it-footnote'
 import markdownItIframe from 'markdown-it-iframe'
 import markdownItLatex from 'markdown-it-latex'
+import Shikiji from 'markdown-it-shikiji'
 import { Ref, toValue } from 'vue'
 
 import { decodeBase64ToUTF8 } from '@/utils/decodeBase64ToUTF8'
@@ -39,6 +40,18 @@ const md = new MarkdownIt({
     width: '100%',
     height: 400
   })
+
+const useShikiji = async () => {
+  const shikiji = await Shikiji({
+    themes: {
+      light: 'vitesse-light',
+      dark: 'vitesse-black'
+    }
+  })
+  md.use(shikiji)
+}
+
+useShikiji()
 
 const rules: Renderer.RenderRuleRecord = {
   table_close: () => '</table>\n</div>',

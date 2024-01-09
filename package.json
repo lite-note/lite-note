@@ -27,6 +27,7 @@
     "markdown-it-footnote": "^3.0.3",
     "markdown-it-iframe": "^1.0.0",
     "markdown-it-latex": "^0.2.0",
+    "markdown-it-shikiji": "^0.9.18",
     "nanoid": "^5.0.3",
     "notyf": "^3.10.0",
     "pinia": "^2.1.7",
