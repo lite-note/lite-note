@@ -8,7 +8,7 @@ const props = defineProps<{
   sha: string
 }>()
 
-const shaProp = computed((props) => props.sha)
+const shaProp = computed(() => props.sha)
 
 const { backlink } = useBacklinks(shaProp)
 const { addStackedNote } = useRouteQueryStackedNotes()
