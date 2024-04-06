@@ -1,8 +1,9 @@
 import { watchEffect } from 'vue'
 
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { downloadGoogleFont } from '@/utils/downloadGoogleFont'
 
-const DEFAULT_FONT_POLICY = "'Courier Prime', monospace"
+const DEFAULT_FONT_POLICY = 'Courier Prime, monospace'
 
 const LIGHT_FONT_COLOR = '#4a4a4a'
 const LIGHT_BACKGROUND = '#ffffff'
@@ -22,7 +23,7 @@ export const useUserSettings = () => {
     const mode = store.userSettings?.mode
     const root = document.documentElement
 
-    root.style.setProperty('--font-family', fontFamily ?? DEFAULT_FONT_POLICY)
+    downloadGoogleFont(fontFamily || DEFAULT_FONT_POLICY)
 
     switch (mode) {
       case 'dark':
