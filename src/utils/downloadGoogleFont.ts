@@ -3,11 +3,18 @@ import FontFaceObserver from 'fontfaceobserver'
 export const downloadGoogleFont = async (font: string): Promise<void> => {
   const href = assembleFontLink(font)
 
-  const link = document.createElement('link')
-  link.href = href
-  link.rel = 'stylesheet'
+  // check if the href already exists
+  const existingLink = document.querySelector(`link[href="${href}"]`)
 
-  document.head.appendChild(link)
+  console.log({ existingLink })
+
+  if (!existingLink) {
+    const link = document.createElement('link')
+    link.href = href
+    link.rel = 'stylesheet'
+
+    document.head.appendChild(link)
+  }
 
   await new FontFaceObserver(font).load()
 
