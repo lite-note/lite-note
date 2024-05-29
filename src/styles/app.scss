@@ -5,13 +5,14 @@ $primary: #2c3a47;
 $link: #445fb9;
 $light-link: lighten($link, 45%);
 $family-primary: "Courier Prime", monospace;
+$background: #ffffff;
 
 :root {
   --primary-color: #{$primary};
   --font-family: #{$family-primary};
   --font-color: #4a4a4a;
   --light-link: #{$light-link};
-  --background-color: #ffffff;
+  --background-color: #{$background};
   --note-width: 620px;
 }
 
@@ -105,4 +106,11 @@ pre {
 
 code {
   font-family: var(--font-family);
+}
+
+.markdown-alert {
+  padding: 1rem;
+  background-color: #ecf0f1;
+  border-radius: 1rem;
+  margin: 1rem 0;
 }
