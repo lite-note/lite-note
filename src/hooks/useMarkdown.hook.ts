@@ -4,6 +4,7 @@ import Renderer from 'markdown-it/lib/renderer'
 import blockEmbedPlugin from 'markdown-it-block-embed'
 import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItFootnote from 'markdown-it-footnote'
+import MarkdownItGitHubAlerts from 'markdown-it-github-alerts'
 import markdownItIframe from 'markdown-it-iframe'
 import markdownItLatex from 'markdown-it-latex'
 import Shikiji from 'markdown-it-shikiji'
@@ -40,6 +41,7 @@ const md = new MarkdownIt({
     width: '100%',
     height: 400
   })
+  .use(MarkdownItGitHubAlerts)
 
 const useShikiji = async () => {
   const shikiji = await Shikiji({
