@@ -33,7 +33,7 @@ const props = defineProps<{
   user: string
   repo: string
   index: number
-  title: string
+  title?: string
   sha: string
 }>()
 
@@ -62,7 +62,7 @@ const store = useUserRepoStore()
 const hasBacklinks = computed(() => store.userSettings?.backlink)
 
 const { displayNoteOverlay } = useNoteOverlay(className.value, index)
-const displayedTitle = computed(() => filenameToNoteTitle(props.title))
+const displayedTitle = computed(() => filenameToNoteTitle(props.title ?? ''))
 
 const { updateFile } = useGitHubContent({
   user: user.value,
