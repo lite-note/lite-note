@@ -18,7 +18,10 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     renderFromUTF8,
     getRawContent: getRawContentFromFile
   } = useMarkdown(toValue(sha))
-  const { getCachedNote, saveCacheNote } = prepareNoteCache(toValue(sha))
+  const { getCachedNote, saveCacheNote } = prepareNoteCache(
+    toValue(sha),
+    toValue(path)
+  )
   const fromCache = ref(false)
 
   const rawContent = ref('')

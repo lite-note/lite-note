@@ -49,7 +49,7 @@ watch(mode, async (newMode) => {
     }
 
     newContent.value = initialContent
-    const { saveCacheNote } = prepareNoteCache(newSha)
+    const { saveCacheNote } = prepareNoteCache(newSha, newContentPath)
     await saveCacheNote(encodeUTF8ToBase64(content), {
       editedSha: newSha,
       path: newContentPath
