@@ -41,9 +41,13 @@ export const useUserRepoStore = defineStore({
       this.repo = repo
 
       const savedRepoId = data.generateId(DataType.SavedRepo, `${user}-${repo}`)
-      this.files =
-        (await data.get<DataType.SavedRepo, SavedRepo>(savedRepoId))?.files ??
-        []
+      const cachedSavedRepo = await data.get<DataType.SavedRepo, SavedRepo>(
+        savedRepoId
+      )
+
+      if (cachedSavedRepo) {
+        this.files = cachedSavedRepo.files
+      }
 
       try {
         await refreshToken()
