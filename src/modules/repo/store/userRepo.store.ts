@@ -4,6 +4,7 @@ import { data } from '@/data/data'
 import { DataType } from '@/data/DataType.enum'
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
+import { SavedRepo } from '@/modules/repo/models/SavedRepo'
 import {
   getCachedMainReadme,
   getFiles,
@@ -39,6 +40,11 @@ export const useUserRepoStore = defineStore({
       this.user = user
       this.repo = repo
 
+      const savedRepoId = data.generateId(DataType.SavedRepo, `${user}-${repo}`)
+      this.files =
+        (await data.get<DataType.SavedRepo, SavedRepo>(savedRepoId))?.files ??
+        []
+
       try {
         await refreshToken()
       } catch (error) {
@@ -56,7 +62,14 @@ export const useUserRepoStore = defineStore({
       }
 
       getFiles(user, repo)
-        .then((files) => {
+        .then(async (files) => {
+          data.update<DataType.SavedRepo, SavedRepo>({
+            _id: savedRepoId,
+            $type: DataType.SavedRepo,
+            repo,
+            user,
+            files
+          })
           this.files = files
           return getUserSettingsContent(user, repo, files)
         })
@@ -87,7 +100,19 @@ export const useUserRepoStore = defineStore({
         })
     },
     addFile(file: RepoFile) {
-      this.files = [...this.files.filter((f) => f.sha !== file.sha), file]
+      const savedRepoId = data.generateId(
+        DataType.SavedRepo,
+        `${this.user}-${this.repo}`
+      )
+      const newFiles = [...this.files.filter((f) => f.sha !== file.sha), file]
+      data.update<DataType.SavedRepo, SavedRepo>({
+        _id: savedRepoId,
+        $type: DataType.SavedRepo,
+        repo: this.repo,
+        user: this.user,
+        files: newFiles
+      })
+      this.files = newFiles
     },
     resetUserRepo() {
       this.user = ''
