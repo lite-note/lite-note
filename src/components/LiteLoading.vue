@@ -3,7 +3,7 @@ import { withDefaults } from 'vue'
 
 withDefaults(
   defineProps<{
-    light: boolean
+    light?: boolean
   }>(),
   {
     light: false
