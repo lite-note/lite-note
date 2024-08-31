@@ -104,17 +104,7 @@ const focusREADME = () => scrollToTop()
           </router-link>
         </h1>
         <h4 class="subtitle is-5">
-          <em>{{ user }}</em> -
-          <img
-            v-show="store.isReadmeOffline"
-            src="/assets/offline.svg"
-            alt="offline"
-          />
-          <img
-            v-show="!store.isReadmeOffline"
-            src="/assets/online.svg"
-            alt="online"
-          />
+          <em>{{ user }}</em>
         </h4>
       </div>
       <slot />
