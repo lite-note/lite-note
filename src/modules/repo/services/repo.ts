@@ -98,7 +98,7 @@ export const getUserSettingsContent = async (
     return null
   }
 
-  const content = await getFileContent(user, repo, configFile.sha)
+  const content = await queryFileContent(user, repo, configFile.sha)
 
   if (!content) {
     return null
@@ -107,7 +107,7 @@ export const getUserSettingsContent = async (
   return JSON.parse(atob(content)) as UserSettings
 }
 
-export const getFileContent = async (
+export const queryFileContent = async (
   user: string,
   repo: string,
   sha: string
