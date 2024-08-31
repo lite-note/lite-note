@@ -17,7 +17,6 @@ interface State {
   user: string
   repo: string
   files: RepoFile[]
-  isReadmeOffline: boolean
   readme?: string | null
   userSettings?: UserSettings | null
   needToLogin: boolean
@@ -29,14 +28,12 @@ export const useUserRepoStore = defineStore({
     user: '',
     repo: '',
     files: [],
-    isReadmeOffline: true,
     readme: undefined,
     userSettings: undefined,
     needToLogin: false
   }),
   actions: {
     async setUserRepo(user: string, repo: string) {
-      this.isReadmeOffline = true
       this.user = user
       this.repo = repo
 
@@ -88,20 +85,10 @@ export const useUserRepoStore = defineStore({
           }
         })
 
-      getCachedMainReadme(user, repo)
-        .then((readme) => {
-          this.readme = readme
-        })
-        .then(() => getMainReadme(user, repo))
-        .then((readme) => {
-          this.readme = readme
-
-          // if the offline state is too fast,
-          // it gives an impression of glitch.
-          setTimeout(() => {
-            this.isReadmeOffline = false
-          }, 350)
-        })
+      getCachedMainReadme(user, repo).then(async (cachedReadme) => {
+        this.readme = cachedReadme
+        this.readme = await getMainReadme(user, repo)
+      })
     },
     addFile(file: RepoFile) {
       const savedRepoId = data.generateId(
