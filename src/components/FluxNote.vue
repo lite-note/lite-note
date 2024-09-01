@@ -16,6 +16,7 @@ import { useMarkdown } from '@/hooks/useMarkdown.hook'
 import { useNote } from '@/hooks/useNote.hook'
 import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
 import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
+import CacheAllNotes from '@/modules/note/components/CacheAllNote.vue'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
 
@@ -106,6 +107,7 @@ const focusREADME = () => scrollToTop()
         <h4 class="subtitle is-5">
           <em>{{ user }}</em>
         </h4>
+        <cache-all-notes />
       </div>
       <slot />
       <lite-loading v-if="isLoading" />

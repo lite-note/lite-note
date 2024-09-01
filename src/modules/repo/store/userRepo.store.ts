@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 
 import { data } from '@/data/data'
 import { DataType } from '@/data/DataType.enum'
-import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
 import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
 import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
 import { SavedRepo } from '@/modules/repo/models/SavedRepo'
@@ -10,8 +9,7 @@ import {
   getCachedMainReadme,
   getFiles,
   getMainReadme,
-  getUserSettingsContent,
-  queryFileContent
+  getUserSettingsContent
 } from '@/modules/repo/services/repo'
 import { refreshToken } from '@/modules/user/service/signIn'
 
@@ -116,42 +114,6 @@ export const useUserRepoStore = defineStore({
       this.files = []
       this.readme = null
       this.userSettings = undefined
-    },
-    async cacheAllFiles() {
-      const isInitialized = this.user && this.repo && this.files.length > 0
-
-      if (!isInitialized) {
-        return
-      }
-
-      for (const file of this.files) {
-        if (!file.sha) {
-          continue
-        }
-
-        const { getCachedNote, saveCacheNote } = prepareNoteCache(
-          file.sha,
-          file.path
-        )
-
-        const isNoteCached = (await getCachedNote()) !== null
-
-        if (isNoteCached) {
-          continue
-        }
-
-        const contentFile = await queryFileContent(
-          this.user,
-          this.repo,
-          file.sha
-        )
-
-        if (!contentFile) {
-          return null
-        }
-
-        saveCacheNote(contentFile)
-      }
     }
   }
 })
