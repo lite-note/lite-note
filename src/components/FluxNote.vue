@@ -99,15 +99,17 @@ const focusREADME = () => scrollToTop()
         <a @click.prevent="focusREADME">{{ repo }}</a>
       </div>
       <div class="repo-title">
-        <h1 class="title is-1">
-          <router-link :to="{ name: 'FluxNoteView', params: { user, repo } }">
-            {{ repo }}
-          </router-link>
-        </h1>
-        <h4 class="subtitle is-5">
+        <div class="repo-header">
+          <h1 class="title is-1">
+            <router-link :to="{ name: 'FluxNoteView', params: { user, repo } }">
+              {{ repo }}
+            </router-link>
+          </h1>
+          <cache-all-notes />
+        </div>
+        <h2 class="subtitle is-5">
           <em>{{ user }}</em>
-        </h4>
-        <cache-all-notes />
+        </h2>
       </div>
       <slot />
       <lite-loading v-if="isLoading" />
@@ -178,6 +180,17 @@ $header-height: 40px;
 
     .repo-title {
       margin-top: 1rem;
+
+      .repo-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .title {
+        margin-bottom: 0;
+      }
 
       .title,
       .subtitle {

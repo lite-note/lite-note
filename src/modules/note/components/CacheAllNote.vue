@@ -20,7 +20,7 @@ const confirmBeforeCachingAllNotes = () => {
     ></progress>
   </div>
   <button v-else class="button" @click="() => confirmBeforeCachingAllNotes()">
-    cache all notes
+    <img src="/assets/offline.svg" alt="offline cloud" />
   </button>
 </template>
 
