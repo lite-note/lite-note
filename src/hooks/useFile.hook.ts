@@ -18,19 +18,20 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     renderFromUTF8,
     getRawContent: getRawContentFromFile
   } = useMarkdown(toValue(sha))
+
   const { getCachedNote, saveCacheNote } = prepareNoteCache(
     toValue(sha),
     toValue(path)
   )
-  const fromCache = ref(false)
 
+  const fromCache = ref(false)
   const rawContent = ref('')
   const content = computed(() =>
     rawContent.value ? renderFromUTF8(rawContent.value) : ''
   )
 
   const getEditedSha = async () => {
-    const note = await getCachedNote()
+    const { note } = await getCachedNote()
 
     if (!note) {
       return null
@@ -40,26 +41,38 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
   }
 
   const getCachedFileContent = async (): Promise<string | null> => {
-    const cachedNote = await getCachedNote()
+    const { note: cachedNote, from } = await getCachedNote()
 
     fromCache.value = !!cachedNote
 
     if (cachedNote) {
+      if (from === 'path') {
+        queryFileContent(store.user, store.repo, toValue(sha)).then(
+          (fileContent) => {
+            if (!fileContent) {
+              return
+            }
+            saveCacheNote(fileContent)
+            rawContent.value = getRawContentFromFile(fileContent)
+          }
+        )
+      }
+
       return cachedNote.content
     }
 
-    const contentFile = await queryFileContent(
+    const fileContent = await queryFileContent(
       store.user,
       store.repo,
       toValue(sha)
     )
 
-    if (!contentFile) {
+    if (!fileContent) {
       return null
     }
 
-    saveCacheNote(contentFile)
-    return contentFile
+    saveCacheNote(fileContent)
+    return fileContent
   }
 
   const getRawContent = async () => {

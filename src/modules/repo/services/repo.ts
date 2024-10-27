@@ -44,7 +44,7 @@ export const getCachedMainReadme = async (owner: string, repo: string) => {
   const { render } = useMarkdown()
 
   const { getCachedNote } = prepareNoteCache(`${owner}-${repo}-README`)
-  const cachedReadme = await getCachedNote()
+  const { note: cachedReadme } = await getCachedNote()
 
   if (!cachedReadme) {
     return null
@@ -77,7 +77,7 @@ export const getMainReadme = async (owner: string, repo: string) => {
     }
   } catch (error) {
     console.warn(error)
-    const cachedReadme = await getCachedNote()
+    const { note: cachedReadme } = await getCachedNote()
 
     if (cachedReadme) {
       return render(cachedReadme.content)

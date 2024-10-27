@@ -32,9 +32,9 @@ export const useOfflineNote = () => {
         file.path
       )
 
-      const isNoteCached = (await getCachedNote()) !== null
+      const { from } = await getCachedNote()
 
-      if (isNoteCached) {
+      if (from === 'sha') {
         continue
       }
 

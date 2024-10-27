@@ -3,23 +3,41 @@ import { DataType } from '@/data/DataType.enum'
 import { Note } from '@/modules/note/models/Note'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
+type NoteCacheResult =
+  | {
+      note: Note
+      from: 'sha'
+    }
+  | { note: Note; from: 'path' }
+  | { note: null; from: null }
+
 export const prepareNoteCache = (sha: string, path?: string) => {
   const store = useUserRepoStore()
 
   const noteId = data.generateId(DataType.Note, sha)
   const notePath = path ? data.generateId(DataType.Note, path) : null
-  const getCachedNote = async () => {
+  const getCachedNote = async (): Promise<NoteCacheResult> => {
     const note = await data.get<DataType.Note, Note>(noteId)
 
     if (note) {
-      return note
+      return { note, from: 'sha' }
     }
 
     if (notePath) {
-      return data.get<DataType.Note, Note>(notePath)
+      const note = await data.get<DataType.Note, Note>(notePath)
+      if (!note) {
+        return {
+          note: null,
+          from: null
+        }
+      }
+      return {
+        note,
+        from: 'path'
+      }
     }
 
-    return null
+    return { note: null, from: null }
   }
 
   const saveCacheNote = async (
