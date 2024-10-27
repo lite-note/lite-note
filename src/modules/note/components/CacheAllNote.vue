@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useOfflineNote } from '@/hooks/useOfflineNote.hook'
+import { useOfflineNotes } from '@/hooks/useOfflineNotes.hook'
 
 const { cacheAllNotes, isLoading, totalOfNotes, noteCompleted } =
-  useOfflineNote()
+  useOfflineNotes()
 
 const confirmBeforeCachingAllNotes = () => {
   confirm('Do you want to cache all notes?')

@@ -5,7 +5,7 @@ import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
 import { queryFileContent } from '@/modules/repo/services/repo'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
-export const useOfflineNote = () => {
+export const useOfflineNotes = () => {
   const store = useUserRepoStore()
   const totalOfNotes = computed(() => store.files.length)
 
