@@ -40,6 +40,7 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
   }
 
   const getCachedFileContent = async (): Promise<string | null> => {
+    debugger
     const cachedNote = await getCachedNote()
 
     fromCache.value = !!cachedNote

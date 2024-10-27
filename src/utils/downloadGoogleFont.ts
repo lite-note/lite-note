@@ -6,8 +6,6 @@ export const downloadGoogleFont = async (font: string): Promise<void> => {
   // check if the href already exists
   const existingLink = document.querySelector(`link[href="${href}"]`)
 
-  console.log({ existingLink })
-
   if (!existingLink) {
     const link = document.createElement('link')
     link.href = href
