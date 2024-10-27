@@ -43,12 +43,15 @@ class Data {
     model: T
   ): Promise<boolean> {
     try {
-      if (model._id) {
-        const oldModel = await this.get(model._id)
-        if (oldModel) {
-          const result = await this.locale?.put({ ...oldModel, ...model })
-          return result?.ok ?? false
-        }
+      if (!model._id) {
+        const result = await this.locale?.put(model)
+        return result?.ok ?? false
+      }
+
+      const oldModel = await this.get(model._id)
+      if (oldModel) {
+        const result = await this.locale?.put({ ...oldModel, ...model })
+        return result?.ok ?? false
       }
 
       const result = await this.locale?.put(model)
