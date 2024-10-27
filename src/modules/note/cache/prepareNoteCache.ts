@@ -33,10 +33,12 @@ export const prepareNoteCache = (sha: string, path?: string) => {
       editedSha: params?.editedSha
     }
 
-    store.addFile({
-      path: params?.path,
-      sha: params?.editedSha
-    })
+    if (params && params.path) {
+      store.addFile({
+        path: params.path,
+        sha: params.editedSha
+      })
+    }
 
     await data.update(newNote)
 

@@ -91,6 +91,18 @@ export const useUserRepoStore = defineStore({
       })
     },
     addFile(file: RepoFile) {
+      if (!file.sha) {
+        return
+      }
+
+      const doesFileExist = this.files.some((f) => f.sha === file.sha)
+
+      if (doesFileExist) {
+        return
+      }
+
+      console.log('add file')
+
       const savedRepoId = data.generateId(
         DataType.SavedRepo,
         `${this.user}-${this.repo}`
