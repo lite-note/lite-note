@@ -13,7 +13,7 @@ import LiteLoading from '@/components/LiteLoading.vue'
 import StackedNote from '@/components/StackedNote.vue'
 import { useLinks } from '@/hooks/useLinks.hook'
 import { useMarkdown } from '@/hooks/useMarkdown.hook'
-import { useNote } from '@/hooks/useNote.hook'
+import { useNoteView } from '@/hooks/useNoteView.hook'
 import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
 import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
 import CacheAllNotes from '@/modules/note/components/CacheAllNote.vue'
@@ -52,7 +52,7 @@ const { toHTML } = useMarkdown(repo)
 const { listenToClick } = useLinks('note-display')
 const { stackedNotes, scrollToTop } = useRouteQueryStackedNotes()
 
-const { titles } = useNote('note-container')
+const { titles } = useNoteView('note-container')
 
 const renderedContent = computed(() =>
   props.content !== null

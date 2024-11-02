@@ -8,7 +8,7 @@ import { resolvePath } from '@/modules/repo/services/resolvePath'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 import { pathToNotePathTitle } from '@/utils/noteTitle'
 
-export const useNote = (containerClass: string) => {
+export const useNoteView = (containerClass: string) => {
   const store = useUserRepoStore()
   const { isMobile } = useOverlay(false)
   const { stackedNotes, addStackedNote } = useRouteQueryStackedNotes()
