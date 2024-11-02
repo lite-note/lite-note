@@ -1,49 +1,41 @@
 <template>
   <div class="welcome-world">
-    <div class="columns is-vcentered">
-      <div class="column get-started">
-        <h3 class="title is-3">Lite Note</h3>
-        <div class="buttons is-centered">
-          <router-link
-            :to="{
-              name: 'FluxNoteView',
-              params: { user: 'lite-note', repo: 'getting-started' }
-            }"
-            class="button is-primary"
-            >Get started</router-link
-          >
-          <router-link class="button" :to="{ name: 'About' }"
-            >about</router-link
-          >
-        </div>
-        <sign-in-github class="github-login" />
-      </div>
-      <div class="column">
-        <p>
-          <router-link v-if="isLogged" :to="{ name: 'RepoList' }"
-            >Manage your repos</router-link
-          >
-        </p>
-        <section v-if="savedFavoriteRepos.length">
-          <ul>
-            <li
-              v-for="favoriteRepo in savedFavoriteRepos"
-              :key="favoriteRepo._id"
-            >
-              <router-link
-                :to="{
-                  name: 'FluxNoteView',
-                  params: {
-                    user: username,
-                    repo: favoriteRepo.name
-                  }
-                }"
-              >
-                {{ favoriteRepo.name }}
-              </router-link>
-            </li>
-          </ul>
-        </section>
+    <h1 class="title is-1">Lite Note</h1>
+
+    <section v-if="savedFavoriteRepos.length">
+      <h2 class="subtitle is-2">Favorite repos</h2>
+      <router-link
+        v-for="favoriteRepo in savedFavoriteRepos"
+        :key="favoriteRepo._id"
+        :to="{
+          name: 'FluxNoteView',
+          params: {
+            user: username,
+            repo: favoriteRepo.name
+          }
+        }"
+        class="button"
+      >
+        {{ favoriteRepo.name }}
+      </router-link>
+    </section>
+
+    <last-visited />
+
+    <div class="get-started">
+      <div class="buttons is-centered">
+        <sign-in-github />
+        <router-link
+          :to="{
+            name: 'FluxNoteView',
+            params: { user: 'lite-note', repo: 'getting-started' }
+          }"
+          class="button"
+          >Get started</router-link
+        >
+        <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="button"
+          >Manage your repos</router-link
+        >
       </div>
     </div>
 
@@ -85,8 +77,6 @@
       </div>
     </form>
 
-    <last-visited />
-
     <footer>
       <p>
         Made with <img src="/assets/love.svg" alt="love" /> by
@@ -97,6 +87,7 @@
           >Julien</a
         >
       </p>
+      <router-link class="button" :to="{ name: 'About' }">about</router-link>
     </footer>
   </div>
 </template>
@@ -136,17 +127,16 @@ export default defineComponent({
     text-align: center;
   }
 
-  h3,
-  h4 {
+  .title {
     text-align: center;
-  }
-
-  .github-login {
-    margin-top: 1rem;
   }
 }
 
 footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
   img {
     vertical-align: middle;
   }
