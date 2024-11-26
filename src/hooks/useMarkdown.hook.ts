@@ -44,13 +44,14 @@ const md = new MarkdownIt({
   .use(MarkdownItGitHubAlerts)
 
 const useShikiji = async () => {
-  const shikiji = await Shikiji({
-    themes: {
-      light: 'vitesse-light',
-      dark: 'vitesse-black'
-    }
-  })
-  md.use(shikiji)
+  md.use(
+    await Shikiji({
+      themes: {
+        light: 'vitesse-light',
+        dark: 'vitesse-black'
+      }
+    })
+  )
 }
 
 useShikiji()
