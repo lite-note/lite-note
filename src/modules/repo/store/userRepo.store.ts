@@ -49,7 +49,7 @@ export const useUserRepoStore = defineStore({
       try {
         await refreshToken()
       } catch (error) {
-        console.warn('impossible to refresh token')
+        console.warn('impossible to refresh token', error)
       }
 
       const userSettingsId = `UserSetting-${user}-${repo}`
