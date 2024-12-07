@@ -3,7 +3,6 @@
     <h1 class="title is-1">Lite Note</h1>
 
     <section v-if="savedFavoriteRepos.length">
-      <h2 class="subtitle is-2">Favorite repos</h2>
       <router-link
         v-for="favoriteRepo in savedFavoriteRepos"
         :key="favoriteRepo._id"
@@ -78,16 +77,13 @@
     </form>
 
     <footer>
-      <p>
-        Made with <img src="/assets/love.svg" alt="love" /> by
-        <a
-          href="http://github.com/jcalixte"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Julien</a
-        >
-      </p>
-      <router-link class="button" :to="{ name: 'About' }">about</router-link>
+      Made with <img src="/assets/love.svg" alt="love" /> by
+      <a
+        href="http://github.com/jcalixte"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Julien</a
+      >
     </footer>
   </div>
 </template>
@@ -133,10 +129,6 @@ export default defineComponent({
 }
 
 footer {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
   img {
     vertical-align: middle;
   }

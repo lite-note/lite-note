@@ -16,7 +16,6 @@
             <li>font families ✅</li>
           </ul>
         </li>
-        <li>Share PDF section of a note (and its subnotes) ⏳</li>
       </ol>
     </main>
   </div>
