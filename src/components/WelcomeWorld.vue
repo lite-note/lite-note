@@ -2,22 +2,7 @@
   <div class="welcome-world">
     <h1 class="title is-1">Lite Note</h1>
 
-    <section v-if="savedFavoriteRepos.length">
-      <router-link
-        v-for="favoriteRepo in savedFavoriteRepos"
-        :key="favoriteRepo._id"
-        :to="{
-          name: 'FluxNoteView',
-          params: {
-            user: username,
-            repo: favoriteRepo.name
-          }
-        }"
-        class="button"
-      >
-        {{ favoriteRepo.name }}
-      </router-link>
-    </section>
+    <repo-list />
 
     <last-visited />
 
@@ -91,20 +76,19 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import RepoList from '@/components/RepoList.vue'
 import SignInGithub from '@/components/SignInGithub.vue'
 import { useForm } from '@/hooks/useForm.hook'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import LastVisited from '@/modules/history/components/LastVisited.vue'
-import { useFavoriteRepos } from '@/modules/repo/hooks/useFavoriteRepos.hook'
 
 export default defineComponent({
   name: 'WelcomeWorld',
-  components: { SignInGithub, LastVisited },
+  components: { SignInGithub, LastVisited, RepoList },
   setup() {
     const { isLogged, username } = useGitHubLogin()
-    const { savedFavoriteRepos } = useFavoriteRepos()
 
-    return { ...useForm(), isLogged, username, savedFavoriteRepos }
+    return { ...useForm(), isLogged, username }
   }
 })
 </script>

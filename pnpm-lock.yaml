@@ -32,6 +32,9 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
+      font-color-contrast:
+        specifier: ^11.1.0
+        version: 11.1.0
       fontfaceobserver:
         specifier: ^2.3.0
         version: 2.3.0
@@ -68,6 +71,9 @@ importers:
       notyf:
         specifier: ^3.10.0
         version: 3.10.0
+      pastel-color:
+        specifier: ^1.0.3
+        version: 1.0.3
       pinia:
         specifier: ^2.2.6
         version: 2.2.6(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
@@ -2325,6 +2331,9 @@ packages:
   flatted@3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
 
+  font-color-contrast@11.1.0:
+    resolution: {integrity: sha512-PxpFaesCSsDwaciw7MF6B2thUkH7skqZlz4BzUnvapR6+Es2877q7ru/tqfsITuaraPz+TGfsOfdtU4D0qjqEw==}
+
   fontfaceobserver@2.3.0:
     resolution: {integrity: sha512-6FPvD/IVyT4ZlNe7Wcn5Fb/4ChigpucKYSvD6a+0iMoLn2inpo711eyIcKjmDtE5XNcgAkSH9uN/nfAeZzHEfg==}
 
@@ -2914,6 +2923,9 @@ packages:
 
   parse-srcset@1.0.2:
     resolution: {integrity: sha512-/2qh0lav6CmI15FzA3i/2Bzk2zCgQhGMkvhOhKNcBVQ1ldgpbfiNTVslmooUmWJcADi1f1kIeynbDRVzNlfR6Q==}
+
+  pastel-color@1.0.3:
+    resolution: {integrity: sha512-VtKzbIgQUc+U0JBFcuNqcCPYfnPYZaf0VPpdqaRUaHYBwMTh3nT9ncq3gsQccqtmhlNdw1aNqZnefVvPE6dtmg==}
 
   path-exists@4.0.0:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
@@ -3850,7 +3862,7 @@ snapshots:
       '@babel/core': 7.26.0
       '@babel/helper-compilation-targets': 7.25.9
       '@babel/helper-plugin-utils': 7.22.5
-      debug: 4.3.4
+      debug: 4.3.7
       lodash.debounce: 4.0.8
       resolve: 1.22.2
       semver: 6.3.1
@@ -6109,6 +6121,8 @@ snapshots:
 
   flatted@3.2.7: {}
 
+  font-color-contrast@11.1.0: {}
+
   fontfaceobserver@2.3.0: {}
 
   for-each@0.3.3:
@@ -6663,6 +6677,8 @@ snapshots:
       callsites: 3.1.0
 
   parse-srcset@1.0.2: {}
+
+  pastel-color@1.0.3: {}
 
   path-exists@4.0.0: {}
 
