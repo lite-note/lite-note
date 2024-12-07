@@ -27,7 +27,7 @@ const getStyle = (repo: string) => {
         }
       }"
       class="button"
-      :style="getStyle(`${username}${favoriteRepo.name}`)"
+      :style="getStyle(`${favoriteRepo.name}-${username}`)"
     >
       {{ favoriteRepo.name }}
     </router-link>
