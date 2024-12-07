@@ -38,8 +38,8 @@ const getStyle = (repo: string) => {
 .repo-list {
   a {
     border: 0;
-    width: 100px;
-    height: 80px;
+    width: 160px;
+    height: 90px;
   }
 }
 </style>
