@@ -33,7 +33,8 @@ module.exports = {
             },
             img: {
               'margin-top': 0,
-              'margin-bottom': 0
+              'margin-bottom': 0,
+              'border-radius': '1rem'
             }
           }
         }
@@ -42,7 +43,7 @@ module.exports = {
   },
   plugins: [typography, daisyui],
   daisyui: {
-    themes: ['autumn', 'forest'],
+    themes: ['retro', 'sunset'],
     base: true,
     styled: true,
     utils: true
