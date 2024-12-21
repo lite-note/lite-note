@@ -89,6 +89,7 @@ const { userInput, repoInput, submit } = useForm()
 .github-form {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
   input {
     max-width: 140px;

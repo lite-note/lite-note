@@ -1,12 +1,12 @@
 <template>
   <header class="header-note">
-    <ThemeSwap />
     <router-link
       :to="{ name: 'Home' }"
       class="button is-small is-white back-button"
     >
       <img src="/assets/dark-left-arrow.svg" alt="go back left arrow" />
     </router-link>
+    <theme-swap />
     <router-link
       class="special-folder"
       :to="{ name: 'SpacedRepetitionCard', params: { user, repo } }"
