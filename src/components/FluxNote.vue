@@ -210,7 +210,6 @@ $header-height: 40px;
   .note {
     display: flex;
     flex-direction: column;
-    text-align: justify;
     overflow-y: auto;
     height: 100vh;
     position: sticky;
