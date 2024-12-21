@@ -63,6 +63,7 @@ const hasBacklinks = computed(() => store.userSettings?.backlink)
 
 const { displayNoteOverlay } = useNoteOverlay(className.value, index)
 const displayedTitle = computed(() => filenameToNoteTitle(props.title ?? ''))
+const breadcrumbs = computed(() => displayedTitle.value.split(' / '))
 
 const { updateFile } = useGitHubContent({
   user: user.value,
@@ -129,11 +130,21 @@ watch(mode, async (newMode) => {
       [`note-${sha}`]: true
     }"
   >
-    <div class="title-stacked-note" :class="titleClassName">
-      <a @click.prevent="scrollToFocusedNote(props.sha)"
-        >{{ displayedTitle }}
-      </a>
-    </div>
+    <a
+      class="title-stacked-note-link"
+      @click.prevent="scrollToFocusedNote(props.sha)"
+    >
+      <div
+        class="title-stacked-note breadcrumbs max-w-xs text-sm"
+        :class="titleClassName"
+      >
+        <ul>
+          <li v-for="(part, i) in breadcrumbs" :key="i">
+            {{ part }}
+          </li>
+        </ul>
+      </div>
+    </a>
     <section class="text-content">
       <button
         class="action button is-text is-light"
@@ -194,17 +205,30 @@ $border-color: rgba(18, 19, 58, 0.2);
   right: 1rem;
 }
 
+a.title-stacked-note-link {
+  color: var(--fallback-bc, oklch(var(--bc) / 1));
+  display: block;
+  text-decoration: none;
+  position: sticky;
+  top: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .title-stacked-note {
   background-color: var(--fallback-b1, oklch(var(--b1) / 1));
   color: var(--fallback-bc, oklch(var(--bc) / 1));
-  position: sticky;
-
-  top: 0;
   font-size: 0.8em;
+  overflow: visible;
 
-  a {
-    color: var(--fallback-bc, oklch(var(--bc) / 1));
-    display: block;
+  ul,
+  li {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    text-decoration: none;
   }
 }
 
@@ -228,10 +252,6 @@ $border-color: rgba(18, 19, 58, 0.2);
 @media screen and (max-width: 768px) {
   .stacked-note {
     padding: 0 0.5rem 1rem;
-
-    .title-stacked-note {
-      padding: 0.5rem 0 0;
-    }
 
     section {
       padding: 1rem 0 2rem;
