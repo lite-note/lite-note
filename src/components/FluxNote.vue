@@ -147,12 +147,12 @@ $header-height: 40px;
     h5,
     h6,
     strong {
-      color: var(--font-color);
+      color: var(--fallback-bc, oklch(var(--bc) / 1));
     }
 
     table {
-      color: var(--font-color);
-      background-color: var(--background-color);
+      color: var(--fallback-bc, oklch(var(--bc) / 1));
+      background-color: var(--fallback-b1, oklch(var(--b1) / 1));
 
       thead {
         th {
@@ -162,7 +162,8 @@ $header-height: 40px;
     }
 
     blockquote {
-      background-color: var(--background-color);
+      background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+      color: var(--fallback-bc, oklch(var(--bc) / 1));
     }
   }
 
@@ -234,7 +235,7 @@ $header-height: 40px;
       font-size: 0.8em;
 
       a {
-        color: var(--font-color);
+        color: var(--fallback-bc, oklch(var(--bc) / 1));
         display: block;
         text-align: center;
       }

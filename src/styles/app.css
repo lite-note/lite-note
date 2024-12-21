@@ -50,16 +50,11 @@ body {
 }
 
 a {
-  &:hover {
-    color: var(--link);
-  }
-
   &.external-link {
     text-decoration: underline;
 
     &::after {
-      margin-left: 0.2rem;
-      vertical-align: text-top;
+      margin-left: 0.4rem;
       content: url("/assets/external-link.svg");
     }
   }
@@ -71,8 +66,6 @@ a {
 
 .repo-note {
   font-family: var(--font-family);
-  color: var(--font-color);
-  background-color: var(--background-color);
   transition-property: color, background-color;
   transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
 }

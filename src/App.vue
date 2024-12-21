@@ -8,6 +8,7 @@ const { isReady } = useGitHubLogin()
 <template>
   <div id="main-app" class="prose">
     <router-view v-if="isReady" />
+
     <new-version />
   </div>
 </template>

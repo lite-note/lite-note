@@ -7,58 +7,36 @@
     <last-visited />
 
     <div class="get-started">
-      <div class="buttons is-centered">
-        <sign-in-github />
-        <router-link
-          :to="{
-            name: 'FluxNoteView',
-            params: { user: 'lite-note', repo: 'getting-started' }
-          }"
-          class="btn"
-          >Get started</router-link
-        >
-        <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
-          >Manage your repos</router-link
-        >
-      </div>
+      <sign-in-github />
+      <router-link
+        :to="{
+          name: 'FluxNoteView',
+          params: { user: 'lite-note', repo: 'getting-started' }
+        }"
+        class="btn"
+        >Get started</router-link
+      >
+      <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
+        >Manage your repos</router-link
+      >
     </div>
 
-    <form @submit.prevent>
-      <div class="columns-2 is-centered is-vcentered to-user-repo">
-        <div>https://github.com/</div>
-        <div class="columns column is-mobile is-centered is-vcentered">
-          <div class="column">
-            <div class="field">
-              <div class="control">
-                <input
-                  v-model="userInput"
-                  class="input"
-                  type="text"
-                  placeholder="user"
-                />
-              </div>
-            </div>
-          </div>
-          /
-          <div class="column">
-            <div class="field">
-              <div class="control">
-                <input
-                  v-model="repoInput"
-                  class="input"
-                  type="text"
-                  placeholder="repo"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="column is-2">
-            <button type="submit" class="button is-primary" @click="submit">
-              go
-            </button>
-          </div>
-        </div>
-      </div>
+    <form class="github-form" @submit.prevent>
+      <div>github.com/</div>
+      <input
+        v-model="userInput"
+        class="input input-ghost"
+        type="text"
+        placeholder="user"
+      />
+      /
+      <input
+        v-model="repoInput"
+        class="input input-ghost"
+        type="text"
+        placeholder="repo"
+      />
+      <button type="submit" class="btn btn-primary" @click="submit">go</button>
     </form>
 
     <footer>
@@ -69,28 +47,21 @@
         rel="noopener noreferrer"
         >Julien</a
       >
+      <theme-swap />
     </footer>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
+<script lang="ts" setup>
 import RepoList from '@/components/RepoList.vue'
 import SignInGithub from '@/components/SignInGithub.vue'
+import ThemeSwap from '@/components/ThemeSwap.vue'
 import { useForm } from '@/hooks/useForm.hook'
 import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
 import LastVisited from '@/modules/history/components/LastVisited.vue'
 
-export default defineComponent({
-  name: 'WelcomeWorld',
-  components: { SignInGithub, LastVisited, RepoList },
-  setup() {
-    const { isLogged, username } = useGitHubLogin()
-
-    return { ...useForm(), isLogged, username }
-  }
-})
+const { isLogged } = useGitHubLogin()
+const { userInput, repoInput, submit } = useForm()
 </script>
 
 <style lang="scss" scoped>
@@ -105,13 +76,24 @@ export default defineComponent({
   .get-started {
     margin: center;
     text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
   }
 
   .title {
     text-align: center;
   }
 }
-
+.github-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  input {
+    max-width: 140px;
+  }
+}
 footer {
   display: flex;
   gap: 1rem;

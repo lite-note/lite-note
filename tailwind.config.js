@@ -34,6 +34,10 @@ module.exports = {
             p: {
               'margin-top': '0.8em',
               'margin-bottom': '0.8em'
+            },
+            img: {
+              'margin-top': 0,
+              'margin-bottom': 0
             }
           }
         }
@@ -42,6 +46,10 @@ module.exports = {
   },
   plugins: [typography, daisyui],
   daisyui: {
-    themes: ['pastel']
+    themes: ['autumn', 'sunset'],
+    darkTheme: 'sunset',
+    base: true,
+    styled: true,
+    utils: true
   }
 }

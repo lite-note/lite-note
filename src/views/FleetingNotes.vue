@@ -69,18 +69,18 @@ watch(mode, async (newMode) => {
       :content="content"
     >
       <h3 class="subtitle is-3">Inbox</h3>
-      <div v-if="!hasTodayNote" class="columns is-centered">
-        <div class="column is-half is-centered">
-          <button class="button is-primary is-light" @click="toggleMode">
+      <div v-if="!hasTodayNote" class="columns">
+        <div class="column">
+          <button class="btn btn-primary" @click="toggleMode">
             new fleeting note
           </button>
         </div>
       </div>
       <div v-if="mode === 'edit'">
         <edit-note v-model="newContent" />
-        <div class="columns is-centered">
-          <div class="column is-half is-centered">
-            <button class="button is-light" @click="toggleMode">
+        <div class="columns">
+          <div class="column is-half">
+            <button class="btn btn-outline" @click="toggleMode">
               <img src="/assets/saved.svg" alt="save" />
             </button>
           </div>

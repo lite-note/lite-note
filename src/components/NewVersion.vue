@@ -34,7 +34,7 @@ const reload = () => {
     </div>
     <div class="buttons">
       <button v-if="needRefresh" class="button is-primary" @click="reload">
-        <LiteLoading v-if="isLoading" light />
+        <LiteLoading v-if="isLoading" />
         <span v-else>Reload</span>
       </button>
       <button class="button" @click="close">Close</button>
@@ -53,7 +53,8 @@ const reload = () => {
   color: var(--primary-color);
   border: var(--primary-color) 2px solid;
   border-radius: 4px;
-  background-color: var(--background-color);
+  background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+  color: var(--fallback-bc, oklch(var(--bc) / 1));
 }
 
 button {

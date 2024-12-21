@@ -19,13 +19,3 @@ const href = url.toString()
     <img src="/assets/github.svg" alt="GitHub" />
   </a>
 </template>
-
-<style scoped lang="scss">
-.sign-in-github {
-  img {
-    margin-top: 0;
-    margin-bottom: 0;
-    vertical-align: middle;
-  }
-}
-</style>
