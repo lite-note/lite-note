@@ -55,8 +55,3 @@ const toggle = (isChecked: boolean) => {
     </label>
   </div>
 </template>
-
-<style scoped lang="scss">
-.theme-swap {
-}
-</style>
