@@ -26,7 +26,7 @@ const getStyle = (repo: string) => {
           repo: favoriteRepo.name
         }
       }"
-      class="button"
+      class="btn"
       :style="getStyle(`${favoriteRepo.name}-${username}`)"
     >
       {{ favoriteRepo.name }}

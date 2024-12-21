@@ -14,20 +14,18 @@ const href = url.toString()
 </script>
 
 <template>
-  <a :href="href" class="sign-in-github button is-primary">
-    <span>
-      Sign in with
-      <img src="/assets/github.svg" alt="GitHub" />
-    </span>
+  <a :href="href" class="sign-in-github btn btn-primary">
+    Sign in with
+    <img src="/assets/github.svg" alt="GitHub" />
   </a>
 </template>
 
 <style scoped lang="scss">
 .sign-in-github {
-  span {
-    display: flex;
-    align-items: flex-end;
-    gap: 0.5rem;
+  img {
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
   }
 }
 </style>

@@ -14,18 +14,18 @@
             name: 'FluxNoteView',
             params: { user: 'lite-note', repo: 'getting-started' }
           }"
-          class="button"
+          class="btn"
           >Get started</router-link
         >
-        <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="button"
+        <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
           >Manage your repos</router-link
         >
       </div>
     </div>
 
     <form @submit.prevent>
-      <div class="columns is-centered is-vcentered to-user-repo">
-        <div class="column">https://github.com/</div>
+      <div class="columns-2 is-centered is-vcentered to-user-repo">
+        <div>https://github.com/</div>
         <div class="columns column is-mobile is-centered is-vcentered">
           <div class="column">
             <div class="field">
@@ -113,8 +113,12 @@ export default defineComponent({
 }
 
 footer {
+  display: flex;
+  gap: 1rem;
+
   img {
     vertical-align: middle;
+    margin-top: 0;
   }
 }
 

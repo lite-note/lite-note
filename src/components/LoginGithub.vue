@@ -1,7 +1,12 @@
 <template>
   <div class="login-github">
     <br />
-    <a :href="url.toString()" target="_blank" rel="noopener noreferrer">
+    <a
+      class="btn btn-primary"
+      :href="url.toString()"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       login to
       <img src="/assets/github.svg" alt="GitHub icon" />
     </a>
@@ -25,3 +30,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+img {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+</style>

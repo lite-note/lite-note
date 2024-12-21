@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { withDefaults } from 'vue'
-
 withDefaults(
   defineProps<{
     light?: boolean
@@ -13,13 +11,7 @@ withDefaults(
 
 <template>
   <div class="lite-loading">
-    <img
-      v-if="light"
-      class="is-loading"
-      src="/assets/loading-white.svg"
-      alt="loading..."
-    />
-    <img v-else class="is-loading" src="/assets/loading.svg" alt="loading..." />
+    <span class="loading loading-spinner"></span>
   </div>
 </template>
 
@@ -32,6 +24,15 @@ withDefaults(
 
   .is-loading {
     animation: spinAround 0.8s infinite linear;
+  }
+}
+
+@keyframes spinAround {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
