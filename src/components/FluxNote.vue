@@ -156,7 +156,7 @@ $header-height: 40px;
 
       thead {
         th {
-          color: var(--font-color);
+          color: var(--fallback-bc, oklch(var(--bc) / 1));
         }
       }
     }

@@ -203,7 +203,7 @@ $border-color: rgba(18, 19, 58, 0.2);
   font-size: 0.8em;
 
   a {
-    color: var(--font-color);
+    color: var(--fallback-bc, oklch(var(--bc) / 1));
     display: block;
   }
 }

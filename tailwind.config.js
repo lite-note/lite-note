@@ -10,7 +10,7 @@ const defaultTitleStyles = Array.from(
   (acc, heading) => ({
     ...acc,
     [heading]: {
-      'margin-top': '0.8em',
+      'margin-top': '0',
       'margin-bottom': '0.5em'
     }
   }),
@@ -27,10 +27,6 @@ module.exports = {
             'font-size': '1.2em',
             'font-family': '"Courier Prime", monospace',
             ...defaultTitleStyles,
-            a: {
-              color: '#445fb9',
-              'text-decoration': 'none'
-            },
             p: {
               'margin-top': '0.8em',
               'margin-bottom': '0.8em'
@@ -46,8 +42,7 @@ module.exports = {
   },
   plugins: [typography, daisyui],
   daisyui: {
-    themes: ['autumn', 'sunset'],
-    darkTheme: 'sunset',
+    themes: ['autumn', 'forest'],
     base: true,
     styled: true,
     utils: true

@@ -67,7 +67,7 @@ a {
 .repo-note {
   font-family: var(--font-family);
   transition-property: color, background-color;
-  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
+  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
 }
 
 .table-wrapper {
@@ -95,10 +95,6 @@ pre {
   code {
     margin-right: 3rem;
   }
-}
-
-code {
-  font-family: var(--font-family);
 }
 
 .markdown-alert {
