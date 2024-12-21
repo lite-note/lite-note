@@ -33,11 +33,15 @@ const reload = () => {
       </span>
     </div>
     <div class="buttons">
-      <button v-if="needRefresh" class="button is-primary" @click="reload">
+      <button
+        v-if="devMode || needRefresh"
+        class="btn btn-primary"
+        @click="reload"
+      >
         <LiteLoading v-if="isLoading" />
         <span v-else>Reload</span>
       </button>
-      <button class="button" @click="close">Close</button>
+      <button class="btn" @click="close">Close</button>
     </div>
   </div>
 </template>
@@ -55,6 +59,11 @@ const reload = () => {
   border-radius: 4px;
   background-color: var(--fallback-b1, oklch(var(--b1) / 1));
   color: var(--fallback-bc, oklch(var(--bc) / 1));
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
 }
 
 button {
