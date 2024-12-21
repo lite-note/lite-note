@@ -18,7 +18,6 @@
     "@toycode/markdown-it-class": "^1.2.4",
     "@vueuse/core": "^10.11.1",
     "@vueuse/router": "^10.11.1",
-    "bulma": "^0.9.4",
     "date-fns": "^2.30.0",
     "font-color-contrast": "^11.1.0",
     "fontfaceobserver": "^2.3.0",
