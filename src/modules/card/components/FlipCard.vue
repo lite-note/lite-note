@@ -61,7 +61,7 @@ $border-radius: 0.5rem;
   .flip-card-inner {
     flex: 1;
     position: relative;
-    transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.4s;
+    transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
     transform-style: preserve-3d;
     border-radius: $border-radius;
   }
@@ -79,7 +79,7 @@ $border-radius: 0.5rem;
   .flip-card-content {
     width: 100%;
     background-color: #ede4e0;
-    color: var(--font-color);
+    color: var(--fallback-bc, oklch(var(--bc) / 1));
     padding: 1rem;
     border-radius: $border-radius;
   }

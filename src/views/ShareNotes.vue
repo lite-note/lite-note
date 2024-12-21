@@ -32,7 +32,6 @@ const { content } = useFile(note)
 
 <style scoped lang="scss">
 .share-notes {
-  background-color: var(--background-color);
   min-width: 100vw;
   margin: auto;
   display: flex;

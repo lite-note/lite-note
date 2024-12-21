@@ -174,7 +174,8 @@ $border-color: rgba(18, 19, 58, 0.2);
 
 .stacked-note {
   padding: 0 1.5rem 1rem;
-  background-color: var(--background-color);
+  background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+  color: var(--fallback-bc, oklch(var(--bc) / 1));
 
   transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
 
@@ -194,14 +195,15 @@ $border-color: rgba(18, 19, 58, 0.2);
 }
 
 .title-stacked-note {
-  background-color: var(--background-color);
+  background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+  color: var(--fallback-bc, oklch(var(--bc) / 1));
   position: sticky;
 
   top: 0;
   font-size: 0.8em;
 
   a {
-    color: var(--font-color);
+    color: var(--fallback-bc, oklch(var(--bc) / 1));
     display: block;
   }
 }

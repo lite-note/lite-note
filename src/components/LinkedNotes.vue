@@ -35,7 +35,8 @@ const emitNote = (sha: string) => {
 <style scoped lang="scss">
 .linked-notes {
   padding: 1rem;
-  background-color: var(--light-link);
+  background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+  color: var(--fallback-bc, oklch(var(--bc) / 1));
 
   .subtitle {
     font-style: italic;

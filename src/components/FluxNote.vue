@@ -100,16 +100,14 @@ const focusREADME = () => scrollToTop()
       </div>
       <div class="repo-title">
         <div class="repo-header">
-          <h1 class="title is-1">
+          <h1 class="heading-1">
             <router-link :to="{ name: 'FluxNoteView', params: { user, repo } }">
               {{ repo }}
             </router-link>
+            | <em class="user">{{ user }}</em>
           </h1>
           <cache-all-notes />
         </div>
-        <h2 class="subtitle is-5">
-          <em>{{ user }}</em>
-        </h2>
       </div>
       <slot />
       <lite-loading v-if="isLoading" />
@@ -149,22 +147,23 @@ $header-height: 40px;
     h5,
     h6,
     strong {
-      color: var(--font-color);
+      color: var(--fallback-bc, oklch(var(--bc) / 1));
     }
 
     table {
-      color: var(--font-color);
-      background-color: var(--background-color);
+      color: var(--fallback-bc, oklch(var(--bc) / 1));
+      background-color: var(--fallback-b1, oklch(var(--b1) / 1));
 
       thead {
         th {
-          color: var(--font-color);
+          color: var(--fallback-bc, oklch(var(--bc) / 1));
         }
       }
     }
 
     blockquote {
-      background-color: var(--background-color);
+      background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+      color: var(--fallback-bc, oklch(var(--bc) / 1));
     }
   }
 
@@ -176,7 +175,7 @@ $header-height: 40px;
     position: sticky;
     left: 0;
     top: 0;
-    padding: 0 2rem 1rem;
+    padding: 0 2rem;
 
     .repo-title {
       margin-top: 1rem;
@@ -186,6 +185,10 @@ $header-height: 40px;
         justify-content: center;
         align-items: center;
         gap: 1rem;
+
+        .user {
+          font-size: 1.5rem;
+        }
       }
 
       .title {
@@ -231,7 +234,7 @@ $header-height: 40px;
       font-size: 0.8em;
 
       a {
-        color: var(--font-color);
+        color: var(--fallback-bc, oklch(var(--bc) / 1));
         display: block;
         text-align: center;
       }

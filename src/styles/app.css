@@ -1,22 +1,19 @@
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?display=swap&family=Courier+Prime");
 
-$primary: #2c3a47;
-$link: #445fb9;
-$light-link: lighten($link, 45%);
-$family-primary: "Courier Prime", monospace;
-$background: #ffffff;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --primary-color: #{$primary};
-  --font-family: #{$family-primary};
+  --primary-color: #2c3a47;
+  --font-family: "Courier Prime", monospace;
   --font-color: #4a4a4a;
-  --light-link: #{$light-link};
-  --background-color: #{$background};
+  --link: #445fb9;
+  --light-link: lighten(#445fb9, 45%);
+  --background-color: #ffffff;
   --note-width: 620px;
 }
-
-@import "../../node_modules/bulma/bulma.sass";
 
 html {
   overflow-y: auto;
@@ -27,7 +24,6 @@ body {
   height: 100vh;
   scroll-behavior: smooth;
   overflow-y: auto;
-  font-size: 1.2em;
 }
 
 @media screen and (min-width: 769px) {
@@ -54,35 +50,32 @@ body {
 }
 
 a {
-  &:hover {
-    color: darken($link, 20);
-  }
-
   &.external-link {
     text-decoration: underline;
 
     &::after {
-      margin-left: 0.2rem;
-      vertical-align: text-top;
+      margin-left: 0.4rem;
       content: url("/assets/external-link.svg");
     }
   }
 }
 
 .notif-success {
-  background-color: $link;
+  background-color: var(--link);
 }
 
 .repo-note {
   font-family: var(--font-family);
-  color: var(--font-color);
-  background-color: var(--background-color);
   transition-property: color, background-color;
-  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
+  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
 }
 
 .table-wrapper {
   overflow-x: auto;
+}
+
+.btn {
+  font-size: 1rem;
 }
 
 @media print {
@@ -102,10 +95,6 @@ pre {
   code {
     margin-right: 3rem;
   }
-}
-
-code {
-  font-family: var(--font-family);
 }
 
 .markdown-alert {

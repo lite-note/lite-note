@@ -1,5 +1,6 @@
 <template>
   <header class="header-note">
+    <ThemeSwap />
     <router-link
       :to="{ name: 'Home' }"
       class="button is-small is-white back-button"
@@ -27,16 +28,10 @@
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import ThemeSwap from '@/components/ThemeSwap.vue'
 
-export default defineComponent({
-  name: 'HeaderNote',
-  props: {
-    user: { type: String, required: true },
-    repo: { type: String, required: true }
-  }
-})
+defineProps<{ user: string; repo: string }>()
 </script>
 
 <style scoped lang="scss">
