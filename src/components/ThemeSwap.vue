@@ -12,7 +12,7 @@ const toggle = (isChecked: boolean) => {
     <label class="grid cursor-pointer place-items-center">
       <input
         type="checkbox"
-        value="sunset"
+        value="coffee"
         class="toggle theme-controller bg-base-content col-span-2 col-start-1 row-start-1"
         :checked="isDark"
         @click="

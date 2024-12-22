@@ -43,7 +43,7 @@ module.exports = {
   },
   plugins: [typography, daisyui],
   daisyui: {
-    themes: ['retro', 'sunset'],
+    themes: ['lofi', 'coffee'],
     base: true,
     styled: true,
     utils: true
