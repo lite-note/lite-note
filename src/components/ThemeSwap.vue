@@ -5,6 +5,7 @@ const isDark = ref(JSON.parse(localStorage.getItem('is-dark') ?? 'false'))
 const toggle = (isChecked: boolean) => {
   localStorage.setItem('is-dark', isChecked ? 'true' : 'false')
 }
+const darkMode = import.meta.env.VITE_DARK_MODE
 </script>
 
 <template>
@@ -12,7 +13,7 @@ const toggle = (isChecked: boolean) => {
     <label class="grid cursor-pointer place-items-center">
       <input
         type="checkbox"
-        value="coffee"
+        :value="darkMode"
         class="toggle theme-controller bg-base-content col-span-2 col-start-1 row-start-1"
         :checked="isDark"
         @click="

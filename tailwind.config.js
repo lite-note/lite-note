@@ -1,7 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+const dotenv = require('dotenv')
 
 import typography from '@tailwindcss/typography'
 import daisyui from 'daisyui'
+
+dotenv.config()
+
+const LIGHT_MODE = process.env.VITE_LIGHT_MODE
+const DARK_MODE = process.env.VITE_DARK_MODE
 
 const defaultTitleStyles = Array.from(
   { length: 6 },
@@ -43,7 +49,7 @@ module.exports = {
   },
   plugins: [typography, daisyui],
   daisyui: {
-    themes: ['lofi', 'coffee'],
+    themes: [LIGHT_MODE, DARK_MODE],
     base: true,
     styled: true,
     utils: true
