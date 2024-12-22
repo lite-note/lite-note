@@ -24,7 +24,7 @@ module.exports = {
       typography: () => ({
         DEFAULT: {
           css: {
-            'font-size': '18pt',
+            'font-size': '15pt',
             'font-family': '"Courier Prime", monospace',
             ...defaultTitleStyles,
             p: {
