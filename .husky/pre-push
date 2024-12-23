@@ -28,4 +28,7 @@ fi
 # Save the new checksum
 echo "$CURRENT_CHECKSUM" > "$CHECKSUM_FILE"
 
+git add "$CHECKSUM_FILE"
+git commit --amend --no-edit
+
 echo "Environment variables imported successfully."
