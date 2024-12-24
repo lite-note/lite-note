@@ -57,9 +57,9 @@ const useShikiji = async () => {
 useShikiji()
 
 const rules: Renderer.RenderRuleRecord = {
-  table_close: () => '</table>\n</div>',
   table_open: () =>
-    '<div class="table-wrapper table is-fullwidth is striped">\n<table>\n'
+    '<div class="overflow-x-auto"><table class="table table-zebra">',
+  table_close: () => '</table></div>'
 }
 
 md.renderer.rules = { ...md.renderer.rules, ...rules }
@@ -69,7 +69,7 @@ export const useMarkdown = (defaultPrefix?: Ref<string> | string) => {
   const renderFromUTF8 = (content: string, prefix?: string) =>
     content
       ? md.render(content, {
-          docId: defaultPrefix ? toValue(defaultPrefix) : prefix ?? ''
+          docId: defaultPrefix ? toValue(defaultPrefix) : (prefix ?? '')
         })
       : ''
 
