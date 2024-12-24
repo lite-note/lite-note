@@ -1,5 +1,4 @@
 import './styles/app.css'
-import 'markdown-it-latex/dist/index.css'
 import 'notyf/notyf.min.css'
 
 import { createPinia } from 'pinia'

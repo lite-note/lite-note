@@ -1,4 +1,5 @@
 import markdownItClass from '@toycode/markdown-it-class'
+import markdownItLatex from '@vscode/markdown-it-katex'
 import MarkdownIt from 'markdown-it'
 import Renderer from 'markdown-it/lib/renderer'
 import blockEmbedPlugin from 'markdown-it-block-embed'
@@ -6,7 +7,6 @@ import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItFootnote from 'markdown-it-footnote'
 import MarkdownItGitHubAlerts from 'markdown-it-github-alerts'
 import markdownItIframe from 'markdown-it-iframe'
-import markdownItLatex from 'markdown-it-latex'
 import Shikiji from 'markdown-it-shikiji'
 import { Ref, toValue } from 'vue'
 
