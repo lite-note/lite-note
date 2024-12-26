@@ -61,7 +61,8 @@ a {
 }
 
 .notif-success {
-  background-color: var(--link);
+  background-color: oklch(var(--a));
+  color: oklch(var(--ac));
 }
 
 .repo-note {
