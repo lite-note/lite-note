@@ -151,7 +151,27 @@ watch(mode, async (newMode) => {
         :class="{ 'is-link': mode === 'edit' }"
         @click="toggleMode"
       >
-        <img src="/assets/edit.svg" alt="edit" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-edit"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+          />
+          <path
+            d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+          />
+          <path d="M16 5l3 3" />
+        </svg>
       </button>
       <router-link
         v-if="false"
@@ -161,7 +181,25 @@ watch(mode, async (newMode) => {
         }"
         class="action"
       >
-        <img src="/assets/share.svg" alt="share" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-share"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="6" cy="12" r="3" />
+          <circle cx="18" cy="6" r="3" />
+          <circle cx="18" cy="18" r="3" />
+          <line x1="8.7" y1="10.7" x2="15.3" y2="7.3" />
+          <line x1="8.7" y1="13.3" x2="15.3" y2="16.7" />
+        </svg>
       </router-link>
       <div v-if="mode === 'edit'" class="edit">
         <edit-note v-model="rawContent" />
@@ -171,7 +209,27 @@ watch(mode, async (newMode) => {
           :class="{ 'is-link': mode === 'edit' }"
           @click="toggleMode"
         >
-          <img src="/assets/edit.svg" alt="edit" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-edit"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+            />
+            <path
+              d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+            />
+            <path d="M16 5l3 3" />
+          </svg>
         </button>
       </div>
       <div v-if="mode === 'read'" class="note-content" v-html="content"></div>
@@ -260,10 +318,6 @@ a.title-stacked-note-link {
 
     .note-content {
       padding: 0 1.5rem;
-
-      .table {
-        overflow-x: auto;
-      }
     }
   }
 }

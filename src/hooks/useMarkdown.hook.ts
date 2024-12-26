@@ -1,4 +1,5 @@
 import markdownItClass from '@toycode/markdown-it-class'
+import markdownItLatex from '@vscode/markdown-it-katex'
 import MarkdownIt from 'markdown-it'
 import Renderer from 'markdown-it/lib/renderer'
 import blockEmbedPlugin from 'markdown-it-block-embed'
@@ -6,7 +7,6 @@ import markdownItCheckbox from 'markdown-it-checkbox'
 import markdownItFootnote from 'markdown-it-footnote'
 import MarkdownItGitHubAlerts from 'markdown-it-github-alerts'
 import markdownItIframe from 'markdown-it-iframe'
-import markdownItLatex from 'markdown-it-latex'
 import Shikiji from 'markdown-it-shikiji'
 import { Ref, toValue } from 'vue'
 
@@ -57,9 +57,9 @@ const useShikiji = async () => {
 useShikiji()
 
 const rules: Renderer.RenderRuleRecord = {
-  table_close: () => '</table>\n</div>',
   table_open: () =>
-    '<div class="table-wrapper table is-fullwidth is striped">\n<table>\n'
+    '<div class="overflow-x-auto"><table class="table table-zebra">',
+  table_close: () => '</table></div>'
 }
 
 md.renderer.rules = { ...md.renderer.rules, ...rules }
@@ -69,7 +69,7 @@ export const useMarkdown = (defaultPrefix?: Ref<string> | string) => {
   const renderFromUTF8 = (content: string, prefix?: string) =>
     content
       ? md.render(content, {
-          docId: defaultPrefix ? toValue(defaultPrefix) : prefix ?? ''
+          docId: defaultPrefix ? toValue(defaultPrefix) : (prefix ?? '')
         })
       : ''
 
