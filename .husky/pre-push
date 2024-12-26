@@ -32,6 +32,6 @@ echo "$CURRENT_CHECKSUM" > "$CHECKSUM_FILE"
 git add "$CHECKSUM_FILE"
 
 # Amend the last commit with the updated checksum
-git commit --amend --no-edit
+git commit -m "Update .env checksum"
 
 echo "Environment variables imported successfully."
