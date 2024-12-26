@@ -28,8 +28,10 @@ fi
 # Save the new checksum
 echo "$CURRENT_CHECKSUM" > "$CHECKSUM_FILE"
 
+# Stage the checksum file
 git add "$CHECKSUM_FILE"
+
+# Amend the last commit with the updated checksum
 git commit --amend --no-edit
-git push --force-with-lease --force-if-includes
 
 echo "Environment variables imported successfully."
