@@ -38,8 +38,7 @@ const md = new MarkdownIt({
   .use(markdownItFootnote)
   .use(markdownItLatex)
   .use(markdownItIframe, {
-    width: '100%',
-    height: 400
+    width: '100%'
   })
   .use(MarkdownItGitHubAlerts)
 

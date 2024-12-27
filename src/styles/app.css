@@ -104,3 +104,8 @@ pre {
   border-radius: 1rem;
   margin: 1rem 0;
 }
+
+iframe {
+  border-radius: 1rem;
+  height: 400px;
+}
