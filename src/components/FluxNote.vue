@@ -104,10 +104,10 @@ const focusREADME = () => scrollToTop()
             <router-link :to="{ name: 'FluxNoteView', params: { user, repo } }">
               {{ repo }}
             </router-link>
-            | <em class="user">{{ user }}</em>
           </h1>
-          <cache-all-notes />
+          {{ user }}
         </div>
+        <cache-all-notes />
       </div>
       <slot />
       <lite-loading v-if="isLoading" />
@@ -179,16 +179,15 @@ $header-height: 40px;
 
     .repo-title {
       margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
       .repo-header {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 1rem;
-
-        .user {
-          font-size: 1.5rem;
-        }
       }
 
       .title {
