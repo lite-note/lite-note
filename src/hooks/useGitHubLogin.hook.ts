@@ -19,7 +19,7 @@ const saveCredentials = async (token: GithubToken): Promise<void> => {
   const accessToken = await saveAccessToken(token)
 
   await saveAccessTokenToLocal()
-  confirmMessage(`${accessToken.username} is logged in!`)
+  confirmMessage(`✅ ${accessToken.username} is logged in!`)
 }
 
 export const useGitHubLogin = () => {

@@ -1,5 +1,5 @@
-import './styles/app.css'
 import 'notyf/notyf.min.css'
+import './styles/app.css'
 
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'

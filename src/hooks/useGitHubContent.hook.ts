@@ -33,11 +33,11 @@ export const useGitHubContent = ({
         }
       )
 
-      confirmMessage('Note saved')
+      confirmMessage('✅ Note saved')
 
       return response?.data.content?.sha ?? null
     } catch (error) {
-      errorMessage('Note could not be saved')
+      errorMessage('❌ Note could not be saved')
       console.warn(error)
     }
 

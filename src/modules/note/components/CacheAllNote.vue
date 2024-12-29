@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useOfflineNotes } from '@/hooks/useOfflineNotes.hook'
+import { confirmMessage } from '@/utils/notif'
 
 const { cacheAllNotes, isLoading, totalOfNotes, noteCompleted } =
   useOfflineNotes()
 
-const confirmBeforeCachingAllNotes = () => {
+const confirmBeforeCachingAllNotes = async () => {
   confirm('Do you want to cache all notes?')
-  cacheAllNotes()
+  await cacheAllNotes()
+  confirmMessage('✅ All notes have been locally saved')
 }
 </script>
 

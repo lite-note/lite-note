@@ -60,9 +60,13 @@ a {
   }
 }
 
-.notif-success {
-  background-color: oklch(var(--a));
-  color: oklch(var(--ac));
+.notyf__wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.alert {
+  max-width: 500px;
 }
 
 .repo-note {
