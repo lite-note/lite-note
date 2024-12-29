@@ -30,12 +30,13 @@ module.exports = {
       typography: () => ({
         DEFAULT: {
           css: {
-            'font-size': '15pt',
+            'font-size': '12pt',
             'font-family': '"Courier Prime", monospace',
             ...defaultTitleStyles,
             p: {
               'margin-top': '0.8em',
-              'margin-bottom': '0.8em'
+              'margin-bottom': '0.8em',
+              'text-align': 'justify'
             },
             img: {
               'margin-top': 0,
