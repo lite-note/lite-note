@@ -30,7 +30,7 @@ module.exports = {
       typography: () => ({
         DEFAULT: {
           css: {
-            'font-size': '12pt',
+            'font-size': '13pt',
             'font-family': '"Courier Prime", monospace',
             ...defaultTitleStyles,
             p: {
@@ -49,6 +49,10 @@ module.exports = {
             },
             'a:hover': {
               'text-decoration': 'underline'
+            },
+            li: {
+              'margin-top': 0,
+              'margin-bottom': 0
             }
           }
         }
