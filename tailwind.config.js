@@ -42,6 +42,13 @@ module.exports = {
               'margin-top': 0,
               'margin-bottom': 0,
               'border-radius': '1rem'
+            },
+            a: {
+              'text-decoration': 'none',
+              color: 'oklch(var(--s))'
+            },
+            'a:hover': {
+              'text-decoration': 'underline'
             }
           }
         }
