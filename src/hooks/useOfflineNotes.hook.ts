@@ -1,7 +1,10 @@
-import { useAsyncState } from '@vueuse/core'
+import { asyncComputed, useAsyncState } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
+import { data } from '@/data/data'
+import { DataType } from '@/data/DataType.enum'
 import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
+import { Note } from '@/modules/note/models/Note'
 import { queryFileContent } from '@/modules/repo/services/repo'
 import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
 
@@ -10,6 +13,20 @@ export const useOfflineNotes = () => {
   const totalOfNotes = computed(() => store.files.length)
 
   const noteCompleted = ref(0)
+
+  const cachedNotesFromSha = asyncComputed(
+    async () =>
+      data.getAll<DataType.Note, Note>({
+        prefix: DataType.Note,
+        keys: store.files.map((file) => file.sha).filter(Boolean) as string[],
+        includeDocs: false
+      }),
+    []
+  )
+
+  const cachedNotesSet = computed(
+    () => new Set(cachedNotesFromSha.value.map((note) => note._id))
+  )
 
   const cacheAllNotes = async () => {
     const isInitialized = store.user && store.repo && totalOfNotes.value > 0
@@ -23,20 +40,14 @@ export const useOfflineNotes = () => {
     for (const file of store.files) {
       noteCompleted.value++
 
-      if (!file.sha) {
+      if (
+        !file.sha ||
+        cachedNotesSet.value.has(data.generateId(DataType.Note, file.sha))
+      ) {
         continue
       }
 
-      const { getCachedNote, saveCacheNote } = prepareNoteCache(
-        file.sha,
-        file.path
-      )
-
-      const { from } = await getCachedNote()
-
-      if (from === 'sha') {
-        continue
-      }
+      const { saveCacheNote } = prepareNoteCache(file.sha, file.path)
 
       const contentFile = await queryFileContent(
         store.user,

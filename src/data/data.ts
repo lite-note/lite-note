@@ -121,15 +121,27 @@ class Data {
         keys: keys.map((key) => this.generateId(prefix, key))
       })
 
-      return response.rows
-        .map((row) => {
-          if ('error' in row) {
-            return null
-          }
+      if (includeDocs) {
+        return response.rows
+          .map((row) => {
+            if ('error' in row) {
+              return null
+            }
 
-          return row.doc
-        })
-        .filter((doc) => !!doc) as T[]
+            return row.doc
+          })
+          .filter(Boolean) as T[]
+      } else {
+        return response.rows
+          .map((row) => {
+            if ('error' in row) {
+              return null
+            }
+
+            return { _id: row.id }
+          })
+          .filter(Boolean) as T[]
+      }
     }
 
     const response = await this.locale.allDocs({
