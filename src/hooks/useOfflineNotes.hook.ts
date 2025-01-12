@@ -1,4 +1,4 @@
-import { asyncComputed, useAsyncState } from '@vueuse/core'
+import { useAsyncState } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
 import { data } from '@/data/data'
@@ -14,26 +14,20 @@ export const useOfflineNotes = () => {
 
   const noteCompleted = ref(0)
 
-  const cachedNotesFromSha = asyncComputed(
-    async () =>
-      data.getAll<DataType.Note, Note>({
-        prefix: DataType.Note,
-        keys: store.files.map((file) => file.sha).filter(Boolean) as string[],
-        includeDocs: false
-      }),
-    []
-  )
-
-  const cachedNotesSet = computed(
-    () => new Set(cachedNotesFromSha.value.map((note) => note._id))
-  )
-
   const cacheAllNotes = async () => {
     const isInitialized = store.user && store.repo && totalOfNotes.value > 0
 
     if (!isInitialized) {
       return
     }
+
+    const cachedNotesFromSha = await data.getAll<DataType.Note, Note>({
+      prefix: DataType.Note,
+      keys: store.files.map((file) => file.sha).filter(Boolean) as string[],
+      includeDocs: false
+    })
+
+    const cachedNotesSet = new Set(cachedNotesFromSha.map((note) => note._id))
 
     noteCompleted.value = 0
 
@@ -42,7 +36,7 @@ export const useOfflineNotes = () => {
 
       if (
         !file.sha ||
-        cachedNotesSet.value.has(data.generateId(DataType.Note, file.sha))
+        cachedNotesSet.has(data.generateId(DataType.Note, file.sha))
       ) {
         continue
       }
