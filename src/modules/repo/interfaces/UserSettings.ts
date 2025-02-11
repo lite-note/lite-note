@@ -3,6 +3,7 @@ import { Model } from '@/data/models/Model'
 
 export interface UserSettings extends Model<DataType.UserSettings> {
   fontFamily?: string
+  fontSize?: string
   mode?: 'light' | 'dark'
   backlink?: boolean
 }
