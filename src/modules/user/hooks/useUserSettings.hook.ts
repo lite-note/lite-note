@@ -20,10 +20,13 @@ export const useUserSettings = () => {
     }
 
     const fontFamily = store.userSettings?.fontFamily
+    const fontSize = store.userSettings?.fontSize
     const mode = store.userSettings?.mode
     const root = document.documentElement
 
     downloadGoogleFont(fontFamily || DEFAULT_FONT_POLICY)
+
+    root.style.setProperty('--font-size', fontSize || '16px')
 
     switch (mode) {
       case 'dark':

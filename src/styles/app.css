@@ -8,6 +8,7 @@
 :root {
   --primary-color: #2c3a47;
   --font-family: "Courier Prime", monospace;
+  --font-size: 13pt;
   --font-color: #4a4a4a;
   --link: #445fb9;
   --light-link: lighten(#445fb9, 45%);
@@ -71,6 +72,7 @@ a {
 
 .repo-note {
   font-family: var(--font-family);
+  font-size: var(--font-size);
   transition-property: color, background-color;
   transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
 }
