@@ -246,8 +246,6 @@ $border-color: rgba(18, 19, 58, 0.2);
   background-color: var(--fallback-b1, oklch(var(--b1) / 1));
   color: var(--fallback-bc, oklch(var(--bc) / 1));
 
-  transition: cubic-bezier(0.39, 0.575, 0.565, 1) 0.3s;
-
   &.overlay {
     box-shadow: -3px 0 0.4em $border-color;
   }
