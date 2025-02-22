@@ -83,7 +83,7 @@ watch(mode, async (newMode) => {
             <button class="btn btn-outline" @click="toggleMode">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-device-floppy fill-current"
+                class="icon icon-tabler icon-tabler-device-floppy"
                 width="28"
                 height="28"
                 viewBox="0 0 24 24"
