@@ -13,11 +13,15 @@ export const useNoteOverlay = (
   const { x, y, isMobile } = useOverlay()
   const noteHeight = ref(0)
 
+  // TODO: it seems to have a wrong offset,
+  // visible when there are a lot of notes.
   const displayNoteOverlay = computed(() => {
+    const valueIndex = toValue(index)
+
     if (isMobile.value) {
-      return y.value > toValue(index) * noteHeight.value
+      return y.value > valueIndex * noteHeight.value
     } else {
-      return x.value > toValue(index) * NOTE_WIDTH
+      return x.value > valueIndex * NOTE_WIDTH
     }
   })
 
