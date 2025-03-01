@@ -16,12 +16,3 @@ const i18n = createI18n({
 })
 
 createApp(App).use(router).use(i18n).use(createPinia()).mount("#app")
-
-document.documentElement.style.setProperty(
-  "--light-mode",
-  import.meta.env.VITE_LIGHT_MODE,
-)
-document.documentElement.style.setProperty(
-  "--dark-mode",
-  import.meta.env.VITE_DARK_MODE,
-)
