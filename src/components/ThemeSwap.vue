@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref } from 'vue'
 
-const isDark = ref(JSON.parse(localStorage.getItem("is-dark") ?? "false"))
+const isDark = ref(JSON.parse(localStorage.getItem('is-dark') ?? 'false'))
 const toggle = (isChecked: boolean) => {
-  localStorage.setItem("is-dark", isChecked ? "true" : "false")
+  localStorage.setItem('is-dark', isChecked ? 'true' : 'false')
 }
-const darkMode = import.meta.env.VITE_DARK_MODE
+
+const darkMode = 'forest'
 </script>
 
 <template>
