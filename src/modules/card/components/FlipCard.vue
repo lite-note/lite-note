@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from "vue"
 
-import { Card } from '../models/Card'
+import { Card } from "../models/Card"
 
 defineProps<{ card: Card }>()
 const emit = defineEmits<{ success: []; fail: []; needsReview: [] }>()
@@ -11,9 +11,9 @@ const flip = () => {
   flipped.value = !flipped.value
 }
 
-const success = () => emit('success')
-const fail = () => emit('fail')
-const needsReview = () => emit('needsReview')
+const success = () => emit("success")
+const fail = () => emit("fail")
+const needsReview = () => emit("needsReview")
 </script>
 
 <template>
@@ -79,7 +79,7 @@ $border-radius: 0.5rem;
   .flip-card-content {
     width: 100%;
     background-color: #ede4e0;
-    color: var(--fallback-bc, oklch(var(--bc) / 1));
+    color: var(--color-base-content);
     padding: 1rem;
     border-radius: $border-radius;
   }

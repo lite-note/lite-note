@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed } from "vue"
 
-import { useBacklinks } from '@/hooks/useBacklinks.hook'
-import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
+import { useBacklinks } from "@/hooks/useBacklinks.hook"
+import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 
 const props = defineProps<{
   sha: string
@@ -35,8 +35,8 @@ const emitNote = (sha: string) => {
 <style scoped lang="scss">
 .linked-notes {
   padding: 1rem;
-  background-color: var(--fallback-b1, oklch(var(--b1) / 1));
-  color: var(--fallback-bc, oklch(var(--bc) / 1));
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
 
   .subtitle {
     font-style: italic;

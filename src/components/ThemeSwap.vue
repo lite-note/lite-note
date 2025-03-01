@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue"
 
-const isDark = ref(JSON.parse(localStorage.getItem('is-dark') ?? 'false'))
+const isDark = ref(JSON.parse(localStorage.getItem("is-dark") ?? "false"))
 const toggle = (isChecked: boolean) => {
-  localStorage.setItem('is-dark', isChecked ? 'true' : 'false')
+  localStorage.setItem("is-dark", isChecked ? "true" : "false")
 }
 const darkMode = import.meta.env.VITE_DARK_MODE
 </script>
@@ -14,7 +14,7 @@ const darkMode = import.meta.env.VITE_DARK_MODE
       <input
         type="checkbox"
         :value="darkMode"
-        class="toggle theme-controller bg-base-content col-span-2 col-start-1 row-start-1"
+        class="toggle theme-controller col-span-2 col-start-1 row-start-1"
         :checked="isDark"
         @click="
           (e) => {
