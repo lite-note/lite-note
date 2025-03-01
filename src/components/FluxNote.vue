@@ -6,22 +6,22 @@ import {
   onMounted,
   onUnmounted,
   toRefs,
-  watch
-} from 'vue'
+  watch,
+} from "vue"
 
-import LiteLoading from '@/components/LiteLoading.vue'
-import StackedNote from '@/components/StackedNote.vue'
-import { useLinks } from '@/hooks/useLinks.hook'
-import { useMarkdown } from '@/hooks/useMarkdown.hook'
-import { useNoteView } from '@/hooks/useNoteView.hook'
-import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
-import { useVisitRepo } from '@/modules/history/hooks/useVisitRepo.hook'
-import CacheAllNotes from '@/modules/note/components/CacheAllNote.vue'
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
-import { useUserSettings } from '@/modules/user/hooks/useUserSettings.hook'
+import LiteLoading from "@/components/LiteLoading.vue"
+import StackedNote from "@/components/StackedNote.vue"
+import { useLinks } from "@/hooks/useLinks.hook"
+import { useMarkdown } from "@/hooks/useMarkdown.hook"
+import { useNoteView } from "@/hooks/useNoteView.hook"
+import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
+import { useVisitRepo } from "@/modules/history/hooks/useVisitRepo.hook"
+import CacheAllNotes from "@/modules/note/components/CacheAllNote.vue"
+import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
+import { useUserSettings } from "@/modules/user/hooks/useUserSettings.hook"
 
 const HeaderNote = defineAsyncComponent(
-  () => import('@/components/HeaderNote.vue')
+  () => import("@/components/HeaderNote.vue"),
 )
 
 const props = withDefaults(
@@ -37,8 +37,8 @@ const props = withDefaults(
     content: null,
     parseContent: true,
     withContent: true,
-    withHeader: true
-  }
+    withHeader: true,
+  },
 )
 
 const user = computed(() => props.user)
@@ -49,17 +49,17 @@ const store = useUserRepoStore()
 useUserSettings()
 const { visitRepo } = useVisitRepo({ user: user, repo: repo })
 const { toHTML } = useMarkdown(repo)
-const { listenToClick } = useLinks('note-display')
+const { listenToClick } = useLinks("note-display")
 const { stackedNotes, scrollToTop } = useRouteQueryStackedNotes()
 
-const { titles } = useNoteView('note-container')
+const { titles } = useNoteView("note-container")
 
 const renderedContent = computed(() =>
   props.content !== null
     ? props.parseContent
       ? toHTML(props.content)
       : props.content
-    : store.readme
+    : store.readme,
 )
 
 const hasContent = computed(() => !!renderedContent.value)
@@ -71,7 +71,7 @@ watch(
     await nextTick()
     listenToClick()
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 watch(
@@ -79,7 +79,7 @@ watch(
   () => {
     store.setUserRepo(props.user, props.repo)
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 onMounted(() => visitRepo())
@@ -147,23 +147,23 @@ $header-height: 40px;
     h5,
     h6,
     strong {
-      color: var(--fallback-bc, oklch(var(--bc) / 1));
+      color: var(--color-base-content);
     }
 
     table {
-      color: var(--fallback-bc, oklch(var(--bc) / 1));
-      background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+      color: var(--color-base-content);
+      background-color: var(--color-base-100);
 
       thead {
         th {
-          color: var(--fallback-bc, oklch(var(--bc) / 1));
+          color: var(--color-base-content);
         }
       }
     }
 
     blockquote {
-      background-color: var(--fallback-b1, oklch(var(--b1) / 1));
-      color: var(--fallback-bc, oklch(var(--bc) / 1));
+      background-color: var(--color-base-100);
+      color: var(--color-base-content);
     }
   }
 
@@ -233,7 +233,7 @@ $header-height: 40px;
       font-size: 0.8em;
 
       a {
-        color: var(--fallback-bc, oklch(var(--bc) / 1));
+        color: var(--color-base-content);
         display: block;
         text-align: center;
       }

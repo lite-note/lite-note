@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useRegisterSW } from 'virtual:pwa-register/vue'
-import { ref } from 'vue'
+import { useRegisterSW } from "virtual:pwa-register/vue"
+import { ref } from "vue"
 
-import LiteLoading from '@/components/LiteLoading.vue'
+import LiteLoading from "@/components/LiteLoading.vue"
 
 const devMode = ref(false) // import.meta.env.DEV
 const isLoading = ref(false)
@@ -57,8 +57,8 @@ const reload = () => {
   color: var(--primary-color);
   border: var(--primary-color) 2px solid;
   border-radius: 4px;
-  background-color: var(--fallback-b1, oklch(var(--b1) / 1));
-  color: var(--fallback-bc, oklch(var(--bc) / 1));
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
 }
 
 .buttons {

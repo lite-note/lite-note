@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import ThemeSwap from '@/components/ThemeSwap.vue'
+import ThemeSwap from "@/components/ThemeSwap.vue"
 
 defineProps<{ user: string; repo: string }>()
 </script>
