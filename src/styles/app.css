@@ -12,15 +12,14 @@
   --light-link: lighten(#445fb9, 45%);
   --background-color: #ffffff;
   --note-width: 620px;
-  --light-mode: garden;
-  --dark-mode: sunset;
 }
 
 @plugin "@tailwindcss/typography";
+
 @plugin 'daisyui' {
   themes:
-    garden --default,
-    sunset --prefersdark;
+    caramellatte --default,
+    forest --prefersdark;
 }
 
 @config '../../tailwind.config.js';
@@ -34,6 +33,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -42,6 +42,7 @@
     border-color: var(--color-gray-200, currentColor);
   }
 }
+
 html {
   overflow-y: auto;
   overflow-x: auto;
@@ -54,6 +55,7 @@ body {
 }
 
 @media screen and (min-width: 769px) {
+
   html,
   body {
     overflow-y: hidden;
@@ -110,6 +112,7 @@ a {
 }
 
 @media print {
+
   html,
   body {
     overflow-y: auto;
@@ -132,6 +135,14 @@ pre {
   background-color: #ecf0f1;
   border-radius: 1rem;
   margin: 1rem 0;
+  color: var(--color-info-content);
+  background-color: var(--color-info);
+}
+
+.markdown-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 iframe {
