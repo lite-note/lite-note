@@ -9,50 +9,37 @@ const darkMode = import.meta.env.VITE_DARK_MODE
 </script>
 
 <template>
-  <div class="theme-swap">
-    <label class="grid cursor-pointer place-items-center">
-      <input
-        type="checkbox"
-        :value="darkMode"
-        class="toggle theme-controller col-span-2 col-start-1 row-start-1"
-        :checked="isDark"
-        @click="
-          (e) => {
-            toggle((e.target as any)?.checked ?? false)
-          }
-        "
-      />
-      <svg
-        class="stroke-base-100 fill-base-100 col-start-1 row-start-1"
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
+  <label class="toggle text-base-content">
+    <input
+      type="checkbox"
+      :value="darkMode"
+      :checked="isDark"
+      @click="() => toggle(!isDark)"
+      class="theme-controller"
+    />
+
+    <svg
+      aria-label="sun"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        stroke-width="2"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
       >
-        <circle cx="12" cy="12" r="5" />
-        <path
-          d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
-        />
-      </svg>
-      <svg
-        class="stroke-base-100 fill-base-100 col-start-2 row-start-1"
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-      </svg>
-    </label>
-  </div>
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="m4.93 4.93 1.41 1.41"></path>
+        <path d="m17.66 17.66 1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="m6.34 17.66-1.41 1.41"></path>
+        <path d="m19.07 4.93-1.41 1.41"></path>
+      </g>
+    </svg>
+  </label>
 </template>
