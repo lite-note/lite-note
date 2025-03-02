@@ -135,7 +135,7 @@ watch(mode, async (newMode) => {
       @click.prevent="scrollToFocusedNote(props.sha)"
     >
       <div
-        class="title-stacked-note breadcrumbs max-w-xs text-sm"
+        class="title-stacked-note breadcrumbs text-sm"
         :class="titleClassName"
       >
         <ul>
@@ -277,7 +277,7 @@ a.title-stacked-note-link {
   background-color: var(--color-base-100);
   color: var(--color-base-content);
   font-size: 0.8em;
-  overflow: visible;
+  overflow: hidden;
 
   ul,
   li {
