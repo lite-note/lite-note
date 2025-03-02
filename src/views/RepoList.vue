@@ -21,6 +21,7 @@
                 <input
                   type="checkbox"
                   name="favorites"
+                  class="checkbox"
                   :value="repo.id"
                   :checked="favoriteCheckboxes.includes(repo.id)"
                   @click="toggleCheckbox(repo)"
@@ -54,6 +55,7 @@
                 <input
                   type="checkbox"
                   name="favorites"
+                  class="checkbox"
                   :value="repo.id"
                   :checked="favoriteCheckboxes.includes(repo.id)"
                   @click="toggleCheckbox(repo)"
