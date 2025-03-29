@@ -39,7 +39,7 @@ module.exports = {
             },
             a: {
               'text-decoration': 'none',
-              color: 'var(--color-info)'
+              color: 'var(--color-success)'
             },
             'a.btn-primary': {
               color: 'var(--color-secondary-content)'
