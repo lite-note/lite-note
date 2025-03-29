@@ -18,7 +18,7 @@
 
 @plugin 'daisyui' {
   themes:
-    lofi --default,
+    garden --default,
     forest --prefersdark;
 }
 
@@ -135,8 +135,8 @@ pre {
   background-color: #ecf0f1;
   border-radius: 1rem;
   margin: 1rem 0;
-  color: var(--color-info-content);
-  background-color: var(--color-info);
+  color: var(--color-base-content);
+  background-color: var(--color-base-300);
 }
 
 .markdown-alert-title {
