@@ -18,8 +18,8 @@
 
 @plugin 'daisyui' {
   themes:
-    garden --default,
-    forest --prefersdark;
+    retro --default,
+    coffee --prefersdark;
 }
 
 @config '../../tailwind.config.js';

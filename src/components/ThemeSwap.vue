@@ -6,7 +6,7 @@ const toggle = (isChecked: boolean) => {
   localStorage.setItem('is-dark', isChecked ? 'true' : 'false')
 }
 
-const darkMode = 'forest'
+const darkMode = 'coffee'
 </script>
 
 <template>
