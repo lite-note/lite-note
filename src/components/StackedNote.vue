@@ -251,7 +251,7 @@ $border-color: rgba(18, 19, 58, 0.2);
   }
 
   section {
-    padding: 0 1rem 2rem;
+    padding: 0 0.25rem 2rem;
   }
 }
 
