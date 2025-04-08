@@ -315,7 +315,7 @@ a.title-stacked-note-link {
     }
 
     .note-content {
-      padding: 0 1.5rem;
+      padding: 0;
     }
   }
 }
