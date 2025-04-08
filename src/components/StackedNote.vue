@@ -245,13 +245,14 @@ $border-color: rgba(18, 19, 58, 0.2);
   padding: 0 1.5rem 1rem;
   background-color: var(--color-base-100);
   color: var(--color-base-content);
+  scrollbar-width: none;
 
   &.overlay {
     box-shadow: -3px 0 0.4em $border-color;
   }
 
   section {
-    padding: 0 0.25rem 2rem;
+    padding: 0 0.5rem 2rem;
   }
 }
 
@@ -290,6 +291,7 @@ a.title-stacked-note-link {
 
 .text-content {
   flex: 1;
+  scrollbar-width: none;
 
   div {
     height: 100%;
@@ -316,6 +318,7 @@ a.title-stacked-note-link {
 
     .note-content {
       padding: 0;
+      scrollbar-width: none;
     }
   }
 }

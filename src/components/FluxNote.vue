@@ -176,6 +176,7 @@ $header-height: 40px;
     left: 0;
     top: 0;
     padding: 0 2rem;
+    scrollbar-width: none;
 
     .repo-title {
       margin-top: 1rem;
@@ -249,7 +250,7 @@ $header-height: 40px;
 @media print, screen and (max-width: 768px) {
   .flux-note {
     .readme {
-      padding: 0 0.5rem;
+      padding: 0 0.75rem;
     }
   }
 
