@@ -88,9 +88,17 @@ a {
   }
 }
 
-.notyf__wrapper {
-  padding-top: 0;
-  padding-bottom: 0;
+.notyf__toast {
+  border-radius: revert-layer;
+  border: none;
+}
+
+.alert-success .notyf__message {
+  color: var(--color-success-content);
+}
+
+.alert-error .notyf__message {
+  color: var(--color-error-content);
 }
 
 .alert {

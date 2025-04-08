@@ -3,11 +3,11 @@ import { Notyf } from 'notyf'
 const notif = new Notyf({
   types: [
     {
-      className: 'prose alert alert-success',
+      className: 'alert alert-success',
       type: 'confirm'
     },
     {
-      className: 'prose alert alert-error',
+      className: 'alert alert-error',
       type: 'error'
     }
   ]
@@ -20,4 +20,7 @@ export const confirmMessage = (message: string) =>
   })
 
 export const errorMessage = (message: string) =>
-  notif.open({ type: 'error', message })
+  notif.open({
+    type: 'error',
+    message
+  })
