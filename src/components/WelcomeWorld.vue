@@ -40,6 +40,7 @@
     </form>
 
     <footer>
+      <theme-swap />
       Made with
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +66,6 @@
         rel="noopener noreferrer"
         >Julien</a
       >
-      <theme-swap />
     </footer>
   </div>
 </template>
