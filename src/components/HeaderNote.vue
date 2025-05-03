@@ -23,7 +23,7 @@
       </svg>
     </router-link>
     <theme-swap />
-    <router-link
+    <!-- <router-link
       class="special-folder"
       :to="{ name: 'SpacedRepetitionCard', params: { user, repo } }"
     >
@@ -46,7 +46,7 @@
         <line x1="15" y1="12" x2="17" y2="12" />
         <line x1="7" y1="16" x2="17" y2="16" />
       </svg>
-    </router-link>
+    </router-link> -->
     <router-link
       class="special-folder"
       :to="{ name: 'DraftNotes', params: { user, repo } }"
@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import ThemeSwap from "@/components/ThemeSwap.vue"
+import ThemeSwap from '@/components/ThemeSwap.vue'
 
 defineProps<{ user: string; repo: string }>()
 </script>
