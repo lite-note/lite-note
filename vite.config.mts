@@ -1,9 +1,8 @@
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, type UserConfigExport } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
-import { UserConfigExport } from 'vitest/dist/config'
 
 const mainColor = '#ffffff'
 
