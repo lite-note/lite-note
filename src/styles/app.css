@@ -18,7 +18,7 @@
 
 @plugin 'daisyui' {
   themes:
-    nord --default,
+    valentine --default,
     coffee --prefersdark;
 }
 
