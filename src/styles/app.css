@@ -12,6 +12,11 @@
   --light-link: lighten(#445fb9, 45%);
   --background-color: #ffffff;
   --note-width: 620px;
+  --color-contrast-content: var(--color-success);
+}
+
+[data-theme="valentine"] {
+  --color-contrast-content: var(--color-success-content);
 }
 
 @plugin "@tailwindcss/typography";
@@ -33,7 +38,6 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-
   *,
   ::after,
   ::before,
@@ -55,7 +59,6 @@ body {
 }
 
 @media screen and (min-width: 769px) {
-
   html,
   body {
     overflow-y: hidden;
@@ -120,7 +123,6 @@ a {
 }
 
 @media print {
-
   html,
   body {
     overflow-y: auto;
@@ -154,7 +156,7 @@ pre {
 }
 
 .markdown-alert-title svg path {
-  fill: var(--color-base-content)
+  fill: var(--color-base-content);
 }
 
 iframe {

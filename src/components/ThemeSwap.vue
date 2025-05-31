@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+const htmlElement = document.querySelector("html")
+const lightMode = htmlElement?.dataset.theme
+const darkMode = "coffee"
 
-const isDark = ref(JSON.parse(localStorage.getItem('is-dark') ?? 'false'))
-const toggle = (isChecked: boolean) => {
-  localStorage.setItem('is-dark', isChecked ? 'true' : 'false')
+const isInitiallyDark = JSON.parse(localStorage.getItem("is-dark") ?? "false")
+
+if (htmlElement) {
+  htmlElement.dataset.theme = isInitiallyDark ? darkMode : lightMode
 }
 
-const darkMode = 'coffee'
+const toggle = (isChecked: boolean) => {
+  localStorage.setItem("is-dark", isChecked ? "true" : "false")
+
+  if (!htmlElement) {
+    return
+  }
+
+  htmlElement.dataset.theme = isChecked ? darkMode : lightMode
+}
 </script>
 
 <template>
@@ -14,9 +25,9 @@ const darkMode = 'coffee'
     <input
       type="checkbox"
       :value="darkMode"
-      :checked="isDark"
+      :checked="isInitiallyDark"
       class="theme-controller"
-      @click="() => toggle(!isDark)"
+      @click="(e) => toggle((e.target as HTMLInputElement)?.checked)"
     />
 
     <svg
