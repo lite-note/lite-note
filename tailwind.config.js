@@ -24,9 +24,9 @@ module.exports = {
       typography: () => ({
         DEFAULT: {
           css: {
+            ...defaultTitleStyles,
             "font-size": "13pt",
             "font-family": '"Courier Prime", monospace',
-            ...defaultTitleStyles,
             p: {
               "margin-top": "0.8em",
               "margin-bottom": "0.8em",
@@ -38,7 +38,8 @@ module.exports = {
               "border-radius": "1rem",
             },
             a: {
-              "text-decoration": "none",
+              "text-decoration": "wavy underline var(--color-contrast-content)",
+              // "text-decoration-thickness": "0.1em",
               color: "var(--color-contrast-content)",
             },
             "a.btn-primary": {
