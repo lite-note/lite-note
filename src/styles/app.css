@@ -15,7 +15,7 @@
   --color-contrast-content: var(--color-success);
 }
 
-[data-theme="valentine"] {
+[data-theme="silk"] {
   --color-contrast-content: var(--color-success-content);
 }
 
@@ -23,7 +23,7 @@
 
 @plugin 'daisyui' {
   themes:
-    valentine --default,
+    silk --default,
     coffee --prefersdark;
 }
 
