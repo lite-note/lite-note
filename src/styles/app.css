@@ -108,7 +108,8 @@ a {
   max-width: 500px;
 }
 
-.repo-note {
+.repo-note,
+.notyf {
   font-family: var(--font-family);
   font-size: var(--font-size);
 }

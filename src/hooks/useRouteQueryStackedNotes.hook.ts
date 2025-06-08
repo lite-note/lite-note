@@ -1,19 +1,19 @@
-import { useWindowSize } from '@vueuse/core'
-import { useRouteQuery } from '@vueuse/router'
-import { nextTick, readonly } from 'vue'
+import { useWindowSize } from "@vueuse/core"
+import { useRouteQuery } from "@vueuse/router"
+import { nextTick, readonly } from "vue"
 
-import { NOTE_WIDTH } from '@/constants/note-width'
-import { useOverlay } from '@/hooks/useOverlay.hook'
+import { NOTE_WIDTH } from "@/constants/note-width"
+import { useOverlay } from "@/hooks/useOverlay.hook"
 
 export const useRouteQueryStackedNotes = () => {
-  const stackedNotes = useRouteQuery('stackedNotes', undefined, {
+  const stackedNotes = useRouteQuery("stackedNotes", undefined, {
     transform: (value: string | string[] | undefined) => {
       if (!value) {
         return []
       }
 
       return Array.isArray(value) ? value : [value]
-    }
+    },
   })
   const { height } = useWindowSize()
 
@@ -21,7 +21,7 @@ export const useRouteQueryStackedNotes = () => {
 
   const scrollToFocusedNote = (
     sha: string,
-    notes: string[] = stackedNotes.value
+    notes: string[] = stackedNotes.value,
   ) => {
     nextTick(() => {
       const index = notes.findIndex((noteSHA) => noteSHA === sha)
@@ -48,13 +48,13 @@ export const useRouteQueryStackedNotes = () => {
       stackedNotes.value = [sha]
     } else {
       const [splittedStackedNotes] = stackedNotes.value
-        .join(';')
+        .join(";")
         .split(currentSha)
 
       const newStackedNotes = [
-        ...splittedStackedNotes.replaceAll(';;', ';').split(';'),
+        ...splittedStackedNotes.replaceAll(";;", ";").split(";"),
         currentSha,
-        sha
+        sha,
       ].filter((sha) => !!sha)
 
       stackedNotes.value = newStackedNotes
@@ -67,6 +67,5 @@ export const useRouteQueryStackedNotes = () => {
     stackedNotes: readonly(stackedNotes),
     addStackedNote,
     scrollToFocusedNote,
-    scrollToTop: () => scrollToNote(0)
   }
 }
