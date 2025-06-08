@@ -1,26 +1,26 @@
-import { Notyf } from 'notyf'
+import { Notyf } from "notyf"
 
 const notif = new Notyf({
   types: [
     {
-      className: 'alert alert-success',
-      type: 'confirm'
+      className: "alert alert-success",
+      type: "confirm",
     },
     {
-      className: 'alert alert-error',
-      type: 'error'
-    }
-  ]
+      className: "alert alert-error",
+      type: "error",
+    },
+  ],
 })
 
 export const confirmMessage = (message: string) =>
   notif.open({
-    type: 'confirm',
-    message
+    type: "confirm",
+    message,
   })
 
 export const errorMessage = (message: string) =>
   notif.open({
-    type: 'error',
-    message
+    type: "error",
+    message,
   })
