@@ -5,28 +5,29 @@ import {
   nextTick,
   onMounted,
   ref,
-  watch
-} from 'vue'
+  watch,
+} from "vue"
 
-import { useEditionMode } from '@/hooks/useEditionMode'
-import { useFile } from '@/hooks/useFile.hook'
-import { useGitHubContent } from '@/hooks/useGitHubContent.hook'
-import { useImages } from '@/hooks/useImages.hook'
-import { useLinks } from '@/hooks/useLinks.hook'
-import { useNoteOverlay } from '@/hooks/useNoteOverlay.hook'
-import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
-import { useTitleNotes } from '@/hooks/useTitleNotes.hook'
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
-import { encodeUTF8ToBase64 } from '@/utils/decodeBase64ToUTF8'
-import { filenameToNoteTitle } from '@/utils/noteTitle'
-import { generateTweets } from '@/utils/twitter'
+import { useEditionMode } from "@/hooks/useEditionMode"
+import { useFile } from "@/hooks/useFile.hook"
+import { useGitHubContent } from "@/hooks/useGitHubContent.hook"
+import { useImages } from "@/hooks/useImages.hook"
+import { useLinks } from "@/hooks/useLinks.hook"
+import { useNoteOverlay } from "@/hooks/useNoteOverlay.hook"
+import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
+import { useTitleNotes } from "@/hooks/useTitleNotes.hook"
+import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
+import { encodeUTF8ToBase64 } from "@/utils/decodeBase64ToUTF8"
+import { filenameToNoteTitle } from "@/utils/noteTitle"
+import { generateTweets } from "@/utils/twitter"
+import mermaid from "mermaid"
 
 const LinkedNotes = defineAsyncComponent(
-  () => import('@/components/LinkedNotes.vue')
+  () => import("@/components/LinkedNotes.vue"),
 )
 
 const EditNote = defineAsyncComponent(
-  () => import('@/modules/note/components/EditNote.vue')
+  () => import("@/modules/note/components/EditNote.vue"),
 )
 
 const props = defineProps<{
@@ -50,7 +51,7 @@ const {
   rawContent,
   getRawContent,
   saveCacheNote,
-  getEditedSha
+  getEditedSha,
 } = useFile(sha)
 const initialRawContent = ref<string | null>(null)
 const className = computed(() => `stacked-note-${props.index}`)
@@ -62,12 +63,12 @@ const store = useUserRepoStore()
 const hasBacklinks = computed(() => store.userSettings?.backlink)
 
 const { displayNoteOverlay } = useNoteOverlay(className.value, index)
-const displayedTitle = computed(() => filenameToNoteTitle(props.title ?? ''))
-const breadcrumbs = computed(() => displayedTitle.value.split(' / '))
+const displayedTitle = computed(() => filenameToNoteTitle(props.title ?? ""))
+const breadcrumbs = computed(() => displayedTitle.value.split(" / "))
 
 const { updateFile } = useGitHubContent({
   user: user.value,
-  repo: repo.value
+  repo: repo.value,
 })
 
 onMounted(async () => {
@@ -85,18 +86,21 @@ watch([content, mode], () => {
     listenToClick()
     useImages(props.sha)
     generateTweets()
+    mermaid.run({
+      querySelector: `.note-${sha.value} .mermaid`,
+    })
   })
 })
 
 watch(mode, async (newMode) => {
   const hasUserFinishedToEdit =
-    newMode === 'read' && rawContent.value !== initialRawContent.value
+    newMode === "read" && rawContent.value !== initialRawContent.value
 
   if (!hasUserFinishedToEdit) {
     return
   }
   if (!path.value) {
-    console.warn('no path found for this file')
+    console.warn("no path found for this file")
 
     return
   }
@@ -105,17 +109,17 @@ watch(mode, async (newMode) => {
   const newSha = await updateFile({
     content: rawContent.value,
     path: path.value,
-    sha: editedSha
+    sha: editedSha,
   })
 
   if (!newSha) {
-    console.warn('no new SHA found for this file')
+    console.warn("no new SHA found for this file")
 
     return
   }
 
   await saveCacheNote(encodeUTF8ToBase64(rawContent.value), {
-    editedSha: newSha
+    editedSha: newSha,
   })
   initialRawContent.value = rawContent.value
 })
@@ -127,7 +131,7 @@ watch(mode, async (newMode) => {
     :class="{
       [className]: true,
       overlay: displayNoteOverlay,
-      [`note-${sha}`]: true
+      [`note-${sha}`]: true,
     }"
   >
     <a
@@ -177,7 +181,7 @@ watch(mode, async (newMode) => {
         v-if="false"
         :to="{
           name: 'ShareNotes',
-          params: { user: user, repo: repo, note: sha }
+          params: { user: user, repo: repo, note: sha },
         }"
         class="action"
       >
