@@ -22,9 +22,7 @@
         <line x1="5" y1="12" x2="9" y2="8" />
       </svg>
     </router-link>
-    <theme-swap />
     <!-- <router-link
-      class="special-folder"
       :to="{ name: 'SpacedRepetitionCard', params: { user, repo } }"
     >
       <svg
@@ -47,10 +45,7 @@
         <line x1="7" y1="16" x2="17" y2="16" />
       </svg>
     </router-link> -->
-    <router-link
-      class="special-folder"
-      :to="{ name: 'DraftNotes', params: { user, repo } }"
-    >
+    <router-link :to="{ name: 'DraftNotes', params: { user, repo } }">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="icon icon-tabler icon-tabler-notes"
@@ -70,10 +65,24 @@
         <line x1="9" y1="15" x2="13" y2="15" />
       </svg>
     </router-link>
-    <router-link
-      class="special-folder"
-      :to="{ name: 'FleetingNotes', params: { user, repo } }"
-    >
+    <router-link :to="{ name: 'FluxNoteView', params: { user, repo } }">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="36"
+        height="36"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        fill="none"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+      </svg>
+    </router-link>
+    <router-link :to="{ name: 'FleetingNotes', params: { user, repo } }">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="icon icon-tabler icon-tabler-mailbox"
@@ -94,11 +103,12 @@
         <path d="M6 15h1" />
       </svg>
     </router-link>
+    <theme-swap />
   </header>
 </template>
 
 <script lang="ts" setup>
-import ThemeSwap from '@/components/ThemeSwap.vue'
+import ThemeSwap from "@/components/ThemeSwap.vue"
 
 defineProps<{ user: string; repo: string }>()
 </script>
@@ -109,10 +119,6 @@ defineProps<{ user: string; repo: string }>()
   align-items: center;
   justify-content: space-between;
   margin-top: 10px;
-
-  .special-folder {
-    text-align: center;
-  }
 
   img {
     &:hover {

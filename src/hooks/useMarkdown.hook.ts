@@ -87,7 +87,7 @@ const useShikiji = async () => {
 
 useShikiji()
 
-mermaid.initialize({ startOnLoad: false })
+mermaid.initialize({ startOnLoad: false, flowchart: { curve: "natural" } })
 
 const rules: Renderer.RenderRuleRecord = {
   table_open: () =>
