@@ -24,7 +24,7 @@
 @plugin 'daisyui' {
   themes:
     silk --default,
-    coffee --prefersdark;
+    abyss --prefersdark;
 }
 
 @config '../../tailwind.config.js';
