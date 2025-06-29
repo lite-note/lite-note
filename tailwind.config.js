@@ -39,8 +39,10 @@ module.exports = {
               "border-radius": "1rem",
             },
             a: {
-              "text-decoration": "wavy underline var(--color-contrast-content)",
+              "font-weight": 600,
+              // "text-decoration": "wavy underline var(--color-contrast-content)",
               // "text-decoration-thickness": "0.1em",
+              "text-decoration": "none",
               color: "var(--color-contrast-content)",
             },
             "a.btn-primary": {
