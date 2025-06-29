@@ -313,7 +313,7 @@ a.title-stacked-note-link {
 
 @media screen and (max-width: 768px) {
   .stacked-note {
-    padding: 0 0.5rem 1rem;
+    padding: 0 0.75rem 1rem;
 
     section {
       padding: 1rem 0 2rem;
