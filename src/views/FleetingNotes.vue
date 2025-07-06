@@ -69,16 +69,17 @@ watch(mode, async (newMode) => {
       :content="content"
     >
       <h3 class="subtitle is-3">Inbox</h3>
-      <div v-if="!hasTodayNote">
-        <div class="column">
+      <div class="columns">
+        <div class="column" v-if="!hasTodayNote">
           <button class="btn btn-secondary" @click="toggleMode">
             new fleeting note
           </button>
-          <div class="column">
-            <font-change />
-          </div>
+        </div>
+        <div class="column">
+          <font-change />
         </div>
       </div>
+
       <div v-if="mode === 'edit'">
         <edit-note v-model="newContent" />
         <div class="columns">
