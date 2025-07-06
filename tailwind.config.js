@@ -30,8 +30,8 @@ module.exports = {
             p: {
               "margin-top": "0.8em",
               "margin-bottom": "0.8em",
-              // "text-align": "justify",
-              "text-wrap": "balance",
+              "text-align": "justify",
+              // "text-wrap": "balance",
             },
             img: {
               "margin-top": 0,
