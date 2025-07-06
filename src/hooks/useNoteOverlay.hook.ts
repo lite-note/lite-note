@@ -1,34 +1,42 @@
-import { computed, onMounted, Ref, ref, toValue } from 'vue'
+import { computed, onMounted, Ref, ref, toValue } from "vue"
 
-import { NOTE_WIDTH } from '@/constants/note-width'
-import { useOverlay } from '@/hooks/useOverlay.hook'
-import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
+import { NOTE_WIDTH } from "@/constants/note-width"
+import { useOverlay } from "@/hooks/useOverlay.hook"
+import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 
 const BOOKMARK_WIDTH = 2
+const OFFSET = 24 // stacked-note padding
 
 export const useNoteOverlay = (
   className: string,
-  index: Ref<number> | number
+  index: Ref<number> | number,
 ) => {
   const { x, y, isMobile } = useOverlay()
   const noteHeight = ref(0)
 
-  // TODO: it seems to have a wrong offset,
-  // visible when there are a lot of notes.
   const displayNoteOverlay = computed(() => {
     const valueIndex = toValue(index)
+
+    if (valueIndex === 1) {
+      console.log(
+        valueIndex,
+        x.value > valueIndex * NOTE_WIDTH,
+        x.value,
+        valueIndex * NOTE_WIDTH,
+      )
+    }
 
     if (isMobile.value) {
       return y.value > valueIndex * noteHeight.value
     } else {
-      return x.value > valueIndex * NOTE_WIDTH
+      return x.value > valueIndex * NOTE_WIDTH - valueIndex * OFFSET
     }
   })
 
   onMounted(() => {
     const { stackedNotes } = useRouteQueryStackedNotes()
     const noteElement = document.querySelector(
-      `.${className}`
+      `.${className}`,
     ) as HTMLElement | null
 
     if (!noteElement) {
@@ -42,7 +50,7 @@ export const useNoteOverlay = (
       noteElement.style.left = `${(toValue(index) + 1) * BOOKMARK_WIDTH}rem`
 
       const stackedNoteContainers = document.querySelectorAll(
-        '.stacked-note'
+        ".stacked-note",
       ) as NodeListOf<HTMLElement>
 
       stackedNoteContainers.forEach((stackedNote, ind) => {
@@ -54,6 +62,6 @@ export const useNoteOverlay = (
   })
 
   return {
-    displayNoteOverlay
+    displayNoteOverlay,
   }
 }

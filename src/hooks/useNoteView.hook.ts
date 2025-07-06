@@ -1,12 +1,12 @@
-import { computed, onMounted, onUnmounted, watch } from 'vue'
+import { computed, onMounted, onUnmounted, watch } from "vue"
 
-import { noteEventBus } from '@/bus/noteEventBus'
-import { NOTE_WIDTH } from '@/constants/note-width'
-import { useOverlay } from '@/hooks/useOverlay.hook'
-import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
-import { resolvePath } from '@/modules/repo/services/resolvePath'
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
-import { pathToNotePathTitle } from '@/utils/noteTitle'
+import { noteEventBus } from "@/bus/noteEventBus"
+import { NOTE_WIDTH } from "@/constants/note-width"
+import { useOverlay } from "@/hooks/useOverlay.hook"
+import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
+import { resolvePath } from "@/modules/repo/services/resolvePath"
+import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
+import { pathToNotePathTitle } from "@/utils/noteTitle"
 
 export const useNoteView = (containerClass: string) => {
   const store = useUserRepoStore()
@@ -18,34 +18,34 @@ export const useNoteView = (containerClass: string) => {
       if (!note) {
         return obj
       }
-      const filePath = store.files.find((file) => file.sha === note)?.path ?? ''
+      const filePath = store.files.find((file) => file.sha === note)?.path ?? ""
 
       obj[note] = pathToNotePathTitle(filePath)
 
       return obj
-    }, {})
+    }, {}),
   )
 
   const unsubscribeLink = noteEventBus.addEventBusListener(
     ({ path, currentNoteSHA }) => {
       const currentFile = store.files.find(
-        (file) => file.sha === currentNoteSHA
+        (file) => file.sha === currentNoteSHA,
       )
 
-      const finalPath = resolvePath(currentFile?.path ?? '', path)
+      const finalPath = resolvePath(currentFile?.path ?? "", path)
 
       const file = store.files.find((file) => file.path === finalPath)
       if (!file?.sha) {
         return
       }
 
-      addStackedNote(currentNoteSHA ?? '', file.sha)
-    }
+      addStackedNote(currentNoteSHA ?? "", file.sha)
+    },
   )
 
   const resizeContainer = () => {
     const container = document.querySelector(
-      `.${containerClass}`
+      `.${containerClass}`,
     ) as HTMLElement | null
     if (!container) {
       return
@@ -68,10 +68,10 @@ export const useNoteView = (containerClass: string) => {
   })
 
   watch(stackedNotes, resizeContainer, {
-    immediate: true
+    immediate: true,
   })
 
   return {
-    titles
+    titles,
   }
 }
