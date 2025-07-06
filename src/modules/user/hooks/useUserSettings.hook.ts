@@ -17,7 +17,7 @@ export const useUserSettings = () => {
     const root = document.documentElement
 
     const fontFamily = store.userSettings?.chosenFontFamily
-    const fontSize = store.userSettings?.fontSize
+    const fontSize = store.userSettings?.chosenFontSize
 
     downloadGoogleFont(fontFamily || DEFAULT_FONT_POLICY)
     root.style.setProperty("--font-size", fontSize || DEFAULT_FONT_SIZE)

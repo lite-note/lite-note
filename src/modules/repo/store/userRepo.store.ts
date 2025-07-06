@@ -79,6 +79,8 @@ export const useUserRepoStore = defineStore("USER_REPO_STATE", {
           )
             ? this.userSettings?.chosenFontFamily
             : userSettings?.fontFamily
+          const chosenFontSize =
+            this.userSettings?.chosenFontSize ?? userSettings?.fontSize
           this.userSettings = userSettings
 
           if (!this.userSettings) {
@@ -87,6 +89,8 @@ export const useUserRepoStore = defineStore("USER_REPO_STATE", {
 
           this.userSettings.chosenFontFamily =
             chosenFontFamily ?? this.userSettings.fontFamily
+          this.userSettings.chosenFontSize =
+            chosenFontSize ?? this.userSettings.fontSize
 
           data.update<DataType.UserSettings, UserSettings>({
             ...this.userSettings,
@@ -141,6 +145,18 @@ export const useUserRepoStore = defineStore("USER_REPO_STATE", {
         return
       }
       this.userSettings.chosenFontFamily = fontFamily
+
+      const userSettingsId = `UserSetting-${this.user}-${this.repo}`
+      data.update<DataType.UserSettings, UserSettings>({
+        ...this.userSettings,
+        _id: userSettingsId,
+      })
+    },
+    setFontSize(fontSize: string) {
+      if (!this.userSettings) {
+        return
+      }
+      this.userSettings.chosenFontSize = fontSize
 
       const userSettingsId = `UserSetting-${this.user}-${this.repo}`
       data.update<DataType.UserSettings, UserSettings>({
