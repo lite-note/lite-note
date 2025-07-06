@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { format } from 'date-fns'
-import { computed, ref, watch } from 'vue'
+import { format } from "date-fns"
+import { computed, ref, watch } from "vue"
+import FluxNote from "@/components/FluxNote.vue"
+import { useEditionMode } from "@/hooks/useEditionMode"
+import { useGitHubContent } from "@/hooks/useGitHubContent.hook"
+import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
+import { prepareNoteCache } from "@/modules/note/cache/prepareNoteCache"
+import EditNote from "@/modules/note/components/EditNote.vue"
+import { useFolderNotes } from "@/modules/note/hooks/useFolderNotes"
+import { encodeUTF8ToBase64 } from "@/utils/decodeBase64ToUTF8"
+import FontChange from "@/components/FontChange.vue"
 
-import FluxNote from '@/components/FluxNote.vue'
-import { useEditionMode } from '@/hooks/useEditionMode'
-import { useGitHubContent } from '@/hooks/useGitHubContent.hook'
-import { useRouteQueryStackedNotes } from '@/hooks/useRouteQueryStackedNotes.hook'
-import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
-import EditNote from '@/modules/note/components/EditNote.vue'
-import { useFolderNotes } from '@/modules/note/hooks/useFolderNotes'
-import { encodeUTF8ToBase64 } from '@/utils/decodeBase64ToUTF8'
-
-const FLEETING_NOTES_FOLDER = ['inbox', '_inbox']
+const FLEETING_NOTES_FOLDER = ["inbox", "_inbox"]
 
 const props = defineProps<{ user: string; repo: string }>()
 const user = computed(() => props.user)
@@ -20,7 +20,7 @@ const repo = computed(() => props.repo)
 const { addStackedNote } = useRouteQueryStackedNotes()
 const { content } = useFolderNotes(FLEETING_NOTES_FOLDER)
 
-const today = format(new Date(), 'yyyy-MM-dd')
+const today = format(new Date(), "yyyy-MM-dd")
 const newContentPath = `_inbox/${today}.md`
 const initialContent = ``
 const newContent = ref(initialContent)
@@ -28,20 +28,20 @@ const { mode, toggleMode } = useEditionMode()
 
 const { createFile } = useGitHubContent({
   repo: repo.value,
-  user: user.value
+  user: user.value,
 })
 
 const hasTodayNote = computed(() => content.value.includes(today))
 
 watch(mode, async (newMode) => {
-  if (newMode === 'read' && newContent.value.trim() !== initialContent) {
+  if (newMode === "read" && newContent.value.trim() !== initialContent) {
     const content = `# ${new Date().toLocaleDateString()}\n\n${
       newContent.value
     }`
 
     const newSha = await createFile({
       content,
-      path: newContentPath
+      path: newContentPath,
     })
 
     if (!newSha) {
@@ -52,10 +52,10 @@ watch(mode, async (newMode) => {
     const { saveCacheNote } = prepareNoteCache(newSha, newContentPath)
     await saveCacheNote(encodeUTF8ToBase64(content), {
       editedSha: newSha,
-      path: newContentPath
+      path: newContentPath,
     })
 
-    addStackedNote('', newSha)
+    addStackedNote("", newSha)
   }
 })
 </script>
@@ -69,11 +69,14 @@ watch(mode, async (newMode) => {
       :content="content"
     >
       <h3 class="subtitle is-3">Inbox</h3>
-      <div v-if="!hasTodayNote" class="columns">
+      <div v-if="!hasTodayNote">
         <div class="column">
-          <button class="btn btn-primary" @click="toggleMode">
+          <button class="btn btn-secondary" @click="toggleMode">
             new fleeting note
           </button>
+          <div class="column">
+            <font-change />
+          </div>
         </div>
       </div>
       <div v-if="mode === 'edit'">

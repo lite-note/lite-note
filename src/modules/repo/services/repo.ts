@@ -1,21 +1,21 @@
-import { useMarkdown } from '@/hooks/useMarkdown.hook'
-import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
-import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
-import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
-import { getOctokit } from '@/modules/repo/services/octo'
+import { useMarkdown } from "@/hooks/useMarkdown.hook"
+import { prepareNoteCache } from "@/modules/note/cache/prepareNoteCache"
+import { RepoFile } from "@/modules/repo/interfaces/RepoFile"
+import { UserSettings } from "@/modules/repo/interfaces/UserSettings"
+import { getOctokit } from "@/modules/repo/services/octo"
 
 export const getFiles = async (
   owner: string,
-  repo: string
+  repo: string,
 ): Promise<RepoFile[]> => {
   if (!owner || !repo) {
     return []
   }
   const octokit = await getOctokit()
 
-  const commits = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+  const commits = await octokit.request("GET /repos/{owner}/{repo}/commits", {
     owner,
-    repo
+    repo,
   })
 
   const lastCommit = commits.data.shift()
@@ -25,16 +25,16 @@ export const getFiles = async (
   }
 
   const treeResponse = await octokit.request(
-    'GET /repos/{owner}/{repo}/git/trees/{tree_sha}',
+    "GET /repos/{owner}/{repo}/git/trees/{tree_sha}",
     {
       owner,
       repo,
       tree_sha: lastCommit.commit.tree.sha,
-      recursive: 'true'
-    }
+      recursive: "true",
+    },
   )
 
-  return treeResponse?.data.tree.filter((t) => t.type === 'blob') ?? []
+  return treeResponse?.data.tree.filter((t) => t.type === "blob") ?? []
 }
 
 export const getCachedMainReadme = async (owner: string, repo: string) => {
@@ -60,7 +60,7 @@ export const getMainReadme = async (owner: string, repo: string) => {
 
   const { render } = useMarkdown()
   const { getCachedNote, saveCacheNote } = prepareNoteCache(
-    `${owner}-${repo}-README`
+    `${owner}-${repo}-README`,
   )
 
   try {
@@ -68,7 +68,7 @@ export const getMainReadme = async (owner: string, repo: string) => {
 
     const README = await octokit.repos.getReadme({
       owner,
-      repo
+      repo,
     })
 
     if (README) {
@@ -90,9 +90,9 @@ export const getMainReadme = async (owner: string, repo: string) => {
 export const getUserSettingsContent = async (
   user: string,
   repo: string,
-  files: RepoFile[]
-): Promise<UserSettings | null> => {
-  const configFile = files.find((file) => file.path === '.litenote.json')
+  files: RepoFile[],
+): Promise<Omit<UserSettings, "chosenFontFamily"> | null> => {
+  const configFile = files.find((file) => file.path === ".litenote.json")
 
   if (!configFile?.sha) {
     return null
@@ -110,7 +110,7 @@ export const getUserSettingsContent = async (
 export const queryFileContent = async (
   user: string,
   repo: string,
-  sha: string
+  sha: string,
 ) => {
   const octokit = await getOctokit()
 
@@ -119,12 +119,12 @@ export const queryFileContent = async (
   }
 
   const file = await octokit.request(
-    'GET /repos/{owner}/{repo}/git/blobs/{file_sha}',
+    "GET /repos/{owner}/{repo}/git/blobs/{file_sha}",
     {
       owner: user,
       repo: repo,
-      file_sha: sha
-    }
+      file_sha: sha,
+    },
   )
 
   return file?.data.content ?? null

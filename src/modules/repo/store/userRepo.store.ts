@@ -1,17 +1,17 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia"
 
-import { data } from '@/data/data'
-import { DataType } from '@/data/DataType.enum'
-import { RepoFile } from '@/modules/repo/interfaces/RepoFile'
-import { UserSettings } from '@/modules/repo/interfaces/UserSettings'
-import { SavedRepo } from '@/modules/repo/models/SavedRepo'
+import { data } from "@/data/data"
+import { DataType } from "@/data/DataType.enum"
+import { RepoFile } from "@/modules/repo/interfaces/RepoFile"
+import { UserSettings } from "@/modules/repo/interfaces/UserSettings"
+import { SavedRepo } from "@/modules/repo/models/SavedRepo"
 import {
   getCachedMainReadme,
   getFiles,
   getMainReadme,
-  getUserSettingsContent
-} from '@/modules/repo/services/repo'
-import { refreshToken } from '@/modules/user/service/signIn'
+  getUserSettingsContent,
+} from "@/modules/repo/services/repo"
+import { refreshToken } from "@/modules/user/service/signIn"
 
 interface State {
   user: string
@@ -22,15 +22,14 @@ interface State {
   needToLogin: boolean
 }
 
-export const useUserRepoStore = defineStore({
-  id: 'USER_REPO_STATE',
+export const useUserRepoStore = defineStore("USER_REPO_STATE", {
   state: (): State => ({
-    user: '',
-    repo: '',
+    user: "",
+    repo: "",
     files: [],
     readme: undefined,
     userSettings: undefined,
-    needToLogin: false
+    needToLogin: false,
   }),
   actions: {
     async setUserRepo(user: string, repo: string) {
@@ -39,7 +38,7 @@ export const useUserRepoStore = defineStore({
 
       const savedRepoId = data.generateId(DataType.SavedRepo, `${user}-${repo}`)
       const cachedSavedRepo = await data.get<DataType.SavedRepo, SavedRepo>(
-        savedRepoId
+        savedRepoId,
       )
 
       if (cachedSavedRepo) {
@@ -49,7 +48,7 @@ export const useUserRepoStore = defineStore({
       try {
         await refreshToken()
       } catch (error) {
-        console.warn('impossible to refresh token', error)
+        console.warn("impossible to refresh token", error)
       }
 
       const userSettingsId = `UserSetting-${user}-${repo}`
@@ -69,20 +68,30 @@ export const useUserRepoStore = defineStore({
             $type: DataType.SavedRepo,
             repo,
             user,
-            files
+            files,
           })
           this.files = files
           return getUserSettingsContent(user, repo, files)
         })
         .then((userSettings) => {
+          const chosenFontFamily = userSettings?.fontFamilies?.find(
+            (font) => font === this.userSettings?.chosenFontFamily,
+          )
+            ? this.userSettings?.chosenFontFamily
+            : userSettings?.fontFamily
           this.userSettings = userSettings
 
-          if (userSettings) {
-            data.update<DataType.UserSettings, UserSettings>({
-              ...userSettings,
-              _id: userSettingsId
-            })
+          if (!this.userSettings) {
+            return
           }
+
+          this.userSettings.chosenFontFamily =
+            chosenFontFamily ?? this.userSettings.fontFamily
+
+          data.update<DataType.UserSettings, UserSettings>({
+            ...this.userSettings,
+            _id: userSettingsId,
+          })
         })
 
       getCachedMainReadme(user, repo).then(async (cachedReadme) => {
@@ -101,11 +110,11 @@ export const useUserRepoStore = defineStore({
         return
       }
 
-      console.log('add file')
+      console.log("add file")
 
       const savedRepoId = data.generateId(
         DataType.SavedRepo,
-        `${this.user}-${this.repo}`
+        `${this.user}-${this.repo}`,
       )
       const newFiles = [...this.files.filter((f) => f.sha !== file.sha), file]
       data.update<DataType.SavedRepo, SavedRepo>({
@@ -113,19 +122,31 @@ export const useUserRepoStore = defineStore({
         $type: DataType.SavedRepo,
         repo: this.repo,
         user: this.user,
-        files: newFiles
+        files: newFiles,
       })
       this.files = newFiles
     },
     resetUserRepo() {
-      this.user = ''
-      this.repo = ''
+      this.user = ""
+      this.repo = ""
       this.resetFiles()
     },
     resetFiles() {
       this.files = []
       this.readme = null
       this.userSettings = undefined
-    }
-  }
+    },
+    setFontFamily(fontFamily: string) {
+      if (!this.userSettings) {
+        return
+      }
+      this.userSettings.chosenFontFamily = fontFamily
+
+      const userSettingsId = `UserSetting-${this.user}-${this.repo}`
+      data.update<DataType.UserSettings, UserSettings>({
+        ...this.userSettings,
+        _id: userSettingsId,
+      })
+    },
+  },
 })
