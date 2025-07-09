@@ -266,18 +266,6 @@ $border-color: rgba(18, 19, 58, 0.2);
   right: 1rem;
 }
 
-a.title-stacked-note-link {
-  color: var(--color-base-content);
-  display: block;
-  text-decoration: none;
-  position: sticky;
-  top: 0;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
 .title-stacked-note {
   background-color: var(--color-base-100);
   color: var(--color-base-content);

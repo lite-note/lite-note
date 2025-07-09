@@ -52,7 +52,7 @@ useUserSettings()
 const { visitRepo } = useVisitRepo({ user: user, repo: repo })
 const { toHTML } = useMarkdown(repo)
 const { listenToClick } = useLinks("note-display")
-const { stackedNotes } = useRouteQueryStackedNotes()
+const { stackedNotes, scrollToFocusedNote } = useRouteQueryStackedNotes()
 
 const { titles } = useNoteView("note-container")
 
@@ -96,7 +96,11 @@ onUnmounted(() => {
     <div class="note readme">
       <header-note v-if="withHeader" class="header" :user="user" :repo="repo" />
       <div class="repo-title-breadcrumb">
-        {{ repo }}
+        <a
+          class="title-stacked-note-link"
+          @click.prevent="scrollToFocusedNote()"
+          >{{ repo }}</a
+        >
       </div>
       <div class="repo-title">
         <div class="repo-header">

@@ -91,6 +91,18 @@ a {
   }
 }
 
+a.title-stacked-note-link {
+  color: var(--color-base-content);
+  display: block;
+  text-decoration: none;
+  position: sticky;
+  top: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .notyf__toast {
   border-radius: revert-layer;
   border: none;
