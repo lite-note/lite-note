@@ -105,7 +105,7 @@ onUnmounted(() => {
       <div class="repo-title">
         <div class="repo-header">
           <h1 class="heading-1">
-            <a :href="route.path">{{ repo }}</a>
+            {{ repo }}
           </h1>
           {{ user }}
         </div>
