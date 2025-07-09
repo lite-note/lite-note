@@ -96,7 +96,7 @@ onUnmounted(() => {
     <div class="note readme">
       <header-note v-if="withHeader" class="header" :user="user" :repo="repo" />
       <div class="repo-title-breadcrumb">
-        <a :href="route.path">{{ repo }}</a>
+        {{ repo }}
       </div>
       <div class="repo-title">
         <div class="repo-header">
