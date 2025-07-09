@@ -75,6 +75,7 @@ watch(mode, async (newMode) => {
             new fleeting note
           </button>
         </div>
+        <br />
         <div class="column">
           <font-change />
         </div>

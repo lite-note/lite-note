@@ -12,9 +12,8 @@ const fontSizes = Array.from({ length: 7 }, (_, i) => `${9 + i * 2}pt`)
 </script>
 
 <template>
-  <div class="font-change">
+  <div class="font-change" v-if="sortedFontFamilies.length > 0">
     <select
-      v-if="sortedFontFamilies.length > 0"
       class="select"
       :value="store.userSettings?.chosenFontFamily"
       @change="store.setFontFamily(($event.target as HTMLSelectElement).value)"
