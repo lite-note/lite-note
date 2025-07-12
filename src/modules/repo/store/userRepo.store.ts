@@ -114,8 +114,6 @@ export const useUserRepoStore = defineStore("USER_REPO_STATE", {
         return
       }
 
-      console.log("add file")
-
       const savedRepoId = data.generateId(
         DataType.SavedRepo,
         `${this.user}-${this.repo}`,

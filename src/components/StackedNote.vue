@@ -84,11 +84,20 @@ watch([content, mode], () => {
 
   nextTick(() => {
     listenToClick()
-    useImages(props.sha)
-    generateTweets()
-    mermaid.run({
-      querySelector: `.note-${sha.value} .mermaid`,
-    })
+
+    if (/\!\[.*?\]\(.*?\)/.test(rawContent.value)) {
+      useImages(props.sha)
+    }
+
+    if (rawContent.value.includes("@[tweet]")) {
+      generateTweets()
+    }
+
+    if (rawContent.value.includes("```mermaid")) {
+      mermaid.run({
+        querySelector: `.note-${sha.value} .mermaid`,
+      })
+    }
   })
 })
 

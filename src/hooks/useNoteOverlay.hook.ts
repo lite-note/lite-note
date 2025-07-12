@@ -17,15 +17,6 @@ export const useNoteOverlay = (
   const displayNoteOverlay = computed(() => {
     const valueIndex = toValue(index)
 
-    if (valueIndex === 1) {
-      console.log(
-        valueIndex,
-        x.value > valueIndex * NOTE_WIDTH,
-        x.value,
-        valueIndex * NOTE_WIDTH,
-      )
-    }
-
     if (isMobile.value) {
       return y.value > valueIndex * noteHeight.value
     } else {
