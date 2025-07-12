@@ -102,7 +102,18 @@ export const useShikiji = async () => {
   )
 }
 
-mermaid.initialize({ startOnLoad: false, flowchart: { curve: "natural" } })
+let mermaidInitialized = false
+
+export const runMermaid = (querySelector: string) => {
+  if (!mermaidInitialized) {
+    mermaidInitialized = true
+    mermaid.initialize({ startOnLoad: false, flowchart: { curve: "natural" } })
+  }
+
+  mermaid.run({
+    querySelector,
+  })
+}
 
 const rules: Renderer.RenderRuleRecord = {
   table_open: () =>

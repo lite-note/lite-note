@@ -21,7 +21,7 @@ import { encodeUTF8ToBase64 } from "@/utils/decodeBase64ToUTF8"
 import { filenameToNoteTitle } from "@/utils/noteTitle"
 import { generateTweets } from "@/utils/twitter"
 import mermaid from "mermaid"
-import { useShikiji } from "@/hooks/useMarkdown.hook"
+import { runMermaid, useShikiji } from "@/hooks/useMarkdown.hook"
 
 const LinkedNotes = defineAsyncComponent(
   () => import("@/components/LinkedNotes.vue"),
@@ -95,9 +95,7 @@ watch([content, mode], () => {
     }
 
     if (rawContent.value.includes("```mermaid")) {
-      mermaid.run({
-        querySelector: `.note-${sha.value} .mermaid`,
-      })
+      runMermaid(`.note-${sha.value} .mermaid`)
     }
 
     if (rawContent.value.includes("```")) {
