@@ -13,6 +13,7 @@
   --background-color: #ffffff;
   --note-width: 620px;
   --color-contrast-content: var(--color-success);
+  --notyf-margin: 0.5rem;
 }
 
 [data-theme="silk"] {
@@ -106,6 +107,13 @@ a.title-stacked-note-link {
 .notyf__toast {
   border-radius: revert-layer;
   border: none;
+}
+
+@media only screen and (max-width: 480px) {
+  .notyf__toast {
+    margin: var(--notyf-margin);
+    width: calc(100% - 2 * var(--notyf-margin));
+  }
 }
 
 .alert-success .notyf__message {
