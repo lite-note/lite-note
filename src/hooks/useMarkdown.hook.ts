@@ -74,18 +74,33 @@ const md = new MarkdownIt({
   })
   .use(MarkdownItGitHubAlerts)
 
-const useShikiji = async () => {
+let shikijiInitialized = false
+
+export const useShikiji = async () => {
+  if (shikijiInitialized) {
+    return
+  }
+
+  shikijiInitialized = true
   md.use(
     await Shikiji({
       themes: {
         light: "vitesse-light",
         dark: "vitesse-black",
       },
+      langs: [
+        "bash",
+        "javascript",
+        "typescript",
+        "markdown",
+        "mermaid",
+        "html",
+        "css",
+        "json",
+      ],
     }),
   )
 }
-
-useShikiji()
 
 mermaid.initialize({ startOnLoad: false, flowchart: { curve: "natural" } })
 
