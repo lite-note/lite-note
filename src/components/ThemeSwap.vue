@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const htmlElement = document.querySelector("html")
 const lightMode = htmlElement?.dataset.theme
-const darkMode = "abyss"
+const darkMode = "business"
 
 const isInitiallyDark = JSON.parse(localStorage.getItem("is-dark") ?? "false")
 

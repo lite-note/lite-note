@@ -16,7 +16,7 @@
   --notyf-margin: 0.5rem;
 }
 
-[data-theme="silk"] {
+[data-theme="light"] {
   --color-contrast-content: var(--color-success-content);
 }
 
@@ -24,8 +24,8 @@
 
 @plugin 'daisyui' {
   themes:
-    silk --default,
-    abyss --prefersdark;
+    light --default,
+    business --prefersdark;
 }
 
 @config '../../tailwind.config.js';
