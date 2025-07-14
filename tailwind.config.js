@@ -43,7 +43,7 @@ module.exports = {
               // "text-decoration": "wavy underline var(--color-contrast-content)",
               // "text-decoration-thickness": "0.1em",
               "text-decoration": "none",
-              color: "var(--color-contrast-content)",
+              color: "var(--color-accent)",
             },
             "a.btn-primary": {
               color: "var(--color-secondary-content)",
