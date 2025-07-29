@@ -17,6 +17,8 @@ const defaultTitleStyles = Array.from(
   {},
 )
 
+const BOX_SHADOW = "6px"
+
 module.exports = {
   content: ["./src/**/*.{vue,js,ts}"],
   theme: {
@@ -33,10 +35,12 @@ module.exports = {
               "text-align": "justify",
               // "text-wrap": "balance",
             },
-            img: {
-              "margin-top": 0,
-              "margin-bottom": 0,
-              "border-radius": "1rem",
+            "img, video": {
+              margin: "auto",
+              "border-radius": "0.5rem",
+              "box-shadow":
+                "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
+              "max-width": `calc(100% - 2 * ${BOX_SHADOW})`,
             },
             a: {
               "font-weight": 600,
