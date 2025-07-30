@@ -170,6 +170,42 @@ pre {
   background-color: var(--color-base-300);
 }
 
+.markdown-alert-important {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+}
+
+.markdown-alert-important .markdown-alert-title svg path {
+  fill: var(--color-primary-content);
+}
+
+.markdown-alert-tip {
+  background-color: var(--color-info);
+  color: var(--color-info-content);
+}
+
+.markdown-alert-tip .markdown-alert-title svg path {
+  fill: var(--color-info-content);
+}
+
+.markdown-alert-warning {
+  background-color: var(--color-warning);
+  color: var(--color-warning-content);
+}
+
+.markdown-alert-warning .markdown-alert-title svg path {
+  fill: var(--color-warning-content);
+}
+
+.markdown-alert-caution {
+  background-color: var(--color-error);
+  color: var(--color-error-content);
+}
+
+.markdown-alert-caution .markdown-alert-title svg path {
+  fill: var(--color-error-content);
+}
+
 .markdown-alert-title {
   display: flex;
   align-items: center;
