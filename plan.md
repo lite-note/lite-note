@@ -329,7 +329,7 @@ Voir aussi [ma-note-privee](# "Cette note n'est pas publique") et [ma-note-publi
 
 Vos notes publiques sont accessibles via :
 
-```
+```md
 Format principal :
 https://litenote.space/{username}/{username}-litenote-public
 
@@ -424,7 +424,7 @@ https://{username}.github.io/{username}-litenote-public/
 
 ### Nouveaux Fichiers
 
-```
+```sh
 src/modules/public-sharing/
 ├── interfaces/
 │   ├── PublicNoteMetadata.ts
@@ -451,7 +451,7 @@ src/modules/public-sharing/
 
 ### Fichiers à Modifier
 
-```
+```sh
 src/hooks/useGitHubContent.hook.ts    # Intégration sync publique
 src/hooks/useFile.hook.ts             # Détection métadonnées
 src/components/FluxNote.vue           # Indicateurs visuels

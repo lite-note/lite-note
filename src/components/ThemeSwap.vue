@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { themeConfig } from "../theme.config"
+
 const htmlElement = document.querySelector("html")
-const lightMode = htmlElement?.dataset.theme
-const darkMode = "business"
+const lightMode = themeConfig.light
+const darkMode = themeConfig.dark
 
 const isInitiallyDark = JSON.parse(localStorage.getItem("is-dark") ?? "false")
 

@@ -10,7 +10,9 @@
     "types": "tsc --noEmit",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore --fix src",
     "pwa:asset": "npx vue-pwa-asset-generator -a public/img/logo.png --no-manifest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "theme:light": "esno _scripts/change-theme-light.ts",
+    "theme:dark": "esno _scripts/change-theme-dark.ts"
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^1.6.0",
@@ -71,6 +73,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unused-imports": "^3.2.0",
     "eslint-plugin-vue": "^9.31.0",
+    "esno": "^4.8.0",
     "husky": "^9.1.7",
     "prettier": "^3.5.3",
     "sass": "^1.89.0",
