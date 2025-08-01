@@ -24,7 +24,7 @@
 
 @plugin 'daisyui' {
   themes:
-    light --default,
+    retro --default,
     business --prefersdark;
 }
 
