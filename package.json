@@ -15,7 +15,7 @@
     "theme:dark": "esno _scripts/change-theme-dark.ts"
   },
   "dependencies": {
-    "@intlify/unplugin-vue-i18n": "^1.6.0",
+    "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@octokit/core": "^7.0.3",
     "@octokit/rest": "^22.0.0",
     "@tailwindcss/postcss": "^4.1.11",
@@ -78,7 +78,7 @@
     "sass": "^1.89.2",
     "tailwindcss": "^4.1.11",
     "typescript": "~5.9.2",
-    "vite": "^6.3.5",
+    "vite": "^7.0.6",
     "vite-plugin-pwa": "^1.0.2",
     "vitest": "^3.2.4"
   }
