@@ -3,5 +3,5 @@
 
 export const themeConfig = {
   light: 'retro',
-  dark: 'aqua',
+  dark: 'dim',
 }

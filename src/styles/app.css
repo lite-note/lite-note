@@ -25,7 +25,7 @@
 @plugin 'daisyui' {
   themes:
     retro --default,
-    aqua --prefersdark;
+    dim --prefersdark;
 }
 
 @config '../../tailwind.config.js';

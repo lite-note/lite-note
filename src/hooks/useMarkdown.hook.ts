@@ -3,7 +3,6 @@ import markdownItLatex from "@vscode/markdown-it-katex"
 import MarkdownIt, { Options, Renderer, Token } from "markdown-it"
 import blockEmbedPlugin from "markdown-it-block-embed"
 import markdownItCheckbox from "markdown-it-checkbox"
-import markdownItFootnote from "markdown-it-footnote"
 import MarkdownItGitHubAlerts from "markdown-it-github-alerts"
 import markdownItIframe from "markdown-it-iframe"
 import Shikiji from "markdown-it-shikiji"
@@ -67,7 +66,6 @@ const md = new MarkdownIt({
   })
   .use(twitterPlugin)
   .use(markdownItCheckbox)
-  .use(markdownItFootnote)
   .use(markdownItLatex)
   .use(markdownItIframe, {
     width: "100%",

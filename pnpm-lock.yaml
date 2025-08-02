@@ -53,9 +53,6 @@ importers:
       markdown-it-checkbox:
         specifier: ^1.1.0
         version: 1.1.0
-      markdown-it-footnote:
-        specifier: ^4.0.0
-        version: 4.0.0
       markdown-it-github-alerts:
         specifier: ^1.0.0
         version: 1.0.0(markdown-it@14.1.0)
@@ -3157,9 +3154,6 @@ packages:
 
   markdown-it-checkbox@1.1.0:
     resolution: {integrity: sha512-NkZVjnXo5G+cLNdi7DPZxICypBuxFE9F8sx3YGMZn+Cfizr8EZ/1TFUKl7ZnefF6cr1aFHbnQ5iA3rc4cp7EyA==}
-
-  markdown-it-footnote@4.0.0:
-    resolution: {integrity: sha512-WYJ7urf+khJYl3DqofQpYfEYkZKbmXmwxQV8c8mO/hGIhgZ1wOe7R4HLFNwqx7TjILbnC98fuyeSsin19JdFcQ==}
 
   markdown-it-github-alerts@1.0.0:
     resolution: {integrity: sha512-RU3cbB/ewujrDpYNdyabvp4CscZ5J/3D71NWbJW+JSA0nplfutIXDMCwtGWlMLwzgBDAYkFMvYGkigq8nWOVdA==}
@@ -7423,8 +7417,6 @@ snapshots:
   markdown-it-checkbox@1.1.0:
     dependencies:
       underscore: 1.13.6
-
-  markdown-it-footnote@4.0.0: {}
 
   markdown-it-github-alerts@1.0.0(markdown-it@14.1.0):
     dependencies:
