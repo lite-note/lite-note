@@ -24,7 +24,7 @@
 
 @plugin 'daisyui' {
   themes:
-    valentine --default,
+    pastel --default,
     dim --prefersdark;
 }
 
