@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Script pour changer facilement le thème clair de l'application LiteNote
-// Usage: pnpm run theme:light [nom-du-theme]
+// Usage: pnpm run theme:light [theme-name]
 
 import { readFileSync, writeFileSync } from "fs"
 import { join } from "path"
@@ -9,10 +9,11 @@ import { join } from "path"
 // Chemins vers les fichiers
 const themeConfigPath = join(__dirname, "..", "src", "theme.config.ts")
 const indexPath = join(__dirname, "..", "index.html")
+const appCssPath = join(__dirname, "..", "src", "styles", "app.css")
 
 // Vérifier les arguments
 if (process.argv.length < 3) {
-  console.log("Usage: pnpm run theme:light [nom-du-theme]")
+  console.log("Usage: pnpm run theme:light [theme-name]")
   console.log("Exemple: pnpm run theme:light cupcake")
   process.exit(1)
 }
@@ -41,6 +42,12 @@ indexContent = indexContent.replace(
 )
 writeFileSync(indexPath, indexContent)
 
+// Mettre à jour également le fichier app.css pour le thème --default
+let appCssContent = readFileSync(appCssPath, "utf8")
+appCssContent = appCssContent.replace(
+  /(\s+)([a-zA-Z0-9-]+)(\s+--default,)/,
+  `$1${newTheme}$3`,
+)
+writeFileSync(appCssPath, appCssContent)
+
 console.log(`Thème ${mode} mis à jour avec succès vers: ${newTheme}`)
-console.log("Le fichier index.html a également été mis à jour.")
-console.log("Redémarrez le serveur de développement si nécessaire")

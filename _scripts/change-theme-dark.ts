@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 
 // Script pour changer facilement le thème sombre de l'application LiteNote
-// Usage: pnpm run theme:dark [nom-du-theme]
+// Usage: pnpm run theme:dark [theme-name]
 
 import { readFileSync, writeFileSync } from "fs"
 import { join } from "path"
 
 // Chemins vers les fichiers
 const themeConfigPath = join(__dirname, "..", "src", "theme.config.ts")
+const appCssPath = join(__dirname, "..", "src", "styles", "app.css")
 
 // Vérifier les arguments
 if (process.argv.length < 3) {
-  console.log("Usage: pnpm run theme:dark [nom-du-theme]")
+  console.log("Usage: pnpm run theme:dark [theme-name]")
   console.log("Exemple: pnpm run theme:dark business")
   process.exit(1)
 }
@@ -32,5 +33,12 @@ themeConfigContent = themeConfigContent.replace(
 // Écrire le contenu mis à jour dans le fichier
 writeFileSync(themeConfigPath, themeConfigContent)
 
+// Mettre à jour également le fichier app.css pour le thème --prefersdark
+let appCssContent = readFileSync(appCssPath, "utf8")
+appCssContent = appCssContent.replace(
+  /(\s+)([a-zA-Z0-9-]+)(\s+--prefersdark;)/,
+  `$1${newTheme}$3`,
+)
+writeFileSync(appCssPath, appCssContent)
+
 console.log(`Thème ${mode} mis à jour avec succès vers: ${newTheme}`)
-console.log("Redémarrez le serveur de développement si nécessaire")
