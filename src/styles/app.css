@@ -24,7 +24,7 @@
 
 @plugin 'daisyui' {
   themes:
-    pastel --default,
+    silk --default,
     dim --prefersdark;
 }
 
