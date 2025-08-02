@@ -5,6 +5,7 @@
 
 import { readFileSync, writeFileSync } from "fs"
 import { join } from "path"
+import { commitTheme } from "./change-theme"
 
 // Chemins vers les fichiers
 const themeConfigPath = join(__dirname, "..", "src", "theme.config.ts")
@@ -41,4 +42,7 @@ appCssContent = appCssContent.replace(
 )
 writeFileSync(appCssPath, appCssContent)
 
+commitTheme(mode, newTheme)
+
 console.log(`Thème ${mode} mis à jour avec succès vers: ${newTheme}`)
+process.exit(0)
