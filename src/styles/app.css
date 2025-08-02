@@ -24,7 +24,7 @@
 
 @plugin 'daisyui' {
   themes:
-    lofi --default,
+    valentine --default,
     dim --prefersdark;
 }
 
