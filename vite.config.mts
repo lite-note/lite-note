@@ -40,6 +40,12 @@ export default defineConfig(({ command }) => {
               type: "image/png",
               purpose: "maskable",
             },
+            {
+              src: "monochrome-icon.png",
+              sizes: "512x512",
+              type: "image/png",
+              purpose: "monochrome",
+            },
           ],
         },
       }),
