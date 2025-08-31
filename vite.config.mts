@@ -14,7 +14,10 @@ export default defineConfig(({ command }) => {
         includeAssets: [
           "favicon.ico",
           "apple-touch-icon.png",
-          "masked-icon.svg",
+          "pwa-192x192.png",
+          "pwa-512x512.png",
+          "masked-icon.png",
+          "monochrome-icon.png",
           "assets/*.svg",
         ],
         manifest: {
@@ -39,6 +42,12 @@ export default defineConfig(({ command }) => {
               sizes: "512x512",
               type: "image/png",
               purpose: "maskable",
+            },
+            {
+              src: "monochrome-icon.png",
+              sizes: "512x512",
+              type: "image/png",
+              purpose: "monochrome",
             },
           ],
         },
