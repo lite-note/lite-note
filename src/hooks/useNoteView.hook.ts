@@ -7,6 +7,7 @@ import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hoo
 import { resolvePath } from "@/modules/repo/services/resolvePath"
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
 import { pathToNotePathTitle } from "@/utils/noteTitle"
+import { errorMessage } from "@/utils/notif"
 
 export const useNoteView = (containerClass: string) => {
   const store = useUserRepoStore()
@@ -32,10 +33,11 @@ export const useNoteView = (containerClass: string) => {
         (file) => file.sha === currentNoteSHA,
       )
 
-      const finalPath = resolvePath(currentFile?.path ?? "", path)
+      const absolutePath = resolvePath(currentFile?.path ?? "", path)
 
-      const file = store.files.find((file) => file.path === finalPath)
+      const file = store.files.find((file) => file.path === absolutePath)
       if (!file?.sha) {
+        errorMessage(`Note ${absolutePath} not found.`)
         return
       }
 

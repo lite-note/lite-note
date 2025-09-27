@@ -42,7 +42,6 @@ const props = withDefaults(
   },
 )
 
-const route = useRoute()
 const user = computed(() => props.user)
 const repo = computed(() => props.repo)
 
