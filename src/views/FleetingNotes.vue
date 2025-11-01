@@ -9,6 +9,8 @@ import { prepareNoteCache } from "@/modules/note/cache/prepareNoteCache"
 import EditNote from "@/modules/note/components/EditNote.vue"
 import { useFolderNotes } from "@/modules/note/hooks/useFolderNotes"
 import { encodeUTF8ToBase64 } from "@/utils/decodeBase64ToUTF8"
+import { confirmMessage, errorMessage } from "@/utils/notif"
+import { extractYouTubeId } from "@/utils/youtube"
 
 const FLEETING_NOTES_FOLDER = ["inbox", "_inbox"]
 
@@ -24,6 +26,47 @@ const newContentPath = `_inbox/${today}.md`
 const initialContent = ``
 const newContent = ref(initialContent)
 const { mode, toggleMode } = useEditionMode()
+
+const handleYouTube = async () => {
+  if (typeof navigator === "undefined" || !navigator.clipboard?.readText) {
+    errorMessage("Clipboard access is not available.")
+    return
+  }
+
+  let clipboardText: string
+
+  try {
+    clipboardText = (await navigator.clipboard.readText()).trim()
+  } catch (err) {
+    console.warn(err)
+
+    errorMessage("Unable to read from the clipboard.")
+    return
+  }
+
+  debugger
+
+  if (!clipboardText) {
+    errorMessage("Clipboard is empty.")
+    return
+  }
+
+  const videoId = extractYouTubeId(clipboardText)
+
+  if (!videoId) {
+    errorMessage("The clipboard does not contain a valid YouTube link or id.")
+    return
+  }
+
+  const snippet = `@[youtube](${videoId})`
+  try {
+    await navigator.clipboard.writeText(snippet)
+  } catch {
+    errorMessage("Unable to paste to the clipboard.")
+  }
+
+  confirmMessage("YouTube video embed added to the note.")
+}
 
 const { createFile } = useGitHubContent({
   repo: repo.value,
@@ -73,6 +116,9 @@ watch(mode, async (newMode) => {
           <button class="btn btn-secondary" @click="toggleMode">
             new fleeting note
           </button>
+        </div>
+        <div class="column">
+          <button class="btn" @click="handleYouTube">YouTube</button>
         </div>
       </div>
 
