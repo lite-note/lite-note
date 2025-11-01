@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import ThemeSwap from "@/components/ThemeSwap.vue"
+import FontChange from "@/components/FontChange.vue"
+
+defineProps<{ user: string; repo: string }>()
+</script>
+
 <template>
   <header class="header-note">
     <router-link
@@ -16,7 +23,6 @@
         stroke-linecap="round"
         stroke-linejoin="round"
       >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <line x1="5" y1="12" x2="19" y2="12" />
         <line x1="5" y1="12" x2="9" y2="16" />
         <line x1="5" y1="12" x2="9" y2="8" />
@@ -45,6 +51,27 @@
         <line x1="7" y1="16" x2="17" y2="16" />
       </svg>
     </router-link> -->
+
+    <button onclick="font_modal.showModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icons-tabler-outline icon-tabler-typography"
+        width="36"
+        height="36"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M4 20l3 0" />
+        <path d="M14 20l7 0" />
+        <path d="M6.9 15l6.9 0" />
+        <path d="M10.2 6.3l5.8 13.7" />
+        <path d="M5 20l6 -16l2 0l7 16" />
+      </svg>
+    </button>
     <router-link :to="{ name: 'DraftNotes', params: { user, repo } }">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +85,6 @@
         stroke-linecap="round"
         stroke-linejoin="round"
       >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <rect x="5" y="3" width="14" height="18" rx="2" />
         <line x1="9" y1="7" x2="15" y2="7" />
         <line x1="9" y1="11" x2="15" y2="11" />
@@ -95,7 +121,6 @@
         stroke-linecap="round"
         stroke-linejoin="round"
       >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path
           d="M10 21v-6.5a3.5 3.5 0 0 0 -7 0v6.5h18v-6a4 4 0 0 0 -4 -4h-10.5"
         />
@@ -103,15 +128,18 @@
         <path d="M6 15h1" />
       </svg>
     </router-link>
+    <dialog id="font_modal" class="modal">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Font settings</h3>
+        <font-change />
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button></button>
+      </form>
+    </dialog>
     <theme-swap />
   </header>
 </template>
-
-<script lang="ts" setup>
-import ThemeSwap from "@/components/ThemeSwap.vue"
-
-defineProps<{ user: string; repo: string }>()
-</script>
 
 <style scoped lang="scss">
 .header-note {
@@ -124,6 +152,10 @@ defineProps<{ user: string; repo: string }>()
     &:hover {
       cursor: pointer;
     }
+  }
+
+  button {
+    color: var(--color-accent);
   }
 }
 </style>

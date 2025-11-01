@@ -9,7 +9,6 @@ import { prepareNoteCache } from "@/modules/note/cache/prepareNoteCache"
 import EditNote from "@/modules/note/components/EditNote.vue"
 import { useFolderNotes } from "@/modules/note/hooks/useFolderNotes"
 import { encodeUTF8ToBase64 } from "@/utils/decodeBase64ToUTF8"
-import FontChange from "@/components/FontChange.vue"
 
 const FLEETING_NOTES_FOLDER = ["inbox", "_inbox"]
 
@@ -74,10 +73,6 @@ watch(mode, async (newMode) => {
           <button class="btn btn-secondary" @click="toggleMode">
             new fleeting note
           </button>
-        </div>
-        <br />
-        <div class="column">
-          <font-change />
         </div>
       </div>
 
