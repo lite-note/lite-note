@@ -72,6 +72,23 @@ defineProps<{ user: string; repo: string }>()
         <path d="M5 20l6 -16l2 0l7 16" />
       </svg>
     </button>
+    <router-link :to="{ name: 'FluxNoteView', params: { user, repo } }">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="36"
+        height="36"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        fill="none"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+      </svg>
+    </router-link>
     <router-link :to="{ name: 'DraftNotes', params: { user, repo } }">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -89,23 +106,6 @@ defineProps<{ user: string; repo: string }>()
         <line x1="9" y1="7" x2="15" y2="7" />
         <line x1="9" y1="11" x2="15" y2="11" />
         <line x1="9" y1="15" x2="13" y2="15" />
-      </svg>
-    </router-link>
-    <router-link :to="{ name: 'FluxNoteView', params: { user, repo } }">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="36"
-        height="36"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        fill="none"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
       </svg>
     </router-link>
     <router-link :to="{ name: 'FleetingNotes', params: { user, repo } }">
