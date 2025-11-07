@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import ThemeSwap from "@/components/ThemeSwap.vue"
 import FontChange from "@/components/FontChange.vue"
 
 defineProps<{ user: string; repo: string }>()
@@ -130,14 +129,13 @@ defineProps<{ user: string; repo: string }>()
     </router-link>
     <dialog id="font_modal" class="modal">
       <div class="modal-box">
-        <h3 class="text-lg font-bold">Font settings</h3>
+        <h3 class="text-lg font-bold">Style settings</h3>
         <font-change />
       </div>
       <form method="dialog" class="modal-backdrop">
         <button></button>
       </form>
     </dialog>
-    <theme-swap />
   </header>
 </template>
 
