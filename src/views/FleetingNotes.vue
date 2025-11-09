@@ -110,16 +110,16 @@ watch(mode, async (newMode) => {
       :repo="repo"
       :content="content"
     >
-      <h3 class="subtitle is-3">Inbox</h3>
-      <div class="columns">
-        <div class="column" v-if="!hasTodayNote">
-          <button class="btn btn-secondary" @click="toggleMode">
-            new fleeting note
-          </button>
-        </div>
-        <div class="column">
-          <button class="btn" @click="handleYouTube">YouTube</button>
-        </div>
+      <h3 class="subtitle">Inbox</h3>
+      <div class="actions">
+        <button
+          v-if="!hasTodayNote"
+          class="btn btn-secondary"
+          @click="toggleMode"
+        >
+          new fleeting note
+        </button>
+        <button class="btn btn-outline" @click="handleYouTube">YouTube</button>
       </div>
 
       <div v-if="mode === 'edit'">
@@ -166,6 +166,13 @@ watch(mode, async (newMode) => {
   .column {
     display: flex;
     justify-content: center;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
   }
 }
 </style>
