@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useUserRepoStore } from "../modules/repo/store/userRepo.store"
+import ThemeSwap from "@/components/ThemeSwap.vue"
 
 const store = useUserRepoStore()
 
@@ -13,6 +14,8 @@ const fontSizes = Array.from({ length: 7 }, (_, i) => `${9 + i * 2}pt`)
 
 <template>
   <div class="font-change" v-if="sortedFontFamilies.length > 0">
+    <theme-swap />
+
     <select
       class="select"
       :value="store.userSettings?.chosenFontFamily"
@@ -40,6 +43,7 @@ const fontSizes = Array.from({ length: 7 }, (_, i) => `${9 + i * 2}pt`)
   flex: 1;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
 
   select {
