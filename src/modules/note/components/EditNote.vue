@@ -4,11 +4,12 @@ defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (event: 'update:modelValue', payload: string): void
+  (event: "update:modelValue", payload: string): void
 }>()
 
 const handleInput = (input: string) => {
-  emits('update:modelValue', input)
+  const sanitizedInput = input.replace(/\n{3,}/g, "\n\n")
+  emits("update:modelValue", sanitizedInput)
 }
 </script>
 
