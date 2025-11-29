@@ -113,15 +113,18 @@ onUnmounted(() => {
         <cache-all-notes />
       </div>
       <slot />
-      <lite-loading v-if="isLoading" />
-      <div v-else-if="!hasContent" class="flex w-full flex-col gap-4">
+      <div
+        v-if="isLoading || !hasContent"
+        class="flex w-full flex-col gap-4 mt-12"
+      >
+        <div class="skeleton h-4 w-32 mb-2"></div>
         <div class="skeleton h-4 w-full"></div>
         <div class="skeleton h-4 w-full"></div>
         <div class="skeleton h-4 w-full"></div>
         <div class="skeleton h-4 w-full"></div>
         <div class="skeleton h-4 w-full"></div>
         <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-28"></div>
+        <div class="skeleton h-4 w-44"></div>
       </div>
       <p
         v-else-if="withContent"
