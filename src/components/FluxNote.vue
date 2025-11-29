@@ -63,12 +63,14 @@ const renderedContent = computed(() =>
     : store.readme,
 )
 
-const hasContent = computed(() => !!renderedContent.value)
 const isLoading = computed(() => renderedContent.value === undefined)
+const hasContent = computed(() => !!renderedContent.value)
 
 watch(
   renderedContent,
   async () => {
+    console.log(renderedContent.value)
+
     await nextTick()
     listenToClick()
   },
@@ -112,7 +114,15 @@ onUnmounted(() => {
       </div>
       <slot />
       <lite-loading v-if="isLoading" />
-      <div v-else-if="!hasContent">No content here 📝</div>
+      <div v-else-if="!hasContent" class="flex w-full flex-col gap-4">
+        <div class="skeleton h-4 w-full"></div>
+        <div class="skeleton h-4 w-full"></div>
+        <div class="skeleton h-4 w-full"></div>
+        <div class="skeleton h-4 w-full"></div>
+        <div class="skeleton h-4 w-full"></div>
+        <div class="skeleton h-4 w-full"></div>
+        <div class="skeleton h-4 w-28"></div>
+      </div>
       <p
         v-else-if="withContent"
         class="note-display"
