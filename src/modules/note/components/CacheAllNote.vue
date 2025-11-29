@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { useOfflineNotes } from '@/hooks/useOfflineNotes.hook'
-import { confirmMessage } from '@/utils/notif'
+import { useOfflineNotes } from "@/hooks/useOfflineNotes.hook"
+import { confirmMessage } from "@/utils/notif"
 
 const { cacheAllNotes, isLoading, totalOfNotes, noteCompleted } =
   useOfflineNotes()
 
 const confirmBeforeCachingAllNotes = async () => {
-  confirm('Do you want to cache all notes?')
+  confirm("Do you want to cache all notes?")
   await cacheAllNotes()
-  confirmMessage('✅ All notes have been locally saved')
+  confirmMessage("✅ All notes have been locally saved")
 }
 </script>
 
 <template>
   <div v-if="isLoading" class="cache-all-notes">
-    <div>{{ noteCompleted }}/{{ totalOfNotes }}</div>
     <progress
       :value="noteCompleted"
-      class="progress"
+      class="progress progress-accent w-56"
       :max="totalOfNotes"
     ></progress>
+    <div>{{ noteCompleted }}/{{ totalOfNotes }}</div>
   </div>
   <button v-else class="button" @click="() => confirmBeforeCachingAllNotes()">
     <svg
@@ -45,8 +45,6 @@ const confirmBeforeCachingAllNotes = async () => {
 
 <style scoped lang="scss">
 .cache-all-notes {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+  text-align: center;
 }
 </style>
