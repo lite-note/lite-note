@@ -105,7 +105,11 @@ let mermaidInitialized = false
 export const runMermaid = (querySelector: string) => {
   if (!mermaidInitialized) {
     mermaidInitialized = true
-    mermaid.initialize({ startOnLoad: false, flowchart: { curve: "natural" } })
+    mermaid.initialize({
+      theme: "dark",
+      startOnLoad: false,
+      flowchart: { curve: "natural" },
+    })
   }
 
   mermaid.run({
