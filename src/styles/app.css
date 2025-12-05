@@ -161,6 +161,13 @@ pre {
   }
 }
 
+pre.mermaid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-base-content);
+}
+
 .markdown-alert {
   padding: 1rem;
   background-color: #ecf0f1;
