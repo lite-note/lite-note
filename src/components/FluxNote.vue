@@ -20,6 +20,7 @@ import CacheAllNotes from "@/modules/note/components/CacheAllNote.vue"
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
 import { useUserSettings } from "@/modules/user/hooks/useUserSettings.hook"
 import { useRoute } from "vue-router"
+import SkeletonLoader from "@/components/SkeletonLoader.vue"
 
 const HeaderNote = defineAsyncComponent(
   () => import("@/components/HeaderNote.vue"),
@@ -113,19 +114,7 @@ onUnmounted(() => {
         <cache-all-notes />
       </div>
       <slot />
-      <div
-        v-if="isLoading || !hasContent"
-        class="flex w-full flex-col gap-4 mt-12"
-      >
-        <div class="skeleton h-4 w-32 mb-2"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-44"></div>
-      </div>
+      <skeleton-loader v-if="isLoading || !hasContent" />
       <p
         v-else-if="withContent"
         class="note-display"
