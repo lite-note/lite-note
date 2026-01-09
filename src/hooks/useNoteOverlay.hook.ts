@@ -5,7 +5,7 @@ import { useOverlay } from "@/hooks/useOverlay.hook"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 
 const BOOKMARK_WIDTH = 2
-const OFFSET = 24 // stacked-note padding
+const OFFSET = 32 // stacked-note padding
 
 export const useNoteOverlay = (
   className: string,

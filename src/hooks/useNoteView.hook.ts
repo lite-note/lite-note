@@ -49,9 +49,11 @@ export const useNoteView = (containerClass: string) => {
     const container = document.querySelector(
       `.${containerClass}`,
     ) as HTMLElement | null
+
     if (!container) {
       return
     }
+
     if (isMobile.value) {
       container.style.height = `${(stackedNotes.value.length + 1) * 100}vh`
     } else {
