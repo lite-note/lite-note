@@ -1,33 +1,34 @@
-import { computed, Ref, ref, toValue } from 'vue'
+import { computed, Ref, ref, toValue } from "vue"
 
-import { useMarkdown } from '@/hooks/useMarkdown.hook'
-import { prepareNoteCache } from '@/modules/note/cache/prepareNoteCache'
-import { queryFileContent } from '@/modules/repo/services/repo'
-import { useUserRepoStore } from '@/modules/repo/store/userRepo.store'
+import { useMarkdown } from "@/hooks/useMarkdown.hook"
+import { prepareNoteCache } from "@/modules/note/cache/prepareNoteCache"
+import { queryFileContent } from "@/modules/repo/services/repo"
+import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
 
 export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
   const store = useUserRepoStore()
+  const shaValue = toValue(sha)
 
   const path = computed(() => {
-    const file = store.files.find((file) => file.sha === toValue(sha))
+    const file = store.files.find((file) => file.sha === shaValue)
     return file?.path
   })
 
   const {
     render,
     renderFromUTF8,
-    getRawContent: getRawContentFromFile
-  } = useMarkdown(toValue(sha))
+    getRawContent: getRawContentFromFile,
+  } = useMarkdown(shaValue)
 
   const { getCachedNote, saveCacheNote } = prepareNoteCache(
-    toValue(sha),
-    toValue(path)
+    shaValue,
+    toValue(path),
   )
 
   const fromCache = ref(false)
-  const rawContent = ref('')
+  const rawContent = ref("")
   const content = computed(() =>
-    rawContent.value ? renderFromUTF8(rawContent.value) : ''
+    rawContent.value ? renderFromUTF8(rawContent.value) : "",
   )
 
   const getEditedSha = async () => {
@@ -46,26 +47,22 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     fromCache.value = !!cachedNote
 
     if (cachedNote) {
-      if (from === 'path') {
-        queryFileContent(store.user, store.repo, toValue(sha)).then(
+      if (from === "path") {
+        queryFileContent(store.user, store.repo, shaValue).then(
           (fileContent) => {
             if (!fileContent) {
               return
             }
             saveCacheNote(fileContent)
             rawContent.value = getRawContentFromFile(fileContent)
-          }
+          },
         )
       }
 
       return cachedNote.content
     }
 
-    const fileContent = await queryFileContent(
-      store.user,
-      store.repo,
-      toValue(sha)
-    )
+    const fileContent = await queryFileContent(store.user, store.repo, shaValue)
 
     if (!fileContent) {
       return null
@@ -114,6 +111,6 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     getCachedFileContent,
     getEditedSha,
     fromCache,
-    saveCacheNote
+    saveCacheNote,
   }
 }

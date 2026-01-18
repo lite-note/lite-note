@@ -1,10 +1,9 @@
 import FontFaceObserver from "fontfaceobserver"
 
 const assembleFontLink = (font: string) => {
-  return `https://fonts.googleapis.com/css2?display=swap&family=${font.replaceAll(
-    " ",
-    "+",
-  )}`
+  return `https://fonts.googleapis.com/css2?display=swap&family=${font
+    .replaceAll(",", "&family=")
+    .replaceAll(" ", "+")}`
 }
 
 export const downloadGoogleFont = async (font: string): Promise<void> => {

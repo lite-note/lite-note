@@ -9,7 +9,6 @@ import {
   watch,
 } from "vue"
 
-import LiteLoading from "@/components/LiteLoading.vue"
 import StackedNote from "@/components/StackedNote.vue"
 import { useLinks } from "@/hooks/useLinks.hook"
 import { useMarkdown } from "@/hooks/useMarkdown.hook"
@@ -19,7 +18,6 @@ import { useVisitRepo } from "@/modules/history/hooks/useVisitRepo.hook"
 import CacheAllNotes from "@/modules/note/components/CacheAllNote.vue"
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
 import { useUserSettings } from "@/modules/user/hooks/useUserSettings.hook"
-import { useRoute } from "vue-router"
 import SkeletonLoader from "@/components/SkeletonLoader.vue"
 
 const HeaderNote = defineAsyncComponent(
@@ -70,8 +68,6 @@ const hasContent = computed(() => !!renderedContent.value)
 watch(
   renderedContent,
   async () => {
-    console.log(renderedContent.value)
-
     await nextTick()
     listenToClick()
   },

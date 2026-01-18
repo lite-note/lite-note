@@ -1,73 +1,79 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
-import Home from '@/views/HomeApp.vue'
+import Home from "@/views/HomeApp.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/repo-list',
-    name: 'RepoList',
-    component: () => import('@/views/RepoList.vue')
+    path: "/repo-list",
+    name: "RepoList",
+    component: () => import("@/views/RepoList.vue"),
   },
   {
-    path: '/:user/:repo',
-    name: 'FluxNoteView',
+    path: "/:user/:repo",
+    name: "FluxNoteView",
     props: true,
-    component: () => import('@/views/FluxNoteView.vue')
+    component: () => import("@/views/FluxNoteView.vue"),
   },
   {
-    path: '/:user/:repo/share/:note',
-    name: 'ShareNotes',
+    path: "/:user/:repo/share/:note",
+    name: "ShareNotes",
     props: true,
-    component: () => import('@/views/ShareNotes.vue')
+    component: () => import("@/views/ShareNotes.vue"),
   },
   {
-    path: '/:user/:repo/inbox',
-    name: 'FleetingNotes',
+    path: "/:user/:repo/inbox",
+    name: "FleetingNotes",
     props: true,
-    component: () => import('@/views/FleetingNotes.vue')
+    component: () => import("@/views/FleetingNotes.vue"),
   },
   {
-    path: '/:user/:repo/draft',
-    name: 'DraftNotes',
+    path: "/:user/:repo/draft",
+    name: "DraftNotes",
     props: true,
-    component: () => import('@/views/DraftNotes.vue')
+    component: () => import("@/views/DraftNotes.vue"),
   },
   {
-    path: '/:user/:repo/history',
-    name: 'HistoricNotes',
+    path: "/:user/:repo/todo",
+    name: "TodoNotes",
     props: true,
-    component: () => import('@/views/HistoricNotes.vue')
+    component: () => import("@/views/TodoNotes.vue"),
   },
   {
-    path: '/:user/:repo/spaced-repetition',
-    name: 'SpacedRepetitionCard',
+    path: "/:user/:repo/history",
+    name: "HistoricNotes",
     props: true,
-    component: () => import('@/views/SpacedRepetitionCard.vue')
+    component: () => import("@/views/HistoricNotes.vue"),
   },
   {
-    path: '/:user/:repo/need-review-cards',
-    name: 'NeedReviewCards',
+    path: "/:user/:repo/spaced-repetition",
+    name: "SpacedRepetitionCard",
     props: true,
-    component: () => import('@/views/NeedReviewCards.vue')
+    component: () => import("@/views/SpacedRepetitionCard.vue"),
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('@/views/AboutApp.vue')
+    path: "/:user/:repo/need-review-cards",
+    name: "NeedReviewCards",
+    props: true,
+    component: () => import("@/views/NeedReviewCards.vue"),
   },
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/about",
+    name: "About",
+    component: () => import("@/views/AboutApp.vue"),
   },
   {
-    path: '/:catchAll(.*)',
-    name: 'SpaceCowboy',
-    component: () => import('@/views/SpaceCowboy.vue')
-  }
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "SpaceCowboy",
+    component: () => import("@/views/SpaceCowboy.vue"),
+  },
 ]
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 })
