@@ -39,7 +39,11 @@ const content = computedAsync(() => {
 
 <style lang="scss">
 .todo-notes {
-  flex: 1;
+  .note-display {
+    h1 {
+      font-size: 1.8rem;
+    }
+  }
 
   input[type="checkbox"] {
     margin-right: 0.5rem;

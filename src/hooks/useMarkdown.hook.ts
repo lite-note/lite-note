@@ -1,4 +1,3 @@
-import markdownItClass from "@toycode/markdown-it-class"
 import markdownItLatex from "@vscode/markdown-it-katex"
 import MarkdownIt, { Options, Renderer, Token } from "markdown-it"
 import blockEmbedPlugin from "markdown-it-block-embed"
@@ -48,14 +47,6 @@ const md = new MarkdownIt({
   typographer: true,
   quotes: ["«\xA0", "\xA0»", "‹\xA0", "\xA0›"],
 })
-  .use(markdownItClass, {
-    h1: ["title", "is-2"],
-    h2: ["title", "is-3"],
-    h3: ["title", "is-4"],
-    h4: ["title", "is-5"],
-    h5: ["title", "is-6"],
-    h6: ["title", "is-6"],
-  })
   .use(markdownItMermaidExtractor)
   .use(html5Media)
   .use(blockEmbedPlugin, {

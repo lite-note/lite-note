@@ -97,7 +97,7 @@ $border-radius: 0.5rem;
   }
 }
 
-.title.is-2 {
+h1 {
   font-size: 16pt;
 }
 </style>
