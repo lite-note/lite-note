@@ -20,7 +20,6 @@ import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
 import { encodeUTF8ToBase64 } from "@/utils/decodeBase64ToUTF8"
 import { filenameToNoteTitle } from "@/utils/noteTitle"
 import { generateTweets } from "@/utils/twitter"
-import mermaid from "mermaid"
 import { runMermaid, useShikiji } from "@/hooks/useMarkdown.hook"
 
 const LinkedNotes = defineAsyncComponent(
