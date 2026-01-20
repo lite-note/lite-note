@@ -20,7 +20,11 @@ export const downloadGoogleFont = async (font: string): Promise<void> => {
     document.head.appendChild(link)
   }
 
-  await new FontFaceObserver(font).load()
+  try {
+    await new FontFaceObserver(font).load()
 
-  document.documentElement.style.setProperty("--font-family", font)
+    document.documentElement.style.setProperty("--font-family", font)
+  } catch (error) {
+    console.warn("error when loading font")
+  }
 }
