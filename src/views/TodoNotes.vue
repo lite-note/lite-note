@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, watch } from "vue"
+import { computed, defineAsyncComponent, nextTick, ref, watch } from "vue"
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
-import { useFile } from "@/hooks/useFile.hook"
-import { computedAsync } from "@vueuse/core"
+import { useCheckboxCommit } from "@/hooks/useCheckboxCommit.hook"
+import { useMarkdown } from "@/hooks/useMarkdown.hook"
+import { queryFileContent } from "@/modules/repo/services/repo"
+import { decodeBase64ToUTF8 } from "@/utils/decodeBase64ToUTF8"
 
 const FluxNote = defineAsyncComponent(() => import("@/components/FluxNote.vue"))
 const props = defineProps<{ user: string; repo: string }>()
@@ -15,14 +17,60 @@ const todoNote = computed(() =>
   store.files.find((file) => file.path?.endsWith("_todo/todo.md")),
 )
 
-const content = computedAsync(() => {
-  if (!todoNote.value) {
+const sha = computed(() => todoNote.value?.sha ?? "")
+const path = computed(() => todoNote.value?.path)
+
+const { toHTML } = useMarkdown(repo)
+
+// Setup checkbox commit handler
+const {
+  pendingContent,
+  syncContent,
+  listenToCheckboxes,
+  hasPendingChanges,
+} = useCheckboxCommit({
+  user: props.user,
+  repo: props.repo,
+  path,
+  initialContent: "",
+  initialSha: sha,
+  containerSelector: ".todo-notes .note-display",
+  debounceMs: 1000,
+})
+
+// Render pending content to HTML for display
+const renderedContent = computed(() => {
+  if (!pendingContent.value) {
     return ""
   }
-  const { getContent } = useFile(todoNote.value?.sha ?? "", false)
-
-  return getContent()
+  return toHTML(pendingContent.value)
 })
+
+// Fetch raw content when sha changes
+watch(
+  sha,
+  async (newSha) => {
+    if (!newSha || hasPendingChanges.value) {
+      return
+    }
+    const base64Content = await queryFileContent(props.user, props.repo, newSha)
+    if (base64Content) {
+      const rawContent = decodeBase64ToUTF8(base64Content)
+      syncContent(rawContent, newSha)
+    }
+  },
+  { immediate: true },
+)
+
+// Setup checkbox listeners when content renders
+watch(
+  renderedContent,
+  async () => {
+    await nextTick()
+    listenToCheckboxes()
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
@@ -31,7 +79,7 @@ const content = computedAsync(() => {
       key="todo-notes"
       :user="user"
       :repo="repo"
-      :content="content"
+      :content="renderedContent"
       :parse-content="false"
     />
   </div>
