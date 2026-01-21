@@ -227,3 +227,12 @@ iframe {
   border-radius: 1rem;
   height: 400px;
 }
+
+/* TODO page */
+.todo-notes input[type="checkbox"] {
+  @apply checkbox checkbox-success;
+}
+
+.todo-notes li:has(> input[type="checkbox"]) {
+  list-style: none;
+}
