@@ -11,7 +11,7 @@
       <router-link
         :to="{
           name: 'FluxNoteView',
-          params: { user: 'lite-note', repo: 'getting-started' }
+          params: { user: 'lite-note', repo: 'getting-started' },
         }"
         class="btn"
         >Get started</router-link
@@ -22,7 +22,7 @@
     </div>
 
     <form class="github-form" @submit.prevent>
-      <div>github.com/</div>
+      <div>github/</div>
       <input
         v-model="userInput"
         class="input input-ghost"
@@ -71,12 +71,12 @@
 </template>
 
 <script lang="ts" setup>
-import RepoList from '@/components/RepoList.vue'
-import SignInGithub from '@/components/SignInGithub.vue'
-import ThemeSwap from '@/components/ThemeSwap.vue'
-import { useForm } from '@/hooks/useForm.hook'
-import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
-import LastVisited from '@/modules/history/components/LastVisited.vue'
+import RepoList from "@/components/RepoList.vue"
+import SignInGithub from "@/components/SignInGithub.vue"
+import ThemeSwap from "@/components/ThemeSwap.vue"
+import { useForm } from "@/hooks/useForm.hook"
+import { useGitHubLogin } from "@/hooks/useGitHubLogin.hook"
+import LastVisited from "@/modules/history/components/LastVisited.vue"
 
 const { isLogged } = useGitHubLogin()
 const { userInput, repoInput, submit } = useForm()
