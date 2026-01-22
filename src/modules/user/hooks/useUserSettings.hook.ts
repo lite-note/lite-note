@@ -1,7 +1,7 @@
 import { watchEffect } from "vue"
 
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
-import { downloadGoogleFont } from "@/utils/downloadGoogleFont"
+import { downloadFont } from "@/utils/downloadFont"
 
 const DEFAULT_FONT_POLICY = "Courier Prime,monospace"
 const DEFAULT_FONT_SIZE = "16px"
@@ -19,7 +19,7 @@ export const useUserSettings = () => {
     const fontFamily = store.userSettings?.chosenFontFamily
     const fontSize = store.userSettings?.chosenFontSize
 
-    downloadGoogleFont(fontFamily || DEFAULT_FONT_POLICY)
+    downloadFont(fontFamily || DEFAULT_FONT_POLICY)
     root.style.setProperty("--font-size", fontSize || DEFAULT_FONT_SIZE)
   })
 }

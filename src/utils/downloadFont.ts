@@ -1,12 +1,12 @@
 import FontFaceObserver from "fontfaceobserver"
 
 const assembleFontLink = (font: string) => {
-  return `https://fonts.googleapis.com/css2?display=swap&family=${font
+  return `https://api.fonts.coollabs.io/css2?display=swap&family=${font
     .replaceAll(",", "&family=")
     .replaceAll(" ", "+")}`
 }
 
-export const downloadGoogleFont = async (font: string): Promise<void> => {
+export const downloadFont = async (font: string): Promise<void> => {
   const href = assembleFontLink(font)
 
   // check if the href already exists
