@@ -25,7 +25,7 @@
 @plugin 'daisyui' {
   themes:
     bumblebee --default,
-    dim --prefersdark;
+    aqua --prefersdark;
 }
 
 @config '../../tailwind.config.js';
