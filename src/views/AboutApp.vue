@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import GoBack from '@/components/GoBack.vue'
+</script>
+
 <template>
   <div class="about content">
     <go-back />
@@ -20,16 +24,6 @@
     </main>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-import GoBack from '@/components/GoBack.vue'
-
-export default defineComponent({
-  components: { GoBack }
-})
-</script>
 
 <style lang="scss" scoped>
 .about {

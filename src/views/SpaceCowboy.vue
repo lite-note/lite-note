@@ -1,3 +1,6 @@
+<script lang="ts" setup>
+</script>
+
 <template>
   <main class="space-cowboy content">
     <p>
@@ -43,14 +46,6 @@
     >
   </main>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'SpaceCowboy'
-})
-</script>
 
 <style scoped lang="scss">
 .space-cowboy {

@@ -1,3 +1,14 @@
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
+
+const { push } = useRouter()
+
+const back = () =>
+  push({
+    name: 'Home'
+  })
+</script>
+
 <template>
   <button class="button is-white go-back" @click="back">
     <svg
@@ -19,25 +30,6 @@
     </svg>
   </button>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
-
-export default defineComponent({
-  name: 'GoBack',
-  setup() {
-    const { push } = useRouter()
-
-    return {
-      back: () =>
-        push({
-          name: 'Home'
-        })
-    }
-  }
-})
-</script>
 
 <style lang="scss" scoped>
 .go-back {

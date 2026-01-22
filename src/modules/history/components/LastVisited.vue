@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+import { useLastVisitedRepos } from '@/modules/history/hooks/useLastVisitedRepos.hook'
+
+const { lastVisitedRepos } = useLastVisitedRepos()
+</script>
+
 <template>
   <section v-if="lastVisitedRepos.length" class="last-visited">
     <h4>Last visited repos</h4>
@@ -22,23 +28,6 @@
     </ul>
   </section>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-import { useLastVisitedRepos } from '@/modules/history/hooks/useLastVisitedRepos.hook'
-
-export default defineComponent({
-  name: 'LastVisited',
-  setup() {
-    const { lastVisitedRepos } = useLastVisitedRepos()
-
-    return {
-      lastVisitedRepos
-    }
-  }
-})
-</script>
 
 <style scoped lang="scss">
 .last-visited {

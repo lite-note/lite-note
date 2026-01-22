@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+import GoBack from '@/components/GoBack.vue'
+import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
+import { useRepos } from '@/hooks/useRepos.hook'
+import { useRepoList } from '@/modules/repo/hooks/useRepoList.hook'
+
+const { username } = useGitHubLogin()
+const { isReady } = useRepos()
+const { favoriteRepos, otherRepos, favoriteCheckboxes, toggleCheckbox } =
+  useRepoList()
+</script>
+
 <template>
   <div class="repo-list">
     <h1 class="title is-1">Repositories</h1>
@@ -77,35 +89,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-import GoBack from '@/components/GoBack.vue'
-import { useGitHubLogin } from '@/hooks/useGitHubLogin.hook'
-import { useRepos } from '@/hooks/useRepos.hook'
-import { useRepoList } from '@/modules/repo/hooks/useRepoList.hook'
-
-export default defineComponent({
-  name: 'RepoList',
-  components: { GoBack },
-  setup() {
-    const { username } = useGitHubLogin()
-    const { isReady } = useRepos()
-    const { favoriteRepos, otherRepos, favoriteCheckboxes, toggleCheckbox } =
-      useRepoList()
-
-    return {
-      isReady,
-      username,
-      favoriteRepos,
-      otherRepos,
-      favoriteCheckboxes,
-      toggleCheckbox
-    }
-  }
-})
-</script>
 
 <style lang="scss" scoped>
 .repo-list {

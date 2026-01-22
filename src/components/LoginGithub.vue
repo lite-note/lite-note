@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+const url = new URL('https://github.com/login/oauth/authorize')
+url.searchParams.append('client_id', 'Iv1.87be14adcc912fa0')
+url.searchParams.append('redirect_uri', location.href)
+url.searchParams.append('scope', 'repo')
+</script>
+
 <template>
   <div class="login-github">
     <br />
@@ -28,21 +35,3 @@
     </a>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'LoginGithub',
-  setup() {
-    const url = new URL('https://github.com/login/oauth/authorize')
-    url.searchParams.append('client_id', 'Iv1.87be14adcc912fa0')
-    url.searchParams.append('redirect_uri', location.href)
-    url.searchParams.append('scope', 'repo')
-
-    return {
-      url
-    }
-  }
-})
-</script>
