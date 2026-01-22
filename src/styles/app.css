@@ -24,7 +24,7 @@
 
 @plugin 'daisyui' {
   themes:
-    winter --default,
+    bumblebee --default,
     dim --prefersdark;
 }
 
