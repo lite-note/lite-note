@@ -11,6 +11,10 @@ export const commitTheme = (mode: string, newTheme: string) => {
     execSync(`git commit -m "${commitMessage}"`, { stdio: "inherit" })
 
     console.log(`Commit créé avec succès: "${commitMessage}"`)
+
+    execSync(`git push"`, { stdio: "inherit" })
+
+    console.log(`Push sur origin`)
   } catch (error) {
     console.error("Erreur lors de la création du commit:", error)
     process.exit(1)
