@@ -24,7 +24,7 @@
 
 @plugin 'daisyui' {
   themes:
-    bumblebee --default,
+    pastel --default,
     abyss --prefersdark;
 }
 
