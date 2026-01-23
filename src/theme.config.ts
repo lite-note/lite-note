@@ -3,5 +3,5 @@
 
 export const themeConfig = {
   light: 'bumblebee',
-  dark: 'aqua',
+  dark: 'abyss',
 }
