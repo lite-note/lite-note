@@ -19,7 +19,7 @@
       <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
         >Manage your repos</router-link
       >
-      <router-link :to="{ name: 'PublicNoteList' }" class="btn"
+      <router-link :to="{ name: 'PublicNoteListView' }" class="btn"
         >Public notes</router-link
       >
     </div>

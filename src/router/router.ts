@@ -9,11 +9,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/RepoList.vue"),
   },
   {
-    path: "/notes",
-    name: "PublicNoteList",
-    component: () => import("@/views/PublicNoteList.vue"),
-  },
-  {
     path: "/:user/:repo",
     name: "FluxNoteView",
     props: true,
@@ -21,13 +16,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/notes",
-    name: "PublicNoteView",
-    component: () => import("@/views/PublicNoteView.vue"),
+    name: "PublicNoteListView",
+    component: () => import("@/views/PublicNoteListView.vue"),
   },
   {
     path: "/tiboudenote",
-    name: "PublicNoteView",
-    component: () => import("@/views/PublicNoteView.vue"),
+    name: "PublicNoteListView",
+    component: () => import("@/views/PublicNoteListView.vue"),
   },
   {
     path: "/:user/:repo/inbox",
