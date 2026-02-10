@@ -9,6 +9,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/RepoList.vue"),
   },
   {
+    path: "/notes",
+    name: "PublicNoteList",
+    component: () => import("@/views/PublicNoteList.vue"),
+  },
+  {
     path: "/:user/:repo",
     name: "FluxNoteView",
     props: true,

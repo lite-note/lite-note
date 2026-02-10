@@ -19,6 +19,9 @@
       <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
         >Manage your repos</router-link
       >
+      <router-link :to="{ name: 'PublicNoteList' }" class="btn"
+        >Public notes</router-link
+      >
     </div>
 
     <form class="github-form" @submit.prevent>
