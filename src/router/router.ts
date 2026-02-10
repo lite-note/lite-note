@@ -15,14 +15,20 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/FluxNoteView.vue"),
   },
   {
+    path: "/tiboudenote",
+    name: "PublicNoteListView",
+    component: () => import("@/views/PublicNoteListView.vue"),
+  },
+  {
     path: "/notes",
     name: "PublicNoteListView",
     component: () => import("@/views/PublicNoteListView.vue"),
   },
   {
-    path: "/tiboudenote",
-    name: "PublicNoteListView",
-    component: () => import("@/views/PublicNoteListView.vue"),
+    path: "/notes/:did/:rkey",
+    name: "PublicNoteView",
+    props: true,
+    component: () => import("@/views/PublicNoteView.vue"),
   },
   {
     path: "/:user/:repo/inbox",

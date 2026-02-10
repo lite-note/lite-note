@@ -28,7 +28,15 @@ const getAlias = (did: string) => aka.value.get(did) ?? ""
   <div class="public-note-view" v-else>
     <ul>
       <li v-for="note in state.notes">
-        {{ getAlias(note.did) }}: {{ note.title }}
+        {{ getAlias(note.did) }}:
+        <router-link
+          :to="{
+            name: 'PublicNoteView',
+            params: { did: note.did, rkey: note.rkey },
+          }"
+          class="btn btn-link"
+          >{{ note.title }}</router-link
+        >
       </li>
     </ul>
   </div>
