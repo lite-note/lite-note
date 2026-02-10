@@ -20,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/PublicNoteView.vue"),
   },
   {
+    path: "/tiboudenote",
+    name: "PublicNoteView",
+    component: () => import("@/views/PublicNoteView.vue"),
+  },
+  {
     path: "/:user/:repo/share/:note",
     name: "ShareNotes",
     props: true,
