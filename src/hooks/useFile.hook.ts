@@ -1,6 +1,6 @@
 import { computed, Ref, ref, toValue } from "vue"
 
-import { useMarkdown } from "@/hooks/useMarkdown.hook"
+import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import { prepareNoteCache } from "@/modules/note/cache/prepareNoteCache"
 import { queryFileContent } from "@/modules/repo/services/repo"
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
@@ -18,7 +18,7 @@ export const useFile = (sha: Ref<string> | string, retrieveContent = true) => {
     render,
     renderFromUTF8,
     getRawContent: getRawContentFromFile,
-  } = useMarkdown(shaValue)
+  } = markdownBuilder(shaValue)
 
   const { getCachedNote, saveCacheNote } = prepareNoteCache(
     shaValue,

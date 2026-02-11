@@ -1,4 +1,4 @@
-import { useMarkdown } from "@/hooks/useMarkdown.hook"
+import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import { prepareNoteCache } from "@/modules/note/cache/prepareNoteCache"
 import { RepoFile } from "@/modules/repo/interfaces/RepoFile"
 import { UserSettings } from "@/modules/repo/interfaces/UserSettings"
@@ -41,7 +41,7 @@ export const getCachedMainReadme = async (owner: string, repo: string) => {
   if (!owner || !repo) {
     return null
   }
-  const { render } = useMarkdown()
+  const { render } = markdownBuilder()
 
   const { getCachedNote } = prepareNoteCache(`${owner}-${repo}-README`)
   const { note: cachedReadme } = await getCachedNote()
@@ -58,7 +58,7 @@ export const getMainReadme = async (owner: string, repo: string) => {
     return null
   }
 
-  const { render } = useMarkdown()
+  const { render } = markdownBuilder()
   const { getCachedNote, saveCacheNote } = prepareNoteCache(
     `${owner}-${repo}-README`,
   )

@@ -11,7 +11,7 @@ import {
 
 import StackedNote from "@/components/StackedNote.vue"
 import { useLinks } from "@/hooks/useLinks.hook"
-import { useMarkdown } from "@/hooks/useMarkdown.hook"
+import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import { useNoteView } from "@/hooks/useNoteView.hook"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 import { useVisitRepo } from "@/modules/history/hooks/useVisitRepo.hook"
@@ -48,7 +48,7 @@ const refProps = toRefs(props)
 const store = useUserRepoStore()
 useUserSettings()
 const { visitRepo } = useVisitRepo({ user: user, repo: repo })
-const { toHTML } = useMarkdown(repo)
+const { toHTML } = markdownBuilder(repo)
 const { listenToClick } = useLinks("note-display")
 const { stackedNotes, scrollToFocusedNote } = useRouteQueryStackedNotes()
 

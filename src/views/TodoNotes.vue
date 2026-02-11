@@ -2,7 +2,7 @@
 import { computed, defineAsyncComponent, nextTick, ref, watch } from "vue"
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
 import { useCheckboxCommit } from "@/hooks/useCheckboxCommit.hook"
-import { useMarkdown } from "@/hooks/useMarkdown.hook"
+import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import { queryFileContent } from "@/modules/repo/services/repo"
 import { decodeBase64ToUTF8 } from "@/utils/decodeBase64ToUTF8"
 
@@ -20,23 +20,19 @@ const todoNote = computed(() =>
 const sha = computed(() => todoNote.value?.sha ?? "")
 const path = computed(() => todoNote.value?.path)
 
-const { toHTML } = useMarkdown(repo)
+const { toHTML } = markdownBuilder(repo)
 
 // Setup checkbox commit handler
-const {
-  pendingContent,
-  syncContent,
-  listenToCheckboxes,
-  hasPendingChanges,
-} = useCheckboxCommit({
-  user: props.user,
-  repo: props.repo,
-  path,
-  initialContent: "",
-  initialSha: sha,
-  containerSelector: ".todo-notes .note-display",
-  debounceMs: 1000,
-})
+const { pendingContent, syncContent, listenToCheckboxes, hasPendingChanges } =
+  useCheckboxCommit({
+    user: props.user,
+    repo: props.repo,
+    path,
+    initialContent: "",
+    initialSha: sha,
+    containerSelector: ".todo-notes .note-display",
+    debounceMs: 1000,
+  })
 
 // Render pending content to HTML for display
 const renderedContent = computed(() => {

@@ -116,7 +116,7 @@ const rules: Renderer.RenderRuleRecord = {
 
 md.renderer.rules = { ...md.renderer.rules, ...rules }
 
-export const useMarkdown = (defaultPrefix?: Ref<string> | string) => {
+export const markdownBuilder = (defaultPrefix?: Ref<string> | string) => {
   const getRawContent = (content: string) => decodeBase64ToUTF8(content)
   const renderFromUTF8 = (content: string, prefix?: string) =>
     content

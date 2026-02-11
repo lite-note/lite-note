@@ -188,34 +188,6 @@ watch(mode, async (newMode) => {
           <path d="M16 5l3 3" />
         </svg>
       </button>
-      <router-link
-        v-if="false"
-        :to="{
-          name: 'ShareNotes',
-          params: { user: user, repo: repo, note: sha },
-        }"
-        class="action"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-share"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <circle cx="6" cy="12" r="3" />
-          <circle cx="18" cy="6" r="3" />
-          <circle cx="18" cy="18" r="3" />
-          <line x1="8.7" y1="10.7" x2="15.3" y2="7.3" />
-          <line x1="8.7" y1="13.3" x2="15.3" y2="16.7" />
-        </svg>
-      </router-link>
       <div v-if="mode === 'edit'" class="edit">
         <edit-note v-model="rawContent" />
 
