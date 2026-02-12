@@ -19,16 +19,7 @@ const confirmBeforeCachingAllNotes = async () => {
       class="progress progress-accent w-56"
       :max="totalOfNotes"
     ></progress>
-    <div>
-      <span class="countdown">
-        <span
-          :style="{ '--value': noteCompleted }"
-          aria-live="polite"
-          :aria-label="`${noteCompleted}`"
-          >{{ noteCompleted }}</span
-        ></span
-      >/{{ totalOfNotes }}
-    </div>
+    <div class="numeric">{{ noteCompleted }}/{{ totalOfNotes }}</div>
   </div>
   <button v-else class="button" @click="() => confirmBeforeCachingAllNotes()">
     <svg
@@ -55,5 +46,9 @@ const confirmBeforeCachingAllNotes = async () => {
 <style scoped lang="scss">
 .cache-all-notes {
   text-align: center;
+}
+
+.numeric {
+  font-family: "Courier Prime", monospace;
 }
 </style>
