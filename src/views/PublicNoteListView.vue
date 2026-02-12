@@ -24,25 +24,73 @@ const getAlias = (did: string) => aka.value.get(did) ?? ""
 </script>
 
 <template>
-  <div v-if="isLoading"></div>
-  <div class="public-note-view" v-else>
-    <ul>
-      <li v-for="note in state.notes">
-        {{ getAlias(note.did) }}:
-        <router-link
-          :to="{
-            name: 'PublicNoteView',
-            params: { did: note.did, rkey: note.rkey },
-          }"
-          class="btn btn-link"
-          >{{ note.title }}</router-link
-        >
-      </li>
-    </ul>
-  </div>
+  <main class="public-note-view">
+    <h1>Lite public notes</h1>
+    <div v-if="isLoading"></div>
+    <div v-else>
+      <ul class="list rounded-box shadow-sm">
+        <li v-for="note in state.notes" class="list-row">
+          <div class="list-col">
+            <div>
+              <router-link
+                :to="{
+                  name: 'PublicNoteView',
+                  params: { did: note.did, rkey: note.rkey },
+                }"
+                class="btn btn-link"
+                >{{ note.title }}</router-link
+              >
+            </div>
+            <div class="text-xs uppercase font-semibold opacity-60">
+              <span v-if="getAlias(note.did)">
+                {{ getAlias(note.did) }}
+              </span>
+              <div v-else class="skeleton h-4 w-20"></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <router-link
+      :to="{ name: 'Home' }"
+      class="button is-small is-white back-button"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-arrow-narrow-left"
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <line x1="5" y1="12" x2="9" y2="16" />
+        <line x1="5" y1="12" x2="9" y2="8" />
+      </svg>
+      return home
+    </router-link>
+  </main>
 </template>
 
 <style scoped lang="scss">
 .public-note-view {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-left: 1rem;
+
+  h1 {
+    margin-top: 1rem;
+  }
+
+  a {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
 }
 </style>

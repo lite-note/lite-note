@@ -4,6 +4,14 @@
 
     <repo-list />
 
+    <p>
+      Lite notes are
+
+      <router-link :to="{ name: 'PublicNoteListView' }" class="btn btn-link"
+        >now public</router-link
+      >!
+    </p>
+
     <last-visited />
 
     <div class="get-started">
@@ -18,9 +26,6 @@
       >
       <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
         >Manage your repos</router-link
-      >
-      <router-link :to="{ name: 'PublicNoteListView' }" class="btn"
-        >Public notes</router-link
       >
     </div>
 
