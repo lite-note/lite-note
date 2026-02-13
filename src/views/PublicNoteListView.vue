@@ -31,17 +31,15 @@ const getAlias = (did: string) => aka.value.get(did) ?? ""
       <ul class="list rounded-box shadow-sm">
         <li v-for="note in state.notes" class="list-row">
           <div class="list-col">
-            <div>
-              <router-link
-                :to="{
-                  name: 'PublicNoteView',
-                  params: { did: note.did, rkey: note.rkey },
-                }"
-                class="btn btn-link"
-                >{{ note.title }}</router-link
-              >
-            </div>
-            <div class="text-xs uppercase font-semibold opacity-60">
+            <router-link
+              :to="{
+                name: 'PublicNoteView',
+                params: { did: note.did, rkey: note.rkey },
+              }"
+              class="btn btn-link"
+              >{{ note.title }}</router-link
+            >
+            <div class="text-xs opacity-80 alias">
               <span v-if="getAlias(note.did)">
                 {{ getAlias(note.did) }}
               </span>
@@ -87,10 +85,28 @@ const getAlias = (did: string) => aka.value.get(did) ?? ""
     margin-top: 1rem;
   }
 
-  a {
+  a.back-button {
     display: flex;
     gap: 0.5rem;
     align-items: center;
+  }
+
+  li {
+    display: flex;
+
+    .list-col {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    a {
+      text-align: left;
+    }
+
+    .alias {
+      text-align: right;
+    }
   }
 }
 </style>

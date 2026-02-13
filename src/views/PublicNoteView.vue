@@ -70,6 +70,7 @@ const content = computed(() =>
           >{{ title }}</a
         >
       </div>
+      <span class="badge badge-accent">{{ alias }}</span>
       <article v-html="content"></article>
     </div>
   </div>
@@ -118,12 +119,10 @@ const content = computed(() =>
   }
 
   .note {
-    position: sticky;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     height: 100vh;
-    position: sticky;
 
     .title {
       text-align: left;
