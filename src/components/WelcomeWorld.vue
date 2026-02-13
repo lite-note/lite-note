@@ -5,11 +5,10 @@
     <repo-list />
 
     <p>
-      Lite notes are
-
-      <router-link :to="{ name: 'PublicNoteListView' }" class="btn btn-link"
-        >now public</router-link
-      >!
+      Lite notes are now
+      <router-link :to="{ name: 'PublicNoteListView' }" class="btn"
+        >public</router-link
+      >
     </p>
 
     <last-visited />

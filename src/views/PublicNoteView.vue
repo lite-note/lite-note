@@ -67,10 +67,10 @@ const content = computed(() =>
           class="title-stacked-note-link"
           @click.prevent="scrollToFocusedNote()"
           v-if="alias && title"
-          >{{ alias }} | {{ title }}</a
+          >{{ title }}</a
         >
       </div>
-      <article v-html="content" class="note"></article>
+      <article v-html="content"></article>
     </div>
   </div>
 </template>
@@ -81,6 +81,9 @@ const content = computed(() =>
   flex: 1;
 
   .article {
+    position: sticky;
+    left: 0;
+    top: 0;
     padding: 0 2rem;
     scrollbar-width: none;
   }
