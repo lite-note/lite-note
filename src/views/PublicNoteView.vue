@@ -42,7 +42,7 @@ const did = computed(() => props.did)
 const rkey = computed(() => props.rkey)
 const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 
-const alias = computedAsync(async () => getUniqueAka(did.value))
+const author = computedAsync(async () => getUniqueAka(did.value))
 const url = computedAsync(async () =>
   getUrl({ did: did.value, rkey: rkey.value }),
 )
@@ -50,11 +50,27 @@ const rawContent = computedAsync(async () =>
   url.value ? ((await fetch(url.value).then()).json() as Promise<Root>) : null,
 )
 const { toHTML } = markdownBuilder()
+const withATProtoImages = (markdown: string) => {
+  if (!author.value) {
+    return markdown
+  }
+
+  const endpoint = author.value.endpoint
+
+  const imageLinkPattern = /!\[([^\]]*)\]\((bafkrei[a-z0-9]+)\)/g
+
+  return markdown.replace(imageLinkPattern, (_, altText, cid) => {
+    const imageUrl = new URL("/xrpc/com.atproto.sync.getBlob", endpoint)
+    imageUrl.searchParams.set("did", did.value)
+    imageUrl.searchParams.set("cid", cid)
+    return `![${altText}](${imageUrl.toString()})`
+  })
+}
 
 const title = computed(() => rawContent.value?.value.title)
 const content = computed(() =>
   rawContent.value?.value.content
-    ? toHTML(rawContent.value?.value.content)
+    ? toHTML(withATProtoImages(rawContent.value?.value.content))
     : "",
 )
 </script>
@@ -66,11 +82,11 @@ const content = computed(() =>
         <a
           class="title-stacked-note-link"
           @click.prevent="scrollToFocusedNote()"
-          v-if="alias && title"
+          v-if="author && title"
           >{{ title }}</a
         >
       </div>
-      <span class="badge badge-accent">{{ alias }}</span>
+      <span class="badge badge-accent" v-if="author">{{ author.alias }}</span>
       <article v-html="content"></article>
     </div>
   </div>
@@ -80,6 +96,10 @@ const content = computed(() =>
 .public-note-view {
   display: flex;
   flex: 1;
+
+  .badge {
+    margin-bottom: 1rem;
+  }
 
   .article {
     position: sticky;
