@@ -55,7 +55,7 @@ export default defineConfig(({ command }) => {
             },
             {
               src: "monochrome-icon.png",
-              sizes: "512x512",
+              sizes: "1024x1024",
               type: "image/png",
               purpose: "monochrome",
             },
