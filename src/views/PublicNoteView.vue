@@ -61,9 +61,11 @@ watch(article, () => {
     downloadFont(article.value.value.fontFamily)
   }
 
+  console.log("font size:", article.value?.value.fontSize)
+
   if (article.value?.value.fontSize) {
     const root = document.documentElement
-    root.style.setProperty("--font-size", article.value.value.fontSize)
+    root.style.setProperty("--font-size", `${article.value.value.fontSize}pt`)
   }
 })
 
@@ -125,6 +127,10 @@ watch(
 .public-note-view {
   display: flex;
   flex: 1;
+
+  h1 {
+    font-size: 1.5rem;
+  }
 
   .badge {
     margin-bottom: 1rem;
