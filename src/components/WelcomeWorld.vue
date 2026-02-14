@@ -1,6 +1,9 @@
 <template>
   <div class="welcome-world">
-    <h1 class="title is-1">Remanso</h1>
+    <h1 class="title is-1">
+      <img src="/favicon.png" alt="Remanso icon" />
+      Remanso
+    </h1>
 
     <repo-list />
 
@@ -90,6 +93,14 @@ const { userInput, repoInput, submit } = useForm()
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  img {
+    width: 64px;
+    height: 64px;
+    box-shadow: none;
+  }
+}
+
 .welcome-world {
   padding: 1rem;
   margin: auto;
