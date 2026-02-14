@@ -9,10 +9,10 @@
     "test": "vitest",
     "types": "tsc --noEmit",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore --fix src",
-    "pwa:asset": "npx vue-pwa-asset-generator -a public/img/logo.png --no-manifest",
     "prepare": "husky",
     "theme:light": "esno _scripts/change-theme-light.ts",
-    "theme:dark": "esno _scripts/change-theme-dark.ts"
+    "theme:dark": "esno _scripts/change-theme-dark.ts",
+    "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^6.0.8",
@@ -64,6 +64,7 @@
     "@types/sanitize-html": "^2.16.0",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.2",
+    "@vite-pwa/assets-generator": "^1.0.2",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-sfc": "^3.5.22",
     "@vue/eslint-config-prettier": "^10.2.0",
