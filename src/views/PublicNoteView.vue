@@ -61,8 +61,6 @@ watch(article, () => {
     downloadFont(article.value.value.fontFamily)
   }
 
-  console.log("font size:", article.value?.value.fontSize)
-
   if (article.value?.value.fontSize) {
     const root = document.documentElement
     root.style.setProperty("--font-size", `${article.value.value.fontSize}pt`)
@@ -122,9 +120,11 @@ watch(
           >{{ title }}</a
         >
       </div>
-      <span class="badge badge-accent badge-author" v-if="author">{{
-        author.alias
-      }}</span>
+      <span class="badge" v-if="publishedAt">{{ publishedAt }}</span>
+
+      <span class="badge badge-accent badge-author" v-if="author">
+        {{ author.alias }}</span
+      >
       <article class="note-display" v-html="content"></article>
       <router-link
         :to="{ name: 'Home' }"

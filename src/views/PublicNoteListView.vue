@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getAka } from "@/modules/atproto/getAka"
+import { Author, getAka } from "@/modules/atproto/getAka"
 import { PublicNoteListItem } from "@/modules/note/models/Note"
 import { computedAsync, useAsyncState } from "@vueuse/core"
 
@@ -13,14 +13,16 @@ const { state, isLoading } = useAsyncState<{
   { notes: [] },
 )
 
-const aka = computedAsync<Map<string, string>>(async () => {
+const aka = computedAsync<Map<string, Author>>(async () => {
   if (state.value.notes.length === 0) {
     return new Map()
   }
+
   return getAka(new Set(state.value.notes.map((n) => n.did)))
 }, new Map())
 
-const getAlias = (did: string) => aka.value.get(did) ?? ""
+const getAlias = (did: string) =>
+  aka.value.has(did) ? aka.value.get(did)?.alias : ""
 </script>
 
 <template>
