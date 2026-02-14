@@ -7,12 +7,6 @@
 
     <repo-list />
 
-    <p>
-      <router-link :to="{ name: 'PublicNoteListView' }" class="btn"
-        >Public notes</router-link
-      >
-    </p>
-
     <last-visited />
 
     <div class="get-started">
