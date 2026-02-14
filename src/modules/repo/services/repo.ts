@@ -92,7 +92,7 @@ export const getUserSettingsContent = async (
   repo: string,
   files: RepoFile[],
 ): Promise<Omit<UserSettings, "chosenFontFamily"> | null> => {
-  const configFile = files.find((file) => file.path === ".litenote.json")
+  const configFile = files.find((file) => file.path === ".remanso.json")
 
   if (!configFile?.sha) {
     return null

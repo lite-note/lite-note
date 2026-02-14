@@ -21,7 +21,7 @@
       <router-link
         :to="{
           name: 'FluxNoteView',
-          params: { user: 'lite-note', repo: 'getting-started' },
+          params: { user: 'remanso-space', repo: 'getting-started' },
         }"
         class="btn"
         >Get started</router-link

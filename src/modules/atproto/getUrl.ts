@@ -20,7 +20,7 @@ export const getUrl = async ({ did, rkey }: { did: string; rkey: string }) => {
     await getEndpoint(did),
   )
   url.searchParams.set("repo", did)
-  url.searchParams.set("collection", "space.litenote.note")
+  url.searchParams.set("collection", "space.remanso.note")
   url.searchParams.set("rkey", rkey)
 
   return url.toString()
