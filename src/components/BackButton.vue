@@ -6,7 +6,7 @@ const goBack = () => router.back()
 </script>
 
 <template>
-  <button class="button is-small is-white back-button" @click="goBack">
+  <a class="btn btn-sm back-button" @click="goBack">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="icon icon-tabler icon-tabler-arrow-narrow-left"
@@ -23,6 +23,5 @@ const goBack = () => router.back()
       <line x1="5" y1="12" x2="9" y2="16" />
       <line x1="5" y1="12" x2="9" y2="8" />
     </svg>
-    return
-  </button>
+  </a>
 </template>

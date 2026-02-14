@@ -58,7 +58,7 @@ const getAlias = (did: string) =>
         </li>
       </ul>
     </div>
-    <BackButton />
+    <BackButton class="back-button" />
   </main>
 </template>
 
@@ -73,7 +73,7 @@ const getAlias = (did: string) =>
     margin-top: 1rem;
   }
 
-  a.back-button {
+  .back-button {
     display: flex;
     gap: 0.5rem;
     align-items: center;
