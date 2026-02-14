@@ -1,11 +1,11 @@
 <template>
   <div class="welcome-world">
-    <h1 class="title is-1">Lite Note</h1>
+    <h1 class="title is-1">Remanso</h1>
 
     <repo-list />
 
     <p>
-      Lite notes are now
+      Remanso notes are now
       <router-link :to="{ name: 'PublicNoteListView' }" class="btn"
         >public</router-link
       >

@@ -7,8 +7,8 @@
       }
     ],
     "vite.config.ts": {
-      "label": "Lite Note GitHub app",
-      "uri": "https://github.com/organizations/lite-note/settings/apps/lite-note"
+      "label": "Remanso GitHub app",
+      "uri": "https://github.com/organizations/remanso-spance/settings/apps/lite-note"
     }
   }
 }

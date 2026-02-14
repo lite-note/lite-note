@@ -21,9 +21,9 @@ export default defineConfig(({ command }) => {
           "assets/*.svg",
         ],
         manifest: {
-          name: "Lite Note",
-          short_name: "LiteNote",
-          description: "Lite note taking",
+          name: "Remanso",
+          short_name: "Remanso",
+          description: "Note taking & sharing app",
           background_color: mainColor,
           theme_color: mainColor,
           icons: [

@@ -1,3 +1,3 @@
-# Lite note
+# Remanso
 
-[Lite Note website](https://litenote.space)
+[Remanso website](https://remanso.space)

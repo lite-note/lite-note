@@ -1,10 +1,10 @@
-import { getOctokit } from '@/modules/repo/services/octo'
-import { encodeUTF8ToBase64 } from '@/utils/decodeBase64ToUTF8'
-import { confirmMessage, errorMessage } from '@/utils/notif'
+import { getOctokit } from "@/modules/repo/services/octo"
+import { encodeUTF8ToBase64 } from "@/utils/decodeBase64ToUTF8"
+import { confirmMessage, errorMessage } from "@/utils/notif"
 
 export const useGitHubContent = ({
   user,
-  repo
+  repo,
 }: {
   user: string
   repo: string
@@ -12,7 +12,7 @@ export const useGitHubContent = ({
   const putFile = async ({
     content,
     path,
-    sha
+    sha,
   }: {
     content: string
     path: string
@@ -27,17 +27,17 @@ export const useGitHubContent = ({
           owner: user,
           repo,
           path,
-          message: `Updating ${path} from Lite Note`,
+          message: `Updating ${path} from Remanso`,
           content: encodeUTF8ToBase64(content),
-          sha
-        }
+          sha,
+        },
       )
 
-      confirmMessage('✅ Note saved')
+      confirmMessage("✅ Note saved")
 
       return response?.data.content?.sha ?? null
     } catch (error) {
-      errorMessage('❌ Note could not be saved')
+      errorMessage("❌ Note could not be saved")
       console.warn(error)
     }
 
@@ -48,6 +48,6 @@ export const useGitHubContent = ({
     updateFile: async (props: { content: string; path: string; sha: string }) =>
       putFile(props),
     createFile: async (props: { content: string; path: string }) =>
-      putFile(props)
+      putFile(props),
   }
 }
