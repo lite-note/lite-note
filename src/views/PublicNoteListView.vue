@@ -43,7 +43,7 @@ const getAlias = (did: string) =>
               >{{ note.title }}</router-link
             >
 
-            <div class="text-xs opacity-80 alias">
+            <div class="text-xs opacity-90 alias">
               <span v-if="getAlias(note.did)">
                 {{ getAlias(note.did) }}
               </span>
