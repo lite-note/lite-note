@@ -8,9 +8,8 @@
     <repo-list />
 
     <p>
-      Remanso notes are now
       <router-link :to="{ name: 'PublicNoteListView' }" class="btn"
-        >public</router-link
+        >Public notes</router-link
       >
     </p>
 

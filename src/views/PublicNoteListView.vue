@@ -27,7 +27,7 @@ const getAlias = (did: string) =>
 
 <template>
   <main class="public-note-list-view">
-    <h1>Lite public notes</h1>
+    <h1>Remanso notes</h1>
     <div v-if="isLoading"></div>
     <div v-else>
       <ul class="list rounded-box shadow-sm">
