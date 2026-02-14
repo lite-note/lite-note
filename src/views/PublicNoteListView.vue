@@ -24,7 +24,7 @@ const getAlias = (did: string) => aka.value.get(did) ?? ""
 </script>
 
 <template>
-  <main class="public-note-view">
+  <main class="public-note-list-view">
     <h1>Lite public notes</h1>
     <div v-if="isLoading"></div>
     <div v-else>
@@ -75,7 +75,7 @@ const getAlias = (did: string) => aka.value.get(did) ?? ""
 </template>
 
 <style scoped lang="scss">
-.public-note-view {
+.public-note-list-view {
   display: flex;
   flex: 1;
   flex-direction: column;

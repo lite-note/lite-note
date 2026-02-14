@@ -120,6 +120,28 @@ watch(
       <span class="badge badge-accent" v-if="author">{{ author.alias }}</span>
       <article class="note-display" v-html="content"></article>
     </div>
+    <router-link
+      :to="{ name: 'Home' }"
+      class="button is-small is-white back-button"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-arrow-narrow-left"
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <line x1="5" y1="12" x2="9" y2="16" />
+        <line x1="5" y1="12" x2="9" y2="8" />
+      </svg>
+      return home
+    </router-link>
   </div>
 </template>
 
@@ -127,6 +149,13 @@ watch(
 .public-note-view {
   display: flex;
   flex: 1;
+
+  .back-button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: flex;
+  }
 
   h1 {
     font-size: 1.5rem;
