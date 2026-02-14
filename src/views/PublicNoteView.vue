@@ -93,6 +93,11 @@ const content = computed(() =>
     ? toHTML(withATProtoImages(article.value?.value.content))
     : "",
 )
+const publishedAt = computed(() =>
+  article.value?.value.publishedAt
+    ? new Date(article.value?.value.publishedAt).toLocaleDateString()
+    : null,
+)
 
 const { listenToClick } = useATProtoLinks("note-display")
 
@@ -117,7 +122,9 @@ watch(
           >{{ title }}</a
         >
       </div>
-      <span class="badge badge-accent" v-if="author">{{ author.alias }}</span>
+      <span class="badge badge-accent badge-author" v-if="author">{{
+        author.alias
+      }}</span>
       <article class="note-display" v-html="content"></article>
       <router-link
         :to="{ name: 'Home' }"
@@ -162,7 +169,7 @@ watch(
     font-size: 1.5rem;
   }
 
-  .badge {
+  .badge-author {
     position: absolute;
     top: 0.4rem;
     right: 2rem;

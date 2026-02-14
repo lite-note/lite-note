@@ -39,9 +39,15 @@ const getAlias = (did: string) => aka.value.get(did) ?? ""
               class="btn btn-link"
               >{{ note.title }}</router-link
             >
+
             <div class="text-xs opacity-80 alias">
               <span v-if="getAlias(note.did)">
                 {{ getAlias(note.did) }}
+              </span>
+              <span v-if="note.publishedAt"
+                >&nbsp;•&nbsp;{{
+                  new Date(note.publishedAt).toLocaleDateString()
+                }}
               </span>
               <div v-else class="skeleton h-4 w-20"></div>
             </div>
