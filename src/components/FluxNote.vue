@@ -183,13 +183,6 @@ $header-height: 40px;
       flex-direction: column;
       align-items: center;
 
-      .repo-header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-      }
-
       .title {
         margin-bottom: 0;
       }
