@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Remanso is a Vue 3 + TypeScript web app that displays markdown notes from GitHub repositories with Zettelkasten-style backlinks. Users access notes via `https://litenote.space/{user}/{repo}`. Supports both public repos (direct access) and private repos (GitHub OAuth).
+Remanso is a Vue 3 + TypeScript web app that displays markdown notes from GitHub repositories with Zettelkasten-style backlinks. Users access notes via `https://remanso.space/{user}/{repo}`. Supports both public repos (direct access) and private repos (GitHub OAuth).
 
 ## Commands
 

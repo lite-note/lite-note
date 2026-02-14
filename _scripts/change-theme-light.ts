@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Script pour changer facilement le thème clair de l'application LiteNote
+// Script pour changer facilement le thème clair de l'application Remanso
 // Usage: pnpm run theme:light [theme-name]
 
 import { readFileSync, writeFileSync } from "fs"
