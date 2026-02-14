@@ -70,11 +70,8 @@
         />
       </svg>
       by
-      <a
-        href="http://github.com/jcalixte"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Julien</a
+      <a href="https://apoena.dev" target="_blank" rel="noopener noreferrer"
+        >apoena</a
       >
     </footer>
   </div>
