@@ -5,16 +5,14 @@
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
-    "moduleResolution": "node",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "baseUrl": ".",
     "resolveJsonModule": true,
     "types": ["node", "vite/client", "vite-plugin-pwa/vue"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "preserveSymlinks": true,
     "lib": ["esnext", "dom", "dom.iterable", "scripthost", "ES2015"]
