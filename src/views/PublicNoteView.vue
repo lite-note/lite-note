@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useATProtoLinks } from "@/hooks/useATProtoLinks.hook"
 import { markdownBuilder } from "@/hooks/useMarkdown.hook"
+import BackButton from "@/components/BackButton.vue"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 import { getUniqueAka } from "@/modules/atproto/getAka"
 import { getUrl } from "@/modules/atproto/getUrl"
@@ -126,28 +127,7 @@ watch(
         <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
       </span>
       <article class="note-display" v-html="content"></article>
-      <router-link
-        :to="{ name: 'Home' }"
-        class="button is-small is-white back-button"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-arrow-narrow-left"
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <line x1="5" y1="12" x2="19" y2="12" />
-          <line x1="5" y1="12" x2="9" y2="16" />
-          <line x1="5" y1="12" x2="9" y2="8" />
-        </svg>
-        return home
-      </router-link>
+      <BackButton />
     </div>
   </div>
 </template>
