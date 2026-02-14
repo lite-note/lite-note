@@ -11,7 +11,7 @@
   --link: #445fb9;
   --light-link: lighten(#445fb9, 45%);
   --background-color: #ffffff;
-  --note-width: 620px;
+  --note-width: 480px;
   --color-contrast-content: var(--color-success);
   --notyf-margin: 0.5rem;
 }
