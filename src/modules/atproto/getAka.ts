@@ -2,8 +2,6 @@ export type Author = { alias: string; endpoint: string }
 
 const correspondanceCache = new Map<string, Author>()
 
-console.log({ correspondanceCache })
-
 export const getUniqueAka = async (did: string): Promise<Author> => {
   if (correspondanceCache.has(did)) {
     return correspondanceCache.get(did) as Author

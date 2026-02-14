@@ -1,7 +1,7 @@
 import { createEventBus } from "retrobus"
 
 interface EventBusParams {
-  path: string
+  atUri: string
   currentNoteRkey?: string
 }
 

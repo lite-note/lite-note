@@ -2,103 +2,70 @@
 import { useATProtoLinks } from "@/hooks/useATProtoLinks.hook"
 import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import BackButton from "@/components/BackButton.vue"
+import StackedPublicNote from "@/components/StackedPublicNote.vue"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 import { getUniqueAka } from "@/modules/atproto/getAka"
+import type { PublicNoteRecord } from "@/modules/atproto/publicNote.types"
+import { withATProtoImages } from "@/modules/atproto/withATProtoImages"
 import { getUrl } from "@/modules/atproto/getUrl"
 import { downloadFont } from "@/utils/downloadFont"
 import { computedAsync } from "@vueuse/core"
 import { computed, nextTick, watch } from "vue"
-
-export interface Root {
-  uri: string
-  cid: string
-  value: Value
-}
-
-export interface Value {
-  $type: string
-  title: string
-  images: Image[]
-  content: string
-  createdAt: string
-  publishedAt: string
-  theme?: string
-  fontFamily?: string
-  fontSize?: string
-}
-
-export interface Image {
-  alt: string
-  image: Image2
-}
-
-export interface Image2 {
-  $type: string
-  ref: Ref
-  mimeType: string
-  size: number
-}
-
-export interface Ref {
-  $link: string
-}
+import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
+import { publicNoteEventBus } from "@/bus/publicNoteEventBus"
+import { errorMessage } from "@/utils/notif"
 
 const props = defineProps<{ did: string; rkey: string }>()
 const did = computed(() => props.did)
 const rkey = computed(() => props.rkey)
-const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 
 const author = computedAsync(async () => getUniqueAka(did.value))
 const url = computedAsync(async () =>
   getUrl({ did: did.value, rkey: rkey.value }),
 )
 
-const article = computedAsync(async () =>
-  url.value ? ((await fetch(url.value).then()).json() as Promise<Root>) : null,
+const noteRecord = computedAsync(async () =>
+  url.value
+    ? ((await fetch(url.value).then()).json() as Promise<PublicNoteRecord>)
+    : null,
 )
 
-watch(article, () => {
-  if (article.value?.value.fontFamily) {
-    downloadFont(article.value.value.fontFamily)
+watch(noteRecord, () => {
+  if (noteRecord.value?.value.fontFamily) {
+    downloadFont(noteRecord.value.value.fontFamily)
   }
 
-  if (article.value?.value.fontSize) {
+  if (noteRecord.value?.value.fontSize) {
     const root = document.documentElement
-    root.style.setProperty("--font-size", `${article.value.value.fontSize}pt`)
+    root.style.setProperty(
+      "--font-size",
+      `${noteRecord.value.value.fontSize}pt`,
+    )
   }
 })
 
 const { toHTML } = markdownBuilder()
-const withATProtoImages = (markdown: string) => {
-  if (!author.value) {
-    return markdown
-  }
 
-  const endpoint = author.value.endpoint
-
-  const imageLinkPattern = /!\[([^\]]*)\]\((bafkrei[a-z0-9]+)\)/g
-
-  return markdown.replace(imageLinkPattern, (_, altText, cid) => {
-    const imageUrl = new URL("/xrpc/com.atproto.sync.getBlob", endpoint)
-    imageUrl.searchParams.set("did", did.value)
-    imageUrl.searchParams.set("cid", cid)
-    return `![${altText}](${imageUrl.toString()})`
-  })
-}
-
-const title = computed(() => article.value?.value.title)
+const title = computed(() => noteRecord.value?.value.title)
 const content = computed(() =>
-  article.value?.value.content
-    ? toHTML(withATProtoImages(article.value?.value.content))
+  noteRecord.value?.value.content && author.value
+    ? toHTML(
+        withATProtoImages(noteRecord.value.value.content, {
+          endpoint: author.value.endpoint,
+          did: did.value,
+        }),
+      )
     : "",
 )
 const publishedAt = computed(() =>
-  article.value?.value.publishedAt
-    ? new Date(article.value?.value.publishedAt).toLocaleDateString()
+  noteRecord.value?.value.publishedAt
+    ? new Date(noteRecord.value?.value.publishedAt).toLocaleDateString()
     : null,
 )
 
+const { stackedNotes, scrollToFocusedNote } = useRouteQueryStackedNotes()
 const { listenToClick } = useATProtoLinks("note-display")
+useResizeContainer("note-container", stackedNotes)
 
 watch(
   content,
@@ -111,7 +78,7 @@ watch(
 </script>
 
 <template>
-  <div class="public-note-view repo-note">
+  <div class="public-note-view repo-note note-container">
     <div class="note article">
       <div class="repo-title-breadcrumb">
         <a
@@ -127,8 +94,16 @@ watch(
         <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
       </span>
       <article class="note-display" v-html="content"></article>
+
       <BackButton />
     </div>
+    <stacked-public-note
+      v-for="(stackedNote, index) in stackedNotes"
+      :key="stackedNote"
+      class="note"
+      :index="index"
+      :at-uri="stackedNote"
+    />
   </div>
 </template>
 

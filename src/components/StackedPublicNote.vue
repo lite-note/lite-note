@@ -1,0 +1,191 @@
+<script lang="ts" setup>
+import { computed, nextTick, watch } from "vue"
+import { useATProtoLinks } from "@/hooks/useATProtoLinks.hook"
+import { useNoteOverlay } from "@/hooks/useNoteOverlay.hook"
+import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
+import { markdownBuilder } from "@/hooks/useMarkdown.hook"
+import { computedAsync } from "@vueuse/core"
+import { getUrl } from "@/modules/atproto/getUrl"
+import { withATProtoImages } from "@/modules/atproto/withATProtoImages"
+import { getUniqueAka } from "@/modules/atproto/getAka"
+import { PublicNoteRecord } from "@/modules/atproto/publicNote.types"
+import { parseAtUri } from "@/modules/atproto/parseAtUri"
+
+const props = defineProps<{
+  atUri: string
+  index: number
+  title?: string
+}>()
+
+const atUri = computed(() => props.atUri)
+const atUriProps = computed(() => parseAtUri(atUri.value))
+const did = computed(() => atUriProps.value.did)
+const rkey = computed(() => atUriProps.value.rkey)
+const index = computed(() => props.index)
+
+const author = computedAsync(async () => getUniqueAka(did.value))
+const url = computedAsync(async () =>
+  getUrl({ did: did.value, rkey: rkey.value }),
+)
+
+const className = computed(() => `stacked-note-${props.index}`)
+const titleClassName = computed(() => `title-${className.value}`)
+
+const { scrollToFocusedNote } = useRouteQueryStackedNotes()
+const { listenToClick } = useATProtoLinks(className.value, atUri)
+const { displayNoteOverlay } = useNoteOverlay(className.value, index)
+
+const noteRecord = computedAsync(async () =>
+  url.value
+    ? ((await fetch(url.value).then()).json() as Promise<PublicNoteRecord>)
+    : null,
+)
+const { toHTML } = markdownBuilder()
+const title = computed(() => noteRecord.value?.value.title)
+const content = computed(() =>
+  noteRecord.value?.value.content && author.value
+    ? toHTML(
+        withATProtoImages(noteRecord.value.value.content, {
+          endpoint: author.value.endpoint,
+          did: did.value,
+        }),
+      )
+    : "",
+)
+
+watch(
+  content,
+  async () => {
+    await nextTick()
+    listenToClick()
+  },
+  { immediate: true },
+)
+</script>
+
+<template>
+  <div
+    class="stacked-note"
+    :class="{
+      [className]: true,
+      overlay: displayNoteOverlay,
+      [`note-${rkey}`]: true,
+    }"
+  >
+    <a
+      class="title-stacked-note-link"
+      @click.prevent="scrollToFocusedNote(rkey)"
+    >
+      <div
+        class="title-stacked-note breadcrumbs text-sm"
+        :class="titleClassName"
+      >
+        {{ title }}
+      </div>
+    </a>
+    <section class="text-content">
+      <div class="note-content" v-html="content"></div>
+    </section>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+$border-color: rgba(18, 19, 58, 0.2);
+
+.stacked-note {
+  padding: 0 1.5rem 1rem;
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+  scrollbar-width: none;
+
+  &.overlay {
+    box-shadow: -3px 0 0.4em $border-color;
+  }
+
+  section {
+    padding: 0 0.5rem 2rem;
+  }
+}
+
+.offline-ready {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.title-stacked-note {
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+  font-size: 0.8em;
+  overflow: hidden;
+
+  ul,
+  li {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    text-decoration: none;
+  }
+}
+
+.text-content {
+  flex: 1;
+  scrollbar-width: none;
+
+  div {
+    height: 100%;
+  }
+}
+
+.action {
+  float: right;
+  margin: 0.2rem;
+
+  img {
+    vertical-align: bottom;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .stacked-note {
+    padding: 0 0.75rem 1rem;
+
+    section {
+      padding: 1rem 0 2rem;
+      overflow-x: auto;
+    }
+
+    .note-content {
+      padding: 0;
+      scrollbar-width: none;
+    }
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .stacked-note {
+    border-top: 0;
+    border-left: 1px solid $border-color;
+  }
+
+  .title-stacked-note {
+    padding: 0 1rem;
+    transform-origin: 0 0;
+    transform: rotate(90deg);
+  }
+
+  a {
+    white-space: nowrap;
+  }
+}
+
+@media print {
+  .stacked-note {
+    break-after: always;
+
+    &.overlay {
+      box-shadow: none;
+    }
+  }
+}
+</style>
