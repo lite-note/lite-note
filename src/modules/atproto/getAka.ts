@@ -3,7 +3,6 @@ type Author = { alias: string; endpoint: string }
 const correspondanceCache = new Map<string, Author>()
 
 export const getUniqueAka = async (did: string): Promise<Author> => {
-  console.log(correspondanceCache)
   if (correspondanceCache.has(did)) {
     return correspondanceCache.get(did) as Author
   }
@@ -18,7 +17,6 @@ export const getUniqueAka = async (did: string): Promise<Author> => {
   const author = { alias, endpoint: serviceEndpoint }
 
   correspondanceCache.set(did, author)
-  console.log(correspondanceCache)
 
   return author
 }

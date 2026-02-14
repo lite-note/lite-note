@@ -106,6 +106,8 @@ const getAlias = (did: string) => aka.value.get(did) ?? ""
 
     .alias {
       text-align: right;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 }

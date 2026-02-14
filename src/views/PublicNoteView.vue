@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { useATProtoLinks } from "@/hooks/useATProtoLinks.hook"
 import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 import { getUniqueAka } from "@/modules/atproto/getAka"
 import { getUrl } from "@/modules/atproto/getUrl"
+import { downloadFont } from "@/utils/downloadFont"
 import { computedAsync } from "@vueuse/core"
-import { computed } from "vue"
+import { computed, nextTick, watch } from "vue"
 
 export interface Root {
   uri: string
@@ -19,6 +21,9 @@ export interface Value {
   content: string
   createdAt: string
   publishedAt: string
+  theme?: string
+  fontFamily?: string
+  fontSize?: string
 }
 
 export interface Image {
@@ -46,9 +51,22 @@ const author = computedAsync(async () => getUniqueAka(did.value))
 const url = computedAsync(async () =>
   getUrl({ did: did.value, rkey: rkey.value }),
 )
-const rawContent = computedAsync(async () =>
+
+const article = computedAsync(async () =>
   url.value ? ((await fetch(url.value).then()).json() as Promise<Root>) : null,
 )
+
+watch(article, () => {
+  if (article.value?.value.fontFamily) {
+    downloadFont(article.value.value.fontFamily)
+  }
+
+  if (article.value?.value.fontSize) {
+    const root = document.documentElement
+    root.style.setProperty("--font-size", article.value.value.fontSize)
+  }
+})
+
 const { toHTML } = markdownBuilder()
 const withATProtoImages = (markdown: string) => {
   if (!author.value) {
@@ -67,16 +85,27 @@ const withATProtoImages = (markdown: string) => {
   })
 }
 
-const title = computed(() => rawContent.value?.value.title)
+const title = computed(() => article.value?.value.title)
 const content = computed(() =>
-  rawContent.value?.value.content
-    ? toHTML(withATProtoImages(rawContent.value?.value.content))
+  article.value?.value.content
+    ? toHTML(withATProtoImages(article.value?.value.content))
     : "",
+)
+
+const { listenToClick } = useATProtoLinks("note-display")
+
+watch(
+  content,
+  async () => {
+    await nextTick()
+    listenToClick()
+  },
+  { immediate: true },
 )
 </script>
 
 <template>
-  <div class="public-note-view">
+  <div class="public-note-view repo-note">
     <div class="note article">
       <div class="repo-title-breadcrumb">
         <a
@@ -87,7 +116,7 @@ const content = computed(() =>
         >
       </div>
       <span class="badge badge-accent" v-if="author">{{ author.alias }}</span>
-      <article v-html="content"></article>
+      <article class="note-display" v-html="content"></article>
     </div>
   </div>
 </template>
