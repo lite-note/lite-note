@@ -90,7 +90,12 @@ watch(
       </div>
 
       <span class="badge badge-author" v-if="author">
-        {{ author.alias }}
+        <router-link
+          :to="{ name: 'PublicNoteListByDidView', params: { did: did } }"
+          class="link link-hover"
+        >
+          {{ author.alias }}
+        </router-link>
         <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
       </span>
       <article class="note-display" v-html="content"></article>

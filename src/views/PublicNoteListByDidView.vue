@@ -1,15 +1,22 @@
 <script setup lang="ts">
 import BackButton from "@/components/BackButton.vue"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
+import { getUniqueAka } from "@/modules/atproto/getAka"
+import { computedAsync } from "@vueuse/core"
+import { computed } from "vue"
 import { vInfiniteScroll } from "@vueuse/components"
 
-const { notes, isLoading, canLoadMore, onLoadMore, getAlias } =
-  usePublicNoteList()
+const props = defineProps<{ did: string }>()
+const did = computed(() => props.did)
+
+const { notes, isLoading, canLoadMore, onLoadMore } = usePublicNoteList(did)
+
+const author = computedAsync(async () => getUniqueAka(did.value))
 </script>
 
 <template>
   <main class="public-note-list-view">
-    <h1>Remanso notes</h1>
+    <h1>{{ author?.alias ?? did }}</h1>
     <back-button class="back-button" />
     <div v-if="isLoading"></div>
     <div v-else>
@@ -29,22 +36,9 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAlias } =
             >
 
             <div class="text-xs opacity-80 alias">
-              <router-link
-                v-if="getAlias(note.did)"
-                :to="{
-                  name: 'PublicNoteListByDidView',
-                  params: { did: note.did },
-                }"
-                class="link link-hover"
-              >
-                {{ getAlias(note.did) }}
-              </router-link>
-              <span v-if="note.publishedAt"
-                >&nbsp;•&nbsp;{{
-                  new Date(note.publishedAt).toLocaleDateString()
-                }}
+              <span v-if="note.publishedAt">
+                {{ new Date(note.publishedAt).toLocaleDateString() }}
               </span>
-              <div v-else class="skeleton h-4 w-20"></div>
             </div>
           </div>
         </li>
