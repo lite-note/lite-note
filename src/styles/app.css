@@ -24,7 +24,7 @@
 
 @plugin 'daisyui' {
   themes:
-    retro --default,
+    garden --default,
     coffee --prefersdark;
 }
 
