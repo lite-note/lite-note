@@ -88,7 +88,10 @@ watch(
         >
       </div>
 
-      <span class="badge badge-author" v-if="author && content">
+      <span
+        class="badge badge-author badge-soft badge-accent"
+        v-if="author && content"
+      >
         <router-link
           :to="{ name: 'PublicNoteListByDidView', params: { did: did } }"
           class="link link-hover"
