@@ -59,6 +59,7 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAlias } =
   flex: 1;
   flex-direction: column;
   margin-left: 1rem;
+  margin-right: 1rem;
 
   h1 {
     margin-top: 1rem;
