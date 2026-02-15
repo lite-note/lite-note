@@ -1,6 +1,6 @@
 import { onMounted, watch, type Ref } from "vue"
 
-import { NOTE_WIDTH } from "@/constants/note-width"
+import { getNoteWidth } from "@/constants/note-width"
 import { useOverlay } from "@/hooks/useOverlay.hook"
 
 export const useResizeContainer = (
@@ -22,7 +22,7 @@ export const useResizeContainer = (
       container.style.height = `${(stackedNotes.value.length + 1) * 100}vh`
     } else {
       container.style.width = `${
-        NOTE_WIDTH * (stackedNotes.value.length + 1)
+        getNoteWidth() * (stackedNotes.value.length + 1)
       }px`
     }
   }

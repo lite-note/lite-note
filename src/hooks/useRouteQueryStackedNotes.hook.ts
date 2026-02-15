@@ -2,7 +2,7 @@ import { useWindowSize } from "@vueuse/core"
 import { useRouteQuery } from "@vueuse/router"
 import { nextTick, readonly } from "vue"
 
-import { NOTE_WIDTH } from "@/constants/note-width"
+import { getNoteWidth } from "@/constants/note-width"
 import { useOverlay } from "@/hooks/useOverlay.hook"
 
 export const useRouteQueryStackedNotes = () => {
@@ -37,7 +37,7 @@ export const useRouteQueryStackedNotes = () => {
       } else {
         if (sha) {
           const margin = index * 44
-          const left = (index + 1) * NOTE_WIDTH - margin
+          const left = (index + 1) * getNoteWidth() - margin
           scrollToNote(left)
         } else {
           scrollToNote(0)
