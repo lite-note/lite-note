@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router"
+import { useRouter, type RouteLocationRaw } from "vue-router"
+
+const props = defineProps<{ fallback?: RouteLocationRaw }>()
 
 const router = useRouter()
-const goBack = () => router.back()
+const goBack = () => {
+  if (window.history.state?.back) {
+    router.back()
+  } else if (props.fallback) {
+    router.push(props.fallback)
+  } else {
+    router.back()
+  }
+}
 </script>
 
 <template>

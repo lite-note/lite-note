@@ -10,7 +10,7 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAlias } =
 <template>
   <main class="public-note-list-view">
     <h1>Remanso notes</h1>
-    <back-button class="back-button" />
+    <back-button class="back-button" :fallback="{ name: 'Home' }" />
     <div v-if="isLoading"></div>
     <div v-else>
       <ul
