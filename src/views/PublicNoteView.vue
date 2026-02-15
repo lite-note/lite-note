@@ -99,7 +99,10 @@ watch(
       </span>
       <article class="note-display" v-html="content"></article>
 
-      <BackButton :fallback="{ name: 'PublicNoteListByDidView', params: { did } }" />
+      <back-button
+        :fallback="{ name: 'PublicNoteListByDidView', params: { did } }"
+        :prefer-fallback="false"
+      />
     </div>
     <stacked-public-note
       v-for="(stackedNote, index) in stackedNotes"
