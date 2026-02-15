@@ -6,8 +6,13 @@ import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import { queryFileContent } from "@/modules/repo/services/repo"
 import { decodeBase64ToUTF8 } from "@/utils/decodeBase64ToUTF8"
 
+type Prop = {
+  user: string
+  repo: string
+}
+
 const FluxNote = defineAsyncComponent(() => import("@/components/FluxNote.vue"))
-const props = defineProps<{ user: string; repo: string }>()
+const props = defineProps<Prop>()
 const user = computed(() => props.user)
 const repo = computed(() => props.repo)
 

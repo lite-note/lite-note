@@ -1,5 +1,5 @@
 import markdownItLatex from "@vscode/markdown-it-katex"
-import MarkdownIt, { Options, Renderer, Token } from "markdown-it"
+import MarkdownIt, { Options } from "markdown-it"
 import blockEmbedPlugin from "markdown-it-block-embed"
 import markdownItCheckbox from "markdown-it-checkbox"
 import MarkdownItGitHubAlerts from "markdown-it-github-alerts"
@@ -9,8 +9,9 @@ import { Ref, toValue } from "vue"
 
 import { decodeBase64ToUTF8 } from "@/utils/decodeBase64ToUTF8"
 import { html5Media } from "@/utils/markdown/markdown-html5-media"
-import { twitterPlugin } from "@/utils/markdown/markdown-it-twitter"
 import mermaid from "mermaid"
+import type Token from "markdown-it/lib/token.mjs"
+import Renderer, { type RenderRuleRecord } from "markdown-it/lib/renderer.mjs"
 
 const markdownItMermaidExtractor = (md: MarkdownIt) => {
   const defaultFence =
@@ -55,7 +56,6 @@ const md = new MarkdownIt({
       height: 300,
     },
   })
-  .use(twitterPlugin)
   .use(markdownItCheckbox)
   .use(markdownItLatex)
   .use(markdownItIframe, {
@@ -108,7 +108,7 @@ export const runMermaid = (querySelector: string) => {
   })
 }
 
-const rules: Renderer.RenderRuleRecord = {
+const rules: RenderRuleRecord = {
   table_open: () =>
     '<div class="overflow-x-auto"><table class="table table-zebra">',
   table_close: () => "</table></div>",

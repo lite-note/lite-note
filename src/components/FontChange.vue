@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue"
-import { useUserRepoStore } from "../modules/repo/store/userRepo.store"
+
 import ThemeSwap from "@/components/ThemeSwap.vue"
+
+import { useUserRepoStore } from "../modules/repo/store/userRepo.store"
 
 const store = useUserRepoStore()
 
