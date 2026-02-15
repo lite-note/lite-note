@@ -122,7 +122,7 @@ watch(
   .back-button {
     position: absolute;
     left: 1.5rem;
-    top: 0.4rem;
+    top: 0.5rem;
     display: flex;
     align-items: center;
   }
@@ -133,7 +133,7 @@ watch(
 
   .badge-author {
     position: absolute;
-    top: 0.4rem;
+    top: 0.5rem;
     right: 2rem;
   }
 
