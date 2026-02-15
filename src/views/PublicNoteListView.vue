@@ -2,24 +2,39 @@
 import BackButton from "@/components/BackButton.vue"
 import { Author, getAka } from "@/modules/atproto/getAka"
 import { PublicNoteListItem } from "@/modules/note/models/Note"
-import { computedAsync, useAsyncState } from "@vueuse/core"
+import { computedAsync } from "@vueuse/core"
+import { computed, ref } from "vue"
+import { vInfiniteScroll } from "@vueuse/components"
 
-const { state, isLoading } = useAsyncState<{
-  notes: PublicNoteListItem[]
-}>(
-  async () => {
-    const response = await fetch("https://api.litenote.li212.fr/notes")
-    return response.json()
-  },
-  { notes: [] },
-)
+const isLoading = ref(false)
+const notes = ref<PublicNoteListItem[]>([])
+const cursor = ref<string | null | undefined>(null)
+const canLoadMore = computed(() => cursor.value !== undefined)
+
+const onLoadMore = async () => {
+  isLoading.value = true
+  const noteAPI = new URL("/notes", "https://api.litenote.li212.fr")
+
+  if (cursor.value) {
+    noteAPI.searchParams.set("cursor", cursor.value)
+  }
+
+  const response = await fetch(noteAPI)
+
+  const data: { notes: PublicNoteListItem[]; cursor: string | undefined } =
+    await response.json()
+
+  notes.value.push(...data.notes)
+  cursor.value = data.cursor
+  isLoading.value = false
+}
 
 const aka = computedAsync<Map<string, Author>>(async () => {
-  if (state.value.notes.length === 0) {
+  if (notes.value.length === 0) {
     return new Map()
   }
 
-  return getAka(new Set(state.value.notes.map((n) => n.did)))
+  return getAka(new Set(notes.value.map((n) => n.did)))
 }, new Map())
 
 const getAlias = (did: string) =>
@@ -31,8 +46,11 @@ const getAlias = (did: string) =>
     <h1>Remanso notes</h1>
     <div v-if="isLoading"></div>
     <div v-else>
-      <ul class="list rounded-box shadow-sm">
-        <li v-for="note in state.notes" class="list-row">
+      <ul
+        class="list rounded-box shadow-sm"
+        v-infinite-scroll="[onLoadMore, { canLoadMore: () => canLoadMore }]"
+      >
+        <li v-for="note in notes" class="list-row">
           <div class="list-col">
             <router-link
               :to="{
