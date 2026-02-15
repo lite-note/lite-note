@@ -20,22 +20,25 @@ export const useRouteQueryStackedNotes = () => {
   const { scrollToNote, isMobile } = useOverlay(false)
 
   const scrollToFocusedNote = (
-    sha: string | null = null,
+    noteId: string | null = null,
     notes: string[] = stackedNotes.value,
   ) => {
     nextTick(() => {
-      const index = sha ? notes.findIndex((noteSHA) => noteSHA === sha) : 0
+      const index = noteId ? notes.findIndex((nid) => nid.includes(noteId)) : 0
 
       if (isMobile.value) {
-        if (sha) {
-          const element = document.querySelector(`.note-${sha}`) as HTMLElement
+        if (noteId) {
+          const element = document.querySelector(
+            `.note-${noteId}`,
+          ) as HTMLElement
+
           const top = (index + 1) * (element?.clientHeight ?? height.value)
           scrollToNote(top)
         } else {
           scrollToNote(0)
         }
       } else {
-        if (sha) {
+        if (noteId) {
           const margin = index * 44
           const left = (index + 1) * getNoteWidth() - margin
           scrollToNote(left)
@@ -46,9 +49,13 @@ export const useRouteQueryStackedNotes = () => {
     })
   }
 
-  const addStackedNote = (currentSha: string, sha: string) => {
+  const addStackedNote = (
+    currentSha: string,
+    sha: string,
+    selector?: string,
+  ) => {
     if (stackedNotes.value.includes(sha)) {
-      scrollToFocusedNote(sha)
+      scrollToFocusedNote(selector ?? sha)
       return
     }
 
@@ -68,7 +75,7 @@ export const useRouteQueryStackedNotes = () => {
       stackedNotes.value = newStackedNotes
     }
 
-    scrollToFocusedNote(sha, stackedNotes.value)
+    scrollToFocusedNote(selector ?? sha, stackedNotes.value)
   }
 
   return {

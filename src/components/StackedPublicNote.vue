@@ -21,6 +21,7 @@ const atUri = computed(() => props.atUri)
 const atUriProps = computed(() => parseAtUri(atUri.value))
 const did = computed(() => atUriProps.value.did)
 const rkey = computed(() => atUriProps.value.rkey)
+
 const index = computed(() => props.index)
 
 const author = computedAsync(async () => getUniqueAka(did.value))

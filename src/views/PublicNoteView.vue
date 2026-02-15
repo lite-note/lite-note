@@ -12,8 +12,6 @@ import { downloadFont } from "@/utils/downloadFont"
 import { computedAsync } from "@vueuse/core"
 import { computed, nextTick, watch } from "vue"
 import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
-import { publicNoteEventBus } from "@/bus/publicNoteEventBus"
-import { errorMessage } from "@/utils/notif"
 
 const props = defineProps<{ did: string; rkey: string }>()
 const did = computed(() => props.did)
@@ -57,6 +55,7 @@ const content = computed(() =>
       )
     : "",
 )
+
 const publishedAt = computed(() =>
   noteRecord.value?.value.publishedAt
     ? new Date(noteRecord.value?.value.publishedAt).toLocaleDateString()
@@ -89,7 +88,7 @@ watch(
         >
       </div>
 
-      <span class="badge badge-author" v-if="author">
+      <span class="badge badge-author" v-if="author && content">
         <router-link
           :to="{ name: 'PublicNoteListByDidView', params: { did: did } }"
           class="link link-hover"
@@ -202,6 +201,18 @@ watch(
     .note {
       min-width: var(--note-width);
       max-width: var(--note-width);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+
+    .repo-title-breadcrumb {
+      display: none;
+    }
+
+    .article article {
+      margin-top: 48px;
     }
   }
 }

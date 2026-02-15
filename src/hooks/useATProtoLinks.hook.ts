@@ -2,6 +2,7 @@ import { ComputedRef, onUnmounted, Ref, toValue } from "vue"
 
 import { isExternalLink } from "@/utils/link"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
+import { parseAtUri } from "@/modules/atproto/parseAtUri"
 
 export const useATProtoLinks = (
   className: ComputedRef<string> | string,
@@ -27,8 +28,9 @@ export const useATProtoLinks = (
       window.open(atUri, "_blank")
       return
     }
+    const { rkey } = parseAtUri(atUri)
 
-    addStackedNote(toValue(currentAtUri) ?? "", atUri)
+    addStackedNote(toValue(currentAtUri) ?? "", atUri, rkey)
   }
 
   const LINK_SELECTOR = `.${toValue(className)} a`
