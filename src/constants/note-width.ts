@@ -1,1 +1,1 @@
-export const NOTE_WIDTH = 620
+export const NOTE_WIDTH = 480

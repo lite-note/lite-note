@@ -28,11 +28,12 @@ export const useNoteOverlay = (
     const { stackedNotes } = useRouteQueryStackedNotes()
     const noteElement = document.querySelector(
       `.${className}`,
-    ) as HTMLElement | null
+    ) satisfies HTMLElement | null
 
     if (!noteElement) {
       return
     }
+
     noteHeight.value = noteElement.clientHeight
 
     if (isMobile.value) {
@@ -42,7 +43,7 @@ export const useNoteOverlay = (
 
       const stackedNoteContainers = document.querySelectorAll(
         ".stacked-note",
-      ) as NodeListOf<HTMLElement>
+      ) satisfies NodeListOf<HTMLElement>
 
       stackedNoteContainers.forEach((stackedNote, ind) => {
         stackedNote.style.right = `calc(-${NOTE_WIDTH}px + ${

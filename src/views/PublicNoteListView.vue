@@ -44,6 +44,7 @@ const getAlias = (did: string) =>
 <template>
   <main class="public-note-list-view">
     <h1>Remanso notes</h1>
+    <back-button class="back-button" />
     <div v-if="isLoading"></div>
     <div v-else>
       <ul
@@ -76,7 +77,6 @@ const getAlias = (did: string) =>
         </li>
       </ul>
     </div>
-    <BackButton class="back-button" />
   </main>
 </template>
 
