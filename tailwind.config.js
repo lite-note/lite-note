@@ -32,7 +32,7 @@ module.exports = {
             p: {
               "margin-top": "0.8em",
               "margin-bottom": "0.8em",
-              "text-align": "justify",
+              "text-align": "left",
               // "text-wrap": "balance",
             },
             "img, video": {
