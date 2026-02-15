@@ -9,7 +9,7 @@ export const useATProtoLinks = (
   currentAtUri?: Ref<string> | string,
 ) => {
   const { addStackedNote } = useRouteQueryStackedNotes()
-  const linkNote: EventListener = (event) => {
+  const linkNote = (event: Event) => {
     const target = event.target as HTMLElement
     const atUri = target.getAttribute("href")
 
