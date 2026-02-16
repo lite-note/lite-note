@@ -99,6 +99,7 @@ watch(
           </router-link>
           <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
         </span>
+        <div class="badge skeleton h-4 w-50" v-else></div>
       </div>
       <div class="repo-title-breadcrumb">
         <a
@@ -131,6 +132,8 @@ watch(
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   h1 {
@@ -138,13 +141,8 @@ watch(
   }
 
   .article {
-    position: sticky;
     padding: 0 2rem;
     scrollbar-width: none;
-
-    article {
-      margin-top: 1rem;
-    }
   }
 
   &.content {
@@ -193,6 +191,7 @@ watch(
       transform-origin: 0 0;
       transform: rotate(90deg);
       font-size: 0.8em;
+      text-wrap: nowrap;
 
       a {
         color: var(--color-base-content);
@@ -205,6 +204,10 @@ watch(
       min-width: var(--note-width);
       max-width: var(--note-width);
     }
+  }
+
+  .note {
+    width: 100%;
   }
 
   @media screen and (max-width: 768px) {

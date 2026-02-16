@@ -9,8 +9,10 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAlias } =
 
 <template>
   <main class="public-note-list-view">
-    <h1>Remanso notes</h1>
-    <back-button class="back-button" :fallback="{ name: 'Home' }" />
+    <div class="header">
+      <back-button class="back-button" :fallback="{ name: 'Home' }" />
+      <h1>Remanso notes</h1>
+    </div>
     <div v-if="isLoading"></div>
     <div v-else>
       <ul
@@ -61,8 +63,17 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAlias } =
   padding-left: 1rem;
   padding-right: 1rem;
 
-  h1 {
+  .header {
     margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h1 {
+    flex: 1;
+    text-align: center;
+    margin-bottom: 0;
   }
 
   .back-button {
