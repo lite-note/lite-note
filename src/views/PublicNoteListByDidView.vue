@@ -52,8 +52,8 @@ const author = computedAsync(async () => getUniqueAka(did.value))
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
   h1 {
     margin-top: 1rem;
@@ -83,6 +83,10 @@ const author = computedAsync(async () => getUniqueAka(did.value))
       display: flex;
       justify-content: flex-end;
     }
+  }
+
+  @media screen and (min-width: 769px) {
+    overflow-y: auto;
   }
 }
 </style>

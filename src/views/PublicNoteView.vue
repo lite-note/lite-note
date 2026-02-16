@@ -12,6 +12,7 @@ import { downloadFont } from "@/utils/downloadFont"
 import { computedAsync } from "@vueuse/core"
 import { computed, nextTick, watch } from "vue"
 import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
+import ThemeSwap from "@/components/ThemeSwap.vue"
 
 const props = defineProps<{ did: string; rkey: string }>()
 const did = computed(() => props.did)
@@ -79,6 +80,26 @@ watch(
 <template>
   <div class="public-note-view repo-note note-container">
     <div class="note article">
+      <div class="header">
+        <back-button
+          :fallback="{ name: 'PublicNoteListByDidView', params: { did } }"
+          :prefer-fallback="false"
+        />
+        <theme-swap />
+
+        <span
+          class="badge badge-author badge-soft badge-accent"
+          v-if="author && content"
+        >
+          <router-link
+            :to="{ name: 'PublicNoteListByDidView', params: { did: did } }"
+            class="link link-hover"
+          >
+            {{ author.alias }}
+          </router-link>
+          <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
+        </span>
+      </div>
       <div class="repo-title-breadcrumb">
         <a
           class="title-stacked-note-link"
@@ -88,24 +109,7 @@ watch(
         >
       </div>
 
-      <span
-        class="badge badge-author badge-soft badge-accent"
-        v-if="author && content"
-      >
-        <router-link
-          :to="{ name: 'PublicNoteListByDidView', params: { did: did } }"
-          class="link link-hover"
-        >
-          {{ author.alias }}
-        </router-link>
-        <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
-      </span>
       <article class="note-display" v-html="content"></article>
-
-      <back-button
-        :fallback="{ name: 'PublicNoteListByDidView', params: { did } }"
-        :prefer-fallback="false"
-      />
     </div>
     <stacked-public-note
       v-for="(stackedNote, index) in stackedNotes"
@@ -122,22 +126,15 @@ watch(
   display: flex;
   flex: 1;
 
-  .back-button {
-    position: absolute;
-    left: 1.5rem;
-    top: 0.5rem;
+  .header {
+    margin-top: 1rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
   }
 
   h1 {
     font-size: 1.5rem;
-  }
-
-  .badge-author {
-    position: absolute;
-    top: 0.5rem;
-    right: 2rem;
   }
 
   .article {
