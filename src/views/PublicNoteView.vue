@@ -98,7 +98,10 @@ watch(
           >
             {{ author.handle }}
           </router-link>
-          <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
+          <template v-if="publishedAt">
+            <span>&nbsp;•&nbsp;</span>
+            <span>{{ publishedAt }}</span>
+          </template>
         </span>
         <div class="badge skeleton h-4 w-50" v-else></div>
       </div>

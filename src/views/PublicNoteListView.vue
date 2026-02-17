@@ -41,11 +41,13 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
               >
                 {{ getAuthor(note.did) }}
               </router-link>
-              <span v-if="note.publishedAt"
-                >&nbsp;•&nbsp;{{
+
+              <template v-if="note.publishedAt">
+                <span>&nbsp;•&nbsp;</span>
+                <span>{{
                   new Date(note.publishedAt).toLocaleDateString()
-                }}
-              </span>
+                }}</span>
+              </template>
               <div v-else class="skeleton h-4 w-20"></div>
             </div>
           </div>
