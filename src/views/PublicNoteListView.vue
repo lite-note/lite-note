@@ -3,7 +3,7 @@ import BackButton from "@/components/BackButton.vue"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
 import { vInfiniteScroll } from "@vueuse/components"
 
-const { notes, isLoading, canLoadMore, onLoadMore, getAlias } =
+const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
   usePublicNoteList()
 </script>
 
@@ -32,14 +32,14 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAlias } =
 
             <div class="text-xs opacity-80 alias">
               <router-link
-                v-if="getAlias(note.did)"
+                v-if="getAuthor(note.did)"
                 :to="{
                   name: 'PublicNoteListByDidView',
                   params: { did: note.did },
                 }"
                 class="link link-hover"
               >
-                {{ getAlias(note.did) }}
+                {{ getAuthor(note.did) }}
               </router-link>
               <span v-if="note.publishedAt"
                 >&nbsp;•&nbsp;{{

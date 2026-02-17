@@ -4,7 +4,7 @@ import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import BackButton from "@/components/BackButton.vue"
 import StackedPublicNote from "@/components/StackedPublicNote.vue"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
-import { getUniqueAka } from "@/modules/atproto/getAka"
+import { getAuthor } from "@/modules/atproto/getAuthor"
 import type { PublicNoteRecord } from "@/modules/atproto/publicNote.types"
 import { withATProtoImages } from "@/modules/atproto/withATProtoImages"
 import { getUrl } from "@/modules/atproto/getUrl"
@@ -18,9 +18,10 @@ const props = defineProps<{ did: string; rkey: string }>()
 const did = computed(() => props.did)
 const rkey = computed(() => props.rkey)
 
-const author = computedAsync(async () => getUniqueAka(did.value))
-const url = computedAsync(async () =>
-  getUrl({ did: did.value, rkey: rkey.value }),
+const author = computedAsync(async () => getAuthor(did.value))
+const url = computedAsync(
+  async () => getUrl({ did: did.value, rkey: rkey.value }),
+  null,
 )
 
 const noteRecord = computedAsync(async () =>
@@ -50,7 +51,7 @@ const content = computed(() =>
   noteRecord.value?.value.content && author.value
     ? toHTML(
         withATProtoImages(noteRecord.value.value.content, {
-          endpoint: author.value.endpoint,
+          pds: author.value.pds,
           did: did.value,
         }),
       )
@@ -95,7 +96,7 @@ watch(
             :to="{ name: 'PublicNoteListByDidView', params: { did: did } }"
             class="link link-hover"
           >
-            {{ author.alias }}
+            {{ author.handle }}
           </router-link>
           <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
         </span>

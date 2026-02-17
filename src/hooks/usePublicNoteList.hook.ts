@@ -1,4 +1,4 @@
-import { Author, getAka } from "@/modules/atproto/getAka"
+import { Author, getAuthors } from "@/modules/atproto/getAuthor"
 import { PublicNoteListItem } from "@/modules/note/models/Note"
 import { computedAsync } from "@vueuse/core"
 import { computed, ref, Ref } from "vue"
@@ -28,16 +28,23 @@ export function usePublicNoteList(did?: Ref<string | undefined>) {
     isLoading.value = false
   }
 
-  const aka = computedAsync<Map<string, Author>>(async () => {
+  const authors = computedAsync<Map<string, Author>>(async () => {
     if (notes.value.length === 0) {
       return new Map()
     }
 
-    return getAka(new Set(notes.value.map((n) => n.did)))
+    return getAuthors(new Set(notes.value.map((n) => n.did)))
   }, new Map())
 
-  const getAlias = (did: string) =>
-    aka.value.has(did) ? aka.value.get(did)?.alias : ""
+  const getAuthor = (did: string) =>
+    authors.value.has(did) ? authors.value.get(did)?.handle : ""
 
-  return { notes, isLoading, canLoadMore, onLoadMore, aka, getAlias }
+  return {
+    notes,
+    isLoading,
+    canLoadMore,
+    onLoadMore,
+    authors,
+    getAuthor,
+  }
 }

@@ -7,7 +7,7 @@ import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import { computedAsync } from "@vueuse/core"
 import { getUrl } from "@/modules/atproto/getUrl"
 import { withATProtoImages } from "@/modules/atproto/withATProtoImages"
-import { getUniqueAka } from "@/modules/atproto/getAka"
+import { getAuthor } from "@/modules/atproto/getAuthor"
 import { PublicNoteRecord } from "@/modules/atproto/publicNote.types"
 import { parseAtUri } from "@/modules/atproto/parseAtUri"
 
@@ -24,7 +24,7 @@ const rkey = computed(() => atUriProps.value.rkey)
 
 const index = computed(() => props.index)
 
-const author = computedAsync(async () => getUniqueAka(did.value))
+const author = computedAsync(async () => getAuthor(did.value))
 const url = computedAsync(async () =>
   getUrl({ did: did.value, rkey: rkey.value }),
 )
@@ -47,7 +47,7 @@ const content = computed(() =>
   noteRecord.value?.value.content && author.value
     ? toHTML(
         withATProtoImages(noteRecord.value.value.content, {
-          endpoint: author.value.endpoint,
+          pds: author.value.pds,
           did: did.value,
         }),
       )
