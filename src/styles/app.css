@@ -11,7 +11,7 @@
   --link: #445fb9;
   --light-link: lighten(#445fb9, 45%);
   --background-color: #ffffff;
-  --note-width: 480px;
+  --note-width: 500px;
   --color-contrast-content: var(--color-success);
   --notyf-margin: 0.5rem;
 }
@@ -109,7 +109,7 @@ a.title-stacked-note-link {
   border: none;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 500px) {
   .notyf__toast {
     margin: var(--notyf-margin);
     width: calc(100% - 2 * var(--notyf-margin));
