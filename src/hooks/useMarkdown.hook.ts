@@ -1,4 +1,4 @@
-import markdownItLatex from "@vscode/markdown-it-katex"
+import markdownItKatex from "@vscode/markdown-it-katex"
 import MarkdownIt, { Options } from "markdown-it"
 import blockEmbedPlugin from "markdown-it-block-embed"
 import markdownItCheckbox from "markdown-it-checkbox"
@@ -57,7 +57,7 @@ const md = new MarkdownIt({
     },
   })
   .use(markdownItCheckbox)
-  .use(markdownItLatex)
+  .use(markdownItKatex)
   .use(markdownItIframe, {
     width: "100%",
   })
@@ -116,17 +116,24 @@ const rules: RenderRuleRecord = {
 
 md.renderer.rules = { ...md.renderer.rules, ...rules }
 
+const stripFrontmatter = (content: string): string => {
+  const match = content.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/)
+  return match ? content.slice(match[0].length) : content
+}
+
 export const markdownBuilder = (defaultPrefix?: Ref<string> | string) => {
   const getRawContent = (content: string) => decodeBase64ToUTF8(content)
-  const renderFromUTF8 = (content: string, prefix?: string) =>
-    content
-      ? md.render(content, {
+  const renderFromUTF8 = (content: string, prefix?: string) => {
+    return content
+      ? md.render(stripFrontmatter(content), {
           docId: defaultPrefix ? toValue(defaultPrefix) : (prefix ?? ""),
         })
       : ""
+  }
 
   return {
-    toHTML: (content: string) => (content ? md.render(content) : ""),
+    toHTML: (content: string) =>
+      content ? md.render(stripFrontmatter(content)) : "",
     render: (content: string, prefix?: string) =>
       renderFromUTF8(decodeBase64ToUTF8(content), prefix),
     renderFromUTF8,
