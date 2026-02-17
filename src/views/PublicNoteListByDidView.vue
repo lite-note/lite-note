@@ -2,6 +2,7 @@
 import BackButton from "@/components/BackButton.vue"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
 import { getAuthor } from "@/modules/atproto/getAuthor"
+import { slugify } from "@/utils/slugify"
 import { computedAsync } from "@vueuse/core"
 import { computed } from "vue"
 import { vInfiniteScroll } from "@vueuse/components"
@@ -31,7 +32,7 @@ const author = computedAsync(async () => getAuthor(did.value))
             <router-link
               :to="{
                 name: 'PublicNoteView',
-                params: { did: note.did, rkey: note.rkey },
+                params: { did: note.did, rkey: note.rkey, slug: slugify(note.title) },
               }"
               class="btn btn-link"
               >{{ note.title }}</router-link

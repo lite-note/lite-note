@@ -9,12 +9,15 @@ import type { PublicNoteRecord } from "@/modules/atproto/publicNote.types"
 import { withATProtoImages } from "@/modules/atproto/withATProtoImages"
 import { getUrl } from "@/modules/atproto/getUrl"
 import { downloadFont } from "@/utils/downloadFont"
+import { slugify } from "@/utils/slugify"
 import { computedAsync } from "@vueuse/core"
 import { computed, nextTick, watch } from "vue"
+import { useRouter } from "vue-router"
 import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
 import ThemeSwap from "@/components/ThemeSwap.vue"
 
-const props = defineProps<{ did: string; rkey: string }>()
+const props = defineProps<{ did: string; rkey: string; slug?: string }>()
+const router = useRouter()
 const did = computed(() => props.did)
 const rkey = computed(() => props.rkey)
 
@@ -31,6 +34,15 @@ const noteRecord = computedAsync(async () =>
 )
 
 watch(noteRecord, () => {
+  if (
+    noteRecord.value?.value.title &&
+    props.slug &&
+    props.slug !== slugify(noteRecord.value.value.title)
+  ) {
+    router.replace({ name: "SpaceCowboy" })
+    return
+  }
+
   if (noteRecord.value?.value.fontFamily) {
     downloadFont(noteRecord.value.value.fontFamily)
   }

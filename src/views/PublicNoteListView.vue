@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BackButton from "@/components/BackButton.vue"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
+import { slugify } from "@/utils/slugify"
 import { vInfiniteScroll } from "@vueuse/components"
 
 const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
@@ -24,7 +25,7 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
             <router-link
               :to="{
                 name: 'PublicNoteView',
-                params: { did: note.did, rkey: note.rkey },
+                params: { did: note.did, rkey: note.rkey, slug: slugify(note.title) },
               }"
               class="btn btn-link"
               >{{ note.title }}</router-link
