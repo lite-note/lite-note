@@ -2,6 +2,7 @@ import { useWindowSize } from "@vueuse/core"
 import { useRouteQuery } from "@vueuse/router"
 import { nextTick, readonly } from "vue"
 
+import { getBookmarkWidthPx } from "@/constants/bookmark-width"
 import { getNoteWidth } from "@/constants/note-width"
 import { useOverlay } from "@/hooks/useOverlay.hook"
 
@@ -39,8 +40,7 @@ export const useRouteQueryStackedNotes = () => {
         }
       } else {
         if (noteId) {
-          const margin = index * 44
-          const left = (index + 1) * getNoteWidth() - margin
+          const left = (index + 1) * (getNoteWidth() - getBookmarkWidthPx())
           scrollToNote(left)
         } else {
           scrollToNote(0)
