@@ -9,18 +9,15 @@ import { getUrl } from "@/modules/atproto/getUrl"
 import { withATProtoImages } from "@/modules/atproto/withATProtoImages"
 import { getAuthor } from "@/modules/atproto/getAuthor"
 import { PublicNoteRecord } from "@/modules/atproto/publicNote.types"
-import { parseAtUri } from "@/modules/atproto/parseAtUri"
 
 const props = defineProps<{
-  atUri: string
+  didrkey: string
   index: number
-  title?: string
 }>()
 
-const atUri = computed(() => props.atUri)
-const atUriProps = computed(() => parseAtUri(atUri.value))
-const did = computed(() => atUriProps.value.did)
-const rkey = computed(() => atUriProps.value.rkey)
+const didrkey = computed(() => props.didrkey)
+const did = computed(() => props.didrkey.split("-")[0])
+const rkey = computed(() => props.didrkey.split("-")[1])
 
 const index = computed(() => props.index)
 
@@ -33,7 +30,7 @@ const className = computed(() => `stacked-note-${props.index}`)
 const titleClassName = computed(() => `title-${className.value}`)
 
 const { scrollToFocusedNote } = useRouteQueryStackedNotes()
-const { listenToClick } = useATProtoLinks(className.value, atUri)
+const { listenToClick } = useATProtoLinks(className.value, didrkey)
 const { displayNoteOverlay } = useNoteOverlay(className.value, index)
 
 const noteRecord = computedAsync(async () =>
@@ -70,12 +67,12 @@ watch(
     :class="{
       [className]: true,
       overlay: displayNoteOverlay,
-      [`note-${rkey}`]: true,
+      [`note-${didrkey}`]: true,
     }"
   >
     <a
       class="title-stacked-note-link"
-      @click.prevent="scrollToFocusedNote(rkey)"
+      @click.prevent="scrollToFocusedNote(didrkey)"
     >
       <div
         class="title-stacked-note breadcrumbs text-sm"
