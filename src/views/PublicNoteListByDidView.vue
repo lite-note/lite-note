@@ -32,7 +32,11 @@ const author = computedAsync(async () => getAuthor(did.value))
             <router-link
               :to="{
                 name: 'PublicNoteView',
-                params: { did: note.did, rkey: note.rkey, slug: slugify(note.title) },
+                params: {
+                  did: note.did,
+                  rkey: note.rkey,
+                  slug: slugify(note.title),
+                },
               }"
               class="btn btn-link"
               >{{ note.title }}</router-link
@@ -87,6 +91,7 @@ const author = computedAsync(async () => getAuthor(did.value))
     }
 
     a {
+      display: inline;
       text-align: left;
     }
 

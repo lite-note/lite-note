@@ -99,6 +99,7 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
     }
 
     a {
+      display: inline;
       text-align: left;
     }
 
