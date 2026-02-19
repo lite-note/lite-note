@@ -1,42 +1,41 @@
-import { useEventListener, useWindowSize } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import { useEventListener, useWindowSize } from "@vueuse/core"
+import { computed, ref } from "vue"
 
-import { MOBILE_BREAKPOINT } from '@/constants/mobile'
+import { MOBILE_BREAKPOINT } from "@/constants/mobile"
 
 export const useOverlay = (listen = true) => {
-  const body = document.body
   const x = ref(0)
   const y = ref(0)
   const { width } = useWindowSize()
   const isMobile = computed(() => width.value <= MOBILE_BREAKPOINT)
 
   if (listen) {
-    useEventListener(
-      body,
-      'scroll',
-      (event) => {
-        const target = event.target as HTMLElement
-        x.value = target.scrollLeft
-        y.value = target.scrollTop
-      },
-      {
-        passive: true,
-        capture: false
-      }
-    )
+    // In Firefox/Chrome, body is the horizontal scroll container (body has
+    // computed overflow-x: auto from overflow-y: hidden). In Safari, the
+    // viewport (documentElement) is used instead. Listen on both.
+    const updateScroll = () => {
+      x.value = document.body.scrollLeft || window.scrollX
+      y.value = document.body.scrollTop || window.scrollY
+    }
+    useEventListener(window, "scroll", updateScroll, {
+      passive: true,
+      capture: false,
+    })
+    useEventListener(document.body, "scroll", updateScroll, {
+      passive: true,
+      capture: false,
+    })
   }
 
   const scrollToNote = (to: number) => {
     const go = () => {
-      const scrollOptions = isMobile.value
-        ? {
-            top: to
-          }
-        : {
-            left: to
-          }
-
-      body.scroll(scrollOptions)
+      if (isMobile.value) {
+        document.body.scrollTop = to
+        document.documentElement.scrollTop = to
+      } else {
+        document.body.scrollLeft = to
+        document.documentElement.scrollLeft = to
+      }
     }
 
     setTimeout(() => {
@@ -48,6 +47,6 @@ export const useOverlay = (listen = true) => {
     x,
     y,
     isMobile,
-    scrollToNote
+    scrollToNote,
   }
 }

@@ -1,13 +1,13 @@
 import "notyf/notyf.min.css"
 import "./styles/app.css"
 
+import { VueQueryPlugin } from "@tanstack/vue-query"
 import { createPinia } from "pinia"
 import { createApp } from "vue"
 import { createI18n } from "vue-i18n"
 
 import { messages } from "@/locales/message"
 import { router } from "@/router/router"
-import { VueQueryPlugin } from "@tanstack/vue-query"
 
 import App from "./App.vue"
 

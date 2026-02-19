@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import GoBack from '@/components/GoBack.vue'
+import GoBack from "@/components/GoBack.vue"
 </script>
 
 <template>

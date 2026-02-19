@@ -13,6 +13,7 @@ import StackedNote from "@/components/StackedNote.vue"
 import { useLinks } from "@/hooks/useLinks.hook"
 import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import { useNoteView } from "@/hooks/useNoteView.hook"
+import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 import { useVisitRepo } from "@/modules/history/hooks/useVisitRepo.hook"
 import CacheAllNotes from "@/modules/note/components/CacheAllNote.vue"
@@ -52,7 +53,8 @@ const { toHTML } = markdownBuilder(repo)
 const { listenToClick } = useLinks("note-display")
 const { stackedNotes, scrollToFocusedNote } = useRouteQueryStackedNotes()
 
-const { titles } = useNoteView("note-container")
+const { titles } = useNoteView()
+useResizeContainer("note-container", stackedNotes)
 
 const renderedContent = computed(() =>
   props.content !== null

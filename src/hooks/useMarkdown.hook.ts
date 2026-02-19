@@ -1,5 +1,5 @@
-import markdownItLatex from "@vscode/markdown-it-katex"
-import MarkdownIt, { Options, Renderer, Token } from "markdown-it"
+import markdownItKatex from "@vscode/markdown-it-katex"
+import MarkdownIt, { Options } from "markdown-it"
 import blockEmbedPlugin from "markdown-it-block-embed"
 import markdownItCheckbox from "markdown-it-checkbox"
 import MarkdownItGitHubAlerts from "markdown-it-github-alerts"
@@ -9,8 +9,9 @@ import { Ref, toValue } from "vue"
 
 import { decodeBase64ToUTF8 } from "@/utils/decodeBase64ToUTF8"
 import { html5Media } from "@/utils/markdown/markdown-html5-media"
-import { twitterPlugin } from "@/utils/markdown/markdown-it-twitter"
 import mermaid from "mermaid"
+import type Token from "markdown-it/lib/token.mjs"
+import Renderer, { type RenderRuleRecord } from "markdown-it/lib/renderer.mjs"
 
 const markdownItMermaidExtractor = (md: MarkdownIt) => {
   const defaultFence =
@@ -55,9 +56,8 @@ const md = new MarkdownIt({
       height: 300,
     },
   })
-  .use(twitterPlugin)
   .use(markdownItCheckbox)
-  .use(markdownItLatex)
+  .use(markdownItKatex)
   .use(markdownItIframe, {
     width: "100%",
   })
@@ -108,7 +108,7 @@ export const runMermaid = (querySelector: string) => {
   })
 }
 
-const rules: Renderer.RenderRuleRecord = {
+const rules: RenderRuleRecord = {
   table_open: () =>
     '<div class="overflow-x-auto"><table class="table table-zebra">',
   table_close: () => "</table></div>",
@@ -116,17 +116,24 @@ const rules: Renderer.RenderRuleRecord = {
 
 md.renderer.rules = { ...md.renderer.rules, ...rules }
 
+const stripFrontmatter = (content: string): string => {
+  const match = content.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/)
+  return match ? content.slice(match[0].length) : content
+}
+
 export const markdownBuilder = (defaultPrefix?: Ref<string> | string) => {
   const getRawContent = (content: string) => decodeBase64ToUTF8(content)
-  const renderFromUTF8 = (content: string, prefix?: string) =>
-    content
-      ? md.render(content, {
+  const renderFromUTF8 = (content: string, prefix?: string) => {
+    return content
+      ? md.render(stripFrontmatter(content), {
           docId: defaultPrefix ? toValue(defaultPrefix) : (prefix ?? ""),
         })
       : ""
+  }
 
   return {
-    toHTML: (content: string) => (content ? md.render(content) : ""),
+    toHTML: (content: string) =>
+      content ? md.render(stripFrontmatter(content)) : "",
     render: (content: string, prefix?: string) =>
       renderFromUTF8(decodeBase64ToUTF8(content), prefix),
     renderFromUTF8,

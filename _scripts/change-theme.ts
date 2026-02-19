@@ -12,7 +12,7 @@ export const commitTheme = (mode: string, newTheme: string) => {
 
     console.log(`Commit créé avec succès: "${commitMessage}"`)
 
-    execSync(`git push"`, { stdio: "inherit" })
+    execSync(`git push`, { stdio: "inherit" })
 
     console.log(`Push sur origin`)
   } catch (error) {

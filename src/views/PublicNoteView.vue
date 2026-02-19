@@ -2,103 +2,83 @@
 import { useATProtoLinks } from "@/hooks/useATProtoLinks.hook"
 import { markdownBuilder } from "@/hooks/useMarkdown.hook"
 import BackButton from "@/components/BackButton.vue"
+import StackedPublicNote from "@/components/StackedPublicNote.vue"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
-import { getUniqueAka } from "@/modules/atproto/getAka"
+import { getAuthor } from "@/modules/atproto/getAuthor"
+import type { PublicNoteRecord } from "@/modules/atproto/publicNote.types"
+import { withATProtoImages } from "@/modules/atproto/withATProtoImages"
 import { getUrl } from "@/modules/atproto/getUrl"
 import { downloadFont } from "@/utils/downloadFont"
+import { slugify } from "@/utils/slugify"
 import { computedAsync } from "@vueuse/core"
 import { computed, nextTick, watch } from "vue"
+import { useRouter } from "vue-router"
+import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
+import ThemeSwap from "@/components/ThemeSwap.vue"
 
-export interface Root {
-  uri: string
-  cid: string
-  value: Value
-}
-
-export interface Value {
-  $type: string
-  title: string
-  images: Image[]
-  content: string
-  createdAt: string
-  publishedAt: string
-  theme?: string
-  fontFamily?: string
-  fontSize?: string
-}
-
-export interface Image {
-  alt: string
-  image: Image2
-}
-
-export interface Image2 {
-  $type: string
-  ref: Ref
-  mimeType: string
-  size: number
-}
-
-export interface Ref {
-  $link: string
-}
-
-const props = defineProps<{ did: string; rkey: string }>()
+const props = defineProps<{ did: string; rkey: string; slug?: string }>()
+const router = useRouter()
 const did = computed(() => props.did)
 const rkey = computed(() => props.rkey)
-const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 
-const author = computedAsync(async () => getUniqueAka(did.value))
-const url = computedAsync(async () =>
-  getUrl({ did: did.value, rkey: rkey.value }),
+const author = computedAsync(async () => getAuthor(did.value))
+const url = computedAsync(
+  async () => getUrl({ did: did.value, rkey: rkey.value }),
+  null,
 )
 
-const article = computedAsync(async () =>
-  url.value ? ((await fetch(url.value).then()).json() as Promise<Root>) : null,
+const noteRecord = computedAsync(async () =>
+  url.value
+    ? ((await fetch(url.value).then()).json() as Promise<PublicNoteRecord>)
+    : null,
 )
 
-watch(article, () => {
-  if (article.value?.value.fontFamily) {
-    downloadFont(article.value.value.fontFamily)
+watch(noteRecord, () => {
+  if (
+    noteRecord.value?.value.title &&
+    props.slug &&
+    props.slug !== slugify(noteRecord.value.value.title)
+  ) {
+    router.replace({ name: "SpaceCowboy" })
+    return
   }
 
-  if (article.value?.value.fontSize) {
+  if (noteRecord.value?.value.fontFamily) {
+    downloadFont(noteRecord.value.value.fontFamily)
+  }
+
+  if (noteRecord.value?.value.fontSize) {
     const root = document.documentElement
-    root.style.setProperty("--font-size", `${article.value.value.fontSize}pt`)
+    root.style.setProperty(
+      "--font-size",
+      `${noteRecord.value.value.fontSize}pt`,
+    )
   }
 })
 
 const { toHTML } = markdownBuilder()
-const withATProtoImages = (markdown: string) => {
-  if (!author.value) {
-    return markdown
-  }
 
-  const endpoint = author.value.endpoint
-
-  const imageLinkPattern = /!\[([^\]]*)\]\((bafkrei[a-z0-9]+)\)/g
-
-  return markdown.replace(imageLinkPattern, (_, altText, cid) => {
-    const imageUrl = new URL("/xrpc/com.atproto.sync.getBlob", endpoint)
-    imageUrl.searchParams.set("did", did.value)
-    imageUrl.searchParams.set("cid", cid)
-    return `![${altText}](${imageUrl.toString()})`
-  })
-}
-
-const title = computed(() => article.value?.value.title)
+const title = computed(() => noteRecord.value?.value.title)
 const content = computed(() =>
-  article.value?.value.content
-    ? toHTML(withATProtoImages(article.value?.value.content))
+  noteRecord.value?.value.content && author.value
+    ? toHTML(
+        withATProtoImages(noteRecord.value.value.content, {
+          pds: author.value.pds,
+          did: did.value,
+        }),
+      )
     : "",
 )
+
 const publishedAt = computed(() =>
-  article.value?.value.publishedAt
-    ? new Date(article.value?.value.publishedAt).toLocaleDateString()
+  noteRecord.value?.value.publishedAt
+    ? new Date(noteRecord.value?.value.publishedAt).toLocaleDateString()
     : null,
 )
 
+const { stackedNotes, scrollToFocusedNote } = useRouteQueryStackedNotes()
 const { listenToClick } = useATProtoLinks("note-display")
+useResizeContainer("note-container", stackedNotes)
 
 watch(
   content,
@@ -111,8 +91,32 @@ watch(
 </script>
 
 <template>
-  <div class="public-note-view repo-note">
+  <div class="public-note-view repo-note note-container">
     <div class="note article">
+      <div class="header">
+        <back-button
+          :fallback="{ name: 'PublicNoteListByDidView', params: { did } }"
+          :prefer-fallback="false"
+        />
+        <theme-swap />
+
+        <span
+          class="badge badge-author badge-soft badge-accent"
+          v-if="author && content"
+        >
+          <router-link
+            :to="{ name: 'PublicNoteListByDidView', params: { did: did } }"
+            class="link link-hover"
+          >
+            {{ author.handle }}
+          </router-link>
+          <template v-if="publishedAt">
+            <span>&nbsp;•&nbsp;</span>
+            <span>{{ publishedAt }}</span>
+          </template>
+        </span>
+        <div class="badge skeleton h-4 w-50" v-else></div>
+      </div>
       <div class="repo-title-breadcrumb">
         <a
           class="title-stacked-note-link"
@@ -122,13 +126,15 @@ watch(
         >
       </div>
 
-      <span class="badge badge-author" v-if="author">
-        {{ author.alias }}
-        <span v-if="publishedAt">&nbsp;•&nbsp;{{ publishedAt }}</span>
-      </span>
       <article class="note-display" v-html="content"></article>
-      <BackButton />
     </div>
+    <stacked-public-note
+      v-for="(stackedNote, index) in stackedNotes"
+      :key="stackedNote"
+      class="note"
+      :index="index"
+      :at-uri="stackedNote"
+    />
   </div>
 </template>
 
@@ -137,32 +143,22 @@ watch(
   display: flex;
   flex: 1;
 
-  .back-button {
-    position: absolute;
-    left: 1.5rem;
-    top: 0.4rem;
+  .header {
+    margin-top: 1rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   h1 {
-    font-size: 1.5rem;
-  }
-
-  .badge-author {
-    position: absolute;
-    top: 0.4rem;
-    right: 2rem;
+    font-size: 2rem;
   }
 
   .article {
-    position: sticky;
     padding: 0 2rem;
     scrollbar-width: none;
-
-    article {
-      margin-top: 1rem;
-    }
   }
 
   &.content {
@@ -211,6 +207,7 @@ watch(
       transform-origin: 0 0;
       transform: rotate(90deg);
       font-size: 0.8em;
+      text-wrap: nowrap;
 
       a {
         color: var(--color-base-content);
@@ -222,6 +219,22 @@ watch(
     .note {
       min-width: var(--note-width);
       max-width: var(--note-width);
+    }
+  }
+
+  .note {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+
+    .repo-title-breadcrumb {
+      display: none;
+    }
+
+    .article article {
+      margin-top: 48px;
     }
   }
 }

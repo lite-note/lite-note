@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+import RepoList from "@/components/RepoList.vue"
+import SignInGithub from "@/components/SignInGithub.vue"
+import ThemeSwap from "@/components/ThemeSwap.vue"
+import { useForm } from "@/hooks/useForm.hook"
+import { useGitHubLogin } from "@/hooks/useGitHubLogin.hook"
+import LastVisited from "@/modules/history/components/LastVisited.vue"
+
+const { isLogged } = useGitHubLogin()
+const { userInput, repoInput, submit } = useForm()
+</script>
+
 <template>
   <div class="welcome-world">
     <h1 class="title is-1">
@@ -69,18 +81,6 @@
     </footer>
   </div>
 </template>
-
-<script lang="ts" setup>
-import RepoList from "@/components/RepoList.vue"
-import SignInGithub from "@/components/SignInGithub.vue"
-import ThemeSwap from "@/components/ThemeSwap.vue"
-import { useForm } from "@/hooks/useForm.hook"
-import { useGitHubLogin } from "@/hooks/useGitHubLogin.hook"
-import LastVisited from "@/modules/history/components/LastVisited.vue"
-
-const { isLogged } = useGitHubLogin()
-const { userInput, repoInput, submit } = useForm()
-</script>
 
 <style lang="scss" scoped>
 h1 {

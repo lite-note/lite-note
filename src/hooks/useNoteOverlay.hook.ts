@@ -1,11 +1,9 @@
 import { computed, onMounted, Ref, ref, toValue } from "vue"
 
-import { NOTE_WIDTH } from "@/constants/note-width"
+import { BOOKMARK_WIDTH_REM, getBookmarkWidthPx } from "@/constants/bookmark-width"
+import { getNoteWidth } from "@/constants/note-width"
 import { useOverlay } from "@/hooks/useOverlay.hook"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
-
-const BOOKMARK_WIDTH = 2
-const OFFSET = 32 // stacked-note padding
 
 export const useNoteOverlay = (
   className: string,
@@ -20,7 +18,7 @@ export const useNoteOverlay = (
     if (isMobile.value) {
       return y.value > valueIndex * noteHeight.value
     } else {
-      return x.value > valueIndex * NOTE_WIDTH - valueIndex * OFFSET
+      return x.value > valueIndex * getNoteWidth() - valueIndex * getBookmarkWidthPx()
     }
   })
 
@@ -28,25 +26,26 @@ export const useNoteOverlay = (
     const { stackedNotes } = useRouteQueryStackedNotes()
     const noteElement = document.querySelector(
       `.${className}`,
-    ) as HTMLElement | null
+    ) satisfies HTMLElement | null
 
     if (!noteElement) {
       return
     }
+
     noteHeight.value = noteElement.clientHeight
 
     if (isMobile.value) {
       noteElement.style.top = `0`
     } else {
-      noteElement.style.left = `${(toValue(index) + 1) * BOOKMARK_WIDTH}rem`
+      noteElement.style.left = `${(toValue(index) + 1) * BOOKMARK_WIDTH_REM}rem`
 
       const stackedNoteContainers = document.querySelectorAll(
         ".stacked-note",
-      ) as NodeListOf<HTMLElement>
+      ) satisfies NodeListOf<HTMLElement>
 
       stackedNoteContainers.forEach((stackedNote, ind) => {
-        stackedNote.style.right = `calc(-${NOTE_WIDTH}px + ${
-          (stackedNotes.value.length - ind) * BOOKMARK_WIDTH
+        stackedNote.style.right = `calc(-${getNoteWidth()}px + ${
+          (stackedNotes.value.length - ind) * BOOKMARK_WIDTH_REM
         }rem)`
       })
     }

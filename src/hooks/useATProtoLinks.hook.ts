@@ -1,36 +1,36 @@
 import { ComputedRef, onUnmounted, Ref, toValue } from "vue"
 
 import { isExternalLink } from "@/utils/link"
-import { publicNoteEventBus } from "@/bus/publicNoteEventBus"
+import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
+import { parseAtUri } from "@/modules/atproto/parseAtUri"
 
 export const useATProtoLinks = (
   className: ComputedRef<string> | string,
-  rkey?: Ref<string> | string,
+  currentAtUri?: Ref<string> | string,
 ) => {
-  const linkNote: EventListener = (event) => {
+  const { addStackedNote } = useRouteQueryStackedNotes()
+  const linkNote = (event: Event) => {
     const target = event.target as HTMLElement
-    const href = target.getAttribute("href")
+    const atUri = target.getAttribute("href")
 
-    if (!href) {
+    if (!atUri) {
       return
     }
 
-    if (href.startsWith("#")) {
+    if (atUri.startsWith("#")) {
       return
     }
 
     event.preventDefault()
     event.stopPropagation()
 
-    if (isExternalLink(href)) {
-      window.open(href, "_blank")
+    if (isExternalLink(atUri)) {
+      window.open(atUri, "_blank")
       return
     }
+    const { rkey } = parseAtUri(atUri)
 
-    publicNoteEventBus.emit({
-      path: href,
-      currentNoteRkey: toValue(rkey),
-    })
+    addStackedNote(toValue(currentAtUri) ?? "", atUri, rkey)
   }
 
   const LINK_SELECTOR = `.${toValue(className)} a`
