@@ -43,18 +43,19 @@ export const useATProtoLinks = (
         ? `${params.did}-${params.rkey}-${params.slug}`
         : `${params.did}-${params.rkey}`
 
-      addStackedNote(toValue(currentAtUri) ?? "", noteId)
+      addStackedNote(
+        toValue(currentAtUri) ?? "",
+        noteId,
+        `${params.did}-${params.rkey}`,
+      )
       return
     }
 
     if (href.startsWith("at://")) {
       const { did, rkey } = parseAtUri(href)
+      const noteId = `${did}-${rkey}`
 
-      addStackedNote(
-        toValue(currentAtUri) ?? "",
-        `${did}-${rkey}`,
-        `${did}-${rkey}`,
-      )
+      addStackedNote(toValue(currentAtUri) ?? "", noteId)
     }
   }
 
