@@ -10,10 +10,6 @@ export const useUserSettings = () => {
   const store = useUserRepoStore()
 
   watchEffect(() => {
-    if (store.userSettings === undefined) {
-      return
-    }
-
     const root = document.documentElement
 
     const fontFamily = store.userSettings?.chosenFontFamily
