@@ -25,7 +25,7 @@
 @plugin 'daisyui' {
   themes:
     garden --default,
-    night --prefersdark;
+    dim --prefersdark;
 }
 
 @config '../../tailwind.config.js';
