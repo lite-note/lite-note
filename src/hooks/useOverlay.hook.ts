@@ -4,7 +4,6 @@ import { computed, ref } from 'vue'
 import { MOBILE_BREAKPOINT } from '@/constants/mobile'
 
 export const useOverlay = (listen = true) => {
-  const body = document.body
   const x = ref(0)
   const y = ref(0)
   const { width } = useWindowSize()
@@ -12,12 +11,11 @@ export const useOverlay = (listen = true) => {
 
   if (listen) {
     useEventListener(
-      body,
+      window,
       'scroll',
-      (event) => {
-        const target = event.target as HTMLElement
-        x.value = target.scrollLeft
-        y.value = target.scrollTop
+      () => {
+        x.value = window.scrollX
+        y.value = window.scrollY
       },
       {
         passive: true,
@@ -36,7 +34,7 @@ export const useOverlay = (listen = true) => {
             left: to
           }
 
-      body.scroll(scrollOptions)
+      window.scrollTo(scrollOptions)
     }
 
     setTimeout(() => {
