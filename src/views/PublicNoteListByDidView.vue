@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import BackButton from "@/components/BackButton.vue"
+import PublicNoteList from "@/components/PublicNoteList.vue"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
 import { getAuthor } from "@/modules/atproto/getAuthor"
-import { slugify } from "@/utils/slugify"
 import { computedAsync } from "@vueuse/core"
 import { computed } from "vue"
-import { vInfiniteScroll } from "@vueuse/components"
 
 const props = defineProps<{ did: string }>()
 const did = computed(() => props.did)
@@ -23,33 +22,17 @@ const author = computedAsync(async () => getAuthor(did.value))
     </div>
     <div v-if="isLoading"></div>
     <div v-else>
-      <ul
-        class="list rounded-box shadow-sm"
-        v-infinite-scroll="[onLoadMore, { canLoadMore: () => canLoadMore }]"
+      <PublicNoteList
+        :notes="notes"
+        :can-load-more="canLoadMore"
+        :on-load-more="onLoadMore"
       >
-        <li v-for="note in notes" class="list-row">
-          <div class="list-col">
-            <router-link
-              :to="{
-                name: 'PublicNoteView',
-                params: {
-                  did: note.did,
-                  rkey: note.rkey,
-                  slug: slugify(note.title),
-                },
-              }"
-              class="btn btn-link"
-              >{{ note.title }}</router-link
-            >
-
-            <div class="text-xs opacity-80 alias">
-              <span v-if="note.publishedAt">
-                {{ new Date(note.publishedAt).toLocaleDateString() }}
-              </span>
-            </div>
-          </div>
-        </li>
-      </ul>
+        <template #meta="{ note }">
+          <span v-if="note.publishedAt">
+            {{ new Date(note.publishedAt).toLocaleDateString() }}
+          </span>
+        </template>
+      </PublicNoteList>
     </div>
   </main>
 </template>
@@ -79,27 +62,6 @@ const author = computedAsync(async () => getAuthor(did.value))
     display: flex;
     gap: 0.5rem;
     align-items: center;
-  }
-
-  li {
-    display: flex;
-
-    .list-col {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    a {
-      display: inline;
-      text-align: left;
-    }
-
-    .alias {
-      text-align: right;
-      display: flex;
-      justify-content: flex-end;
-    }
   }
 
   @media screen and (min-width: 769px) {

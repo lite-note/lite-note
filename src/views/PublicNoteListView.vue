@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import BackButton from "@/components/BackButton.vue"
+import PublicNoteList from "@/components/PublicNoteList.vue"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
-import { slugify } from "@/utils/slugify"
-import { vInfiniteScroll } from "@vueuse/components"
 
 const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
   usePublicNoteList()
@@ -16,48 +15,30 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
     </div>
     <div v-if="isLoading"></div>
     <div v-else>
-      <ul
-        class="list rounded-box shadow-sm"
-        v-infinite-scroll="[onLoadMore, { canLoadMore: () => canLoadMore }]"
+      <PublicNoteList
+        :notes="notes"
+        :can-load-more="canLoadMore"
+        :on-load-more="onLoadMore"
       >
-        <li v-for="note in notes" class="list-row">
-          <div class="list-col">
-            <router-link
-              :to="{
-                name: 'PublicNoteView',
-                params: {
-                  did: note.did,
-                  rkey: note.rkey,
-                  slug: slugify(note.title),
-                },
-              }"
-              class="btn btn-link"
-              >{{ note.title }}</router-link
-            >
+        <template #meta="{ note }">
+          <router-link
+            v-if="getAuthor(note.did)"
+            :to="{
+              name: 'PublicNoteListByDidView',
+              params: { did: note.did },
+            }"
+            class="link link-hover"
+          >
+            {{ getAuthor(note.did) }}
+          </router-link>
 
-            <div class="text-xs opacity-80 alias">
-              <router-link
-                v-if="getAuthor(note.did)"
-                :to="{
-                  name: 'PublicNoteListByDidView',
-                  params: { did: note.did },
-                }"
-                class="link link-hover"
-              >
-                {{ getAuthor(note.did) }}
-              </router-link>
-
-              <template v-if="note.publishedAt">
-                <span>&nbsp;•&nbsp;</span>
-                <span>{{
-                  new Date(note.publishedAt).toLocaleDateString()
-                }}</span>
-              </template>
-              <div v-else class="skeleton h-4 w-20"></div>
-            </div>
-          </div>
-        </li>
-      </ul>
+          <template v-if="note.publishedAt">
+            <span>&nbsp;•&nbsp;</span>
+            <span>{{ new Date(note.publishedAt).toLocaleDateString() }}</span>
+          </template>
+          <div v-else class="skeleton h-4 w-20"></div>
+        </template>
+      </PublicNoteList>
     </div>
   </main>
 </template>
@@ -87,27 +68,6 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
     display: flex;
     gap: 0.5rem;
     align-items: center;
-  }
-
-  li {
-    display: flex;
-
-    .list-col {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    a {
-      display: inline;
-      text-align: left;
-    }
-
-    .alias {
-      text-align: right;
-      display: flex;
-      justify-content: flex-end;
-    }
   }
 
   @media screen and (min-width: 769px) {
