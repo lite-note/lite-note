@@ -122,7 +122,7 @@ watch(
           class="title-stacked-note-link"
           @click.prevent="scrollToFocusedNote()"
           v-if="author && title"
-          >{{ title }}</a
+          >{{ author.handle }} • {{ title }}</a
         >
       </div>
 

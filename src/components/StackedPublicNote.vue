@@ -81,7 +81,7 @@ watch(
         class="title-stacked-note breadcrumbs text-sm"
         :class="titleClassName"
       >
-        {{ title }}
+        <span v-if="author">{{ author.handle }} •</span> {{ title }}
       </div>
     </a>
     <section class="text-content">
