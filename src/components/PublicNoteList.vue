@@ -54,6 +54,8 @@ li {
   a {
     display: inline;
     text-align: left;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
   }
 
   .alias {
