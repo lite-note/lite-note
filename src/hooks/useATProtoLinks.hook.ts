@@ -3,6 +3,7 @@ import { ComputedRef, onUnmounted, Ref, toValue } from "vue"
 import { isExternalLink } from "@/utils/link"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
 import { parseAtUri } from "@/modules/atproto/parseAtUri"
+import { router } from "@/router/router"
 
 export const useATProtoLinks = (
   className: ComputedRef<string> | string,
@@ -11,26 +12,51 @@ export const useATProtoLinks = (
   const { addStackedNote } = useRouteQueryStackedNotes()
   const linkNote = (event: Event) => {
     const target = event.target as HTMLElement
-    const atUri = target.getAttribute("href")
+    const href = target.getAttribute("href")
 
-    if (!atUri) {
+    if (!href) {
       return
     }
 
-    if (atUri.startsWith("#")) {
+    if (href.startsWith("#")) {
       return
     }
 
     event.preventDefault()
     event.stopPropagation()
 
-    if (isExternalLink(atUri)) {
-      window.open(atUri, "_blank")
+    if (isExternalLink(href)) {
+      window.open(href, "_blank")
       return
     }
-    const { rkey } = parseAtUri(atUri)
 
-    addStackedNote(toValue(currentAtUri) ?? "", atUri, rkey)
+    if (href.startsWith(window.location.origin)) {
+      const { params } = router.resolve(
+        href.replace(window.location.origin, ""),
+      )
+
+      if (!params.did || !params.rkey) {
+        return
+      }
+
+      const noteId = params.slug
+        ? `${params.did}-${params.rkey}-${params.slug}`
+        : `${params.did}-${params.rkey}`
+
+      addStackedNote(
+        toValue(currentAtUri) ?? "",
+        noteId,
+        `${params.did}-${params.rkey}`,
+      )
+      return
+    }
+
+    if (href.startsWith("at://")) {
+      const { did, rkey } = parseAtUri(href)
+      const noteId = `${did}-${rkey}`
+
+      addStackedNote(toValue(currentAtUri) ?? "", noteId)
+    }
   }
 
   const LINK_SELECTOR = `.${toValue(className)} a`

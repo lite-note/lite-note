@@ -28,7 +28,7 @@ module.exports = {
           css: {
             ...defaultTitleStyles,
             "font-size": "13pt",
-            "font-family": '"Courier Prime", monospace',
+            "font-family": '"Libertinus Serif", serif',
             p: {
               "margin-top": "0.8em",
               "margin-bottom": "0.8em",

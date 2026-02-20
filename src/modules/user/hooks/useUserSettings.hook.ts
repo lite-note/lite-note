@@ -3,7 +3,7 @@ import { watchEffect } from "vue"
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
 import { downloadFont } from "@/utils/downloadFont"
 
-const DEFAULT_FONT_POLICY = "Courier Prime,monospace"
+const DEFAULT_FONT_POLICY = '"Libertinus Serif", serif'
 const DEFAULT_FONT_SIZE = "16px"
 
 export const useUserSettings = () => {

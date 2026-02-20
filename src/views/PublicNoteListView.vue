@@ -25,7 +25,11 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
             <router-link
               :to="{
                 name: 'PublicNoteView',
-                params: { did: note.did, rkey: note.rkey, slug: slugify(note.title) },
+                params: {
+                  did: note.did,
+                  rkey: note.rkey,
+                  slug: slugify(note.title),
+                },
               }"
               class="btn btn-link"
               >{{ note.title }}</router-link
@@ -95,6 +99,7 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
     }
 
     a {
+      display: inline;
       text-align: left;
     }
 

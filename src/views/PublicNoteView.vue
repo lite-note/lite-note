@@ -133,7 +133,7 @@ watch(
       :key="stackedNote"
       class="note"
       :index="index"
-      :at-uri="stackedNote"
+      :didrkey="stackedNote"
     />
   </div>
 </template>

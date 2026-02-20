@@ -1,11 +1,11 @@
 @charset "utf-8";
 @import "tailwindcss";
 
-@import url("https://fonts.googleapis.com/css2?display=swap&family=Courier+Prime");
+@import url("https://fonts.googleapis.com/css2?display=swap&family=Courier+Prime&family=Libertinus+Serif");
 
 :root {
   --primary-color: #2c3a47;
-  --font-family: "Courier Prime", monospace;
+  --font-family: "Libertinus Serif", serif;
   --font-size: 13pt;
   --font-color: #4a4a4a;
   --link: #445fb9;
@@ -25,7 +25,7 @@
 @plugin 'daisyui' {
   themes:
     garden --default,
-    night --prefersdark;
+    dim --prefersdark;
 }
 
 @config '../../tailwind.config.js';

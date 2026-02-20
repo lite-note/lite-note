@@ -33,6 +33,7 @@ Run a single test file: `pnpm test src/modules/repo/services/resolvePath.spec.ts
 ### Styling
 
 Tailwind v4 uses the modern CSS-based config in `src/styles/app.css`:
+
 - `@import "tailwindcss"` instead of directives
 - DaisyUI configured via `@plugin 'daisyui' { themes: retro --default, coffee --prefersdark; }`
 - `@tailwindcss/typography` for prose styling
