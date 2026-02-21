@@ -42,17 +42,20 @@ defineSlots<{
 </template>
 
 <style scoped lang="scss">
+ul {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 li {
   display: flex;
 
   .list-col {
-    display: flex;
-    flex-direction: column;
     flex: 1;
   }
 
   a {
-    display: inline;
+    padding-left: 0;
     text-align: left;
     font-size: 1.2rem;
     line-height: 1.5rem;
@@ -62,6 +65,7 @@ li {
     text-align: right;
     display: flex;
     justify-content: flex-end;
+    margin-top: 0.5rem;
   }
 }
 </style>
