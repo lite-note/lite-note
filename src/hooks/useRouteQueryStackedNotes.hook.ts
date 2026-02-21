@@ -29,8 +29,9 @@ export const useRouteQueryStackedNotes = () => {
 
       if (isMobile.value) {
         if (noteId) {
+          const cleanNoteId = noteId.replaceAll(":", "-")
           const element = document.querySelector(
-            `.note-${noteId}`,
+            `.note-${cleanNoteId}`,
           ) as HTMLElement
 
           const top = (index + 1) * (element?.clientHeight ?? height.value)

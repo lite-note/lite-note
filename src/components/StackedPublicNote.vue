@@ -18,6 +18,7 @@ const props = defineProps<{
 const didrkey = computed(() => props.didrkey)
 const did = computed(() => props.didrkey.split("-")[0])
 const rkey = computed(() => props.didrkey.split("-")[1])
+const classNameId = computed(() => didrkey.value.replaceAll(":", "-"))
 
 const index = computed(() => props.index)
 
@@ -67,12 +68,12 @@ watch(
     :class="{
       [className]: true,
       overlay: displayNoteOverlay,
-      [`note-${didrkey}`]: true,
+      [`note-${classNameId}`]: true,
     }"
   >
     <a
       class="title-stacked-note-link"
-      @click.prevent="scrollToFocusedNote(didrkey)"
+      @click.prevent="scrollToFocusedNote(classNameId)"
     >
       <div
         class="title-stacked-note breadcrumbs text-sm"

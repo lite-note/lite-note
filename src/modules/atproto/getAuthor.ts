@@ -34,7 +34,7 @@ export const getAuthor = async (did: string): Promise<Author | null> => {
   }
 
   try {
-    const { data: author, error } = await microcosmSlingshot(
+    const { data: author } = await microcosmSlingshot(
       "/xrpc/blue.microcosm.identity.resolveMiniDoc",
       { query: { identifier: did } },
     )
