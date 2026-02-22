@@ -15,6 +15,7 @@ import { computed, nextTick, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
 import ThemeSwap from "@/components/ThemeSwap.vue"
+import { useTitle } from "@vueuse/core"
 
 const props = defineProps<{ did: string; rkey: string; slug?: string }>()
 const router = useRouter()
@@ -70,6 +71,16 @@ const content = computed(() =>
     : "",
 )
 
+const breadcrumb = computed(() =>
+  title.value
+    ? author.value?.handle
+      ? `${title.value} • ${author.value.handle}`
+      : title.value
+    : `Remanso`,
+)
+
+useTitle(breadcrumb)
+
 const publishedAt = computed(() =>
   noteRecord.value?.value.publishedAt
     ? new Date(noteRecord.value?.value.publishedAt).toLocaleDateString()
@@ -121,8 +132,8 @@ watch(
         <a
           class="title-stacked-note-link"
           @click.prevent="scrollToFocusedNote()"
-          v-if="author && title"
-          >{{ author.handle }} • {{ title }}</a
+          v-if="breadcrumb"
+          >{{ breadcrumb }}</a
         >
       </div>
 
