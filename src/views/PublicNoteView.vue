@@ -74,9 +74,9 @@ const content = computed(() =>
 const breadcrumb = computed(() =>
   title.value
     ? author.value?.handle
-      ? `${author.value.handle} • ${title.value}`
+      ? `${title.value} • ${author.value.handle}`
       : title.value
-    : ``,
+    : `Remanso`,
 )
 
 useTitle(breadcrumb)
