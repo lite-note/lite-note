@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed, nextTick, watch } from "vue"
+import { computed, nextTick, ref, watch } from "vue"
+import { errorMessage } from "@/utils/notif"
 import { useATProtoLinks } from "@/hooks/useATProtoLinks.hook"
 import { useNoteOverlay } from "@/hooks/useNoteOverlay.hook"
 import { useRouteQueryStackedNotes } from "@/hooks/useRouteQueryStackedNotes.hook"
@@ -34,11 +35,22 @@ const { scrollToFocusedNote } = useRouteQueryStackedNotes()
 const { listenToClick } = useATProtoLinks(className.value, didrkey)
 const { displayNoteOverlay } = useNoteOverlay(className.value, index)
 
-const noteRecord = computedAsync(async () =>
-  url.value
-    ? ((await fetch(url.value).then()).json() as Promise<PublicNoteRecord>)
-    : null,
-)
+const noteNotFound = ref(false)
+const noteRecord = computedAsync(async () => {
+  if (!url.value) return null
+  const response = await fetch(url.value)
+  if (!response.ok) {
+    noteNotFound.value = true
+    return null
+  }
+  return response.json() as Promise<PublicNoteRecord>
+})
+
+watch(noteNotFound, (notFound) => {
+  if (notFound) {
+    errorMessage("This note no longer exists.")
+  }
+})
 const { toHTML } = markdownBuilder()
 const title = computed(() => noteRecord.value?.value.title)
 const content = computed(() =>
@@ -83,7 +95,10 @@ watch(
       </div>
     </a>
     <section class="text-content">
-      <div class="note-content" v-html="content"></div>
+      <div v-if="noteNotFound" class="alert alert-error">
+        This note no longer exists.
+      </div>
+      <div class="note-content" v-else v-html="content"></div>
     </section>
   </div>
 </template>

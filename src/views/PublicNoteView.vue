@@ -11,8 +11,9 @@ import { getUrl } from "@/modules/atproto/getUrl"
 import { downloadFont } from "@/utils/downloadFont"
 import { slugify } from "@/utils/slugify"
 import { computedAsync } from "@vueuse/core"
-import { computed, nextTick, watch } from "vue"
+import { computed, nextTick, ref, watch } from "vue"
 import { useRouter } from "vue-router"
+import { errorMessage } from "@/utils/notif"
 import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
 import ThemeSwap from "@/components/ThemeSwap.vue"
 import { useTitle } from "@vueuse/core"
@@ -28,11 +29,23 @@ const url = computedAsync(
   null,
 )
 
-const noteRecord = computedAsync(async () =>
-  url.value
-    ? ((await fetch(url.value).then()).json() as Promise<PublicNoteRecord>)
-    : null,
-)
+const noteNotFound = ref(false)
+const noteRecord = computedAsync(async () => {
+  if (!url.value) return null
+  const response = await fetch(url.value)
+  if (!response.ok) {
+    noteNotFound.value = true
+    return null
+  }
+  return response.json() as Promise<PublicNoteRecord>
+})
+
+watch(noteNotFound, (notFound) => {
+  if (notFound) {
+    errorMessage("This note no longer exists.")
+    router.replace({ name: "SpaceCowboy" })
+  }
+})
 
 watch(noteRecord, () => {
   if (
