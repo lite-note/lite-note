@@ -3,8 +3,6 @@ import path from "path"
 import { defineConfig, type UserConfigExport } from "vite"
 import { VitePWA } from "vite-plugin-pwa"
 
-const mainColor = "#2C3A47"
-
 export default defineConfig(({ command }) => {
   const config: UserConfigExport = {
     plugins: [
@@ -28,8 +26,8 @@ export default defineConfig(({ command }) => {
           name: "Remanso",
           short_name: "Remanso",
           description: "Note taking & sharing app",
-          background_color: mainColor,
-          theme_color: mainColor,
+          background_color: "#ffa4c0",
+          theme_color: "#2e5c1a",
           icons: [
             {
               src: "pwa-64x64.png",
