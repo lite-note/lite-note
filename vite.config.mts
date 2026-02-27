@@ -3,7 +3,7 @@ import path from "path"
 import { defineConfig, type UserConfigExport } from "vite"
 import { VitePWA } from "vite-plugin-pwa"
 
-const mainColor = "#ffffff"
+const mainColor = "#2C3A47"
 
 export default defineConfig(({ command }) => {
   const config: UserConfigExport = {
