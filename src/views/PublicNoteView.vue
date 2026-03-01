@@ -115,7 +115,7 @@ watch(
 </script>
 
 <template>
-  <div class="public-note-view repo-note note-container">
+  <main class="public-note-view repo-note note-container">
     <div class="note article">
       <div class="header">
         <back-button
@@ -159,7 +159,7 @@ watch(
       :index="index"
       :didrkey="stackedNote"
     />
-  </div>
+  </main>
 </template>
 
 <style lang="scss">
@@ -183,6 +183,8 @@ watch(
   .article {
     padding: 0 2rem;
     scrollbar-width: none;
+    left: 0;
+    top: 0;
   }
 
   &.content {
@@ -219,6 +221,7 @@ watch(
     flex-direction: column;
     overflow-y: auto;
     height: 100vh;
+    position: sticky;
 
     .title {
       text-align: left;
@@ -244,10 +247,6 @@ watch(
       min-width: var(--note-width);
       max-width: var(--note-width);
     }
-  }
-
-  .note {
-    width: 100%;
   }
 
   @media screen and (max-width: 768px) {
