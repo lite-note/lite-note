@@ -17,6 +17,7 @@ import { errorMessage } from "@/utils/notif"
 import { useResizeContainer } from "@/hooks/useResizeContainer.hook"
 import ThemeSwap from "@/components/ThemeSwap.vue"
 import { useTitle } from "@vueuse/core"
+import { displayLanguage } from "@/utils/displayLanguage"
 
 const props = defineProps<{ did: string; rkey: string; slug?: string }>()
 const router = useRouter()
@@ -99,6 +100,11 @@ const publishedAt = computed(() =>
     ? new Date(noteRecord.value?.value.publishedAt).toLocaleDateString()
     : null,
 )
+const language = computed(() =>
+  noteRecord.value?.value.language
+    ? displayLanguage(noteRecord.value.value.language)
+    : null,
+)
 
 const { stackedNotes, scrollToFocusedNote } = useRouteQueryStackedNotes()
 const { listenToClick } = useATProtoLinks("note-display")
@@ -134,6 +140,10 @@ watch(
           >
             {{ author.handle }}
           </router-link>
+          <template v-if="language">
+            <span>&nbsp;•&nbsp;</span>
+            <span>{{ language }}</span>
+          </template>
           <template v-if="publishedAt">
             <span>&nbsp;•&nbsp;</span>
             <span>{{ publishedAt }}</span>

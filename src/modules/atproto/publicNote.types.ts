@@ -14,6 +14,7 @@ export interface PublicNote {
   theme?: string
   fontFamily?: string
   fontSize?: string
+  language?: string
 }
 
 export interface PublicNoteImage {
