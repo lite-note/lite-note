@@ -19,7 +19,6 @@ import { useTitleNotes } from "@/hooks/useTitleNotes.hook"
 import { useUserRepoStore } from "@/modules/repo/store/userRepo.store"
 import { encodeUTF8ToBase64 } from "@/utils/decodeBase64ToUTF8"
 import { filenameToNoteTitle } from "@/utils/noteTitle"
-import { generateTweets } from "@/utils/twitter"
 import { runMermaid, useShikiji } from "@/hooks/useMarkdown.hook"
 
 const LinkedNotes = defineAsyncComponent(
@@ -87,10 +86,6 @@ watch([content, mode], () => {
 
     if (/\!\[.*?\]\(.*?\)/.test(rawContent.value)) {
       useImages(props.sha)
-    }
-
-    if (rawContent.value.includes("@[tweet]")) {
-      generateTweets()
     }
 
     if (rawContent.value.includes("```mermaid")) {
