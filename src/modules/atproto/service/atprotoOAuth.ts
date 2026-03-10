@@ -1,15 +1,16 @@
-import { BrowserOAuthClient } from '@atproto/oauth-client-browser'
+import { BrowserOAuthClient, buildLoopbackClientId } from '@atproto/oauth-client-browser'
 
-const CLIENT_ID = import.meta.env.DEV
-  ? 'http://localhost'
-  : 'https://remanso.space/client-metadata.json'
+const getClientId = () =>
+  import.meta.env.DEV
+    ? buildLoopbackClientId(new URL(window.location.origin))
+    : 'https://remanso.space/client-metadata.json'
 
 let clientPromise: Promise<BrowserOAuthClient> | null = null
 
 export const getOAuthClient = (): Promise<BrowserOAuthClient> => {
   if (!clientPromise) {
     clientPromise = BrowserOAuthClient.load({
-      clientId: CLIENT_ID,
+      clientId: getClientId(),
       handleResolver: 'https://bsky.social',
     })
   }
@@ -18,7 +19,7 @@ export const getOAuthClient = (): Promise<BrowserOAuthClient> => {
 
 export const signInWithHandle = async (handle: string): Promise<void> => {
   const client = await getOAuthClient()
-  await client.signInRedirect(handle, { scope: 'atproto transition:generic' })
+  await client.signInRedirect(handle)
 }
 
 export const restoreSession = async () => {

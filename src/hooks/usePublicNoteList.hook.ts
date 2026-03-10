@@ -15,6 +15,7 @@ export function usePublicNoteList(options?: UsePublicNoteListOptions) {
   const canLoadMore = computed(() => cursor.value !== undefined)
 
   const onLoadMore = async () => {
+    if (isLoading.value) return
     isLoading.value = true
 
     const path = options?.did?.value ? `/${options.did.value}/notes` : "/notes"

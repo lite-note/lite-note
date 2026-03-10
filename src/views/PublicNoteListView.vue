@@ -5,11 +5,15 @@ import SignInAtproto from "@/components/SignInAtproto.vue"
 import { useATProtoLogin } from "@/hooks/useATProtoLogin.hook"
 import { useFollows } from "@/hooks/useFollows.hook"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
+import { ref } from "vue"
 
 const { did, isLoggedIn } = useATProtoLogin()
 const { follows } = useFollows(did)
-const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
-  usePublicNoteList({ followsFilter: follows })
+
+const tab = ref<'all' | 'following'>('all')
+
+const all = usePublicNoteList()
+const following = usePublicNoteList({ followsFilter: follows })
 </script>
 
 <template>
@@ -19,36 +23,55 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
       <h1>Remanso notes</h1>
       <sign-in-atproto />
     </div>
-    <div v-if="isLoggedIn && follows.size > 0" class="follows-badge">
-      Showing follows only
-    </div>
-    <div v-if="isLoading"></div>
-    <div v-else>
-      <PublicNoteList
-        :notes="notes"
-        :can-load-more="canLoadMore"
-        :on-load-more="onLoadMore"
-      >
-        <template #meta="{ note }">
-          <router-link
-            v-if="getAuthor(note.did)"
-            :to="{
-              name: 'PublicNoteListByDidView',
-              params: { did: note.did },
-            }"
-            class="link link-hover"
-          >
-            {{ getAuthor(note.did) }}
-          </router-link>
 
-          <template v-if="note.publishedAt">
-            <span>&nbsp;•&nbsp;</span>
-            <span>{{ new Date(note.publishedAt).toLocaleDateString() }}</span>
-          </template>
-          <div v-else class="skeleton h-4 w-20"></div>
-        </template>
-      </PublicNoteList>
+    <div v-if="isLoggedIn" role="tablist" class="tabs tabs-border">
+      <a role="tab" class="tab" :class="{ 'tab-active': tab === 'all' }" @click="tab = 'all'">All</a>
+      <a role="tab" class="tab" :class="{ 'tab-active': tab === 'following' }" @click="tab = 'following'">Following</a>
     </div>
+
+    <PublicNoteList
+      v-if="tab === 'all'"
+      :notes="all.notes.value"
+      :can-load-more="all.canLoadMore.value"
+      :on-load-more="all.onLoadMore"
+    >
+      <template #meta="{ note }">
+        <router-link
+          v-if="all.getAuthor(note.did)"
+          :to="{ name: 'PublicNoteListByDidView', params: { did: note.did } }"
+          class="link link-hover"
+        >
+          {{ all.getAuthor(note.did) }}
+        </router-link>
+        <template v-if="note.publishedAt">
+          <span>&nbsp;•&nbsp;</span>
+          <span>{{ new Date(note.publishedAt).toLocaleDateString() }}</span>
+        </template>
+        <div v-else class="skeleton h-4 w-20"></div>
+      </template>
+    </PublicNoteList>
+
+    <PublicNoteList
+      v-else
+      :notes="following.notes.value"
+      :can-load-more="following.canLoadMore.value"
+      :on-load-more="following.onLoadMore"
+    >
+      <template #meta="{ note }">
+        <router-link
+          v-if="following.getAuthor(note.did)"
+          :to="{ name: 'PublicNoteListByDidView', params: { did: note.did } }"
+          class="link link-hover"
+        >
+          {{ following.getAuthor(note.did) }}
+        </router-link>
+        <template v-if="note.publishedAt">
+          <span>&nbsp;•&nbsp;</span>
+          <span>{{ new Date(note.publishedAt).toLocaleDateString() }}</span>
+        </template>
+        <div v-else class="skeleton h-4 w-20"></div>
+      </template>
+    </PublicNoteList>
   </main>
 </template>
 
@@ -82,12 +105,5 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
   @media screen and (min-width: 769px) {
     overflow-y: auto;
   }
-}
-
-.follows-badge {
-  font-size: 0.8rem;
-  opacity: 0.7;
-  text-align: center;
-  margin-bottom: 0.5rem;
 }
 </style>
