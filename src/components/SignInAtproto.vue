@@ -15,18 +15,28 @@ const onSignIn = () => {
 </script>
 
 <template>
-  <div v-if="isLoggedIn" class="sign-in-atproto">
+  <div v-if="isLoggedIn" class="sign-in-atproto is-signed-in">
     <span>{{ handle }}</span>
-    <button class="btn btn-sm" @click="signOut">Sign out</button>
+    <button class="btn" @click="signOut">Sign out</button>
   </div>
-  <div v-else class="sign-in-atproto">
+  <div v-else class="sign-in-atproto join">
     <input
       v-model="inputHandle"
-      class="input input-sm"
+      class="input input-sm join-item"
       type="text"
       placeholder="alice.bsky.social"
       @keyup.enter="onSignIn"
     />
-    <button class="btn btn-sm" @click="onSignIn">Sign in with Bluesky</button>
+    <button class="btn input-sm join-item" @click="onSignIn">
+      Sign in with Bluesky
+    </button>
   </div>
 </template>
+
+<style scoped>
+.is-signed-in {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+</style>

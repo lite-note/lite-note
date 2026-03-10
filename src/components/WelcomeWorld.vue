@@ -25,14 +25,6 @@ const { userInput, repoInput, submit } = useForm()
     <div class="get-started">
       <sign-in-github />
       <sign-in-atproto />
-      <router-link
-        :to="{
-          name: 'FluxNoteView',
-          params: { user: 'remanso-space', repo: 'getting-started' },
-        }"
-        class="btn"
-        >Get started</router-link
-      >
       <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
         >Manage your repos</router-link
       >
@@ -80,6 +72,14 @@ const { userInput, repoInput, submit } = useForm()
       <a href="https://apoena.dev" target="_blank" rel="noopener noreferrer"
         >apoena</a
       >
+      <router-link
+        :to="{
+          name: 'FluxNoteView',
+          params: { user: 'remanso-space', repo: 'getting-started' },
+        }"
+        class="btn"
+        >Get started</router-link
+      >
     </footer>
   </div>
 </template>
@@ -126,6 +126,7 @@ h1 {
 footer {
   display: flex;
   gap: 1rem;
+  align-items: center;
 
   img {
     vertical-align: middle;
