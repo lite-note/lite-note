@@ -23,8 +23,8 @@ const { userInput, repoInput, submit } = useForm()
     <last-visited />
 
     <div class="get-started">
+      <sign-in-atproto :with-sign-out="false" />
       <sign-in-github />
-      <sign-in-atproto />
       <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
         >Manage your repos</router-link
       >
@@ -77,7 +77,7 @@ const { userInput, repoInput, submit } = useForm()
           name: 'FluxNoteView',
           params: { user: 'remanso-space', repo: 'getting-started' },
         }"
-        class="btn"
+        class="btn btn-sm"
         >Get started</router-link
       >
     </footer>
