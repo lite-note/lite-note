@@ -4,6 +4,7 @@ import PublicNoteList from "@/components/PublicNoteList.vue"
 import SignInAtproto from "@/components/SignInAtproto.vue"
 import { useATProtoLogin } from "@/hooks/useATProtoLogin.hook"
 import { useFollows } from "@/hooks/useFollows.hook"
+import { useFollowingNoteList } from "@/hooks/useFollowingNoteList.hook"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
 import { computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
@@ -23,7 +24,7 @@ const tab = computed<"all" | "following">({
 })
 
 const all = usePublicNoteList()
-const following = usePublicNoteList({ followsFilter: follows })
+const following = useFollowingNoteList(follows)
 </script>
 
 <template>

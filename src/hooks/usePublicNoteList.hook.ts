@@ -5,7 +5,6 @@ import { computed, ref, Ref } from "vue"
 
 interface UsePublicNoteListOptions {
   did?: Ref<string | undefined>
-  followsFilter?: Ref<Set<string>>
 }
 
 export function usePublicNoteList(options?: UsePublicNoteListOptions) {
@@ -45,14 +44,8 @@ export function usePublicNoteList(options?: UsePublicNoteListOptions) {
   const getAuthor = (did: string) =>
     authors.value.has(did) ? authors.value.get(did)!.handle : ""
 
-  const filteredNotes = computed(() => {
-    const filter = options?.followsFilter?.value
-    if (!filter || filter.size === 0) return notes.value
-    return notes.value.filter((n) => filter.has(n.did))
-  })
-
   return {
-    notes: filteredNotes,
+    notes,
     isLoading,
     canLoadMore,
     onLoadMore,
