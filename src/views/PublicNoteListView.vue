@@ -5,12 +5,19 @@ import SignInAtproto from "@/components/SignInAtproto.vue"
 import { useATProtoLogin } from "@/hooks/useATProtoLogin.hook"
 import { useFollows } from "@/hooks/useFollows.hook"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
-import { ref } from "vue"
+import { computed } from "vue"
+import { useRoute, useRouter } from "vue-router"
+
+const route = useRoute()
+const router = useRouter()
 
 const { did, isLoggedIn } = useATProtoLogin()
 const { follows } = useFollows(did)
 
-const tab = ref<'all' | 'following'>('all')
+const tab = computed<'all' | 'following'>({
+  get: () => route.query.tab === 'following' ? 'following' : 'all',
+  set: (value) => router.replace({ query: { ...route.query, tab: value === 'all' ? undefined : value } }),
+})
 
 const all = usePublicNoteList()
 const following = usePublicNoteList({ followsFilter: follows })
@@ -27,6 +34,7 @@ const following = usePublicNoteList({ followsFilter: follows })
     <div v-if="isLoggedIn" role="tablist" class="tabs tabs-border">
       <a role="tab" class="tab" :class="{ 'tab-active': tab === 'all' }" @click="tab = 'all'">All</a>
       <a role="tab" class="tab" :class="{ 'tab-active': tab === 'following' }" @click="tab = 'following'">Following</a>
+
     </div>
 
     <PublicNoteList
