@@ -14,9 +14,12 @@ const router = useRouter()
 const { did, isLoggedIn } = useATProtoLogin()
 const { follows } = useFollows(did)
 
-const tab = computed<'all' | 'following'>({
-  get: () => route.query.tab === 'following' ? 'following' : 'all',
-  set: (value) => router.replace({ query: { ...route.query, tab: value === 'all' ? undefined : value } }),
+const tab = computed<"all" | "following">({
+  get: () => (route.query.tab === "following" ? "following" : "all"),
+  set: (value) =>
+    router.replace({
+      query: { ...route.query, tab: value === "all" ? undefined : value },
+    }),
 })
 
 const all = usePublicNoteList()
@@ -27,14 +30,25 @@ const following = usePublicNoteList({ followsFilter: follows })
   <main class="public-note-list-view">
     <div class="header">
       <back-button class="back-button" :fallback="{ name: 'Home' }" />
-      <h1>Remanso notes</h1>
+      <h1><img src="/favicon.png" alt="Remanso icon" /></h1>
       <sign-in-atproto />
     </div>
 
     <div v-if="isLoggedIn" role="tablist" class="tabs tabs-border">
-      <a role="tab" class="tab" :class="{ 'tab-active': tab === 'all' }" @click="tab = 'all'">All</a>
-      <a role="tab" class="tab" :class="{ 'tab-active': tab === 'following' }" @click="tab = 'following'">Following</a>
-
+      <a
+        role="tab"
+        class="tab"
+        :class="{ 'tab-active': tab === 'all' }"
+        @click="tab = 'all'"
+        >All</a
+      >
+      <a
+        role="tab"
+        class="tab"
+        :class="{ 'tab-active': tab === 'following' }"
+        @click="tab = 'following'"
+        >Following</a
+      >
     </div>
 
     <PublicNoteList
@@ -84,6 +98,14 @@ const following = usePublicNoteList({ followsFilter: follows })
 </template>
 
 <style scoped lang="scss">
+h1 {
+  img {
+    width: 64px;
+    height: 64px;
+    box-shadow: none;
+  }
+}
+
 .public-note-list-view {
   display: flex;
   flex: 1;

@@ -43,7 +43,7 @@ export function usePublicNoteList(options?: UsePublicNoteListOptions) {
   }, new Map())
 
   const getAuthor = (did: string) =>
-    authors.value.has(did) ? authors.value.get(did)?.handle : ""
+    authors.value.has(did) ? authors.value.get(did)!.handle : ""
 
   const filteredNotes = computed(() => {
     const filter = options?.followsFilter?.value
