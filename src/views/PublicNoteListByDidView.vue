@@ -9,7 +9,7 @@ import { computed } from "vue"
 const props = defineProps<{ did: string }>()
 const did = computed(() => props.did)
 
-const { notes, isLoading, canLoadMore, onLoadMore } = usePublicNoteList(did)
+const { notes, isLoading, canLoadMore, onLoadMore } = usePublicNoteList({ did })
 
 const author = computedAsync(async () => getAuthor(did.value))
 </script>

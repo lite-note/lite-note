@@ -6,5 +6,6 @@ export enum DataType {
   BacklinkNote = 'BacklinkNote',
   RepetitionCard = 'RepetitionCard',
   History = 'History',
-  UserSettings = 'UserSettings'
+  UserSettings = 'UserSettings',
+  AtprotoSession = 'AtprotoSession'
 }

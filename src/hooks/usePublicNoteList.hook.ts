@@ -3,7 +3,12 @@ import { PublicNoteListItem } from "@/modules/note/models/Note"
 import { computedAsync } from "@vueuse/core"
 import { computed, ref, Ref } from "vue"
 
-export function usePublicNoteList(did?: Ref<string | undefined>) {
+interface UsePublicNoteListOptions {
+  did?: Ref<string | undefined>
+  followsFilter?: Ref<Set<string>>
+}
+
+export function usePublicNoteList(options?: UsePublicNoteListOptions) {
   const isLoading = ref(false)
   const notes = ref<PublicNoteListItem[]>([])
   const cursor = ref<string | null | undefined>(null)
@@ -12,7 +17,7 @@ export function usePublicNoteList(did?: Ref<string | undefined>) {
   const onLoadMore = async () => {
     isLoading.value = true
 
-    const path = did?.value ? `/${did.value}/notes` : "/notes"
+    const path = options?.did?.value ? `/${options.did.value}/notes` : "/notes"
     const noteAPI = new URL(path, "https://api.litenote.li212.fr")
 
     if (cursor.value) {
@@ -39,8 +44,14 @@ export function usePublicNoteList(did?: Ref<string | undefined>) {
   const getAuthor = (did: string) =>
     authors.value.has(did) ? authors.value.get(did)?.handle : ""
 
+  const filteredNotes = computed(() => {
+    const filter = options?.followsFilter?.value
+    if (!filter || filter.size === 0) return notes.value
+    return notes.value.filter((n) => filter.has(n.did))
+  })
+
   return {
-    notes,
+    notes: filteredNotes,
     isLoading,
     canLoadMore,
     onLoadMore,

@@ -1,0 +1,15 @@
+{
+  "client_id": "https://remanso.space/client-metadata.json",
+  "client_name": "Remanso",
+  "client_uri": "https://remanso.space",
+  "redirect_uris": [
+    "https://remanso.space/",
+    "http://localhost:5173/"
+  ],
+  "scope": "atproto transition:generic",
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "application_type": "web",
+  "dpop_bound_access_tokens": true,
+  "token_endpoint_auth_method": "none"
+}

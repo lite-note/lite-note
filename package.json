@@ -15,6 +15,7 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
+    "@atproto/oauth-client-browser": "^0.3.41",
     "@better-fetch/fetch": "^1.1.21",
     "@better-fetch/logger": "^1.1.21",
     "@intlify/unplugin-vue-i18n": "^6.0.8",

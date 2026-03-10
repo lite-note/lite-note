@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import BackButton from "@/components/BackButton.vue"
 import PublicNoteList from "@/components/PublicNoteList.vue"
+import SignInAtproto from "@/components/SignInAtproto.vue"
+import { useATProtoLogin } from "@/hooks/useATProtoLogin.hook"
+import { useFollows } from "@/hooks/useFollows.hook"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
 
+const { did, isLoggedIn } = useATProtoLogin()
+const { follows } = useFollows(did)
 const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
-  usePublicNoteList()
+  usePublicNoteList({ followsFilter: follows })
 </script>
 
 <template>
@@ -12,6 +17,10 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
     <div class="header">
       <back-button class="back-button" :fallback="{ name: 'Home' }" />
       <h1>Remanso notes</h1>
+      <sign-in-atproto />
+    </div>
+    <div v-if="isLoggedIn && follows.size > 0" class="follows-badge">
+      Showing follows only
     </div>
     <div v-if="isLoading"></div>
     <div v-else>
@@ -73,5 +82,12 @@ const { notes, isLoading, canLoadMore, onLoadMore, getAuthor } =
   @media screen and (min-width: 769px) {
     overflow-y: auto;
   }
+}
+
+.follows-badge {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 </style>

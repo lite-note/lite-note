@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import RepoList from "@/components/RepoList.vue"
+import SignInAtproto from "@/components/SignInAtproto.vue"
 import SignInGithub from "@/components/SignInGithub.vue"
 import ThemeSwap from "@/components/ThemeSwap.vue"
 import { useForm } from "@/hooks/useForm.hook"
@@ -23,6 +24,7 @@ const { userInput, repoInput, submit } = useForm()
 
     <div class="get-started">
       <sign-in-github />
+      <sign-in-atproto />
       <router-link
         :to="{
           name: 'FluxNoteView',
