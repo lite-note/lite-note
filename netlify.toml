@@ -7,6 +7,17 @@ from = "/.well-known/*"
 to = "/.well-known/:splat"
 status = 200
 
+[[headers]]
+for = "/client-metadata.json"
+  [headers.values]
+  Access-Control-Allow-Origin = "*"
+  Content-Type = "application/json"
+
+[[redirects]]
+from = "/client-metadata.json"
+to = "/client-metadata.json"
+status = 200
+
 [[redirects]]
 from = "/*"
 to = "/"

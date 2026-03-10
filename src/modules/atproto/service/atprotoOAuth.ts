@@ -8,7 +8,10 @@ let clientPromise: Promise<BrowserOAuthClient> | null = null
 
 export const getOAuthClient = (): Promise<BrowserOAuthClient> => {
   if (!clientPromise) {
-    clientPromise = BrowserOAuthClient.load({ clientId: CLIENT_ID })
+    clientPromise = BrowserOAuthClient.load({
+      clientId: CLIENT_ID,
+      handleResolver: 'https://bsky.social',
+    })
   }
   return clientPromise
 }
