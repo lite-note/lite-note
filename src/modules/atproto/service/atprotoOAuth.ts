@@ -1,9 +1,12 @@
-import { BrowserOAuthClient, buildLoopbackClientId } from '@atproto/oauth-client-browser'
+import {
+  BrowserOAuthClient,
+  buildLoopbackClientId,
+} from "@atproto/oauth-client-browser"
 
 const getClientId = () =>
   import.meta.env.DEV
     ? buildLoopbackClientId(new URL(window.location.origin))
-    : 'https://remanso.space/client-metadata.json'
+    : "https://remanso.space/client-metadata.json"
 
 let clientPromise: Promise<BrowserOAuthClient> | null = null
 
@@ -11,7 +14,7 @@ export const getOAuthClient = (): Promise<BrowserOAuthClient> => {
   if (!clientPromise) {
     clientPromise = BrowserOAuthClient.load({
       clientId: getClientId(),
-      handleResolver: 'https://bsky.social',
+      handleResolver: "https://bsky.social",
     })
   }
   return clientPromise

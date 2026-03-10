@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue"
 
-import { useATProtoLogin } from '@/hooks/useATProtoLogin.hook'
+import { useATProtoLogin } from "@/hooks/useATProtoLogin.hook"
 
 const { handle, isLoggedIn, signIn, signOut } = useATProtoLogin()
 
-const inputHandle = ref('')
+const inputHandle = ref("")
 
 const onSignIn = () => {
   if (inputHandle.value) {
@@ -24,7 +24,7 @@ const onSignIn = () => {
       v-model="inputHandle"
       class="input input-sm"
       type="text"
-      placeholder="yourhandle.bsky.social"
+      placeholder="alice.bsky.social"
       @keyup.enter="onSignIn"
     />
     <button class="btn btn-sm" @click="onSignIn">Sign in with Bluesky</button>
