@@ -3,7 +3,7 @@ import { PublicNoteListItem } from "@/modules/note/models/Note"
 import { computedAsync } from "@vueuse/core"
 import { computed, ref, Ref, watch } from "vue"
 
-export function useFollowingNoteList(dids: Ref<Set<string>>) {
+export function useFollowingNoteList(dids: Ref<Set<string>>, enabled: Ref<boolean>) {
   const isLoading = ref(false)
   const notes = ref<PublicNoteListItem[]>([])
   const cursor = ref<string | null | undefined>(null)
@@ -38,7 +38,14 @@ export function useFollowingNoteList(dids: Ref<Set<string>>) {
   }
 
   watch(dids, (newDids) => {
+    if (!enabled.value) return
     if (newDids.size > 0 && notes.value.length === 0) {
+      onLoadMore()
+    }
+  })
+
+  watch(enabled, (isEnabled) => {
+    if (isEnabled && dids.value.size > 0 && notes.value.length === 0) {
       onLoadMore()
     }
   })

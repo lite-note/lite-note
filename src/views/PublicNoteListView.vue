@@ -23,8 +23,10 @@ const tab = computed<"all" | "following">({
     }),
 })
 
+const followingEnabled = computed(() => tab.value === 'following')
+
 const all = usePublicNoteList()
-const following = useFollowingNoteList(follows)
+const following = useFollowingNoteList(follows, followingEnabled)
 </script>
 
 <template>
