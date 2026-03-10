@@ -20,7 +20,7 @@ const initializeAuth = async () => {
     handle.value = resolvedHandle
     await saveSession(session.did, resolvedHandle)
 
-    window.history.replaceState(null, '', window.location.pathname)
+    window.history.replaceState(null, '', window.location.pathname + window.location.search)
   } else {
     const stored = await loadSession()
     did.value = stored?.did ?? ''
