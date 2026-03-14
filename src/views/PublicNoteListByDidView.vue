@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BackButton from "@/components/BackButton.vue"
+import HomeButton from "@/components/HomeButton.vue"
 import PublicNoteList from "@/components/PublicNoteList.vue"
 import { usePublicNoteList } from "@/hooks/usePublicNoteList.hook"
 import { getAuthor } from "@/modules/atproto/getAuthor"
@@ -17,7 +17,7 @@ const author = computedAsync(async () => getAuthor(did.value))
 <template>
   <main class="public-note-list-view">
     <div class="header">
-      <back-button class="back-button" :fallback="{ name: 'Home' }" />
+      <home-button class="back-button" />
       <h1>{{ author?.handle ?? did }}</h1>
     </div>
     <div v-if="isLoading"></div>

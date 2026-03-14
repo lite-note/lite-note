@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BackButton from "@/components/BackButton.vue"
+import HomeButton from "@/components/HomeButton.vue"
 import PublicNoteList from "@/components/PublicNoteList.vue"
 import SignInAtproto from "@/components/SignInAtproto.vue"
 import { useATProtoLogin } from "@/hooks/useATProtoLogin.hook"
@@ -32,7 +32,7 @@ const following = useFollowingNoteList(follows, followingEnabled)
 <template>
   <main class="public-note-list-view">
     <div class="header">
-      <back-button class="back-button" :fallback="{ name: 'Home' }" />
+      <home-button class="back-button" />
       <h1><img src="/favicon.png" alt="Remanso icon" /></h1>
       <sign-in-atproto />
     </div>
