@@ -128,7 +128,6 @@ watch(
           :fallback="{ name: 'PublicNoteListByDidView', params: { did } }"
           :prefer-fallback="false"
         />
-        <theme-swap />
 
         <span
           class="badge badge-author badge-soft badge-accent"
@@ -150,7 +149,9 @@ watch(
           </template>
         </span>
         <div class="badge skeleton h-4 w-50" v-else></div>
+        <theme-swap />
       </div>
+      <div class="meta"></div>
       <div class="repo-title-breadcrumb">
         <a
           class="title-stacked-note-link"

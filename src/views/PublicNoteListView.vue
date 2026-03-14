@@ -33,8 +33,6 @@ const following = useFollowingNoteList(follows, followingEnabled)
   <main class="public-note-list-view">
     <div class="header">
       <home-button class="back-button" />
-      <h1><img src="/favicon.png" alt="Remanso icon" /></h1>
-      <sign-in-atproto />
     </div>
 
     <div v-if="isLoggedIn" role="tablist" class="tabs tabs-border">
@@ -52,6 +50,7 @@ const following = useFollowingNoteList(follows, followingEnabled)
         @click="tab = 'following'"
         >Following</a
       >
+      <sign-in-atproto class="handle" />
     </div>
 
     <PublicNoteList
@@ -101,12 +100,14 @@ const following = useFollowingNoteList(follows, followingEnabled)
 </template>
 
 <style scoped lang="scss">
-h1 {
-  img {
-    width: 64px;
-    height: 64px;
-    box-shadow: none;
-  }
+.tabs {
+  position: relative;
+}
+
+.handle {
+  position: absolute;
+  right: 0;
+  align-self: center;
 }
 
 .public-note-list-view {
@@ -117,7 +118,7 @@ h1 {
   padding-right: 1rem;
 
   .header {
-    margin-top: 1rem;
+    margin: 0.5rem auto 0;
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -59,9 +59,7 @@ const author = computedAsync(async () => getAuthor(did.value))
   }
 
   .back-button {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
+    position: absolute;
   }
 
   @media screen and (min-width: 769px) {
