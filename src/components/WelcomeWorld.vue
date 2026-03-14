@@ -25,7 +25,7 @@ const { userInput, repoInput, submit } = useForm()
     <div class="get-started">
       <sign-in-atproto :with-sign-out="false" />
       <sign-in-github />
-      <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn"
+      <router-link v-if="isLogged" :to="{ name: 'RepoList' }" class="btn btn-sm"
         >Manage your repos</router-link
       >
     </div>

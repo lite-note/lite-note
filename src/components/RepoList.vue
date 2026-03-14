@@ -50,6 +50,7 @@ const getStyle = (seed: string) => {
     border: 0;
     width: 160px;
     height: 90px;
+    font-size: 1.3rem;
   }
 }
 </style>
