@@ -27,7 +27,7 @@ export default defineConfig(({ command }) => {
           short_name: "Remanso",
           description: "Note taking & sharing app",
           background_color: "#ffa4c0",
-          theme_color: "#2e5c1a",
+          theme_color: "#ffa4c0",
           icons: [
             {
               src: "pwa-64x64.png",
@@ -78,7 +78,7 @@ export default defineConfig(({ command }) => {
       global: {},
     }
     config.server = {
-      host: '127.0.0.1',
+      host: "127.0.0.1",
     }
   }
 
