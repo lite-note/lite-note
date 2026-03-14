@@ -16,10 +16,7 @@ const getStyle = (seed: string) => {
 
 <template>
   <section class="repo-list">
-    <router-link
-      :to="{ name: 'PublicNoteListView' }"
-      class="btn"
-      :style="getStyle(``)"
+    <router-link :to="{ name: 'PublicNoteListView' }" class="btn special"
       >Public notes</router-link
     >
     <router-link
@@ -50,7 +47,12 @@ const getStyle = (seed: string) => {
     border: 0;
     width: 160px;
     height: 90px;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+  }
+
+  .special {
+    background-image: linear-gradient(to left bottom, #8cd18d 0%, #fbc2f1 100%);
+    color: black;
   }
 }
 </style>
